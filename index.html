@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
-<head>
+<html lang="en" class="dark"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>LUXE | Premium Curated Store</title>
@@ -21,10 +20,8 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .active-chip { @apply bg-premium-gold text-white shadow-md shadow-premium-gold/30; }
-        .inactive-chip { @apply bg-gray-100 dark:bg-gray-800 text-gray-500; }
+        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 6px -1px rgba(197, 160, 43, 0.3); }
         
-        /* Modal Transition */
         #modal-content { transition: transform 0.3s ease-out, opacity 0.3s; }
         @media (max-width: 768px) {
             #modal.hidden #modal-content { transform: translateY(100%); }
@@ -32,9 +29,9 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans">
+<body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
-    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-premium-dark/90 backdrop-blur-xl border-b dark:border-gray-800">
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-premium-dark/90 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800">
         <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
             <div class="flex items-center gap-6">
                 <h1 class="text-2xl font-extrabold tracking-tighter text-premium-gold cursor-pointer" onclick="location.reload()">LUXE.</h1>
@@ -46,18 +43,10 @@
                     <a href="https://tiktok.com" target="_blank" class="text-gray-400 hover:text-premium-gold transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                         <i class="fab fa-tiktok text-lg"></i> <span>TikTok</span>
                     </a>
-                    <a href="https://youtube.com" target="_blank" class="text-gray-400 hover:text-premium-gold transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-                        <i class="fab fa-youtube text-lg"></i> <span>YouTube</span>
-                    </a>
                 </div>
             </div>
             
             <div class="flex items-center gap-4">
-                <div class="flex md:hidden gap-4 text-gray-400 mr-2">
-                    <a href="#"><i class="fab fa-instagram text-xl"></i></a>
-                    <a href="#"><i class="fab fa-tiktok text-xl"></i></a>
-                </div>
-                
                 <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 transition shadow-inner">
                     <i class="fas fa-moon dark:hidden"></i>
                     <i class="fas fa-sun hidden dark:block text-premium-gold"></i>
@@ -70,17 +59,17 @@
                 <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input type="text" id="searchInput" onkeyup="searchProducts()" 
                     placeholder="Search premium collections..." 
-                    class="w-full bg-gray-100 dark:bg-gray-800/60 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-premium-gold transition-all placeholder:text-gray-400">
+                    class="w-full bg-gray-100 dark:bg-gray-800/60 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-premium-gold transition-all placeholder:text-gray-400 dark:text-white">
             </div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 pb-4">
-            <div class="flex overflow-x-auto gap-2 no-scrollbar">
-                <button onclick="filterCategory('All')" class="cat-chip active-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">All</button>
-                <button onclick="filterCategory('Tech')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Technology</button>
-                <button onclick="filterCategory('Home')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Home Decor</button>
-                <button onclick="filterCategory('Lifestyle')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Lifestyle</button>
-                <button onclick="filterCategory('Fitness')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Fitness</button>
+            <div id="category-container" class="flex overflow-x-auto gap-2 no-scrollbar">
+                <button onclick="filterCategory('All', this)" class="cat-chip active-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">All</button>
+                <button onclick="filterCategory('Tech', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Technology</button>
+                <button onclick="filterCategory('Home', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Home Decor</button>
+                <button onclick="filterCategory('Lifestyle', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Lifestyle</button>
+                <button onclick="filterCategory('Fitness', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Fitness</button>
             </div>
         </div>
     </nav>
@@ -90,22 +79,24 @@
             </div>
     </main>
 
-    <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
+    <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
         <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] overflow-hidden shadow-2xl">
             <div class="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
-                <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative">
-                    <button onclick="closeModal()" class="absolute top-5 left-5 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-premium-gold hover:text-white transition"><i class="fas fa-times"></i></button>
-                    <img id="modal-img" src="" class="max-h-72 md:max-h-[450px] object-contain">
+                <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative min-h-[300px]">
+                    <button onclick="closeModal()" class="absolute top-5 left-5 z-10 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-premium-gold hover:text-white transition text-gray-900">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain">
                 </div>
-                <div class="md:w-1/2 p-10 md:p-14 space-y-8 flex flex-col justify-center">
+                <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
                     <div>
                         <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
-                        <h2 id="modal-title" class="text-2xl md:text-4xl font-extrabold mt-3 leading-tight tracking-tight text-slate-900 dark:text-white">Product Title</h2>
+                        <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 leading-tight tracking-tight text-slate-900 dark:text-white">Product Title</h2>
                     </div>
-                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm md:text-lg leading-relaxed font-medium">Description goes here...</p>
+                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm md:text-base leading-relaxed font-medium">Description goes here...</p>
                     
                     <div class="pt-4 space-y-4">
-                        <a id="modal-buy-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full bg-premium-gold text-white py-5 rounded-2xl font-extrabold text-lg shadow-xl shadow-premium-gold/30 hover:bg-yellow-600 transition-all">
+                        <a id="modal-buy-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full bg-premium-gold text-white py-4 rounded-xl font-extrabold text-base shadow-lg shadow-premium-gold/20 hover:bg-yellow-600 transition-all">
                             BUY ON AMAZON <i class="fas fa-external-link-alt text-xs"></i>
                         </a>
                         <button onclick="shareProduct()" class="w-full py-2 text-gray-400 font-bold text-[10px] uppercase tracking-[0.2em] hover:text-premium-gold transition">
@@ -117,26 +108,22 @@
         </div>
     </div>
 
-    <footer class="bg-white dark:bg-premium-dark border-t dark:border-gray-800 py-16 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+    <footer class="bg-white dark:bg-premium-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-6">
             <div class="flex gap-8 text-gray-400">
-                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-facebook"></i></a>
                 <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-pinterest"></i></a>
                 <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-youtube"></i></a>
             </div>
-            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-bold text-center">
+            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">
                 © 2026 LUXE STUDIO | Amazon Affiliate Partner
             </p>
         </div>
     </footer>
 
     <script>
-        // --- CONFIGURATION ---
-        const AFFILIATE_ID = "YOUR_TAG_HERE"; // Insert your Amazon Tag here
+        const AFFILIATE_ID = "YOUR_TAG_HERE";
 
-        // --- PRODUCT DATABASE ---
-        // To add a new product: Copy/Paste an object below.
         const products = [
             { id: 1, cat: 'Tech', name: 'Apple AirPods Max', img: 'https://m.media-amazon.com/images/I/81L7-oO3pNL._AC_SL1500_.jpg', asin: 'B08PZD76NS', desc: 'Experience the ultimate over-ear listening. High-fidelity audio, Active Noise Cancellation, and industry-leading design.' },
             { id: 2, cat: 'Tech', name: 'Logitech MX Master 3S', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', asin: 'B09HM94VDS', desc: 'The iconic mouse remastered. Quiet clicks and 8K DPI tracking on any surface.' },
@@ -146,7 +133,6 @@
             { id: 6, cat: 'Home', name: 'Hatch Restore 2', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', asin: 'B0BT9S7Y3K', desc: 'Rest easier than ever. A sunrise alarm and white noise machine wrapped in premium fabric.' }
         ];
 
-        // --- CORE LOGIC ---
         function renderProducts(items = products) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = items.map(p => `
@@ -165,15 +151,10 @@
             `).join('');
         }
 
-        function filterCategory(cat) {
-            const chips = document.querySelectorAll('.cat-chip');
-            chips.forEach(c => {
-                if(c.innerText.toLowerCase().includes(cat.toLowerCase())) {
-                    c.className = "cat-chip active-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all";
-                } else {
-                    c.className = "cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all";
-                }
-            });
+        function filterCategory(cat, el) {
+            document.querySelectorAll('.cat-chip').forEach(btn => btn.classList.remove('active-chip'));
+            el.classList.add('active-chip');
+            
             const filtered = cat === 'All' ? products : products.filter(p => p.cat === cat);
             renderProducts(filtered);
         }
@@ -186,14 +167,13 @@
 
         function openModal(id) {
             const p = products.find(prod => prod.id === id);
-            const modal = document.getElementById('modal');
             document.getElementById('modal-img').src = p.img;
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-cat').innerText = p.cat;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
             
-            modal.classList.remove('hidden');
+            document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
@@ -216,11 +196,10 @@
                 navigator.share({ title: name, url: window.location.href });
             } else {
                 navigator.clipboard.writeText(window.location.href);
-                alert("Link copied to clipboard!");
+                alert("Link copied!");
             }
         }
 
-        // Initialize Store
         renderProducts();
     </script>
 </body>
