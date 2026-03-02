@@ -1,310 +1,1988 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ 
-    darkMode: true, 
-    searchQuery: '', 
-    selectedCategory: 'All', 
-    showModal: false, 
-    activeProduct: {},
-    mobileMenu: false,
-    scrolled: false
-}" :class="{ 'dark': darkMode }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXE | Ultra-Modern Affiliate Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-                    colors: {
-                        gold: { 400: '#E2B870', 500: '#C5A059', 600: '#A68446' },
-                        obsidian: '#020617',
-                    },
-                    animation: {
-                        'gradient-x': 'gradient-x 15s ease infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        'gradient-x': {
-                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
-                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' }
-                        },
-                        'float': {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        [x-cloak] { display: none !important; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .dark .glass { background: rgba(15, 23, 42, 0.6); }
-        .mesh-bg { background: radial-gradient(at 0% 0%, rgba(197, 160, 89, 0.15) 0, transparent 50%), radial-gradient(at 100% 100%, rgba(79, 70, 229, 0.1) 0, transparent 50%); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS STORE — Premium Picks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ============================================================
+   CSS VARIABLES — DUAL THEME
+   ============================================================ */
+:root {
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 16px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --shadow: 0 8px 32px rgba(0,0,0,0.18);
+  --shadow-hover: 0 20px 60px rgba(0,0,0,0.28);
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #1a1a24;
+  --bg4: #22222f;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0f0f8;
+  --text2: #9090a8;
+  --text3: #5a5a72;
+  --accent: #7c3aed;
+  --accent2: #a855f7;
+  --accent3: #c084fc;
+  --gold: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --card-bg: #14141e;
+  --card-border: rgba(124,58,237,0.15);
+  --header-bg: rgba(10,10,15,0.95);
+  --badge: #7c3aed;
+}
+
+[data-theme="light"] {
+  --bg: #fafaf8;
+  --bg2: #f4f3ef;
+  --bg3: #ede9e0;
+  --bg4: #e8e3d8;
+  --border: rgba(0,0,0,0.08);
+  --text: #1a1a28;
+  --text2: #4a4a62;
+  --text3: #8a8aa0;
+  --accent: #6d28d9;
+  --accent2: #7c3aed;
+  --accent3: #8b5cf6;
+  --gold: #d97706;
+  --green: #059669;
+  --red: #dc2626;
+  --card-bg: #ffffff;
+  --card-border: rgba(109,40,217,0.12);
+  --header-bg: rgba(250,250,248,0.95);
+  --badge: #6d28d9;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+#header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--header-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent2), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.search-bar {
+  flex: 1;
+  max-width: 480px;
+  position: relative;
+}
+.search-bar input {
+  width: 100%;
+  padding: 10px 16px 10px 44px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: var(--bg3);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all var(--transition);
+}
+.search-bar input::placeholder { color: var(--text3); }
+.search-bar input:focus {
+  border-color: var(--accent);
+  background: var(--bg2);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+}
+.search-bar .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0; right: 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  display: none;
+  z-index: 200;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.search-results.show { display: block; }
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.search-result-item:hover { background: var(--bg3); }
+.search-result-item img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; }
+.search-result-item .sri-name { font-size: 0.85rem; font-weight: 500; }
+.search-result-item .sri-cat { font-size: 0.75rem; color: var(--text3); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 6px;
+}
+.social-icon {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 0.8rem;
+  transition: all var(--transition);
+  border: 1px solid var(--border);
+}
+.social-icon:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.theme-toggle {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+.theme-toggle:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+.mobile-menu-btn {
+  display: none;
+  width: 38px; height: 38px;
+  border-radius: var(--radius-sm);
+  align-items: center; justify-content: center;
+  background: var(--bg3);
+  color: var(--text);
+  font-size: 1.1rem;
+  border: 1px solid var(--border);
+}
+
+/* NAV BAR */
+.header-nav {
+  border-top: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.header-nav::-webkit-scrollbar { display: none; }
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text2);
+  white-space: nowrap;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.nav-item i { font-size: 0.8rem; }
+.nav-item:hover, .nav-item.active {
+  color: var(--text);
+  background: var(--bg3);
+}
+.nav-item.active { color: var(--accent2); }
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+.mobile-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1100;
+  backdrop-filter: blur(4px);
+}
+.mobile-overlay.open { display: flex; }
+
+.mobile-drawer {
+  width: min(340px, 90vw);
+  background: var(--bg2);
+  height: 100%;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.mobile-drawer-head {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.mobile-drawer-head .logo { font-size: 1.3rem; }
+.drawer-close {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 1rem;
+}
+.mobile-search input {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: var(--bg3);
+  color: var(--text);
+  font-family: var(--font-body);
+  outline: none;
+}
+.mobile-nav-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text3);
+  font-weight: 600;
+}
+.mobile-nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+}
+.mobile-nav-item:hover, .mobile-nav-item.active {
+  border-color: var(--accent);
+  color: var(--accent2);
+  background: rgba(124,58,237,0.1);
+}
+.mobile-social {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+
+/* ============================================================
+   HERO BANNER
+   ============================================================ */
+.hero {
+  margin-top: 116px;
+  padding: 60px 24px;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 50px;
+  background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(124,58,237,0.3);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent3);
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, var(--accent2), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   MAIN LAYOUT
+   ============================================================ */
+.main-content {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title i {
+  color: var(--accent2);
+  font-size: 1.1rem;
+}
+.section-count {
+  font-size: 0.78rem;
+  color: var(--text3);
+  font-weight: 400;
+  font-family: var(--font-body);
+}
+.section-more {
+  font-size: 0.85rem;
+  color: var(--accent2);
+  font-weight: 500;
+  display: flex; align-items: center; gap: 4px;
+  transition: gap var(--transition);
+}
+.section-more:hover { gap: 8px; }
+
+/* ============================================================
+   PRODUCT GRID
+   ============================================================ */
+.category-section {
+  margin-bottom: 64px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* ============================================================
+   PRODUCT CARD
+   ============================================================ */
+.product-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(124,58,237,0.4);
+}
+
+.card-image-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bg3);
+}
+.card-image-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.product-card:hover .card-image-wrap img { transform: scale(1.06); }
+
+.card-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-bestseller { background: var(--gold); color: #000; }
+.badge-new { background: var(--green); color: #fff; }
+.badge-deal { background: var(--red); color: #fff; }
+.badge-prime { background: #0066cc; color: #fff; }
+
+.card-actions-overlay {
+  position: absolute;
+  top: 10px; right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all var(--transition);
+}
+.product-card:hover .card-actions-overlay {
+  opacity: 1;
+  transform: translateX(0);
+}
+.card-action-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg2);
+  color: var(--text2);
+  font-size: 0.75rem;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+  backdrop-filter: blur(10px);
+}
+.card-action-btn:hover { background: var(--accent); color: #fff; }
+.card-action-btn.wishlist-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.card-body {
+  padding: 14px 16px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card-brand {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent3);
+  font-weight: 600;
+}
+.card-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stars { color: var(--gold); font-size: 0.75rem; }
+.rating-num { font-size: 0.78rem; color: var(--text3); }
+
+.card-footer {
+  padding: 0 16px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.btn-details {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: var(--radius-sm);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  transition: all var(--transition);
+}
+.btn-details:hover { background: var(--bg4); color: var(--text); }
+.btn-buy {
+  flex: 1.5;
+  padding: 9px 0;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.btn-buy:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+}
+
+/* ============================================================
+   PRODUCT MODAL
+   ============================================================ */
+.modal-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 2000;
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.open { display: flex; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--bg3);
+  color: var(--text2);
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+.modal-close:hover { background: var(--red); color: #fff; }
+
+.modal-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 24px 0 0 24px;
+  background: var(--bg3);
+}
+.modal-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.modal-info {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.modal-brand { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--accent3); font-weight: 700; }
+.modal-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; line-height: 1.3; }
+.modal-rating { display: flex; align-items: center; gap: 8px; }
+.modal-rating .stars { font-size: 0.9rem; }
+.modal-desc { font-size: 0.9rem; color: var(--text2); line-height: 1.7; }
+.modal-features { display: flex; flex-direction: column; gap: 6px; }
+.modal-feature {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 0.85rem; color: var(--text2);
+}
+.modal-feature i { color: var(--green); margin-top: 3px; font-size: 0.75rem; flex-shrink: 0; }
+.modal-badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.modal-tag {
+  padding: 4px 10px;
+  border-radius: 50px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text2);
+}
+.modal-buttons {
+  display: flex; gap: 10px; margin-top: auto;
+}
+.modal-buy {
+  flex: 1;
+  padding: 13px 0;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all var(--transition);
+}
+.modal-buy:hover { transform: scale(1.02); box-shadow: 0 6px 24px rgba(124,58,237,0.4); }
+.modal-share {
+  width: 46px; height: 46px;
+  border-radius: var(--radius-sm);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.modal-share:hover { background: var(--green); color: #fff; }
+
+/* Share popup */
+.share-popup {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-hover);
+  display: none;
+  z-index: 3000;
+  min-width: 200px;
+  animation: slideUp 0.3s ease;
+}
+.share-popup.show { display: block; }
+.share-popup h4 { font-size: 0.85rem; margin-bottom: 10px; font-family: var(--font-display); }
+.share-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.share-link {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.share-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.share-link-copy { background: var(--green); color: #fff; border-color: var(--green); }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 24px; left: 50%; transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 60px 24px 30px;
+}
+.footer-inner {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.footer-brand .logo { margin-bottom: 12px; display: inline-block; }
+.footer-brand p {
+  font-size: 0.85rem;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 280px;
+  margin-bottom: 16px;
+}
+.footer-social { display: flex; gap: 8px; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+.footer-col li {
+  margin-bottom: 8px;
+}
+.footer-col a {
+  font-size: 0.85rem;
+  color: var(--text2);
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: var(--accent2); }
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-bottom p { font-size: 0.82rem; color: var(--text3); }
+.footer-affiliate { font-size: 0.78rem; color: var(--text3); max-width: 500px; line-height: 1.5; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .social-icons, .header-nav { display: none; }
+  .mobile-menu-btn { display: flex; }
+  .hero { margin-top: 80px; padding: 40px 20px; }
+  .modal { grid-template-columns: 1fr; }
+  .modal-image { border-radius: 24px 24px 0 0; aspect-ratio: 4/3; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+
+@media (max-width: 600px) {
+  .header-top { padding: 12px 16px; gap: 10px; }
+  .logo { font-size: 1.3rem; }
+  .search-bar { max-width: 180px; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+</style>
 </head>
-<body class="bg-[#F8FAFC] dark:bg-obsidian text-slate-900 dark:text-slate-100 transition-all duration-500 mesh-bg min-h-screen">
 
-    <header 
-    x-data="{ scrolled: false, searchFocused: false }" 
-    @scroll.window="scrolled = (window.pageYOffset > 20)"
-    :class="scrolled ? 'top-4 px-4' : 'top-0 px-0'"
-    class="fixed w-full z-[100] transition-all duration-500 ease-in-out">
-    
-    <div :class="scrolled ? 'rounded-[2.5rem] shadow-2xl border-white/20 dark:border-white/10 py-3' : 'border-transparent py-6'"
-         class="max-w-[1440px] mx-auto bg-white/80 dark:bg-slate-900/90 backdrop-blur-2xl border transition-all duration-500 px-6 md:px-12 flex items-center justify-between">
-        
-        <div class="flex-1 flex items-center">
-            <div class="flex items-center gap-3 group cursor-pointer" @click="selectedCategory = 'All'">
-                <div class="relative w-11 h-11 bg-slate-900 dark:bg-gold-500 rounded-2xl flex items-center justify-center shadow-xl transition-all duration-500 group-hover:rotate-[10deg] group-hover:scale-110">
-                    <i class="fas fa-gem text-white text-lg"></i>
-                    <div class="absolute inset-0 bg-gold-400 rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-opacity"></div>
-                </div>
-                <div class="flex flex-col leading-none">
-                    <span class="text-2xl font-black tracking-tighter uppercase dark:text-white">LUXE<span class="text-gold-500">.</span></span>
-                    <span class="text-[9px] font-bold tracking-[0.3em] text-slate-400 uppercase">Essentials</span>
-                </div>
-            </div>
-        </div>
+<body>
 
-        <nav class="hidden lg:flex items-center justify-center flex-[2]">
-            <div class="flex items-center gap-1 bg-slate-100/50 dark:bg-white/5 p-1.5 rounded-full border border-slate-200/50 dark:border-white/10">
-                <template x-for="cat in ['All', 'Tech', 'Home', 'Style']">
-                    <button @click="selectedCategory = cat" 
-                            :class="selectedCategory === cat ? 'bg-white dark:bg-gold-500 text-slate-900 dark:text-white shadow-md' : 'text-slate-500 hover:text-gold-500'"
-                            class="px-8 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300" 
-                            x-text="cat"></button>
-                </template>
-            </div>
-        </nav>
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header id="header">
+  <div class="header-top">
+    <div class="logo">NEXUS<span style="font-size:0.5em;opacity:0.6;font-weight:400;vertical-align:super;">STORE</span></div>
 
-        <div class="flex-1 flex items-center justify-end gap-3 md:gap-5">
-            <div class="relative hidden md:flex items-center group">
-                <div :class="searchFocused ? 'w-48 lg:w-64 border-gold-500/50 bg-white dark:bg-slate-800' : 'w-32 lg:w-40 border-transparent bg-slate-100/50 dark:bg-white/5'"
-                     class="flex items-center rounded-full border transition-all duration-500 px-4 py-2">
-                    <i class="fas fa-search text-[10px] text-slate-400 mr-3"></i>
-                    <input type="text" x-model="searchQuery" 
-                           @focus="searchFocused = true" @blur="searchFocused = false"
-                           placeholder="Search..." 
-                           class="bg-transparent border-none focus:ring-0 text-xs w-full placeholder:text-slate-500 outline-none">
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4 text-slate-400 border-l border-slate-200 dark:border-white/10 pl-5">
-                <a href="#" class="hover:text-pink-500 transition-all transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-black dark:hover:text-white transition-all transform hover:-translate-y-1"><i class="fab fa-tiktok"></i></a>
-                <a href="#" class="hover:text-blue-400 transition-all transform hover:-translate-y-1"><i class="fab fa-x-twitter"></i></a>
-            </div>
-
-            <button @click="darkMode = !darkMode" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100/50 dark:bg-white/5 hover:bg-gold-500 hover:text-white transition-all duration-500">
-                <i :class="darkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
-            </button>
-
-            <button @click="mobileMenu = true" class="lg:hidden w-11 h-11 flex flex-col items-center justify-center gap-1.5 bg-slate-900 dark:bg-white rounded-2xl shadow-lg">
-                <span class="w-5 h-0.5 bg-white dark:bg-slate-900 rounded-full"></span>
-                <span class="w-3 h-0.5 bg-gold-500 rounded-full self-end"></span>
-            </button>
-        </div>
+    <div class="search-bar">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="mainSearch" placeholder="Search products…" autocomplete="off">
+      <div class="search-results" id="searchResults"></div>
     </div>
 
-    <div class="lg:hidden px-6 mt-4 transition-all duration-500" x-show="!scrolled" x-transition>
-        <div class="relative group">
-            <input type="text" x-model="searchQuery" placeholder="Search the Luxe collection..." 
-                   class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-12 text-sm shadow-sm outline-none focus:border-gold-500/30">
-            <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-        </div>
+    <div class="header-actions">
+      <div class="social-icons">
+        <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-icon" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-icon" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#" class="social-icon" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme"><i class="fas fa-sun"></i></button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
     </div>
+  </div>
+
+  <nav class="header-nav">
+    <div class="nav-inner" id="navInner">
+      <!-- Populated by JS -->
+    </div>
+  </nav>
 </header>
 
-<template x-teleport="body">
-    <div x-show="mobileMenu" class="fixed inset-0 z-[200] lg:hidden" x-cloak>
-        <div x-show="mobileMenu" x-transition.opacity @click="mobileMenu = false" class="absolute inset-0 bg-slate-900/90 backdrop-blur-md"></div>
-        <div x-show="mobileMenu" 
-             x-transition:enter="transition ease-out duration-500 transform"
-             x-transition:enter-start="translate-x-full"
-             x-transition:enter-end="translate-x-0"
-             class="absolute right-0 top-0 bottom-0 w-[85%] bg-white dark:bg-slate-900 shadow-2xl p-10 flex flex-col">
-            
-            <div class="flex justify-between items-center mb-16">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-gold-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-gem text-white text-[10px]"></i>
-                    </div>
-                    <span class="text-xl font-black tracking-tighter uppercase dark:text-white">LUXE<span class="text-gold-500">.</span></span>
-                </div>
-                <button @click="mobileMenu = false" class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                    <i class="fas fa-times text-slate-400"></i>
-                </button>
-            </div>
-
-            <div class="flex flex-col gap-10 mb-auto">
-                <template x-for="cat in ['All', 'Tech', 'Home', 'Style']">
-                    <button @click="selectedCategory = cat; mobileMenu = false" 
-                            class="group flex items-center gap-6 text-left transition-all"
-                            :class="selectedCategory === cat ? 'text-gold-500 scale-105 translate-x-4' : 'text-slate-900 dark:text-white opacity-30 hover:opacity-100'">
-                        <span class="text-6xl font-black tracking-tighter" x-text="cat"></span>
-                        <div x-show="selectedCategory === cat" class="w-3 h-3 rounded-full bg-gold-500 shadow-[0_0_15px_#C5A059]"></div>
-                    </button>
-                </template>
-            </div>
-
-            <div class="pt-10 border-t border-slate-100 dark:border-white/5">
-                <div class="flex justify-between items-center">
-                    <div class="flex gap-8 text-2xl text-slate-400">
-                        <a href="#" class="hover:text-gold-500 transition-colors"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="hover:text-gold-500 transition-colors"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="hover:text-gold-500 transition-colors"><i class="fab fa-x-twitter"></i></a>
-                    </div>
-                    <button @click="darkMode = !darkMode" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800 transition-transform active:scale-95">
-                        <i :class="darkMode ? 'fas fa-sun text-gold-400' : 'fas fa-moon text-indigo-500'"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+<!-- ============================================================
+     MOBILE DRAWER
+     ============================================================ -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <div class="mobile-drawer">
+    <div class="mobile-drawer-head">
+      <div class="logo">NEXUS</div>
+      <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
     </div>
-</template>
+    <div class="mobile-search">
+      <input type="text" id="mobileSearch" placeholder="Search products…">
+    </div>
+    <div class="mobile-nav-title">Categories</div>
+    <div id="mobileNavItems"></div>
+    <div class="mobile-nav-title">Follow Us</div>
+    <div class="mobile-social">
+      <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</div>
 
-    </header>
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<div class="hero" id="home">
+  <div class="hero-badge"><i class="fas fa-bolt"></i> Curated Amazon Picks</div>
+  <h1>Discover <span>Premium Products</span><br>You'll Actually Love</h1>
+  <p>Hand-selected top-rated products across every category — all powered by Amazon's trusted marketplace.</p>
+</div>
 
-    <section class="pt-40 pb-20 px-6 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <div class="relative z-10">
-                <span class="inline-block px-4 py-1 rounded-full bg-gold-500/10 text-gold-500 text-xs font-bold tracking-widest uppercase mb-6 border border-gold-500/20">Selected by Experts</span>
-                <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-none mb-8">
-                    FUTURE <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-gold-600 to-gold-400 animate-gradient-x">LIFESTYLE.</span>
-                </h1>
-                <p class="text-slate-500 dark:text-slate-400 text-lg max-w-md mb-10 leading-relaxed">
-                    A boutique collection of high-performance tech and minimalist home essentials curated for the modern connoisseur.
-                </p>
-                <div class="flex gap-4">
-                    <button @click="document.getElementById('grid').scrollIntoView({behavior: 'smooth'})" 
-                            class="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-gold-500/20 transition-all transform hover:-translate-y-1">
-                        Explore Collection
-                    </button>
-                </div>
-            </div>
-            <div class="relative hidden lg:block">
-                <div class="absolute -top-20 -right-20 w-96 h-96 bg-gold-500/20 blur-[120px] rounded-full animate-float"></div>
-                <div class="glass p-4 rounded-[40px] rotate-3 hover:rotate-0 transition-all duration-700 shadow-2xl overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1000" class="rounded-[32px] grayscale group-hover:grayscale-0 transition-all duration-700">
-                </div>
-            </div>
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main class="main-content" id="mainContent">
+  <!-- Sections injected by JS -->
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">NEXUS<span style="font-size:0.5em;opacity:0.6;font-weight:400;vertical-align:super;">STORE</span></div>
+        <p>Your curated destination for the best Amazon products. We earn a small commission on purchases made through our links at no extra cost to you.</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
         </div>
-    </section>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul id="footerCategories"></ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">How We Pick</a></li>
+          <li><a href="#">Affiliate Disclosure</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Deals & Offers</a></li>
+          <li><a href="#">Gift Ideas</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 NEXUS STORE. All rights reserved.</p>
+      <p class="footer-affiliate">
+        <strong>Affiliate Disclosure:</strong> As an Amazon Associate we earn from qualifying purchases.
+        Product prices and availability are subject to change.
+      </p>
+    </div>
+  </div>
+</footer>
 
-    <main id="grid" class="max-w-7xl mx-auto px-6 pb-40" x-data="{ 
-        products: [
-            { id: 1, cat: 'Tech', name: 'Sony WH-1000XM5', img: 'https://m.media-amazon.com/images/I/61NfTXYL0XL._AC_SL1500_.jpg', desc: 'The gold standard in noise cancellation.', buyUrl: 'https://amazon.com/dp/B09XS7JWHH?tag=YOUR_AFFILIATE_ID_HERE' },
-            { id: 2, cat: 'Tech', name: 'Apple Watch Ultra 2', img: 'https://m.media-amazon.com/images/I/719f+v6pEIL._AC_SL1500_.jpg', desc: 'Titanium precision for the extreme.', buyUrl: 'https://amazon.com/dp/B0CHX99C85?tag=YOUR_AFFILIATE_ID_HERE' },
-            { id: 3, cat: 'Home', name: 'Breville Barista Touch', img: 'https://m.media-amazon.com/images/I/71R9tY959DL._AC_SL1500_.jpg', desc: 'Cafe quality performance at home.', buyUrl: '#' },
-            { id: 4, cat: 'Style', name: 'Ray-Ban Meta Smart', img: 'https://m.media-amazon.com/images/I/518+XjX4TGL._AC_SL1500_.jpg', desc: 'Capture your vision instantly.', buyUrl: '#' },
-            { id: 5, cat: 'Tech', name: 'Samsung Odyssey Ark', img: 'https://m.media-amazon.com/images/I/81fHInm96EL._AC_SL1500_.jpg', desc: 'Revolutionary 55-inch curved display.', buyUrl: '#' },
-            { id: 6, cat: 'Home', name: 'Dyson V15 Detect', img: 'https://m.media-amazon.com/images/I/61pD8pYf5cL._AC_SL1500_.jpg', desc: 'Laser slim fluffy cleaner head.', buyUrl: '#' },
-            { id: 7, cat: 'Style', name: 'Rimowa Original Cabin', img: 'https://m.media-amazon.com/images/I/71zW6O-3fSL._AC_SL1500_.jpg', desc: 'Aluminum travel excellence.', buyUrl: '#' },
-            { id: 8, cat: 'Tech', name: 'DJI Mini 4 Pro', img: 'https://m.media-amazon.com/images/I/61O8o-u0p9L._AC_SL1500_.jpg', desc: 'Professional aerial imaging under 249g.', buyUrl: '#' },
-            { id: 9, cat: 'Home', name: 'Vitamix A3500 Ascent', img: 'https://m.media-amazon.com/images/I/716Uo7L-K8L._AC_SL1500_.jpg', desc: 'The apex of high-speed blending.', buyUrl: '#' },
-            { id: 10, cat: 'Style', name: 'Oura Ring Gen3', img: 'https://m.media-amazon.com/images/I/31W+6Tj9LpL._AC_SL1000_.jpg', desc: 'The most elegant health tracker.', buyUrl: '#' }
-            // Additional 10 items per category would follow this same object structure...
-        ]
-    }">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-            <template x-for="product in products" :key="product.id">
-                <div x-show="(selectedCategory === 'All' || product.cat === selectedCategory) && product.name.toLowerCase().includes(searchQuery.toLowerCase())"
-                     x-transition:enter="transition ease-out duration-500"
-                     x-transition:enter-start="opacity-0 translate-y-8"
-                     class="group relative bg-white dark:bg-slate-900/50 rounded-[2.5rem] p-4 border border-slate-100 dark:border-white/5 hover:border-gold-500/50 transition-all duration-500">
-                    
-                    <div class="relative overflow-hidden rounded-[2rem] aspect-square bg-slate-50 dark:bg-obsidian">
-                        <img :src="product.img" :alt="product.name" class="w-full h-full object-contain p-8 group-hover:scale-110 transition-transform duration-700">
-                        
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                            <button @click="activeProduct = product; showModal = true" class="w-12 h-12 bg-white rounded-full text-black flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button @click="if(navigator.share) { navigator.share({title: product.name, url: window.location.href}) }" 
-                                    class="w-12 h-12 bg-white rounded-full text-black flex items-center justify-center hover:bg-gold-500 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 delay-75">
-                                <i class="fas fa-share-alt"></i>
-                            </button>
-                        </div>
-                    </div>
+<!-- PRODUCT MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="productModal">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div class="modal-image"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-info">
+      <div class="modal-brand" id="modalBrand"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-rating">
+        <div class="stars" id="modalStars"></div>
+        <span class="rating-num" id="modalRatingNum"></span>
+      </div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-features" id="modalFeatures"></div>
+      <div class="modal-badge-row" id="modalTags"></div>
+      <div class="modal-buttons">
+        <a id="modalBuyBtn" href="#" target="_blank" class="modal-buy">
+          <i class="fab fa-amazon"></i> Buy on Amazon
+        </a>
+        <button class="modal-share" id="modalShareBtn" title="Share product"><i class="fas fa-share-alt"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
 
-                    <div class="mt-6 px-4 pb-4 text-center">
-                        <span class="text-[10px] font-extrabold text-gold-500 uppercase tracking-[0.2em]" x-text="product.cat"></span>
-                        <h3 class="text-lg font-bold mt-2 truncate group-hover:text-gold-500 transition-colors" x-text="product.name"></h3>
-                        <p class="text-slate-400 text-xs mt-2 line-clamp-2 leading-relaxed" x-text="product.desc"></p>
-                        
-                        <a :href="product.buyUrl" target="_blank" 
-                           class="mt-6 inline-flex items-center justify-center w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-black rounded-2xl font-bold text-sm hover:bg-gold-500 dark:hover:bg-gold-500 dark:hover:text-white transition-all">
-                            Buy Now <i class="fas fa-arrow-right ml-2 text-xs"></i>
-                        </a>
-                    </div>
-                </div>
-            </template>
+<!-- SHARE POPUP -->
+<div class="share-popup" id="sharePopup">
+  <h4><i class="fas fa-share-alt"></i> Share this product</h4>
+  <div class="share-links" id="shareLinks"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// ██████████████████████████████████████████████████████████
+//   ██  AFFILIATE ID — REPLACE BELOW  ██
+//   Set your Amazon Affiliate Tag here. This tag will be
+//   automatically appended to ALL product links.
+// ██████████████████████████████████████████████████████████
+const AMAZON_AFFILIATE_ID = "YOUR-AFFILIATE-ID-HERE"; // <-- REPLACE THIS
+// ============================================================
+
+// ============================================================
+// BUILD AMAZON LINK — DO NOT EDIT
+// ============================================================
+function amazonLink(asin) {
+  return `https://www.amazon.com/dp/${asin}?tag=${AMAZON_AFFILIATE_ID}`;
+}
+
+// ============================================================
+// ██████████████████████████████████████████████████████████
+//   ██   PRODUCT DATABASE   ██
+//   To add a new product:
+//   1. Find the correct category array below
+//   2. Copy an existing product object { ... }
+//   3. Paste it as a new item in the array
+//   4. Fill in: name, brand, asin (Amazon product ID),
+//      image (direct image URL), rating, reviews,
+//      badge ("bestseller"|"new"|"deal"|"prime"|""),
+//      desc, features (array), tags (array)
+//   TIP: Find the ASIN in any Amazon product URL after /dp/
+// ██████████████████████████████████████████████████████████
+// ============================================================
+
+const CATEGORIES = [
+
+  // ============================================================
+  // CATEGORY: ELECTRONICS
+  // ============================================================
+  {
+    id: "electronics",
+    name: "Electronics",
+    icon: "fas fa-microchip",
+    // ← ADD NEW ELECTRONICS PRODUCTS HERE ↓
+    products: [
+      {
+        name: "Apple AirPods Pro (2nd Gen)",
+        brand: "Apple",
+        asin: "B0BDHWDR12",
+        image: "https://m.media-amazon.com/images/I/71zny7BTRlL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "87,000+",
+        badge: "bestseller",
+        desc: "Industry-leading noise cancellation, Adaptive Transparency mode, and Personalized Spatial Audio with dynamic head tracking.",
+        features: ["Active Noise Cancellation","Adaptive Transparency","Up to 30hr battery w/ case","MagSafe Charging Case","IPX4 Resistance"],
+        tags: ["Wireless","Noise Cancelling","Apple","ANC"]
+      },
+      {
+        name: "Samsung 55\" 4K QLED Smart TV",
+        brand: "Samsung",
+        asin: "B0CJXVZHKX",
+        image: "https://m.media-amazon.com/images/I/81Fk2HKOSYL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "12,400+",
+        badge: "deal",
+        desc: "Quantum HDR, Neural Quantum Processor 4K, and built-in Alexa and Google Assistant for the ultimate viewing experience.",
+        features: ["55\" QLED Display","4K Quantum HDR","Smart TV with Tizen OS","120Hz refresh rate","Gaming Mode"],
+        tags: ["4K","Smart TV","QLED","HDR"]
+      },
+      {
+        name: "Kindle Paperwhite (16GB)",
+        brand: "Amazon",
+        asin: "B09TMF6742",
+        image: "https://m.media-amazon.com/images/I/61bEZBilglL._AC_SL1000_.jpg",
+        rating: 4.7, reviews: "43,000+",
+        badge: "prime",
+        desc: "Now with a larger display, adjustable warm light, and 3 months of Kindle Unlimited — perfect for avid readers.",
+        features: ["6.8\" 300ppi display","Up to 10 weeks battery","Adjustable warm light","IPX8 waterproof","16GB storage"],
+        tags: ["Kindle","eReader","Waterproof","Books"]
+      },
+      {
+        name: "Anker 735 GaN Charger (65W)",
+        brand: "Anker",
+        asin: "B09W2T9V3G",
+        image: "https://m.media-amazon.com/images/I/61mXU3SiFfL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "28,000+",
+        badge: "bestseller",
+        desc: "3-port compact GaN charger that charges a MacBook Pro in just 1.5 hours. Perfect desk companion.",
+        features: ["65W total output","3 ports (2×USB-C, 1×USB-A)","Foldable plug","GaN technology","Travel-friendly size"],
+        tags: ["Charger","GaN","Fast Charge","USB-C"]
+      },
+      {
+        name: "Logitech MX Master 3S Mouse",
+        brand: "Logitech",
+        asin: "B09HM94VDS",
+        image: "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "22,000+",
+        badge: "",
+        desc: "Ultra-fast MagSpeed scrolling, quiet clicks, and ergonomic design for power users and creatives.",
+        features: ["8000 DPI sensor","MagSpeed scroll wheel","Quiet Click buttons","70-day battery","Bluetooth & USB-C"],
+        tags: ["Mouse","Wireless","Ergonomic","Productivity"]
+      },
+      {
+        name: "Bose QuietComfort 45 Headphones",
+        brand: "Bose",
+        asin: "B098FKXT8L",
+        image: "https://m.media-amazon.com/images/I/51JTsEz3SjL._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "36,000+",
+        badge: "",
+        desc: "World-class noise cancellation meets high-fidelity audio with a comfortable, durable design perfect for long sessions.",
+        features: ["World-class ANC","24hr battery life","Aware Mode","Multi-point Bluetooth","Premium sound"],
+        tags: ["Headphones","ANC","Wireless","Premium"]
+      },
+      {
+        name: "Sony WH-1000XM5 Headphones",
+        brand: "Sony",
+        asin: "B09XS7JWHH",
+        image: "https://m.media-amazon.com/images/I/51aXvjzcukL._AC_SL1500_.jpg",
+        rating: 4.4, reviews: "31,000+",
+        badge: "new",
+        desc: "Industry-leading noise cancellation with 8 microphones, 30-hour battery, and multipoint connection to two devices.",
+        features: ["Industry-best ANC","30hr battery","8-mic noise isolation","Multipoint Bluetooth","Speak-to-Chat"],
+        tags: ["Headphones","Sony","ANC","Wireless"]
+      },
+      {
+        name: "Echo Show 8 (3rd Gen)",
+        brand: "Amazon",
+        asin: "B0BLS3Y632",
+        image: "https://m.media-amazon.com/images/I/61wMqDsrX9L._AC_SL1000_.jpg",
+        rating: 4.6, reviews: "19,000+",
+        badge: "prime",
+        desc: "Built-in smart home hub, spatial audio, and a 13MP auto-framing camera for video calls. Now faster than ever.",
+        features: ["8\" HD touchscreen","Smart home hub","13MP auto-frame camera","Spatial audio","Alexa built-in"],
+        tags: ["Smart Display","Alexa","Echo","Amazon"]
+      },
+      {
+        name: "Ring Video Doorbell (2nd Gen)",
+        brand: "Ring",
+        asin: "B08N5NQ869",
+        image: "https://m.media-amazon.com/images/I/518gH5A46WL._AC_SL1000_.jpg",
+        rating: 4.5, reviews: "55,000+",
+        badge: "bestseller",
+        desc: "1080HD video, improved motion detection, and hardwired or battery-powered setup for easy installation.",
+        features: ["1080HD video","Advanced motion detection","Two-way talk","Night vision","Works with Alexa"],
+        tags: ["Security","Smart Home","Video","Ring"]
+      },
+      {
+        name: "TP-Link Deco AX3000 (3-Pack)",
+        brand: "TP-Link",
+        asin: "B09Z7BCFG9",
+        image: "https://m.media-amazon.com/images/I/51wXmFYk-dL._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "14,200+",
+        badge: "",
+        desc: "Wi-Fi 6 mesh system covering up to 6,000 sq ft with blazing fast speeds and coverage for 200+ connected devices.",
+        features: ["Wi-Fi 6 AX3000","6,000 sq ft coverage","200+ devices","AI-driven mesh","Easy Deco app setup"],
+        tags: ["Wi-Fi 6","Mesh","Router","Smart Home"]
+      },
+      {
+        name: "Apple Watch Series 9 (GPS 41mm)",
+        brand: "Apple",
+        asin: "B0CHX3QBMM",
+        image: "https://m.media-amazon.com/images/I/71WoeP5dGxL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "25,000+",
+        badge: "new",
+        desc: "The most powerful Apple Watch yet with the new Double Tap gesture, faster S9 chip, and always-on Retina display.",
+        features: ["S9 chip","Double Tap gesture","Always-On Retina display","Carbon neutral","18hr battery"],
+        tags: ["Smartwatch","Apple","GPS","Fitness"]
+      },
+    ]
+  },
+
+  // ============================================================
+  // CATEGORY: HOME & KITCHEN
+  // ============================================================
+  {
+    id: "home-kitchen",
+    name: "Home & Kitchen",
+    icon: "fas fa-home",
+    // ← ADD NEW HOME & KITCHEN PRODUCTS HERE ↓
+    products: [
+      {
+        name: "Instant Pot Duo 7-in-1 (8 Qt)",
+        brand: "Instant Pot",
+        asin: "B00FLYWNYQ",
+        image: "https://m.media-amazon.com/images/I/71oZ3lPBAbL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "110,000+",
+        badge: "bestseller",
+        desc: "The world's best-selling multi-cooker. Pressure cooker, slow cooker, rice cooker, steamer, sauté pan, yogurt maker and warmer in one.",
+        features: ["7-in-1 functionality","8-quart capacity","13 smart programs","UL certified safety","Delay start & keep warm"],
+        tags: ["Instant Pot","Multi-cooker","Pressure Cooker","Kitchen"]
+      },
+      {
+        name: "Ninja BN401 Nutri Pro Blender",
+        brand: "Ninja",
+        asin: "B09TFHL2WH",
+        image: "https://m.media-amazon.com/images/I/71P9D2rDfWL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "23,000+",
+        badge: "",
+        desc: "Personal blender with Auto-iQ preset programs, 1100-peak-watt motor, and dedicated to-go cup system.",
+        features: ["1100W motor","Auto-iQ programs","24 oz to-go cup","Dishwasher safe","Nutrient extraction"],
+        tags: ["Blender","Smoothie","Ninja","Personal"]
+      },
+      {
+        name: "Nespresso Vertuo Pop Coffee Maker",
+        brand: "Nespresso",
+        asin: "B0B4FBK9YS",
+        image: "https://m.media-amazon.com/images/I/61uEuRlPNEL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "17,000+",
+        badge: "new",
+        desc: "Brew 5 cup sizes with Centrifusion technology. Compact, colorful, and fast — ready in just 30 seconds.",
+        features: ["5 cup sizes","Centrifusion tech","30-second heat-up","Auto shut-off","Barcode reading tech"],
+        tags: ["Coffee","Espresso","Nespresso","Pods"]
+      },
+      {
+        name: "COSORI Air Fryer 5.8 Qt",
+        brand: "COSORI",
+        asin: "B07GJBBGHG",
+        image: "https://m.media-amazon.com/images/I/81HCLH0fHuL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "75,000+",
+        badge: "bestseller",
+        desc: "Square basket fits a whole 5-lb chicken. 11 one-touch presets and shake reminders make healthy cooking effortless.",
+        features: ["5.8-quart square basket","11 cooking presets","Shake reminder","1700W","Dishwasher safe basket"],
+        tags: ["Air Fryer","Healthy","COSORI","Kitchen"]
+      },
+      {
+        name: "Dyson V15 Detect Cordless Vacuum",
+        brand: "Dyson",
+        asin: "B0CLL44XRS",
+        image: "https://m.media-amazon.com/images/I/61E7e6JQLAL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "8,200+",
+        badge: "deal",
+        desc: "Laser detects invisible dust. Particle counter proves the clean. HEPA filtration captures 99.99% of particles.",
+        features: ["Laser dust detection","LCD screen","60-min run time","HEPA filtration","Up to 5 cleaning modes"],
+        tags: ["Vacuum","Cordless","Dyson","HEPA"]
+      },
+      {
+        name: "Roomba i3+ EVO Robot Vacuum",
+        brand: "iRobot",
+        asin: "B08168J8M1",
+        image: "https://m.media-amazon.com/images/I/71LkPFAC6LL._AC_SL1500_.jpg",
+        rating: 4.4, reviews: "18,000+",
+        badge: "prime",
+        desc: "Learns and maps your home, empties itself automatically into the Clean Base, and works with Alexa and Google.",
+        features: ["Automatic dirt disposal","Smart mapping","10x suction power","Works with Alexa","2-hour recharge"],
+        tags: ["Robot Vacuum","Smart Home","iRobot","Alexa"]
+      },
+      {
+        name: "Cuisinart 14-Piece Knife Set",
+        brand: "Cuisinart",
+        asin: "B07S7XVF8P",
+        image: "https://m.media-amazon.com/images/I/91pNPQr10uL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "39,000+",
+        badge: "",
+        desc: "Fully forged, triple-riveted handles with a complete set for every kitchen task. Includes block and sharpener.",
+        features: ["14-piece complete set","High-carbon stainless steel","Triple-riveted handles","Knife block included","Sharpener included"],
+        tags: ["Knives","Cuisinart","Kitchen","Cooking"]
+      },
+      {
+        name: "Philips Hue White Starter Kit (A19)",
+        brand: "Philips Hue",
+        asin: "B06Y3QXSGX",
+        image: "https://m.media-amazon.com/images/I/61a-N4M5EnL._AC_SL1000_.jpg",
+        rating: 4.7, reviews: "45,000+",
+        badge: "",
+        desc: "4 smart A19 LED bulbs plus the Hue Bridge. Automate your lights, set scenes, and control with voice or app.",
+        features: ["4 LED smart bulbs","Hue Bridge included","Voice control","App automations","Works with Alexa & Google"],
+        tags: ["Smart Lighting","Philips Hue","Smart Home","LED"]
+      },
+      {
+        name: "Vitamix 5200 Blender",
+        brand: "Vitamix",
+        asin: "B001ANS6ZG",
+        image: "https://m.media-amazon.com/images/I/71TmBbYQiWL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "30,000+",
+        badge: "",
+        desc: "Professional-grade blender that handles anything from smoothies to hot soups with aircraft-grade stainless steel blades.",
+        features: ["2-peak HP motor","64oz container","Variable 10-speed","Self-cleaning in 60s","7-year full warranty"],
+        tags: ["Blender","Vitamix","Professional","Smoothies"]
+      },
+      {
+        name: "Rubbermaid Brilliance Storage Set (10-Piece)",
+        brand: "Rubbermaid",
+        asin: "B01N3LM7R0",
+        image: "https://m.media-amazon.com/images/I/71i0fCL-3iL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "62,000+",
+        badge: "bestseller",
+        desc: "100% leak-proof food storage with crystal-clear lids, built-in dividers, and stackable design for organized fridges.",
+        features: ["100% leak-proof","BPA-free","Crystal-clear lids","Microwave safe","Dishwasher safe"],
+        tags: ["Storage","Meal Prep","Rubbermaid","Fridge"]
+      },
+    ]
+  },
+
+  // ============================================================
+  // CATEGORY: FITNESS & SPORTS
+  // ============================================================
+  {
+    id: "fitness",
+    name: "Fitness",
+    icon: "fas fa-dumbbell",
+    // ← ADD NEW FITNESS PRODUCTS HERE ↓
+    products: [
+      {
+        name: "Bowflex SelectTech 552 Adjustable Dumbbells",
+        brand: "Bowflex",
+        asin: "B001ARYU58",
+        image: "https://m.media-amazon.com/images/I/51Oj+EKqFkL._AC_SL1000_.jpg",
+        rating: 4.7, reviews: "32,000+",
+        badge: "bestseller",
+        desc: "Adjusts from 5 to 52.5 lbs in 2.5-lb increments. Replaces 15 sets of weights in one space-saving package.",
+        features: ["5-52.5 lbs adjustable","Replaces 15 sets","Dial adjustment system","2-year warranty","Space-saving design"],
+        tags: ["Dumbbells","Adjustable","Home Gym","Strength"]
+      },
+      {
+        name: "Garmin Forerunner 265 GPS Watch",
+        brand: "Garmin",
+        asin: "B0BS8D66VB",
+        image: "https://m.media-amazon.com/images/I/61ysaxHVFoL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "9,500+",
+        badge: "new",
+        desc: "Bright AMOLED display meets advanced training metrics, daily suggested workouts, and up to 13-day battery life.",
+        features: ["AMOLED touchscreen","Advanced training metrics","Daily suggested workouts","13-day battery","GPS/GLONASS"],
+        tags: ["GPS Watch","Running","Garmin","Fitness Tracker"]
+      },
+      {
+        name: "Peloton Guide Strength Tracker",
+        brand: "Peloton",
+        asin: "B09TZTNFLL",
+        image: "https://m.media-amazon.com/images/I/61S6PMrLiiL._AC_SL1000_.jpg",
+        rating: 4.3, reviews: "4,400+",
+        badge: "",
+        desc: "AI-powered camera tracks your reps and form, provides performance insights, and connects to Peloton's workout library.",
+        features: ["AI rep tracking","Movement Tracker","Connected TV display","Membership included (trial)","Works with any dumbbells"],
+        tags: ["Peloton","Strength","AI","Home Gym"]
+      },
+      {
+        name: "Lifepro Waver Vibration Plate",
+        brand: "Lifepro",
+        asin: "B07XFMVHQ2",
+        image: "https://m.media-amazon.com/images/I/61-oflHEm6L._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "14,000+",
+        badge: "deal",
+        desc: "Whole-body vibration platform for weight loss, muscle recovery, and lymphatic stimulation. 99 speed levels.",
+        features: ["99 speed levels","3 workout modes","Non-slip surface","Remote control","Quiet vibration motor"],
+        tags: ["Vibration Plate","Recovery","Exercise","Weight Loss"]
+      },
+      {
+        name: "TRX GO Suspension Training System",
+        brand: "TRX",
+        asin: "B0045IILZ2",
+        image: "https://m.media-amazon.com/images/I/81jBdnzXfEL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "11,000+",
+        badge: "",
+        desc: "World-class suspension trainer used by athletes and military. Full-body workout anywhere with a single anchor point.",
+        features: ["Full-body workout","Single anchor point","350 lb weight capacity","Adjustable straps","Travel-friendly"],
+        tags: ["TRX","Suspension","Functional","Portable"]
+      },
+      {
+        name: "Under Armour HOVR Phantom 3 Running Shoes",
+        brand: "Under Armour",
+        asin: "B09Q4QFXXY",
+        image: "https://m.media-amazon.com/images/I/71bNEFnuBnL._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "8,700+",
+        badge: "",
+        desc: "Zero gravity feel, energy return, and MapMyRun integration for real-time running analytics right from your shoes.",
+        features: ["HOVR foam cushioning","Connected sensor","MapMyRun integration","UA Knit upper","Versatile outsole"],
+        tags: ["Running Shoes","Under Armour","Connected","Comfort"]
+      },
+      {
+        name: "Manduka PRO Yoga Mat",
+        brand: "Manduka",
+        asin: "B002NJSRBK",
+        image: "https://m.media-amazon.com/images/I/71JPLD1TNZL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "22,000+",
+        badge: "bestseller",
+        desc: "6mm ultra-dense cushioning with unmatched grip and a lifetime guarantee. The only yoga mat you'll ever need.",
+        features: ["6mm thickness","Lifetime guarantee","Dense ECO foam","Closed-cell surface","10 lbs support"],
+        tags: ["Yoga Mat","Manduka","Premium","Non-slip"]
+      },
+      {
+        name: "NordicTrack T Series Treadmill (6.5S)",
+        brand: "NordicTrack",
+        asin: "B09SZQWSWL",
+        image: "https://m.media-amazon.com/images/I/71B2uO9GJQL._AC_SL1500_.jpg",
+        rating: 4.4, reviews: "11,200+",
+        badge: "deal",
+        desc: "10\" HD Smart Touchscreen with iFIT workouts that auto-adjust incline and speed to trainer commands.",
+        features: ["10\" HD touchscreen","iFIT compatible","SpaceSaver design","0-10% incline","2.6 CHP motor"],
+        tags: ["Treadmill","Running","NordicTrack","iFIT"]
+      },
+      {
+        name: "Whoop 4.0 Fitness Wearable",
+        brand: "WHOOP",
+        asin: "B09SFX5JMG",
+        image: "https://m.media-amazon.com/images/I/61W3ZLOiMkL._AC_SL1500_.jpg",
+        rating: 4.3, reviews: "6,800+",
+        badge: "new",
+        desc: "24/7 health monitoring with personalized recovery, strain, and sleep coaching. No screen distractions — just data.",
+        features: ["24/7 biometric monitoring","Recovery score","Sleep coaching","Strain tracking","Battery wearable"],
+        tags: ["Fitness Tracker","WHOOP","Recovery","Biometrics"]
+      },
+      {
+        name: "Hydro Flask 32oz Wide Mouth Bottle",
+        brand: "Hydro Flask",
+        asin: "B074WDX2V3",
+        image: "https://m.media-amazon.com/images/I/61LMR9XhfEL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "85,000+",
+        badge: "bestseller",
+        desc: "TempShield double-wall insulation keeps drinks cold 24 hours and hot 12 hours. Dishwasher safe and drop-proof.",
+        features: ["TempShield insulation","Cold 24hr / Hot 12hr","18/8 pro-grade steel","Dishwasher safe","Flex Straw Cap included"],
+        tags: ["Water Bottle","Hydro Flask","Insulated","BPA-Free"]
+      },
+    ]
+  },
+
+  // ============================================================
+  // CATEGORY: BEAUTY & PERSONAL CARE
+  // ============================================================
+  {
+    id: "beauty",
+    name: "Beauty",
+    icon: "fas fa-spa",
+    // ← ADD NEW BEAUTY PRODUCTS HERE ↓
+    products: [
+      {
+        name: "Dyson Airwrap Multi-Styler",
+        brand: "Dyson",
+        asin: "B09RXTYXFF",
+        image: "https://m.media-amazon.com/images/I/71LRd3RjR+L._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "19,000+",
+        badge: "deal",
+        desc: "Style, wave, curl, and dry with the Coanda effect. No extreme heat damage, multiple attachments, 3 speed settings.",
+        features: ["Coanda airflow technology","Multiple attachments","3 speed settings","No extreme heat","Long hair case included"],
+        tags: ["Dyson","Hair Styler","Curler","Dryer"]
+      },
+      {
+        name: "CeraVe Moisturizing Cream (19oz)",
+        brand: "CeraVe",
+        asin: "B000YJ2SKS",
+        image: "https://m.media-amazon.com/images/I/51eDvkKqVQL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "200,000+",
+        badge: "bestseller",
+        desc: "Developed with dermatologists. 3 essential ceramides restore and maintain the skin's natural protective barrier.",
+        features: ["3 essential ceramides","Hyaluronic acid","Non-comedogenic","Fragrance-free","24hr moisturization"],
+        tags: ["Moisturizer","CeraVe","Skincare","Dermatologist"]
+      },
+      {
+        name: "Oral-B iO Series 9 Electric Toothbrush",
+        brand: "Oral-B",
+        asin: "B08X59TWLV",
+        image: "https://m.media-amazon.com/images/I/51FDdEnOC8L._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "17,000+",
+        badge: "",
+        desc: "AI-powered position detection, interactive display, and magnetic drive for the most complete clean ever.",
+        features: ["AI position detection","iOSense charging stand","7 cleaning modes","Pressure sensor","3-week battery"],
+        tags: ["Toothbrush","Electric","Oral-B","AI"]
+      },
+      {
+        name: "NuFACE Trinity Facial Device",
+        brand: "NuFACE",
+        asin: "B009NLDLKY",
+        image: "https://m.media-amazon.com/images/I/614vr-4UaML._AC_SL1500_.jpg",
+        rating: 4.3, reviews: "8,600+",
+        badge: "new",
+        desc: "FDA-cleared microcurrent device clinically proven to improve facial contour, tone, and reduce appearance of wrinkles in 5 weeks.",
+        features: ["FDA-cleared","Microcurrent technology","5-minute treatment","Interchangeable attachments","Starter kit included"],
+        tags: ["Facial Device","Anti-Aging","NuFACE","Skincare"]
+      },
+      {
+        name: "Neutrogena Hydro Boost Water Gel",
+        brand: "Neutrogena",
+        asin: "B00NR1YQHM",
+        image: "https://m.media-amazon.com/images/I/71t5H-CqivL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "95,000+",
+        badge: "bestseller",
+        desc: "Lightweight gel formula with hyaluronic acid that instantly quenches skin and continuously delivers moisture all day.",
+        features: ["Hyaluronic acid","Oil-free","Non-comedogenic","Fragrance-free","Dermatologist-recommended"],
+        tags: ["Moisturizer","Hyaluronic Acid","Hydration","Neutrogena"]
+      },
+      {
+        name: "REVLON One-Step Volumizer Plus 2.0",
+        brand: "REVLON",
+        asin: "B082YCXZQN",
+        image: "https://m.media-amazon.com/images/I/71ZB9+OKPJL._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "130,000+",
+        badge: "bestseller",
+        desc: "Style and dry your hair in one step with unique oval brush design that creates volume, shape, and shine.",
+        features: ["One-step styling","Oval brush design","3 heat settings","Cool tip","Tangle-free bristles"],
+        tags: ["Hair Dryer","Brush","REVLON","Volumizing"]
+      },
+      {
+        name: "Philips Norelco OneBlade Trimmer",
+        brand: "Philips Norelco",
+        asin: "B01GIWMR9A",
+        image: "https://m.media-amazon.com/images/I/71o4KCO1h9L._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "62,000+",
+        badge: "deal",
+        desc: "Trim, edge, and shave any length of hair with the revolutionary dual-protection system. Face and body kit included.",
+        features: ["Trim, edge & shave","Any hair length","Dual protect guard","4 comb attachments","60-min run time"],
+        tags: ["Trimmer","Shaver","Philips","Grooming"]
+      },
+      {
+        name: "FOREO LUNA 4 Facial Cleanser",
+        brand: "FOREO",
+        asin: "B09QYZLF3S",
+        image: "https://m.media-amazon.com/images/I/51PbkLn0xjL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "5,200+",
+        badge: "new",
+        desc: "Hygienic silicone facial brush with T-Sonic pulsations that remove 99.5% of dirt for visibly clearer skin in 1 week.",
+        features: ["T-Sonic pulsations","Ultra-hygienic silicone","16 intensity levels","App connected","300 uses per charge"],
+        tags: ["Facial Cleanser","FOREO","Silicone","Skincare"]
+      },
+      {
+        name: "Olaplex No. 3 Hair Perfector",
+        brand: "Olaplex",
+        asin: "B00SNM5US4",
+        image: "https://m.media-amazon.com/images/I/61WijAFADoL._AC_SL1500_.jpg",
+        rating: 4.4, reviews: "41,000+",
+        badge: "",
+        desc: "At-home treatment that reduces breakage and visibly strengthens hair from within. Works on all hair types.",
+        features: ["Bond repair technology","All hair types","Reduces breakage","At-home treatment","Sulfate-free"],
+        tags: ["Hair Treatment","Olaplex","Bond Repair","Strengthening"]
+      },
+      {
+        name: "Theragun Mini Percussive Massager",
+        brand: "Therabody",
+        asin: "B091NJXWQY",
+        image: "https://m.media-amazon.com/images/I/51EGsXq16gL._AC_SL1500_.jpg",
+        rating: 4.5, reviews: "22,000+",
+        badge: "",
+        desc: "150-minute battery, 3 speeds, and portable size to take Theragun's professional-grade relief anywhere you go.",
+        features: ["3 speed settings","150-min battery","Pocket-sized","4 attachments included","Bluetooth app control"],
+        tags: ["Massage Gun","Theragun","Recovery","Portable"]
+      },
+    ]
+  },
+
+  // ============================================================
+  // CATEGORY: BOOKS & EDUCATION
+  // ============================================================
+  {
+    id: "books",
+    name: "Books",
+    icon: "fas fa-book-open",
+    // ← ADD NEW BOOK PRODUCTS HERE ↓
+    products: [
+      {
+        name: "Atomic Habits by James Clear",
+        brand: "James Clear",
+        asin: "0735211299",
+        image: "https://m.media-amazon.com/images/I/81YkqyaFVEL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "150,000+",
+        badge: "bestseller",
+        desc: "The #1 New York Times bestseller. Learn how tiny changes in behavior lead to remarkable results. 5+ million copies sold.",
+        features: ["#1 NYT Bestseller","Proven habit-building system","Practical actionable advice","Used by Fortune 500 teams","320 pages"],
+        tags: ["Self-Help","Habits","Bestseller","Productivity"]
+      },
+      {
+        name: "The Psychology of Money by Morgan Housel",
+        brand: "Morgan Housel",
+        asin: "0857197681",
+        image: "https://m.media-amazon.com/images/I/71TRUbzcvaL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "72,000+",
+        badge: "bestseller",
+        desc: "19 short stories about money, greed, and happiness that will change how you think about wealth for the rest of your life.",
+        features: ["19 timeless lessons","Easy-to-read stories","Global bestseller","Behavioral finance insights","242 pages"],
+        tags: ["Finance","Investing","Mindset","Bestseller"]
+      },
+      {
+        name: "Deep Work by Cal Newport",
+        brand: "Cal Newport",
+        asin: "1455586692",
+        image: "https://m.media-amazon.com/images/I/71QKQ9mwV7L._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "46,000+",
+        badge: "",
+        desc: "Rules for focused success in a distracted world. Newport argues that deep work is the superpower of the 21st century.",
+        features: ["Evidence-based strategies","4 rules of deep work","Real-world examples","304 pages","Productivity system"],
+        tags: ["Productivity","Focus","Career","Cal Newport"]
+      },
+      {
+        name: "Educated: A Memoir by Tara Westover",
+        brand: "Tara Westover",
+        asin: "0399590501",
+        image: "https://m.media-amazon.com/images/I/91B5SLQJF7L._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "100,000+",
+        badge: "bestseller",
+        desc: "A stunning memoir about a young girl who, kept out of school, leaves her survivalist family and travels to Cambridge for a PhD.",
+        features: ["#1 NYT Bestseller","Pulitzer Prize nominee","352 pages","Life-changing memoir","Translated into 40 languages"],
+        tags: ["Memoir","Bestseller","Biography","Inspirational"]
+      },
+      {
+        name: "The 48 Laws of Power by Robert Greene",
+        brand: "Robert Greene",
+        asin: "0140280197",
+        image: "https://m.media-amazon.com/images/I/71I6F-9MDLL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "60,000+",
+        badge: "",
+        desc: "Drawing on 3,000 years of power history, Greene distills the most important lessons from Machiavelli, Sun Tzu and others.",
+        features: ["48 laws of power","3,000 years of history","Real-world case studies","480 pages","Cult classic"],
+        tags: ["Power","Strategy","Classics","Robert Greene"]
+      },
+      {
+        name: "Thinking, Fast and Slow by Daniel Kahneman",
+        brand: "Daniel Kahneman",
+        asin: "0374533555",
+        image: "https://m.media-amazon.com/images/I/71wvKXwDxoL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "56,000+",
+        badge: "",
+        desc: "Nobel Prize winner Kahneman reveals the two systems that drive the way we think — fast, intuitive System 1 and slow, deliberate System 2.",
+        features: ["Nobel Prize author","Groundbreaking research","Psychology & economics","499 pages","International bestseller"],
+        tags: ["Psychology","Nobel Prize","Thinking","Science"]
+      },
+      {
+        name: "Rich Dad Poor Dad by Robert Kiyosaki",
+        brand: "Robert Kiyosaki",
+        asin: "1612680194",
+        image: "https://m.media-amazon.com/images/I/81BE7eeKzAL._AC_SL1500_.jpg",
+        rating: 4.7, reviews: "100,000+",
+        badge: "bestseller",
+        desc: "The #1 personal finance book of all time. Kiyosaki shares the rich dad's philosophy on money, investing, and financial independence.",
+        features: ["#1 PF book ever","Financial independence lessons","Asset vs liability mindset","336 pages","32M+ copies sold"],
+        tags: ["Finance","Investing","Bestseller","Kiyosaki"]
+      },
+      {
+        name: "Sapiens by Yuval Noah Harari",
+        brand: "Yuval Noah Harari",
+        asin: "0062316095",
+        image: "https://m.media-amazon.com/images/I/713jIoMO3UL._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "79,000+",
+        badge: "",
+        desc: "A brief history of humankind. How did Homo sapiens come to dominate the earth? Harari explores 70,000 years of human history.",
+        features: ["Global bestseller","443 pages","History & anthropology","Bill Gates recommended","Translated into 45 languages"],
+        tags: ["History","Science","Harari","Bestseller"]
+      },
+      {
+        name: "The Lean Startup by Eric Ries",
+        brand: "Eric Ries",
+        asin: "0307887898",
+        image: "https://m.media-amazon.com/images/I/81-QB7nDh4L._AC_SL1500_.jpg",
+        rating: 4.6, reviews: "31,000+",
+        badge: "",
+        desc: "The methodology millions of entrepreneurs use to build companies, test ideas, and pivot quickly without wasted resources.",
+        features: ["Build-Measure-Learn loop","Validated learning","MVP methodology","299 pages","Business school staple"],
+        tags: ["Business","Startup","Entrepreneurship","MVP"]
+      },
+      {
+        name: "The Alchemist by Paulo Coelho",
+        brand: "Paulo Coelho",
+        asin: "0062315007",
+        image: "https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_SL1500_.jpg",
+        rating: 4.8, reviews: "110,000+",
+        badge: "bestseller",
+        desc: "A fable about following your dreams. One of the best-selling books in history with over 65 million copies sold worldwide.",
+        features: ["65M+ copies sold","Translated into 80 languages","Magical realism","197 pages","Inspirational classic"],
+        tags: ["Fiction","Inspirational","Classic","Bestseller"]
+      },
+    ]
+  },
+
+];
+
+// ============================================================
+// ██  THEME TOGGLE
+// ============================================================
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+let isDark = true;
+
+function setTheme(dark) {
+  isDark = dark;
+  html.setAttribute('data-theme', dark ? 'dark' : 'light');
+  themeToggle.innerHTML = dark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  localStorage.setItem('nexus-theme', dark ? 'dark' : 'light');
+}
+const savedTheme = localStorage.getItem('nexus-theme');
+if (savedTheme) setTheme(savedTheme === 'dark');
+themeToggle.addEventListener('click', () => setTheme(!isDark));
+
+// ============================================================
+// ██  BUILD NAV
+// ============================================================
+function buildNav() {
+  const navInner = document.getElementById('navInner');
+  const mobileNavItems = document.getElementById('mobileNavItems');
+  const footerCategories = document.getElementById('footerCategories');
+
+  CATEGORIES.forEach((cat, i) => {
+    // Desktop nav
+    const btn = document.createElement('button');
+    btn.className = 'nav-item' + (i === 0 ? ' active' : '');
+    btn.innerHTML = `<i class="${cat.icon}"></i>${cat.name}`;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      btn.classList.add('active');
+      const section = document.getElementById('cat-' + cat.id);
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      closeMobileMenu();
+    });
+    navInner.appendChild(btn);
+
+    // Mobile nav
+    const mBtn = document.createElement('div');
+    mBtn.className = 'mobile-nav-item';
+    mBtn.innerHTML = `<i class="${cat.icon}"></i>${cat.name}`;
+    mBtn.addEventListener('click', () => {
+      const section = document.getElementById('cat-' + cat.id);
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      closeMobileMenu();
+    });
+    mobileNavItems.appendChild(mBtn);
+
+    // Footer
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="#cat-${cat.id}">${cat.name}</a>`;
+    footerCategories.appendChild(li);
+  });
+}
+
+// ============================================================
+// ██  BUILD PRODUCT CARDS
+// ============================================================
+function starsHTML(rating) {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.3 && rating % 1 < 0.8;
+  let s = '';
+  for (let i = 0; i < full; i++) s += '<i class="fas fa-star"></i>';
+  if (half) s += '<i class="fas fa-star-half-alt"></i>';
+  return s;
+}
+
+function buildProductCard(product, catId) {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML = `
+    <div class="card-image-wrap">
+      <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400/333/aaa?text=Product'">
+      ${product.badge ? `<span class="card-badge badge-${product.badge}">${product.badge === 'bestseller' ? '🔥 Best Seller' : product.badge === 'new' ? '✨ New' : product.badge === 'deal' ? '💥 Deal' : '📦 Prime'}</span>` : ''}
+      <div class="card-actions-overlay">
+        <button class="card-action-btn wishlist-btn" title="Wishlist"><i class="fas fa-heart"></i></button>
+        <button class="card-action-btn share-card-btn" title="Share"><i class="fas fa-share-alt"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-brand">${product.brand}</div>
+      <div class="card-name">${product.name}</div>
+      <div class="card-rating">
+        <div class="stars">${starsHTML(product.rating)}</div>
+        <span class="rating-num">${product.rating} (${product.reviews})</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn-details">View Details</button>
+      <a class="btn-buy" href="${amazonLink(product.asin)}" target="_blank" rel="noopener">
+        <i class="fab fa-amazon"></i> Buy Now
+      </a>
+    </div>
+  `;
+
+  // Details
+  card.querySelector('.btn-details').addEventListener('click', (e) => {
+    e.stopPropagation();
+    openModal(product);
+  });
+  card.querySelector('.card-image-wrap').addEventListener('click', () => openModal(product));
+  card.querySelector('.card-name').addEventListener('click', () => openModal(product));
+
+  // Wishlist
+  const wishlistBtn = card.querySelector('.wishlist-btn');
+  wishlistBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    wishlistBtn.classList.toggle('active');
+    showToast(wishlistBtn.classList.contains('active') ? '❤️ Added to wishlist' : '💔 Removed from wishlist');
+  });
+
+  // Share
+  card.querySelector('.share-card-btn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    openSharePopup(product);
+  });
+
+  // Buy stops propagation
+  card.querySelector('.btn-buy').addEventListener('click', (e) => e.stopPropagation());
+
+  return card;
+}
+
+// ============================================================
+// ██  BUILD SECTIONS
+// ============================================================
+function buildSections() {
+  const main = document.getElementById('mainContent');
+  CATEGORIES.forEach(cat => {
+    const section = document.createElement('section');
+    section.className = 'category-section';
+    section.id = 'cat-' + cat.id;
+    section.innerHTML = `
+      <div class="section-header">
+        <div class="section-title">
+          <i class="${cat.icon}"></i>
+          ${cat.name}
+          <span class="section-count">${cat.products.length} products</span>
         </div>
+        <a href="#cat-${cat.id}" class="section-more">See all <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="product-grid" id="grid-${cat.id}"></div>
+    `;
+    main.appendChild(section);
 
-        <div x-show="showModal" class="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-obsidian/80 backdrop-blur-md" x-cloak>
-            <div @click.away="showModal = false" x-transition.scale.90 class="bg-white dark:bg-slate-900 w-full max-w-5xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-2xl border border-white/10">
-                <div class="md:w-1/2 bg-slate-50 dark:bg-obsidian p-12 flex items-center justify-center relative">
-                    <img :src="activeProduct.img" class="max-h-[400px] object-contain">
-                    <button @click="showModal = false" class="absolute top-8 left-8 text-slate-400 hover:text-gold-500"><i class="fas fa-arrow-left mr-2"></i> Back</button>
-                </div>
-                <div class="md:w-1/2 p-12 lg:p-16 flex flex-col justify-center">
-                    <span class="text-gold-500 font-bold uppercase tracking-widest text-xs" x-text="activeProduct.cat"></span>
-                    <h2 class="text-4xl lg:text-5xl font-extrabold mt-4 mb-6 leading-tight" x-text="activeProduct.name"></h2>
-                    <p class="text-slate-500 dark:text-slate-400 text-lg leading-relaxed mb-8" x-text="activeProduct.desc"></p>
-                    
-                    <div class="grid grid-cols-2 gap-6 mb-10">
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5">
-                            <i class="fas fa-shipping-fast text-gold-500 mb-2"></i>
-                            <p class="text-xs font-bold uppercase">Fast Shipping</p>
-                        </div>
-                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5">
-                            <i class="fas fa-shield-halved text-gold-500 mb-2"></i>
-                            <p class="text-xs font-bold uppercase">Official Store</p>
-                        </div>
-                    </div>
+    const grid = section.querySelector(`#grid-${cat.id}`);
+    cat.products.forEach(p => grid.appendChild(buildProductCard(p, cat.id)));
+  });
+}
 
-                    <a :href="activeProduct.buyUrl" target="_blank" 
-                       class="block w-full bg-gold-500 hover:bg-gold-600 text-white text-center py-5 rounded-2xl font-bold text-xl shadow-lg shadow-gold-500/30 transition-all transform hover:-translate-y-1">
-                        Secure on Amazon
-                    </a>
-                </div>
-            </div>
+// ============================================================
+// ██  PRODUCT MODAL
+// ============================================================
+let currentModalProduct = null;
+
+function openModal(product) {
+  currentModalProduct = product;
+  document.getElementById('modalImg').src = product.image;
+  document.getElementById('modalImg').onerror = function(){ this.src='https://placehold.co/500x500/333/aaa?text=Product'; };
+  document.getElementById('modalBrand').textContent = product.brand;
+  document.getElementById('modalTitle').textContent = product.name;
+  document.getElementById('modalStars').innerHTML = starsHTML(product.rating);
+  document.getElementById('modalRatingNum').textContent = `${product.rating} · ${product.reviews} reviews`;
+  document.getElementById('modalDesc').textContent = product.desc;
+  document.getElementById('modalBuyBtn').href = amazonLink(product.asin);
+
+  const featsDiv = document.getElementById('modalFeatures');
+  featsDiv.innerHTML = product.features.map(f => `<div class="modal-feature"><i class="fas fa-check-circle"></i><span>${f}</span></div>`).join('');
+
+  const tagsDiv = document.getElementById('modalTags');
+  tagsDiv.innerHTML = product.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+
+  document.getElementById('modalBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modalBackdrop')) closeModal();
+});
+function closeModal() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ============================================================
+// ██  SHARE FUNCTIONALITY
+// ============================================================
+document.getElementById('modalShareBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentModalProduct) openSharePopup(currentModalProduct);
+});
+
+function openSharePopup(product) {
+  const url = amazonLink(product.asin);
+  const text = encodeURIComponent(`Check out ${product.name} on Amazon!`);
+  const encodedUrl = encodeURIComponent(url);
+
+  const popup = document.getElementById('sharePopup');
+  const linksDiv = document.getElementById('shareLinks');
+  linksDiv.innerHTML = `
+    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" class="share-link"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a href="https://twitter.com/intent/tweet?text=${text}&url=${encodedUrl}" target="_blank" class="share-link"><i class="fab fa-x-twitter"></i> X</a>
+    <a href="https://wa.me/?text=${text}%20${encodedUrl}" target="_blank" class="share-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://www.pinterest.com/pin/create/button/?url=${encodedUrl}&description=${text}" target="_blank" class="share-link"><i class="fab fa-pinterest-p"></i> Pinterest</a>
+    <a href="https://t.me/share/url?url=${encodedUrl}&text=${text}" target="_blank" class="share-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
+    <span class="share-link share-link-copy" onclick="copyLink('${url}')"><i class="fas fa-copy"></i> Copy Link</span>
+  `;
+  popup.classList.add('show');
+  setTimeout(() => popup.classList.remove('show'), 6000);
+}
+
+function copyLink(url) {
+  navigator.clipboard.writeText(url).then(() => showToast('🔗 Link copied to clipboard!'));
+  document.getElementById('sharePopup').classList.remove('show');
+}
+
+// ============================================================
+// ██  TOAST
+// ============================================================
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+// ============================================================
+// ██  SEARCH
+// ============================================================
+function setupSearch() {
+  const input = document.getElementById('mainSearch');
+  const resultsBox = document.getElementById('searchResults');
+
+  const allProducts = CATEGORIES.flatMap(cat => cat.products.map(p => ({ ...p, catName: cat.name })));
+
+  function doSearch(q) {
+    const query = q.trim().toLowerCase();
+    if (!query) { resultsBox.classList.remove('show'); return; }
+    const matches = allProducts.filter(p =>
+      p.name.toLowerCase().includes(query) ||
+      p.brand.toLowerCase().includes(query) ||
+      p.tags.some(t => t.toLowerCase().includes(query)) ||
+      p.catName.toLowerCase().includes(query)
+    ).slice(0, 8);
+
+    if (!matches.length) {
+      resultsBox.innerHTML = '<div style="padding:14px;font-size:0.85rem;color:var(--text3)">No products found</div>';
+    } else {
+      resultsBox.innerHTML = matches.map(p => `
+        <div class="search-result-item" data-asin="${p.asin}">
+          <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/40x40/333/aaa?text=?'">
+          <div>
+            <div class="sri-name">${p.name}</div>
+            <div class="sri-cat">${p.catName} · ${p.brand}</div>
+          </div>
         </div>
-    </main>
+      `).join('');
 
-    <footer class="bg-slate-100 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/5 py-20">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16">
-            <div>
-                <span class="text-2xl font-extrabold uppercase tracking-tighter mb-6 block">Luxe<span class="text-gold-500">.</span></span>
-                <p class="text-slate-500 dark:text-slate-400 leading-relaxed">Defining the digital storefront with a focus on premium aesthetics and effortless affiliate shopping.</p>
-            </div>
-            <div class="flex flex-col gap-4">
-                <h4 class="font-bold uppercase tracking-widest text-xs text-gold-500">Links</h4>
-                <a href="#" class="hover:text-gold-500 transition-colors">Privacy Disclosure</a>
-                <a href="#" class="hover:text-gold-500 transition-colors">Terms of Service</a>
-                <a href="#" class="hover:text-gold-500 transition-colors">Contact Expert</a>
-            </div>
-            <div>
-                <h4 class="font-bold uppercase tracking-widest text-xs text-gold-500 mb-6">Join the Elite</h4>
-                <div class="flex bg-white dark:bg-obsidian rounded-2xl p-2 border border-slate-200 dark:border-white/10">
-                    <input type="email" placeholder="Your email..." class="bg-transparent border-none focus:ring-0 flex-grow px-4">
-                    <button class="bg-gold-500 text-white px-6 py-2 rounded-xl font-bold">Join</button>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-20 text-slate-500 text-xs">
-            <p>&copy; 2026 LUXE. Amazon Associate #YOUR_TAG. All rights reserved.</p>
-        </div>
-    </footer>
+      resultsBox.querySelectorAll('.search-result-item').forEach((el, i) => {
+        el.addEventListener('click', () => {
+          openModal(matches[i]);
+          resultsBox.classList.remove('show');
+          input.value = '';
+        });
+      });
+    }
+    resultsBox.classList.add('show');
+  }
 
+  input.addEventListener('input', (e) => doSearch(e.target.value));
+  document.getElementById('mobileSearch').addEventListener('input', (e) => {
+    doSearch(e.target.value);
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-bar')) resultsBox.classList.remove('show');
+  });
+}
+
+// ============================================================
+// ██  MOBILE MENU
+// ============================================================
+document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+  document.getElementById('mobileOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+function closeMobileMenu() {
+  document.getElementById('mobileOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('drawerClose').addEventListener('click', closeMobileMenu);
+document.getElementById('mobileOverlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('mobileOverlay')) closeMobileMenu();
+});
+
+// ============================================================
+// ██  KEYBOARD ESC
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeMobileMenu();
+    document.getElementById('sharePopup').classList.remove('show');
+  }
+});
+
+// ============================================================
+// ██  INIT
+// ============================================================
+buildNav();
+buildSections();
+setupSearch();
+
+</script>
 </body>
 </html>
