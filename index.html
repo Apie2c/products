@@ -823,25 +823,728 @@ footer {
 .footer-affiliate { font-size: 0.78rem; color: var(--text3); max-width: 500px; line-height: 1.5; }
 
 /* ============================================================
-   RESPONSIVE
+   DESKTOP RESPONSIVE (tablet only)
    ============================================================ */
-@media (max-width: 900px) {
-  .social-icons, .header-nav { display: none; }
-  .mobile-menu-btn { display: flex; }
-  .hero { margin-top: 80px; padding: 40px 20px; }
-  .modal { grid-template-columns: 1fr; }
-  .modal-image { border-radius: 24px 24px 0 0; aspect-ratio: 4/3; }
+@media (max-width: 1100px) and (min-width: 769px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
 }
 
-@media (max-width: 600px) {
-  .header-top { padding: 12px 16px; gap: 10px; }
-  .logo { font-size: 1.3rem; }
-  .search-bar { max-width: 180px; }
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; text-align: center; }
+/* ============================================================
+   ████████████████████████████████████████
+   MOBILE — FULL NATIVE APP REDESIGN
+   ████████████████████████████████████████
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ── Hide desktop elements ── */
+  .social-icons,
+  .header-nav,
+  .mobile-menu-btn,
+  .search-bar { display: none !important; }
+
+  /* ── Show mobile-only elements ── */
+  #mobileTopBar { display: flex !important; }
+  #mobileHeroCard { display: block !important; }
+  #mobileCategoryStrip { display: block !important; }
+  #mobileBottomNav { display: flex !important; }
+
+  /* ── Hide desktop hero on mobile ── */
+  .hero { display: none !important; }
+
+  /* ── Hero card margin (below fixed top bar) ── */
+  #mobileHeroCard {
+    margin: 68px 16px 0 !important;
+  }
+
+  /* ── Mobile Header: minimal, glassy ── */
+  #header {
+    border-bottom: none;
+    background: transparent;
+    backdrop-filter: none;
+  }
+  .header-top {
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* ── Mobile Top Bar (replaces header on mobile) ── */
+  #mobileTopBar {
+    display: flex;
+  }
+
+  /* ── Hero: full-bleed gradient card ── */
+  .hero {
+    margin-top: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    text-align: left;
+    overflow: hidden;
+  }
+  .hero::before { display: none; }
+  .hero-badge { display: none; }
+  .hero h1, .hero p { display: none; }
+
+  /* ── Main content: safe area for bottom nav ── */
+  .main-content {
+    padding: 0 0 100px 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* ── Category sections ── */
+  .category-section {
+    margin-bottom: 0 !important;
+    padding: 0 0 32px 0;
+  }
+  .section-header {
+    padding: 0 16px;
+    margin-bottom: 14px !important;
+    border-bottom: none !important;
+  }
+  .section-title {
+    font-size: 1.1rem !important;
+  }
+
+  /* ── Product grid: horizontal snap scroll ── */
+  .product-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 12px !important;
+    padding: 4px 16px 12px !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .product-grid::-webkit-scrollbar { display: none; }
+
+  /* ── Product cards: snap, portrait style ── */
+  .product-card {
+    flex: 0 0 168px !important;
+    min-width: 168px !important;
+    scroll-snap-align: start !important;
+    border-radius: 18px !important;
+  }
+  .card-image-wrap {
+    aspect-ratio: 1 !important;
+    height: 160px !important;
+  }
+  .card-actions-overlay {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .card-action-btn {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.7rem !important;
+  }
+  .card-body { padding: 10px 12px 8px !important; gap: 5px !important; }
+  .card-name { font-size: 0.8rem !important; -webkit-line-clamp: 2 !important; }
+  .card-brand { font-size: 0.65rem !important; }
+  .card-footer { padding: 0 12px 12px !important; gap: 6px !important; }
+  .btn-details { display: none !important; }
+  .btn-buy {
+    width: 100% !important;
+    font-size: 0.8rem !important;
+    padding: 9px 0 !important;
+    border-radius: 10px !important;
+  }
+
+  /* ── Desktop modal: hidden on mobile (bottom sheet used instead) ── */
+  .modal-backdrop { display: none !important; }
+
+  /* ── Desktop share popup: hidden on mobile ── */
+  .share-popup { display: none !important; }
+
+  /* ── Toast: sits above bottom nav ── */
+  .toast {
+    bottom: 90px !important;
+  }
+
+  /* ── Footer: simplified ── */
+  footer {
+    padding: 32px 16px 100px !important;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .footer-col:nth-child(3),
+  .footer-col:nth-child(4) { display: none; }
+  .footer-bottom {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 8px !important;
+  }
+  .footer-affiliate { max-width: 100% !important; }
 }
+
+/* ── Mobile-only elements (hidden on desktop) ── */
+#mobileTopBar,
+#mobileCategoryStrip,
+#mobileHeroCard,
+#mobileSearchOverlay,
+#mobileBottomSheet,
+#mobileBottomNav,
+.m-sheet-share-panel {
+  display: none;
+}
+
+/* ============================================================
+   MOBILE TOP BAR
+   ============================================================ */
+#mobileTopBar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  height: 60px;
+  background: var(--header-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  gap: 12px;
+}
+.mtb-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent2), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+.mtb-actions { display: flex; align-items: center; gap: 8px; }
+.mtb-btn {
+  width: 38px; height: 38px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3);
+  color: var(--text2);
+  border: 1px solid var(--border);
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.mtb-btn:active { transform: scale(0.92); }
+
+/* ============================================================
+   MOBILE HERO CARD
+   ============================================================ */
+#mobileHeroCard {
+  margin: 60px 16px 0;
+  padding: 24px 20px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--accent) 0%, #1a0533 60%, var(--bg) 100%);
+  position: relative;
+  overflow: hidden;
+}
+#mobileHeroCard::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(168,85,247,0.2);
+  pointer-events: none;
+}
+#mobileHeroCard::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 30%;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(245,158,11,0.1);
+  pointer-events: none;
+}
+.mhc-label {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.mhc-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.mhc-title span {
+  color: var(--gold);
+}
+.mhc-sub {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+  max-width: 220px;
+}
+.mhc-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: #fff;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+/* ============================================================
+   MOBILE CATEGORY STRIP
+   ============================================================ */
+#mobileCategoryStrip {
+  padding: 14px 0 0;
+  position: sticky;
+  top: 60px;
+  z-index: 800;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.mcs-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 16px 12px;
+  scrollbar-width: none;
+}
+.mcs-inner::-webkit-scrollbar { display: none; }
+.mcs-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  border-radius: 50px;
+  background: var(--bg3);
+  border: 1.5px solid transparent;
+  color: var(--text2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.mcs-pill i { font-size: 0.75rem; }
+.mcs-pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.35);
+}
+.mcs-pill:active { transform: scale(0.95); }
+
+/* ============================================================
+   MOBILE SEARCH OVERLAY
+   ============================================================ */
+#mobileSearchOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  background: var(--bg);
+  flex-direction: column;
+  animation: msoIn 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes msoIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+#mobileSearchOverlay.open { display: flex; }
+.mso-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.mso-back {
+  width: 38px; height: 38px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3);
+  color: var(--text);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.mso-input-wrap {
+  flex: 1;
+  position: relative;
+}
+.mso-input-wrap input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--bg3);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+}
+.mso-input-wrap input:focus { border-color: var(--accent); }
+.mso-input-wrap .mso-search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--text3); font-size: 0.9rem; pointer-events: none;
+}
+.mso-results { flex: 1; overflow-y: auto; padding: 8px 0; }
+.mso-empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; gap: 12px; color: var(--text3);
+}
+.mso-empty i { font-size: 2.5rem; opacity: 0.3; }
+.mso-empty p { font-size: 0.9rem; }
+.mso-result-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--border);
+}
+.mso-result-item:active { background: var(--bg3); }
+.mso-result-item img {
+  width: 52px; height: 52px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--bg3);
+  flex-shrink: 0;
+}
+.mso-result-info { flex: 1; min-width: 0; }
+.mso-result-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mso-result-meta { font-size: 0.75rem; color: var(--text3); margin-top: 2px; }
+.mso-result-arrow { color: var(--text3); font-size: 0.75rem; flex-shrink: 0; }
+.mso-trending {
+  padding: 16px 16px 8px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text3);
+  font-weight: 600;
+}
+.mso-trending-pills { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px; }
+.mso-trending-pill {
+  padding: 6px 12px;
+  border-radius: 50px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text2);
+  cursor: pointer;
+}
+.mso-trending-pill:active { background: var(--accent); color: #fff; }
+
+/* ============================================================
+   MOBILE BOTTOM SHEET (product detail)
+   ============================================================ */
+#mobileBottomSheet {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+#mobileBottomSheet.open { display: flex; }
+.mbs-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.mbs-sheet {
+  position: relative;
+  z-index: 1;
+  background: var(--bg2);
+  border-radius: 28px 28px 0 0;
+  max-height: 92vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: mbsSlideUp 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes mbsSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.mbs-drag-handle {
+  width: 40px; height: 4px;
+  border-radius: 2px;
+  background: var(--text3);
+  margin: 12px auto 0;
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+.mbs-image-wrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--bg3);
+  position: relative;
+  flex-shrink: 0;
+}
+.mbs-image-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.mbs-badge-overlay {
+  position: absolute; top: 12px; left: 12px;
+}
+.mbs-fav-btn {
+  position: absolute; top: 12px; right: 12px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.mbs-fav-btn.active { background: var(--red); border-color: var(--red); }
+.mbs-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 20px 0;
+  -webkit-overflow-scrolling: touch;
+}
+.mbs-brand {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--accent3);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.mbs-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.mbs-rating {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 14px;
+}
+.mbs-rating .stars { font-size: 0.85rem; }
+.mbs-rating-count { font-size: 0.8rem; color: var(--text3); }
+.mbs-desc {
+  font-size: 0.88rem;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.mbs-features-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text3);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.mbs-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.mbs-feature {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--bg3);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.84rem;
+  color: var(--text2);
+}
+.mbs-feature i { color: var(--green); font-size: 0.75rem; margin-top: 3px; flex-shrink: 0; }
+.mbs-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.mbs-tag {
+  padding: 4px 10px;
+  border-radius: 50px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-size: 0.73rem;
+  color: var(--text2);
+}
+
+/* Bottom sheet action bar */
+.mbs-actions {
+  padding: 14px 20px;
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  background: var(--bg2);
+  flex-shrink: 0;
+}
+.mbs-buy-btn {
+  flex: 1;
+  padding: 15px 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.mbs-buy-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 20px rgba(124,58,237,0.5);
+}
+.mbs-icon-btn {
+  width: 52px;
+  border-radius: 16px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.mbs-icon-btn:active { background: var(--accent); color: #fff; }
+
+/* ============================================================
+   MOBILE SHARE PANEL (inside bottom sheet)
+   ============================================================ */
+.m-sheet-share-panel {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: var(--bg2);
+  border-radius: 24px 24px 0 0;
+  padding: 20px;
+  z-index: 10;
+  border-top: 1px solid var(--border);
+  animation: mbsSlideUp 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.m-sheet-share-panel.open { display: block; }
+.mssp-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.mssp-close {
+  margin-left: auto;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2);
+  font-size: 0.75rem;
+}
+.mssp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.mssp-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer;
+}
+.mssp-icon {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem;
+  color: #fff;
+  transition: transform 0.15s;
+}
+.mssp-icon:active { transform: scale(0.9); }
+.mssp-icon.fb { background: #1877f2; }
+.mssp-icon.tw { background: #000; }
+.mssp-icon.wa { background: #25d366; }
+.mssp-icon.pi { background: #e60023; }
+.mssp-icon.tg { background: #2aabee; }
+.mssp-icon.em { background: #6b7280; }
+.mssp-icon.lk { background: #0077b5; }
+.mssp-icon.cp { background: var(--accent); }
+.mssp-label { font-size: 0.68rem; color: var(--text2); }
+.mssp-copy-row {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg3);
+  border-radius: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+}
+.mssp-copy-url { flex: 1; font-size: 0.78rem; color: var(--text3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mssp-copy-btn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   MOBILE BOTTOM NAV
+   ============================================================ */
+#mobileBottomNav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 700;
+  height: 72px;
+  background: var(--header-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mbn-item {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  flex: 1;
+  padding: 8px 0;
+  cursor: pointer;
+  color: var(--text3);
+  transition: color 0.2s ease;
+  position: relative;
+}
+.mbn-item.active { color: var(--accent2); }
+.mbn-item i { font-size: 1.1rem; }
+.mbn-item span { font-size: 0.62rem; font-weight: 600; font-family: var(--font-display); }
+.mbn-item::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 0; height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: var(--accent2);
+  transition: width 0.25s ease;
+}
+.mbn-item.active::after { width: 24px; }
+.mbn-center-btn {
+  width: 50px; height: 50px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+.mbn-center-btn:active { transform: scale(0.92); }
 </style>
 </head>
 
@@ -882,32 +1585,104 @@ footer {
   </nav>
 </header>
 
+
 <!-- ============================================================
-     MOBILE DRAWER
+     MOBILE TOP BAR
      ============================================================ -->
-<div class="mobile-overlay" id="mobileOverlay">
-  <div class="mobile-drawer">
-    <div class="mobile-drawer-head">
-      <div class="logo">NEXUS</div>
-      <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+<div id="mobileTopBar">
+  <div class="mtb-logo">NEXUS<span style="font-size:0.45em;opacity:0.5;font-weight:400;vertical-align:super;">STORE</span></div>
+  <div class="mtb-actions">
+    <button class="mtb-btn" id="mobileSearchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+    <button class="mtb-btn" id="mobileThemeBtn" aria-label="Theme"><i class="fas fa-sun"></i></button>
+  </div>
+</div>
+
+<!-- ============================================================
+     MOBILE SEARCH OVERLAY
+     ============================================================ -->
+<div id="mobileSearchOverlay">
+  <div class="mso-header">
+    <button class="mso-back" id="msoBack"><i class="fas fa-arrow-left"></i></button>
+    <div class="mso-input-wrap">
+      <i class="fas fa-search mso-search-icon"></i>
+      <input type="text" id="msoInput" placeholder="Search products, brands…" autocomplete="off" autocorrect="off">
     </div>
-    <div class="mobile-search">
-      <input type="text" id="mobileSearch" placeholder="Search products…">
+  </div>
+  <div class="mso-results" id="msoResults">
+    <div class="mso-trending">Trending</div>
+    <div class="mso-trending-pills" id="msoTrendingPills"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MOBILE BOTTOM SHEET (Product Detail)
+     ============================================================ -->
+<div id="mobileBottomSheet">
+  <div class="mbs-backdrop" id="mbsBackdrop"></div>
+  <div class="mbs-sheet" id="mbsSheet">
+    <div class="mbs-drag-handle"></div>
+    <div class="mbs-image-wrap">
+      <img id="mbsImg" src="" alt="">
+      <div class="mbs-badge-overlay"><span class="card-badge" id="mbsBadge"></span></div>
+      <button class="mbs-fav-btn" id="mbsFavBtn"><i class="fas fa-heart"></i></button>
     </div>
-    <div class="mobile-nav-title">Categories</div>
-    <div id="mobileNavItems"></div>
-    <div class="mobile-nav-title">Follow Us</div>
-    <div class="mobile-social">
-      <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+    <div class="mbs-scroll">
+      <div class="mbs-brand" id="mbsBrand"></div>
+      <div class="mbs-title" id="mbsTitle"></div>
+      <div class="mbs-rating">
+        <div class="stars" id="mbsStars"></div>
+        <span class="mbs-rating-count" id="mbsRatingCount"></span>
+      </div>
+      <p class="mbs-desc" id="mbsDesc"></p>
+      <div class="mbs-features-title">Key Features</div>
+      <div class="mbs-features" id="mbsFeatures"></div>
+      <div class="mbs-tags" id="mbsTags"></div>
+      <div style="height:20px"></div>
+    </div>
+    <div class="mbs-actions">
+      <a id="mbsBuyBtn" href="#" target="_blank" rel="noopener" class="mbs-buy-btn">
+        <i class="fab fa-amazon"></i> Buy on Amazon
+      </a>
+      <button class="mbs-icon-btn" id="mbsShareBtn" aria-label="Share"><i class="fas fa-share-alt"></i></button>
+    </div>
+    <div class="m-sheet-share-panel" id="mbsSharePanel">
+      <div class="mssp-title">
+        <i class="fas fa-share-nodes"></i> Share Product
+        <button class="mssp-close" id="mbsShareClose"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="mssp-grid" id="msspGrid"></div>
+      <div class="mssp-copy-row">
+        <span class="mssp-copy-url" id="msspUrl"></span>
+        <button class="mssp-copy-btn" id="msspCopyBtn">Copy</button>
+      </div>
     </div>
   </div>
 </div>
+
+<!-- ============================================================
+     MOBILE BOTTOM NAV
+     ============================================================ -->
+<nav id="mobileBottomNav">
+  <div class="mbn-item active" data-nav="home" id="mbnHome">
+    <i class="fas fa-house"></i>
+    <span>Home</span>
+  </div>
+  <div class="mbn-item" data-nav="search" id="mbnSearch">
+    <i class="fas fa-search"></i>
+    <span>Search</span>
+  </div>
+  <button class="mbn-center-btn" id="mbnAmazonBtn" aria-label="Browse Amazon">
+    <i class="fab fa-amazon"></i>
+  </button>
+  <div class="mbn-item" data-nav="wishlist" id="mbnWishlist">
+    <i class="fas fa-heart"></i>
+    <span>Saved</span>
+  </div>
+  <div class="mbn-item" data-nav="more" id="mbnMore">
+    <i class="fas fa-grip"></i>
+    <span>More</span>
+  </div>
+</nav>
 
 <!-- ============================================================
      HERO
@@ -917,6 +1692,20 @@ footer {
   <h1>Discover <span>Premium Products</span><br>You'll Actually Love</h1>
   <p>Hand-selected top-rated products across every category — all powered by Amazon's trusted marketplace.</p>
 </div>
+
+<!-- Mobile hero card (shown only on mobile, replaces the .hero section visually) -->
+<div id="mobileHeroCard">
+  <div class="mhc-label"><i class="fas fa-bolt"></i> Curated Amazon Picks</div>
+  <div class="mhc-title">Discover <span>Premium</span><br>Products</div>
+  <div class="mhc-sub">Top-rated picks across every category — trusted Amazon marketplace.</div>
+  <div class="mhc-pill"><i class="fab fa-amazon"></i>&nbsp; Shop Now</div>
+</div>
+
+<!-- Mobile Category Strip -->
+<div id="mobileCategoryStrip">
+  <div class="mcs-inner" id="mcsPills"></div>
+</div>
+
 
 <!-- ============================================================
      MAIN CONTENT
@@ -1669,65 +2458,10 @@ const CATEGORIES = [
 ];
 
 // ============================================================
-// ██  THEME TOGGLE
+// ██  UTILS
 // ============================================================
-const themeToggle = document.getElementById('themeToggle');
-const html = document.documentElement;
-let isDark = true;
+const isMobile = () => window.innerWidth <= 768;
 
-function setTheme(dark) {
-  isDark = dark;
-  html.setAttribute('data-theme', dark ? 'dark' : 'light');
-  themeToggle.innerHTML = dark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-  localStorage.setItem('nexus-theme', dark ? 'dark' : 'light');
-}
-const savedTheme = localStorage.getItem('nexus-theme');
-if (savedTheme) setTheme(savedTheme === 'dark');
-themeToggle.addEventListener('click', () => setTheme(!isDark));
-
-// ============================================================
-// ██  BUILD NAV
-// ============================================================
-function buildNav() {
-  const navInner = document.getElementById('navInner');
-  const mobileNavItems = document.getElementById('mobileNavItems');
-  const footerCategories = document.getElementById('footerCategories');
-
-  CATEGORIES.forEach((cat, i) => {
-    // Desktop nav
-    const btn = document.createElement('button');
-    btn.className = 'nav-item' + (i === 0 ? ' active' : '');
-    btn.innerHTML = `<i class="${cat.icon}"></i>${cat.name}`;
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      btn.classList.add('active');
-      const section = document.getElementById('cat-' + cat.id);
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      closeMobileMenu();
-    });
-    navInner.appendChild(btn);
-
-    // Mobile nav
-    const mBtn = document.createElement('div');
-    mBtn.className = 'mobile-nav-item';
-    mBtn.innerHTML = `<i class="${cat.icon}"></i>${cat.name}`;
-    mBtn.addEventListener('click', () => {
-      const section = document.getElementById('cat-' + cat.id);
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      closeMobileMenu();
-    });
-    mobileNavItems.appendChild(mBtn);
-
-    // Footer
-    const li = document.createElement('li');
-    li.innerHTML = `<a href="#cat-${cat.id}">${cat.name}</a>`;
-    footerCategories.appendChild(li);
-  });
-}
-
-// ============================================================
-// ██  BUILD PRODUCT CARDS
-// ============================================================
 function starsHTML(rating) {
   const full = Math.floor(rating);
   const half = rating % 1 >= 0.3 && rating % 1 < 0.8;
@@ -1737,13 +2471,115 @@ function starsHTML(rating) {
   return s;
 }
 
-function buildProductCard(product, catId) {
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+function badgeLabel(b) {
+  if (!b) return '';
+  return { bestseller: '🔥 Best Seller', new: '✨ New', deal: '💥 Deal', prime: '📦 Prime' }[b] || b;
+}
+
+// ============================================================
+// ██  THEME TOGGLE
+// ============================================================
+const html = document.documentElement;
+let isDark = true;
+
+function setTheme(dark) {
+  isDark = dark;
+  html.setAttribute('data-theme', dark ? 'dark' : 'light');
+  // Sync all theme buttons
+  const icon = dark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  document.getElementById('themeToggle').innerHTML = icon;
+  document.getElementById('mobileThemeBtn').innerHTML = icon;
+  localStorage.setItem('nexus-theme', dark ? 'dark' : 'light');
+}
+const savedTheme = localStorage.getItem('nexus-theme');
+if (savedTheme) setTheme(savedTheme === 'dark');
+document.getElementById('themeToggle').addEventListener('click', () => setTheme(!isDark));
+document.getElementById('mobileThemeBtn').addEventListener('click', () => setTheme(!isDark));
+
+// ============================================================
+// ██  WISHLIST STATE
+// ============================================================
+const wishlistSet = new Set();
+
+// ============================================================
+// ██  BUILD DESKTOP NAV
+// ============================================================
+function buildNav() {
+  const navInner = document.getElementById('navInner');
+  const footerCategories = document.getElementById('footerCategories');
+
+  CATEGORIES.forEach((cat, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'nav-item' + (i === 0 ? ' active' : '');
+    btn.innerHTML = `<i class="${cat.icon}"></i>${cat.name}`;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('cat-' + cat.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    navInner.appendChild(btn);
+
+    const li = document.createElement('li');
+    li.innerHTML = `<a href="#cat-${cat.id}">${cat.name}</a>`;
+    footerCategories.appendChild(li);
+  });
+}
+
+// ============================================================
+// ██  BUILD MOBILE CATEGORY PILLS
+// ============================================================
+function buildMobilePills() {
+  const container = document.getElementById('mcsPills');
+
+  // "All" pill
+  const allPill = document.createElement('div');
+  allPill.className = 'mcs-pill active';
+  allPill.innerHTML = `<i class="fas fa-layer-group"></i> All`;
+  allPill.addEventListener('click', () => {
+    setActivePill(allPill);
+    document.getElementById('mainContent').scrollIntoView({ behavior: 'smooth' });
+  });
+  container.appendChild(allPill);
+
+  CATEGORIES.forEach(cat => {
+    const pill = document.createElement('div');
+    pill.className = 'mcs-pill';
+    pill.innerHTML = `<i class="${cat.icon}"></i> ${cat.name}`;
+    pill.addEventListener('click', () => {
+      setActivePill(pill);
+      const section = document.getElementById('cat-' + cat.id);
+      if (section) {
+        const y = section.getBoundingClientRect().top + window.scrollY - 120;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
+    container.appendChild(pill);
+  });
+
+  function setActivePill(el) {
+    container.querySelectorAll('.mcs-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+}
+
+// ============================================================
+// ██  BUILD PRODUCT CARDS
+// ============================================================
+function buildProductCard(product) {
   const card = document.createElement('div');
   card.className = 'product-card';
   card.innerHTML = `
     <div class="card-image-wrap">
       <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400/333/aaa?text=Product'">
-      ${product.badge ? `<span class="card-badge badge-${product.badge}">${product.badge === 'bestseller' ? '🔥 Best Seller' : product.badge === 'new' ? '✨ New' : product.badge === 'deal' ? '💥 Deal' : '📦 Prime'}</span>` : ''}
+      ${product.badge ? `<span class="card-badge badge-${product.badge}">${badgeLabel(product.badge)}</span>` : ''}
       <div class="card-actions-overlay">
         <button class="card-action-btn wishlist-btn" title="Wishlist"><i class="fas fa-heart"></i></button>
         <button class="card-action-btn share-card-btn" title="Share"><i class="fas fa-share-alt"></i></button>
@@ -1765,31 +2601,41 @@ function buildProductCard(product, catId) {
     </div>
   `;
 
-  // Details
-  card.querySelector('.btn-details').addEventListener('click', (e) => {
-    e.stopPropagation();
-    openModal(product);
-  });
-  card.querySelector('.card-image-wrap').addEventListener('click', () => openModal(product));
-  card.querySelector('.card-name').addEventListener('click', () => openModal(product));
+  // Desktop modal / Mobile bottom sheet
+  const openDetail = () => {
+    if (isMobile()) openBottomSheet(product);
+    else openModal(product);
+  };
+
+  card.querySelector('.btn-details').addEventListener('click', (e) => { e.stopPropagation(); openDetail(); });
+  card.querySelector('.card-image-wrap').addEventListener('click', openDetail);
+  card.querySelector('.card-name').addEventListener('click', openDetail);
 
   // Wishlist
   const wishlistBtn = card.querySelector('.wishlist-btn');
+  if (wishlistSet.has(product.asin)) wishlistBtn.classList.add('active');
   wishlistBtn.addEventListener('click', (e) => {
     e.stopPropagation();
+    wishlistSet.has(product.asin) ? wishlistSet.delete(product.asin) : wishlistSet.add(product.asin);
     wishlistBtn.classList.toggle('active');
-    showToast(wishlistBtn.classList.contains('active') ? '❤️ Added to wishlist' : '💔 Removed from wishlist');
+    // sync all wishlist buttons for same product
+    document.querySelectorAll('.wishlist-btn').forEach(b => {
+      const card = b.closest('.product-card');
+      if (card && card.querySelector('.card-name').textContent === product.name) {
+        b.classList.toggle('active', wishlistSet.has(product.asin));
+      }
+    });
+    showToast(wishlistSet.has(product.asin) ? '❤️ Added to wishlist' : '💔 Removed from wishlist');
   });
 
   // Share
   card.querySelector('.share-card-btn').addEventListener('click', (e) => {
     e.stopPropagation();
-    openSharePopup(product);
+    if (isMobile()) openMobileShare(product);
+    else openSharePopup(product);
   });
 
-  // Buy stops propagation
   card.querySelector('.btn-buy').addEventListener('click', (e) => e.stopPropagation());
-
   return card;
 }
 
@@ -1816,17 +2662,17 @@ function buildSections() {
     main.appendChild(section);
 
     const grid = section.querySelector(`#grid-${cat.id}`);
-    cat.products.forEach(p => grid.appendChild(buildProductCard(p, cat.id)));
+    cat.products.forEach(p => grid.appendChild(buildProductCard(p)));
   });
 }
 
 // ============================================================
-// ██  PRODUCT MODAL
+// ██  DESKTOP MODAL
 // ============================================================
-let currentModalProduct = null;
+let currentProduct = null;
 
 function openModal(product) {
-  currentModalProduct = product;
+  currentProduct = product;
   document.getElementById('modalImg').src = product.image;
   document.getElementById('modalImg').onerror = function(){ this.src='https://placehold.co/500x500/333/aaa?text=Product'; };
   document.getElementById('modalBrand').textContent = product.brand;
@@ -1835,13 +2681,8 @@ function openModal(product) {
   document.getElementById('modalRatingNum').textContent = `${product.rating} · ${product.reviews} reviews`;
   document.getElementById('modalDesc').textContent = product.desc;
   document.getElementById('modalBuyBtn').href = amazonLink(product.asin);
-
-  const featsDiv = document.getElementById('modalFeatures');
-  featsDiv.innerHTML = product.features.map(f => `<div class="modal-feature"><i class="fas fa-check-circle"></i><span>${f}</span></div>`).join('');
-
-  const tagsDiv = document.getElementById('modalTags');
-  tagsDiv.innerHTML = product.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
-
+  document.getElementById('modalFeatures').innerHTML = product.features.map(f => `<div class="modal-feature"><i class="fas fa-check-circle"></i><span>${f}</span></div>`).join('');
+  document.getElementById('modalTags').innerHTML = product.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
   document.getElementById('modalBackdrop').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1856,54 +2697,150 @@ function closeModal() {
 }
 
 // ============================================================
-// ██  SHARE FUNCTIONALITY
+// ██  DESKTOP SHARE
 // ============================================================
 document.getElementById('modalShareBtn').addEventListener('click', (e) => {
   e.stopPropagation();
-  if (currentModalProduct) openSharePopup(currentModalProduct);
+  if (currentProduct) openSharePopup(currentProduct);
 });
 
 function openSharePopup(product) {
   const url = amazonLink(product.asin);
   const text = encodeURIComponent(`Check out ${product.name} on Amazon!`);
-  const encodedUrl = encodeURIComponent(url);
-
+  const enc = encodeURIComponent(url);
   const popup = document.getElementById('sharePopup');
-  const linksDiv = document.getElementById('shareLinks');
-  linksDiv.innerHTML = `
-    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" class="share-link"><i class="fab fa-facebook-f"></i> Facebook</a>
-    <a href="https://twitter.com/intent/tweet?text=${text}&url=${encodedUrl}" target="_blank" class="share-link"><i class="fab fa-x-twitter"></i> X</a>
-    <a href="https://wa.me/?text=${text}%20${encodedUrl}" target="_blank" class="share-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    <a href="https://www.pinterest.com/pin/create/button/?url=${encodedUrl}&description=${text}" target="_blank" class="share-link"><i class="fab fa-pinterest-p"></i> Pinterest</a>
-    <a href="https://t.me/share/url?url=${encodedUrl}&text=${text}" target="_blank" class="share-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
-    <span class="share-link share-link-copy" onclick="copyLink('${url}')"><i class="fas fa-copy"></i> Copy Link</span>
+  document.getElementById('shareLinks').innerHTML = `
+    <a href="https://www.facebook.com/sharer/sharer.php?u=${enc}" target="_blank" class="share-link"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a href="https://twitter.com/intent/tweet?text=${text}&url=${enc}" target="_blank" class="share-link"><i class="fab fa-x-twitter"></i> X</a>
+    <a href="https://wa.me/?text=${text}%20${enc}" target="_blank" class="share-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://www.pinterest.com/pin/create/button/?url=${enc}&description=${text}" target="_blank" class="share-link"><i class="fab fa-pinterest-p"></i> Pinterest</a>
+    <a href="https://t.me/share/url?url=${enc}&text=${text}" target="_blank" class="share-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
+    <span class="share-link share-link-copy" onclick="copyLink('${url}')"><i class="fas fa-copy"></i> Copy</span>
   `;
   popup.classList.add('show');
   setTimeout(() => popup.classList.remove('show'), 6000);
 }
 
 function copyLink(url) {
-  navigator.clipboard.writeText(url).then(() => showToast('🔗 Link copied to clipboard!'));
+  navigator.clipboard.writeText(url).then(() => showToast('🔗 Link copied!'));
   document.getElementById('sharePopup').classList.remove('show');
+  document.getElementById('mbsSharePanel').classList.remove('open');
 }
 
 // ============================================================
-// ██  TOAST
+// ██  MOBILE BOTTOM SHEET
 // ============================================================
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2800);
+let mbsCurrentProduct = null;
+let mbsFavoritedThisSession = false;
+
+function openBottomSheet(product) {
+  mbsCurrentProduct = product;
+  mbsFavoritedThisSession = wishlistSet.has(product.asin);
+
+  document.getElementById('mbsImg').src = product.image;
+  document.getElementById('mbsImg').onerror = function(){ this.src='https://placehold.co/500x500/333/aaa?text=Product'; };
+
+  const badge = document.getElementById('mbsBadge');
+  if (product.badge) {
+    badge.className = `card-badge badge-${product.badge}`;
+    badge.textContent = badgeLabel(product.badge);
+  } else {
+    badge.className = 'card-badge';
+    badge.textContent = '';
+  }
+
+  const favBtn = document.getElementById('mbsFavBtn');
+  favBtn.classList.toggle('active', wishlistSet.has(product.asin));
+
+  document.getElementById('mbsBrand').textContent = product.brand;
+  document.getElementById('mbsTitle').textContent = product.name;
+  document.getElementById('mbsStars').innerHTML = starsHTML(product.rating);
+  document.getElementById('mbsRatingCount').textContent = `${product.rating} · ${product.reviews} reviews`;
+  document.getElementById('mbsDesc').textContent = product.desc;
+  document.getElementById('mbsBuyBtn').href = amazonLink(product.asin);
+  document.getElementById('mbsFeatures').innerHTML = product.features.map(f => `<div class="mbs-feature"><i class="fas fa-check-circle"></i><span>${f}</span></div>`).join('');
+  document.getElementById('mbsTags').innerHTML = product.tags.map(t => `<span class="mbs-tag">${t}</span>`).join('');
+
+  // Reset scroll
+  document.getElementById('mbsSheet').querySelector('.mbs-scroll').scrollTop = 0;
+  // Close share panel if open
+  document.getElementById('mbsSharePanel').classList.remove('open');
+
+  document.getElementById('mobileBottomSheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
+function closeBottomSheet() {
+  document.getElementById('mobileBottomSheet').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('mbsBackdrop').addEventListener('click', closeBottomSheet);
+
+document.getElementById('mbsFavBtn').addEventListener('click', () => {
+  if (!mbsCurrentProduct) return;
+  const asin = mbsCurrentProduct.asin;
+  wishlistSet.has(asin) ? wishlistSet.delete(asin) : wishlistSet.add(asin);
+  document.getElementById('mbsFavBtn').classList.toggle('active', wishlistSet.has(asin));
+  showToast(wishlistSet.has(asin) ? '❤️ Added to wishlist' : '💔 Removed from wishlist');
+});
+
 // ============================================================
-// ██  SEARCH
+// ██  MOBILE SHARE PANEL
 // ============================================================
-function setupSearch() {
+function openMobileShare(product) {
+  mbsCurrentProduct = product;
+  const url = amazonLink(product.asin);
+  const text = encodeURIComponent(`Check out ${product.name} on Amazon!`);
+  const enc = encodeURIComponent(url);
+
+  document.getElementById('msspUrl').textContent = url;
+  document.getElementById('msspCopyBtn').onclick = () => copyLink(url);
+
+  const shares = [
+    { label: 'Facebook', cls: 'fb', icon: 'fa-facebook-f', href: `https://www.facebook.com/sharer/sharer.php?u=${enc}` },
+    { label: 'X', cls: 'tw', icon: 'fa-x-twitter', href: `https://twitter.com/intent/tweet?text=${text}&url=${enc}` },
+    { label: 'WhatsApp', cls: 'wa', icon: 'fa-whatsapp', href: `https://wa.me/?text=${text}%20${enc}` },
+    { label: 'Pinterest', cls: 'pi', icon: 'fa-pinterest-p', href: `https://www.pinterest.com/pin/create/button/?url=${enc}` },
+    { label: 'Telegram', cls: 'tg', icon: 'fa-telegram-plane', href: `https://t.me/share/url?url=${enc}&text=${text}` },
+    { label: 'LinkedIn', cls: 'lk', icon: 'fa-linkedin-in', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc}` },
+    { label: 'Email', cls: 'em', icon: 'fa-envelope', href: `mailto:?subject=Check%20this%20out&body=${text}%20${enc}` },
+    { label: 'Copy', cls: 'cp', icon: 'fa-copy', href: null },
+  ];
+
+  document.getElementById('msspGrid').innerHTML = shares.map(s => `
+    <div class="mssp-btn" ${s.href ? `onclick="window.open('${s.href}','_blank')"` : `onclick="copyLink('${url}')"` }>
+      <div class="mssp-icon ${s.cls}"><i class="fab ${s.icon}"></i></div>
+      <span class="mssp-label">${s.label}</span>
+    </div>
+  `).join('');
+
+  // Fix copy and email icons (fas not fab)
+  document.getElementById('msspGrid').querySelector('.mssp-icon.cp i').className = 'fas fa-copy';
+  document.getElementById('msspGrid').querySelector('.mssp-icon.em i').className = 'fas fa-envelope';
+
+  document.getElementById('mbsSharePanel').classList.add('open');
+
+  // If not on bottom sheet, open it first
+  if (!document.getElementById('mobileBottomSheet').classList.contains('open')) {
+    openBottomSheet(product);
+    setTimeout(() => document.getElementById('mbsSharePanel').classList.add('open'), 400);
+  }
+}
+
+document.getElementById('mbsShareBtn').addEventListener('click', () => {
+  if (mbsCurrentProduct) openMobileShare(mbsCurrentProduct);
+});
+document.getElementById('mbsShareClose').addEventListener('click', () => {
+  document.getElementById('mbsSharePanel').classList.remove('open');
+});
+
+// ============================================================
+// ██  DESKTOP SEARCH
+// ============================================================
+function setupDesktopSearch() {
   const input = document.getElementById('mainSearch');
   const resultsBox = document.getElementById('searchResults');
-
   const allProducts = CATEGORIES.flatMap(cat => cat.products.map(p => ({ ...p, catName: cat.name })));
 
   function doSearch(q) {
@@ -1928,7 +2865,6 @@ function setupSearch() {
           </div>
         </div>
       `).join('');
-
       resultsBox.querySelectorAll('.search-result-item').forEach((el, i) => {
         el.addEventListener('click', () => {
           openModal(matches[i]);
@@ -1940,39 +2876,195 @@ function setupSearch() {
     resultsBox.classList.add('show');
   }
 
-  input.addEventListener('input', (e) => doSearch(e.target.value));
-  document.getElementById('mobileSearch').addEventListener('input', (e) => {
-    doSearch(e.target.value);
-  });
-  document.addEventListener('click', (e) => {
+  input.addEventListener('input', e => doSearch(e.target.value));
+  document.addEventListener('click', e => {
     if (!e.target.closest('.search-bar')) resultsBox.classList.remove('show');
   });
 }
 
 // ============================================================
-// ██  MOBILE MENU
+// ██  MOBILE SEARCH OVERLAY
 // ============================================================
-document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-  document.getElementById('mobileOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-});
-function closeMobileMenu() {
-  document.getElementById('mobileOverlay').classList.remove('open');
-  document.body.style.overflow = '';
+function setupMobileSearch() {
+  const allProducts = CATEGORIES.flatMap(cat => cat.products.map(p => ({ ...p, catName: cat.name })));
+  const overlay = document.getElementById('mobileSearchOverlay');
+  const input = document.getElementById('msoInput');
+  const results = document.getElementById('msoResults');
+
+  // Trending pills (top brands / tags)
+  const trendingTerms = ['Apple', 'Sony', 'Fitness', 'Books', 'Kitchen', 'Skincare', 'Bestseller', 'Wireless'];
+  document.getElementById('msoTrendingPills').innerHTML = trendingTerms.map(t =>
+    `<div class="mso-trending-pill" onclick="msoSearch('${t}')">${t}</div>`
+  ).join('');
+
+  function openOverlay() {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => input.focus(), 100);
+  }
+  function closeOverlay() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    input.value = '';
+    resetResults();
+  }
+
+  function resetResults() {
+    results.innerHTML = `
+      <div class="mso-trending">Trending</div>
+      <div class="mso-trending-pills">${trendingTerms.map(t => `<div class="mso-trending-pill" onclick="msoSearch('${t}')">${t}</div>`).join('')}</div>
+    `;
+  }
+
+  window.msoSearch = function(term) {
+    input.value = term;
+    runSearch(term);
+  };
+
+  function runSearch(q) {
+    const query = q.trim().toLowerCase();
+    if (!query) { resetResults(); return; }
+
+    const matches = allProducts.filter(p =>
+      p.name.toLowerCase().includes(query) ||
+      p.brand.toLowerCase().includes(query) ||
+      p.tags.some(t => t.toLowerCase().includes(query)) ||
+      p.catName.toLowerCase().includes(query)
+    ).slice(0, 12);
+
+    if (!matches.length) {
+      results.innerHTML = `
+        <div class="mso-empty">
+          <i class="fas fa-search"></i>
+          <p>No results for "${q}"</p>
+        </div>`;
+      return;
+    }
+
+    results.innerHTML = matches.map((p, i) => `
+      <div class="mso-result-item" data-idx="${i}">
+        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/52x52/333/aaa?text=?'">
+        <div class="mso-result-info">
+          <div class="mso-result-name">${p.name}</div>
+          <div class="mso-result-meta">${p.catName} · ${p.brand}</div>
+        </div>
+        <i class="fas fa-chevron-right mso-result-arrow"></i>
+      </div>
+    `).join('');
+
+    results.querySelectorAll('.mso-result-item').forEach((el, i) => {
+      el.addEventListener('click', () => {
+        closeOverlay();
+        setTimeout(() => openBottomSheet(matches[i]), 200);
+      });
+    });
+  }
+
+  input.addEventListener('input', e => runSearch(e.target.value));
+  document.getElementById('msoBack').addEventListener('click', closeOverlay);
+
+  // Open triggers
+  document.getElementById('mobileSearchBtn').addEventListener('click', openOverlay);
+  document.getElementById('mbnSearch').addEventListener('click', openOverlay);
 }
-document.getElementById('drawerClose').addEventListener('click', closeMobileMenu);
-document.getElementById('mobileOverlay').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('mobileOverlay')) closeMobileMenu();
-});
+
+// ============================================================
+// ██  MOBILE BOTTOM NAV
+// ============================================================
+function setupBottomNav() {
+  document.getElementById('mbnHome').addEventListener('click', () => {
+    setActiveNav('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.getElementById('mbnAmazonBtn').addEventListener('click', () => {
+    window.open(`https://www.amazon.com?tag=${AMAZON_AFFILIATE_ID}`, '_blank');
+  });
+
+  document.getElementById('mbnWishlist').addEventListener('click', () => {
+    setActiveNav('wishlist');
+    if (wishlistSet.size === 0) {
+      showToast('❤️ No saved items yet');
+    } else {
+      showToast(`❤️ ${wishlistSet.size} item${wishlistSet.size > 1 ? 's' : ''} saved`);
+    }
+  });
+
+  document.getElementById('mbnMore').addEventListener('click', () => {
+    setActiveNav('more');
+    footer.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  function setActiveNav(id) {
+    document.querySelectorAll('.mbn-item').forEach(el => el.classList.remove('active'));
+    const el = document.querySelector(`[data-nav="${id}"]`);
+    if (el) el.classList.add('active');
+  }
+
+  // Update active pill on scroll
+  const sections = CATEGORIES.map(c => document.getElementById('cat-' + c.id)).filter(Boolean);
+  const pills = document.querySelectorAll('.mcs-pill');
+
+  window.addEventListener('scroll', () => {
+    if (!isMobile()) return;
+    let current = -1;
+    sections.forEach((s, i) => {
+      const top = s.getBoundingClientRect().top;
+      if (top <= 140) current = i;
+    });
+    if (current >= 0) {
+      pills.forEach(p => p.classList.remove('active'));
+      pills[current + 1]?.classList.add('active');
+      pills[current + 1]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    } else if (current === -1) {
+      pills.forEach(p => p.classList.remove('active'));
+      pills[0]?.classList.add('active');
+    }
+  }, { passive: true });
+}
+
+// ============================================================
+// ██  SWIPE TO CLOSE BOTTOM SHEET
+// ============================================================
+function setupSwipeClose() {
+  const sheet = document.getElementById('mbsSheet');
+  let startY = 0, isDragging = false;
+
+  sheet.addEventListener('touchstart', e => {
+    startY = e.touches[0].clientY;
+    isDragging = true;
+  }, { passive: true });
+
+  sheet.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dy = e.touches[0].clientY - startY;
+    if (dy > 0) {
+      sheet.style.transform = `translateY(${dy}px)`;
+      sheet.style.transition = 'none';
+    }
+  }, { passive: true });
+
+  sheet.addEventListener('touchend', e => {
+    isDragging = false;
+    const dy = e.changedTouches[0].clientY - startY;
+    sheet.style.transition = '';
+    if (dy > 100) {
+      closeBottomSheet();
+    }
+    sheet.style.transform = '';
+  });
+}
 
 // ============================================================
 // ██  KEYBOARD ESC
 // ============================================================
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeModal();
-    closeMobileMenu();
+    closeBottomSheet();
+    document.getElementById('mobileSearchOverlay').classList.remove('open');
     document.getElementById('sharePopup').classList.remove('show');
+    document.body.style.overflow = '';
   }
 });
 
@@ -1980,8 +3072,12 @@ document.addEventListener('keydown', (e) => {
 // ██  INIT
 // ============================================================
 buildNav();
+buildMobilePills();
 buildSections();
-setupSearch();
+setupDesktopSearch();
+setupMobileSearch();
+setupBottomNav();
+setupSwipeClose();
 
 </script>
 </body>
