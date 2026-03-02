@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>LUXE | Premium Affiliate Store</title>
+    <title>LUXE | Premium Curated Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
         .active-chip { @apply bg-premium-gold text-white shadow-md shadow-premium-gold/30; }
         .inactive-chip { @apply bg-gray-100 dark:bg-gray-800 text-gray-500; }
         
-        /* Modal Animation */
+        /* Modal Transition */
         #modal-content { transition: transform 0.3s ease-out, opacity 0.3s; }
         @media (max-width: 768px) {
             #modal.hidden #modal-content { transform: translateY(100%); }
@@ -34,67 +34,81 @@
 </head>
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans">
 
-    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-xl border-b dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 h-14 flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <h1 class="text-2xl font-extrabold tracking-tighter text-premium-gold" onclick="location.reload()">LUXE.</h1>
-                <div class="hidden md:flex gap-3 text-gray-400 border-l pl-4 dark:border-gray-700">
-                    <a href="#" class="hover:text-premium-gold transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-premium-gold transition"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="hover:text-premium-gold transition"><i class="fab fa-x-twitter"></i></a>
+    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-premium-dark/90 backdrop-blur-xl border-b dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <h1 class="text-2xl font-extrabold tracking-tighter text-premium-gold cursor-pointer" onclick="location.reload()">LUXE.</h1>
+                
+                <div class="hidden md:flex gap-5 items-center border-l pl-6 border-gray-200 dark:border-gray-700">
+                    <a href="https://instagram.com" target="_blank" class="text-gray-400 hover:text-premium-gold transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                        <i class="fab fa-instagram text-lg"></i> <span>Instagram</span>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" class="text-gray-400 hover:text-premium-gold transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                        <i class="fab fa-tiktok text-lg"></i> <span>TikTok</span>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="text-gray-400 hover:text-premium-gold transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                        <i class="fab fa-youtube text-lg"></i> <span>YouTube</span>
+                    </a>
                 </div>
             </div>
             
-            <div class="flex items-center gap-3">
-                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 transition">
+            <div class="flex items-center gap-4">
+                <div class="flex md:hidden gap-4 text-gray-400 mr-2">
+                    <a href="#"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#"><i class="fab fa-tiktok text-xl"></i></a>
+                </div>
+                
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 transition shadow-inner">
                     <i class="fas fa-moon dark:hidden"></i>
                     <i class="fas fa-sun hidden dark:block text-premium-gold"></i>
                 </button>
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 pb-3 space-y-3">
+        <div class="max-w-7xl mx-auto px-4 pb-3">
             <div class="relative">
                 <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input type="text" id="searchInput" onkeyup="searchProducts()" 
                     placeholder="Search premium collections..." 
-                    class="w-full bg-gray-100 dark:bg-gray-800/50 border-none rounded-xl py-2.5 pl-11 pr-4 text-sm focus:ring-2 focus:ring-premium-gold transition-all">
+                    class="w-full bg-gray-100 dark:bg-gray-800/60 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-premium-gold transition-all placeholder:text-gray-400">
             </div>
-            
-            <div class="flex overflow-x-auto gap-2 no-scrollbar pb-1">
-                <button onclick="filterCategory('All')" class="cat-chip active-chip whitespace-nowrap px-5 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all">All</button>
-                <button onclick="filterCategory('Tech')" class="cat-chip inactive-chip whitespace-nowrap px-5 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all">Technology</button>
-                <button onclick="filterCategory('Home')" class="cat-chip inactive-chip whitespace-nowrap px-5 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all">Home Decor</button>
-                <button onclick="filterCategory('Lifestyle')" class="cat-chip inactive-chip whitespace-nowrap px-5 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all">Lifestyle</button>
-                <button onclick="filterCategory('Fitness')" class="cat-chip inactive-chip whitespace-nowrap px-5 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all">Fitness</button>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 pb-4">
+            <div class="flex overflow-x-auto gap-2 no-scrollbar">
+                <button onclick="filterCategory('All')" class="cat-chip active-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">All</button>
+                <button onclick="filterCategory('Tech')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Technology</button>
+                <button onclick="filterCategory('Home')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Home Decor</button>
+                <button onclick="filterCategory('Lifestyle')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Lifestyle</button>
+                <button onclick="filterCategory('Fitness')" class="cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all">Fitness</button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 pt-6 pb-20">
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+    <main class="max-w-7xl mx-auto px-4 pt-8 pb-24">
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
             </div>
     </main>
 
-    <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/70 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4">
-        <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl">
+    <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
+        <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] overflow-hidden shadow-2xl">
             <div class="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
-                <div class="md:w-1/2 bg-white p-8 flex items-center justify-center relative">
-                    <button onclick="closeModal()" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center"><i class="fas fa-times"></i></button>
+                <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative">
+                    <button onclick="closeModal()" class="absolute top-5 left-5 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-premium-gold hover:text-white transition"><i class="fas fa-times"></i></button>
                     <img id="modal-img" src="" class="max-h-72 md:max-h-[450px] object-contain">
                 </div>
-                <div class="md:w-1/2 p-8 md:p-12 space-y-6">
+                <div class="md:w-1/2 p-10 md:p-14 space-y-8 flex flex-col justify-center">
                     <div>
-                        <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-widest uppercase">TECH</span>
-                        <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 leading-tight">Product Title</h2>
+                        <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
+                        <h2 id="modal-title" class="text-2xl md:text-4xl font-extrabold mt-3 leading-tight tracking-tight text-slate-900 dark:text-white">Product Title</h2>
                     </div>
-                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm md:text-base leading-relaxed">Description goes here...</p>
+                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm md:text-lg leading-relaxed font-medium">Description goes here...</p>
                     
-                    <div class="pt-4 space-y-3">
-                        <a id="modal-buy-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full bg-premium-gold text-white py-4 rounded-2xl font-extrabold shadow-lg shadow-premium-gold/30 hover:scale-[1.02] active:scale-95 transition-all">
+                    <div class="pt-4 space-y-4">
+                        <a id="modal-buy-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full bg-premium-gold text-white py-5 rounded-2xl font-extrabold text-lg shadow-xl shadow-premium-gold/30 hover:bg-yellow-600 transition-all">
                             BUY ON AMAZON <i class="fas fa-external-link-alt text-xs"></i>
                         </a>
-                        <button onclick="shareProduct()" class="w-full py-3 text-gray-400 font-bold text-xs uppercase tracking-widest hover:text-premium-gold transition">
+                        <button onclick="shareProduct()" class="w-full py-2 text-gray-400 font-bold text-[10px] uppercase tracking-[0.2em] hover:text-premium-gold transition">
                             <i class="fas fa-share-nodes mr-2"></i> Share Product
                         </button>
                     </div>
@@ -103,51 +117,49 @@
         </div>
     </div>
 
-    <footer class="bg-white dark:bg-premium-dark border-t dark:border-gray-800 py-12 px-6">
-        <div class="max-w-7xl mx-auto text-center space-y-6">
-            <h1 class="text-xl font-extrabold text-premium-gold">LUXE.</h1>
-            <div class="flex justify-center gap-6 text-gray-400 text-sm font-medium">
-                <a href="#" class="hover:text-premium-gold transition">Privacy</a>
-                <a href="#" class="hover:text-premium-gold transition">Terms</a>
-                <a href="#" class="hover:text-premium-gold transition">Contact</a>
+    <footer class="bg-white dark:bg-premium-dark border-t dark:border-gray-800 py-16 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+            <div class="flex gap-8 text-gray-400">
+                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-pinterest"></i></a>
+                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-tiktok"></i></a>
             </div>
-            <p class="text-[10px] text-gray-500 uppercase tracking-widest max-w-md mx-auto">
-                As an Amazon Associate, I earn from qualifying purchases. Product prices and availability are accurate as of the date indicated and are subject to change.
+            <p class="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-bold text-center">
+                © 2026 LUXE STUDIO | Amazon Affiliate Partner
             </p>
         </div>
     </footer>
 
     <script>
-        // 1. INSERT YOUR AFFILIATE ID HERE
-        const AFFILIATE_ID = "YOUR_TAG_HERE"; 
+        // --- CONFIGURATION ---
+        const AFFILIATE_ID = "YOUR_TAG_HERE"; // Insert your Amazon Tag here
 
-        // 2. PRODUCT DATABASE - Copy/Paste these blocks to add products
+        // --- PRODUCT DATABASE ---
+        // To add a new product: Copy/Paste an object below.
         const products = [
-            { id: 1, cat: 'Tech', name: 'Apple AirPods Max', img: 'https://m.media-amazon.com/images/I/81L7-oO3pNL._AC_SL1500_.jpg', asin: 'B08PZD76NS', desc: 'The ultimate over-ear listening experience. High-fidelity audio, Active Noise Cancellation, and spatial audio.' },
-            { id: 2, cat: 'Tech', name: 'Logitech MX Master 3S', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', asin: 'B09HM94VDS', desc: 'Precision mouse with 8K DPI tracking and quiet clicks for maximum productivity.' },
-            { id: 3, cat: 'Home', name: 'Nespresso Vertuo Next', img: 'https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg', asin: 'B084GSYV97', desc: 'Brew the perfect coffee or espresso every time with this slim, sophisticated machine.' },
-            { id: 4, cat: 'Lifestyle', name: 'Ray-Ban Classic Wayfarer', img: 'https://m.media-amazon.com/images/I/516L9y37D1L._AC_SL1500_.jpg', asin: 'B001GNBJQY', desc: 'The most recognizable style in the history of sunglasses. Iconic design and premium lenses.' },
-            { id: 5, cat: 'Fitness', name: 'Theragun Mini 2.0', img: 'https://m.media-amazon.com/images/I/61S-rO-n3KL._AC_SL1500_.jpg', asin: 'B0B88P9G7S', desc: 'Powerful percussive therapy in a pocket-sized device for post-workout recovery.' },
-            { id: 6, cat: 'Home', name: 'Hatch Restore 2', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', asin: 'B0BT9S7Y3K', desc: 'A sunrise alarm clock and sleep machine designed to help you wake up rested.' },
-            { id: 7, cat: 'Tech', name: 'Kindle Scribe (16GB)', img: 'https://m.media-amazon.com/images/I/519Y9H7Bf8L._AC_SL1000_.jpg', asin: 'B09BS26B8B', desc: 'The first Kindle for reading and writing, with a 10.2” Paperwhite display.' },
-            { id: 8, cat: 'Lifestyle', name: 'Bellroy Classic Backpack', img: 'https://m.media-amazon.com/images/I/61lS2Bv4YGL._AC_SL1200_.jpg', asin: 'B08V8MLDHM', desc: 'A minimalist backpack for urban professionals. Sustainably made and durable.' },
-            { id: 9, cat: 'Fitness', name: 'Bowflex SelectTech 552', img: 'https://m.media-amazon.com/images/I/71-X8k-0LXL._AC_SL1500_.jpg', asin: 'B001ARYU58', desc: 'Adjustable dumbbells that replace 15 sets of weights. Space-saving fitness gear.' },
-            { id: 10, cat: 'Tech', name: 'Samsung T7 Shield SSD', img: 'https://m.media-amazon.com/images/I/61S2Xqf0AIL._AC_SL1500_.jpg', asin: 'B09VLK9W3S', desc: 'Rugged, fast, and compact external storage for creators on the move.' }
+            { id: 1, cat: 'Tech', name: 'Apple AirPods Max', img: 'https://m.media-amazon.com/images/I/81L7-oO3pNL._AC_SL1500_.jpg', asin: 'B08PZD76NS', desc: 'Experience the ultimate over-ear listening. High-fidelity audio, Active Noise Cancellation, and industry-leading design.' },
+            { id: 2, cat: 'Tech', name: 'Logitech MX Master 3S', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', asin: 'B09HM94VDS', desc: 'The iconic mouse remastered. Quiet clicks and 8K DPI tracking on any surface.' },
+            { id: 3, cat: 'Home', name: 'Nespresso Vertuo Next', img: 'https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg', asin: 'B084GSYV97', desc: 'Luxury coffee experience in a compact, sleek design. One-touch brewing for 5 cup sizes.' },
+            { id: 4, cat: 'Lifestyle', name: 'Ray-Ban Wayfarer Reverse', img: 'https://m.media-amazon.com/images/I/51V1+YjE6KL._AC_SL1500_.jpg', asin: 'B0C79N8K6P', desc: 'A disruptive new design featuring an inverted lens for a sharp, futuristic look.' },
+            { id: 5, cat: 'Fitness', name: 'Theragun Mini 2.0', img: 'https://m.media-amazon.com/images/I/61S-rO-n3KL._AC_SL1500_.jpg', asin: 'B0B88P9G7S', desc: 'The most agile massage device that goes wherever you do. Small but powerful recovery.' },
+            { id: 6, cat: 'Home', name: 'Hatch Restore 2', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', asin: 'B0BT9S7Y3K', desc: 'Rest easier than ever. A sunrise alarm and white noise machine wrapped in premium fabric.' }
         ];
 
+        // --- CORE LOGIC ---
         function renderProducts(items = products) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = items.map(p => `
-                <div class="group bg-white dark:bg-premium-card rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm active:scale-95 transition-all cursor-pointer" onclick="openModal(${p.id})">
-                    <div class="h-44 md:h-56 bg-white p-6 relative overflow-hidden">
-                        <img src="${p.img}" class="w-full h-full object-contain group-hover:scale-110 transition duration-500">
-                        <div class="absolute bottom-2 left-2 flex gap-1 opacity-0 group-hover:opacity-100 transition">
-                             <span class="bg-premium-gold text-white text-[8px] font-bold px-2 py-0.5 rounded">QUICK VIEW</span>
-                        </div>
+                <div class="group bg-white dark:bg-premium-card rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm active:scale-95 transition-all cursor-pointer" onclick="openModal(${p.id})">
+                    <div class="h-48 md:h-64 bg-white p-8 relative flex items-center justify-center">
+                        <img src="${p.img}" class="w-full h-full object-contain group-hover:scale-110 transition duration-700">
                     </div>
-                    <div class="p-4">
-                        <p class="text-[8px] text-premium-gold font-bold tracking-widest uppercase mb-1">${p.cat}</p>
-                        <h3 class="font-bold text-xs md:text-sm line-clamp-1 group-hover:text-premium-gold transition">${p.name}</h3>
+                    <div class="p-5">
+                        <p class="text-[8px] text-premium-gold font-extrabold tracking-[0.2em] uppercase mb-1">${p.cat}</p>
+                        <h3 class="font-bold text-xs md:text-base line-clamp-1 text-slate-800 dark:text-gray-100">${p.name}</h3>
+                        <div class="mt-4 flex items-center text-[10px] font-bold text-premium-gold gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            VIEW DETAILS <i class="fas fa-arrow-right"></i>
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -157,12 +169,11 @@
             const chips = document.querySelectorAll('.cat-chip');
             chips.forEach(c => {
                 if(c.innerText.toLowerCase().includes(cat.toLowerCase())) {
-                    c.className = "cat-chip active-chip whitespace-nowrap px-5 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all";
+                    c.className = "cat-chip active-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all";
                 } else {
-                    c.className = "cat-chip inactive-chip whitespace-nowrap px-5 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all";
+                    c.className = "cat-chip inactive-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all";
                 }
             });
-
             const filtered = cat === 'All' ? products : products.filter(p => p.cat === cat);
             renderProducts(filtered);
         }
@@ -191,6 +202,10 @@
             document.body.style.overflow = 'auto';
         }
 
+        function handleOutsideClick(e) {
+            if (e.target.id === 'modal') closeModal();
+        }
+
         function toggleTheme() {
             document.documentElement.classList.toggle('dark');
         }
@@ -205,9 +220,7 @@
             }
         }
 
-        // Close modal on outside click
-        window.onclick = (e) => { if(e.target == document.getElementById('modal')) closeModal(); }
-
+        // Initialize Store
         renderProducts();
     </script>
 </body>
