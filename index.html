@@ -31,48 +31,62 @@
 </head>
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
-    <nav class="sticky top-0 z-50 bg-white/90 dark:bg-premium-dark/90 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
-            <div class="flex items-center gap-6">
-                <h1 class="text-2xl font-extrabold tracking-tighter text-premium-gold cursor-pointer" onclick="location.reload()">LUXE.</h1>
-                
-                <div class="hidden md:flex gap-5 items-center border-l pl-6 border-gray-200 dark:border-gray-700">
-                    <a href="https://instagram.com" target="_blank" class="text-gray-400 hover:text-premium-gold transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-                        <i class="fab fa-instagram text-lg"></i> <span>Instagram</span>
-                    </a>
-                    <a href="https://tiktok.com" target="_blank" class="text-gray-400 hover:text-premium-gold transition-all flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-                        <i class="fab fa-tiktok text-lg"></i> <span>TikTok</span>
-                    </a>
-                </div>
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
+    <div class="max-w-7xl mx-auto h-20 flex items-center gap-4 md:gap-8">
+        <h1 class="text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.reload()">
+            LUXE<span class="text-slate-900 dark:text-white">.</span>
+        </h1>
+
+        <div class="relative group flex-grow max-w-md hidden sm:block">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-xs text-gray-400 group-focus-within:text-premium-gold transition-colors"></i>
+            </div>
+            <input type="text" id="searchInput" onkeyup="searchProducts()" 
+                placeholder="Search the vault..." 
+                class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-full py-2 pl-10 pr-4 text-xs focus:ring-4 focus:ring-premium-gold/5 transition-all outline-none dark:text-white">
+        </div>
+
+        <div class="flex items-center gap-3 md:gap-5 ml-auto">
+            <div class="flex items-center gap-3 md:gap-4 border-r pr-4 md:pr-6 border-gray-200 dark:border-gray-700">
+                <a href="https://tiktok.com" target="_blank" class="text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+                    <i class="fab fa-tiktok text-sm"></i>
+                </a>
+                <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors">
+                    <i class="fab fa-whatsapp text-lg"></i>
+                </a>
+                <a href="https://t.me/yourchannel" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
+                    <i class="fab fa-telegram text-lg"></i>
+                </a>
             </div>
             
-            <div class="flex items-center gap-4">
-                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 transition shadow-inner">
-                    <i class="fas fa-moon dark:hidden"></i>
-                    <i class="fas fa-sun hidden dark:block text-premium-gold"></i>
-                </button>
-            </div>
+            <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700 transition shadow-sm">
+                <i class="fas fa-moon dark:hidden text-slate-700 text-sm"></i>
+                <i class="fas fa-sun hidden dark:block text-premium-gold text-sm"></i>
+            </button>
         </div>
+    </div>
 
-        <div class="max-w-7xl mx-auto px-4 pb-3">
-            <div class="relative">
-                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="searchInput" onkeyup="searchProducts()" 
-                    placeholder="Search premium collections..." 
-                    class="w-full bg-gray-100 dark:bg-gray-800/60 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-premium-gold transition-all placeholder:text-gray-400 dark:text-white">
+    <div class="sm:hidden pb-4">
+        <div class="relative group">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-xs text-gray-400"></i>
             </div>
+            <input type="text" id="searchInputMobile" onkeyup="searchProducts()" 
+                placeholder="Search the vault..." 
+                class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent rounded-xl py-2 pl-10 pr-4 text-xs outline-none dark:text-white">
         </div>
+    </div>
 
-        <div class="max-w-7xl mx-auto px-4 pb-4">
-            <div id="category-container" class="flex overflow-x-auto gap-2 no-scrollbar">
-                <button onclick="filterCategory('All', this)" class="cat-chip active-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">All</button>
-                <button onclick="filterCategory('Tech', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Technology</button>
-                <button onclick="filterCategory('Home', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Home Decor</button>
-                <button onclick="filterCategory('Lifestyle', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Lifestyle</button>
-                <button onclick="filterCategory('Fitness', this)" class="cat-chip whitespace-nowrap px-6 py-2 rounded-lg font-bold text-[10px] uppercase tracking-[0.15em] transition-all bg-gray-100 dark:bg-gray-800 text-gray-500">Fitness</button>
-            </div>
+    <div class="max-w-7xl mx-auto pb-4">
+        <div class="flex overflow-x-auto gap-2 no-scrollbar">
+            <button onclick="filterCategory('All', this)" class="cat-chip active-chip whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">All</button>
+            <button onclick="filterCategory('Tech', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Technology</button>
+            <button onclick="filterCategory('Home', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Home Decor</button>
+            <button onclick="filterCategory('Lifestyle', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Lifestyle</button>
+            <button onclick="filterCategory('Fitness', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Fitness</button>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <main class="max-w-7xl mx-auto px-4 pt-8 pb-24">
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
