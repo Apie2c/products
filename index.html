@@ -3,28 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    
-    <title>LUXE | Premium Curated Store</title>
-    <meta name="description" content="A highly curated vault of premium technology, home decor, and lifestyle essentials.">
-    
-    <meta property="og:title" content="LUXE | Premium Curated Store">
-    <meta property="og:description" content="Discover hand-picked premium essentials for the modern aesthetic.">
-    <meta property="og:type" content="website">
-    
-    <meta property="og:image" content="https://apie2c.github.io/products/favicon.png?v=2.0">
-    <meta name="twitter:image" content="https://apie2c.github.io/products/favicon.png?v=2.0">
-    
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
+    <title>LUXE | Premium Curated Vault</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -40,305 +22,311 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
-        
-        #modal { transition: opacity 0.3s ease-in-out; }
-        #modal-content { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .product-card { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
+        .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
+        .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #C5A02B; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
+        .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .product-card:hover img { transform: scale(1.1); }
 
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(197, 160, 43, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0); }
+        /* HEART POP ANIMATION RESTORED */
+        @keyframes heartPop { 
+            0% { transform: scale(1); } 
+            50% { transform: scale(1.4); } 
+            100% { transform: scale(1); } 
         }
-        .share-pulse:hover { animation: pulse-gold 1.5s infinite; }
-        .img-aspect { aspect-ratio: 1 / 1; }
+        .heart-bounce { animation: heartPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-        @media (max-width: 768px) {
-            #modal.hidden #modal-content { transform: translateY(100%); }
-            #modal:not(.hidden) #modal-content { transform: translateY(0); }
+        /* TOOLTIP SYSTEM */
+        .tooltip-container { position: relative; display: inline-flex; overflow: visible; }
+        .tooltip-text {
+            visibility: hidden; position: absolute; bottom: 130%; left: 50%;
+            transform: translateX(-50%) translateY(10px); background-color: #0F1115; color: #fff;
+            text-align: center; padding: 6px 12px; border-radius: 8px;
+            font-size: 10px; font-weight: 800; white-space: nowrap;
+            opacity: 0; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); z-index: 999; 
+            pointer-events: none; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.4);
         }
+        .dark .tooltip-text { background-color: #C5A02B; }
+        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
+        #toast.active { transform: translateX(-50%) translateY(0); }
+        .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; }
+        .modal-body-container { overflow-y: auto; overflow-x: hidden; border-radius: inherit; -ms-overflow-style: none; scrollbar-width: none; }
+        .modal-body-container::-webkit-scrollbar { display: none; }
     </style>
 </head>
 
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
-        <div class="max-w-7xl mx-auto h-20 flex items-center gap-4 md:gap-8">
-            <h1 class="text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
+        <div class="max-w-7xl mx-auto h-16 md:h-20 flex items-center justify-between gap-2">
+            <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer" onclick="location.href=window.location.pathname">
                 LUXE<span class="text-slate-900 dark:text-white">.</span>
             </h1>
 
-            <div class="relative group flex-grow max-w-md hidden sm:block">
-                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <i class="fas fa-search text-xs text-gray-400 group-focus-within:text-premium-gold transition-colors"></i>
-                </div>
-                <input type="text" id="searchInput" oninput="handleSearch(this.value)" 
-                    placeholder="Search the vault..." 
-                    class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-full py-2 pl-10 pr-4 text-xs focus:ring-4 focus:ring-premium-gold/5 transition-all outline-none dark:text-white">
+            <div class="flex items-center justify-center flex-grow md:flex-grow-0 gap-3 md:gap-4 px-2 md:px-5 md:border-r border-gray-200 dark:border-gray-700 overflow-x-auto no-scrollbar">
+                <a href="#" class="text-gray-400 hover:text-[#1877F2] transition-colors"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-sky-500 transition-colors"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-red-600 transition-colors"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-black dark:hover:text-white transition-colors"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp"></i></a>
             </div>
 
-            <div class="flex items-center gap-3 md:gap-5 ml-auto">
-                <div class="flex items-center gap-3 md:gap-4 border-r pr-4 md:pr-6 border-gray-200 dark:border-gray-700">
-                    <a href="#" class="text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors"><i class="fab fa-tiktok text-sm"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i class="fab fa-telegram text-lg"></i></a>
+            <div class="flex items-center gap-1 sm:gap-4 flex-shrink-0">
+                <div class="tooltip-container">
+                    <button onclick="filterCategory('Saved', this)" class="text-gray-400 hover:text-red-500 transition-colors relative p-2">
+                        <i class="fas fa-heart text-lg"></i>
+                        <span id="wishlist-count" class="absolute top-1 right-0 bg-premium-gold text-white text-[7px] w-3.5 h-3.5 rounded-full hidden items-center justify-center font-bold">0</span>
+                    </button>
+                    <span class="tooltip-text">View Saved Items</span>
                 </div>
-                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700 transition shadow-sm">
-                    <i class="fas fa-moon dark:hidden text-slate-700 text-sm"></i>
-                    <i class="fas fa-sun hidden dark:block text-premium-gold text-sm"></i>
+                <button onclick="toggleTheme()" class="w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 transition">
+                    <i class="fas fa-moon dark:hidden text-slate-700"></i>
+                    <i class="fas fa-sun hidden dark:block text-premium-gold"></i>
                 </button>
             </div>
         </div>
 
-        <div class="sm:hidden pb-4">
-            <input type="text" id="searchInputMobile" oninput="handleSearch(this.value)" 
-                placeholder="Search the vault..." 
-                class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent rounded-xl py-2 px-4 text-xs outline-none dark:text-white">
+        <div class="max-w-7xl mx-auto pb-4 flex justify-center px-4">
+            <div class="relative group w-full md:max-w-md">
+                <input type="text" id="searchInput" oninput="debouncedSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-xs text-gray-400 group-focus-within:text-premium-gold"></i>
+                </div>
+            </div>
         </div>
 
-        <div class="max-w-7xl mx-auto pb-4">
-            <div class="flex overflow-x-auto gap-2 no-scrollbar">
-                <button onclick="filterCategory('All', this)" class="cat-chip active-chip whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">All</button>
-                <button onclick="filterCategory('Tech', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Technology</button>
-                <button onclick="filterCategory('Home', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Home Decor</button>
-                <button onclick="filterCategory('Lifestyle', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Lifestyle</button>
-                <button onclick="filterCategory('Fitness', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Fitness</button>
+        <div class="max-w-7xl mx-auto pb-4 overflow-hidden">
+            <div class="flex justify-start sm:justify-center overflow-x-auto gap-2 no-scrollbar px-2">
+                <button onclick="filterCategory('All', this)" class="cat-chip active-chip whitespace-nowrap px-5 py-2 rounded-xl font-bold text-[9px] uppercase tracking-widest transition-all">All</button>
+                <button onclick="filterCategory('Tech', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-5 py-2 rounded-xl font-bold text-[9px] uppercase tracking-widest transition-all">Technology</button>
+                <button onclick="filterCategory('Home', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-5 py-2 rounded-xl font-bold text-[9px] uppercase tracking-widest transition-all">Home Decor</button>
+                <button onclick="filterCategory('Lifestyle', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-5 py-2 rounded-xl font-bold text-[9px] uppercase tracking-widest transition-all">Lifestyle</button>
+                <button onclick="filterCategory('Fitness', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-5 py-2 rounded-xl font-bold text-[9px] uppercase tracking-widest transition-all">Fitness</button>
             </div>
         </div>
     </nav>
 
-    <div class="py-6">
-        <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center px-4">
-            As an Amazon Associate I earn from qualifying purchases.
-        </p>
-    </div>
-        
-    <main class="max-w-7xl mx-auto px-4 pt-4 pb-24">
+    <main class="max-w-7xl mx-auto px-4 pt-8 pb-24 min-h-screen">
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8"></div>
     </main>
 
+    <footer class="bg-white dark:bg-premium-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+            <div class="flex flex-wrap justify-center gap-6 text-gray-400">
+                <a href="#" class="hover:text-[#1877F2] transition text-xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-pink-500 transition text-xl"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-sky-500 transition text-xl"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-red-600 transition text-xl"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="hover:text-blue-400 transition text-xl"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="hover:text-black dark:hover:text-white transition text-xl"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="hover:text-green-500 transition text-xl"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Premium Curated Vault</p>
+        </div>
+    </footer>
+
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
-        <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] overflow-hidden shadow-2xl">
-            <div class="flex flex-col md:flex-row max-h-[90vh] overflow-y-auto">
+        <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative">
+            <div class="modal-body-container flex flex-col md:flex-row max-h-[90vh]">
                 <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative min-h-[300px]">
-                    <button onclick="closeModal()" class="absolute top-5 left-5 z-10 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-premium-gold hover:text-white transition text-gray-900 shadow-md">
+                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-premium-gold hover:text-white shadow-lg border border-gray-100">
                         <i class="fas fa-times"></i>
                     </button>
-                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain" onerror="this.src='https://via.placeholder.com/400?text=Premium+Item'">
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
-                    <div>
-                        <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
-                        <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 leading-tight tracking-tight text-slate-900 dark:text-white">Product Title</h2>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
+                            <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 text-slate-900 dark:text-white">Product</h2>
+                        </div>
+                        <div class="tooltip-container">
+                            <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors"><i class="fas fa-heart"></i></button>
+                            <span id="modal-wishlist-tip" class="tooltip-text">Add to favorites</span>
+                        </div>
                     </div>
-                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm md:text-base leading-relaxed font-medium">Description...</p>
-                    <div class="pt-4 space-y-4">
-                        <a id="modal-buy-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full bg-premium-gold text-white py-4 rounded-xl font-extrabold text-base shadow-lg shadow-premium-gold/20 hover:bg-yellow-600 transition-all">
-                            VIEW PRICE ON AMAZON <i class="fas fa-external-link-alt text-xs"></i>
-                        </a>
-                        <button id="shareBtn" onclick="shareProduct(event)" class="share-pulse w-full py-3 bg-gray-100 dark:bg-gray-800/50 text-gray-500 dark:text-gray-300 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-premium-gold/10 hover:text-premium-gold transition-all duration-300">
-                            <i class="fas fa-magic mr-2"></i> Share Find
-                        </button>
+                    
+                    <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit">
+                        <i class="fas fa-chart-line text-xs"></i>
+                        <span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="text-[10px] font-extrabold uppercase tracking-widest text-gray-400">Description</p>
+                        <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
+                    </div>
+                    
+                    <div class="pt-4 flex items-center gap-3">
+                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-premium-gold text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-yellow-600 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
+                        <div class="tooltip-container">
+                            <button onclick="shareViaWhatsApp()" class="w-14 h-14 flex items-center justify-center bg-green-500/10 text-green-600 dark:text-green-400 rounded-xl hover:bg-green-500 hover:text-white transition-all text-xl"><i class="fab fa-whatsapp"></i></button>
+                            <span class="tooltip-text">WhatsApp</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 dark:text-gray-300 rounded-xl hover:bg-premium-gold hover:text-white transition-all text-xl"><i class="fas fa-share-alt"></i></button>
+                            <span class="tooltip-text">Share Card</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="toast" class="bg-premium-gold text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product added to favorites</div>
     <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
-
-    <footer class="bg-white dark:bg-premium-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-6">
-            <div class="flex gap-8 text-gray-400">
-                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-tiktok"></i></a>
-                <a href="#" class="hover:text-premium-gold transition text-xl"><i class="fab fa-youtube"></i></a>
-            </div>
-            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">
-                © 2026 LUXE STUDIO | Amazon Affiliate Partner
-            </p>
-        </div>
-    </footer>
 
     <script>
         const AFFILIATE_ID = "gitafstore-20";
         let activeProductId = null;
         let currentFilter = 'All';
-        let debounceTimer;
+        let wishlist = JSON.parse(localStorage.getItem('luxe_wishlist')) || [];
+        let searchTimeout;
 
-        const productCatalog = {
-            Tech: [
-                { id: 101, name: 'Apple AirPods 4', asin: 'B0DGVT3T92', onSale: true, img: 'https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg', desc: 'AirPods 4 have been redesigned for exceptional all-day comfort and stability.' },
-                { id: 102, name: 'Logitech MX Master 3S', asin: 'B09HM94VDS', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', desc: 'The iconic mouse remastered with quiet clicks and 8K DPI tracking.' }
-            ],
-            Home: [
-                { id: 201, name: 'Nespresso Vertuo Next', asin: 'B084GSYV97', onSale: true, img: 'https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg', desc: 'Luxury coffee experience in a compact, sleek design.' },
-                { id: 202, name: 'Hatch Restore 2', asin: 'B0BT9S7Y3K', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', desc: 'A sunrise alarm and white noise machine wrapped in premium fabric.' }
-            ],
-            Lifestyle: [
-                { id: 301, name: 'Ray-Ban Wayfarer Reverse', asin: 'B0C79N8K6P', img: 'https://m.media-amazon.com/images/I/51V1+YjE6KL._AC_SL1500_.jpg', desc: 'An inverted lens design for a sharp, futuristic look.' }
-            ],
-            Fitness: [
-                { id: 401, name: 'Theragun Mini 2.0', asin: 'B0B88P9G7S', onSale: true, img: 'https://m.media-amazon.com/images/I/61S-rO-n3KL._AC_SL1500_.jpg', desc: 'Portable recovery that goes wherever you do.' }
-            ]
-        };
-
-        const getAllProducts = () => Object.entries(productCatalog).flatMap(([cat, items]) => items.map(i => ({...i, cat})));
+        const productCatalog = [
+            { id: 101, cat: 'Tech', name: 'Apple AirPods 4', asin: 'B0DGVT3T92', img: 'https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg', desc: 'Redesigned shape for all-day comfort and improved acoustic architecture.', status: 'Price Stable' },
+            { id: 102, cat: 'Tech', name: 'Logitech MX Master 3S', asin: 'B09HM94VDS', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', desc: 'The gold standard productivity mouse. Quiet Clicks and 8K DPI tracking.', status: 'Best Seller' },
+            { id: 201, cat: 'Home', name: 'Nespresso Vertuo Next', asin: 'B084GSYV97', img: 'https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg', desc: 'Sleek, sustainable coffee machine with 5 cup size options.', status: 'Price Drop' },
+            { id: 202, cat: 'Home', name: 'Philips Hue Bloom', asin: 'B08BNM6B5B', img: 'https://m.media-amazon.com/images/I/61h3mC55+WL._AC_SL1500_.jpg', desc: 'Smart lamp that casts millions of colors for mood lighting.', status: 'Trending' },
+            { id: 203, cat: 'Home', name: 'Dyson Pure Cool TP04', asin: 'B079989YV3', img: 'https://m.media-amazon.com/images/I/71Y9tV5z29L._AC_SL1500_.jpg', desc: 'Senses and captures pollutants while projecting clean air.', status: 'Verified' },
+            { id: 301, cat: 'Lifestyle', name: 'Ray-Ban Reverse Wayfarer', asin: 'B0C79N8K6P', img: 'https://m.media-amazon.com/images/I/51V1+YjE6KL._AC_SL1500_.jpg', desc: 'A sharp, disruptive aesthetic with concave lenses.', status: 'Price Stable' },
+            { id: 302, cat: 'Lifestyle', name: 'Bellroy Classic Backpack', asin: 'B08R97P3MC', img: 'https://m.media-amazon.com/images/I/51p6K6o7VzL._AC_SL1500_.jpg', desc: 'Professional design with superior internal organization.', status: 'Top Rated' },
+            { id: 401, cat: 'Fitness', name: 'Theragun Mini 2.0', asin: 'B0BJ6N272N', img: 'https://m.media-amazon.com/images/I/51eO5R9Wk+L._AC_SL1500_.jpg', desc: 'Ultra-portable percussive therapy for muscle relief.', status: 'Lowest Price' },
+            { id: 402, cat: 'Fitness', name: 'Bowflex SelectTech 552', asin: 'B001ARYU58', img: 'https://m.media-amazon.com/images/I/71N6l7p3Y6L._AC_SL1500_.jpg', desc: 'Adjustable dumbbells that replace 15 weight sets.', status: 'Best Seller' },
+            { id: 403, cat: 'Fitness', name: 'Larq Self-Cleaning Bottle', asin: 'B07P7H7S58', img: 'https://m.media-amazon.com/images/I/61Z7C6uN+fL._AC_SL1500_.jpg', desc: 'UV-C technology eliminates bio-contaminants automatically.', status: 'Premium' }
+        ];
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value).toLowerCase();
-            
-            const displayItems = getAllProducts().filter(p => {
-                const matchesCat = currentFilter === 'All' || p.cat === currentFilter;
-                const matchesSearch = p.name.toLowerCase().includes(searchVal);
-                return matchesCat && matchesSearch;
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            const displayItems = productCatalog.filter(p => {
+                const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
+                return matchesCat && p.name.toLowerCase().includes(searchVal);
             });
-
-            if (displayItems.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center opacity-40 uppercase tracking-widest text-xs">No treasures found</div>`;
-                return;
-            }
-
-            grid.innerHTML = displayItems.map((p, index) => `
-                <div class="product-card group bg-white dark:bg-premium-card rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm active:scale-95 transition-all cursor-pointer relative" 
-                     style="animation-delay: ${index * 50}ms"
-                     onclick="openModal(${p.id})">
-                    ${p.onSale ? '<span class="absolute top-4 left-4 z-10 bg-red-500 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">SALE</span>' : ''}
-                    <div class="img-aspect bg-white p-8 relative flex items-center justify-center overflow-hidden">
-                        <img src="${p.img}" 
-                             class="w-full h-full object-contain group-hover:scale-110 transition duration-700" 
-                             loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/300?text=Premium+Item'">
+            updateWishlistCount();
+            grid.innerHTML = displayItems.map((p, index) => {
+                const isSaved = wishlist.includes(p.id);
+                return `
+                <div class="product-card fade-in group bg-white dark:bg-premium-card rounded-3xl cursor-pointer relative" 
+                     style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
+                    <div class="absolute top-4 right-4 z-20 tooltip-container">
+                        <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" 
+                                class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                        <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
                     </div>
-                    <div class="p-5">
-                        <p class="text-[8px] text-premium-gold font-extrabold tracking-[0.2em] uppercase mb-1">${p.cat}</p>
-                        <h3 class="font-bold text-xs md:text-base line-clamp-1 text-slate-800 dark:text-gray-100">${p.name}</h3>
-                        <div class="mt-4 flex items-center text-[10px] font-bold text-premium-gold gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            VIEW DETAILS <i class="fas fa-arrow-right"></i>
+                    <div class="rounded-3xl overflow-hidden">
+                        <div class="img-aspect bg-white p-8 flex items-center justify-center">
+                            <img src="${p.img}" class="w-full h-full object-contain">
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-center mb-1">
+                                <p class="text-[7px] text-premium-gold font-extrabold uppercase tracking-widest">${p.cat}</p>
+                                <span class="text-[7px] font-bold text-green-500 uppercase">${p.status || ''}</span>
+                            </div>
+                            <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                </div>`}).join('');
         }
 
-        async function shareProduct(event) {
-            const title = document.getElementById('modal-title').innerText;
-            const imgElement = document.getElementById('modal-img');
-            const shareBtn = event.currentTarget;
-            const originalHTML = shareBtn.innerHTML;
-            const shareUrl = `${window.location.origin}${window.location.pathname}?product=${activeProductId}`;
-
-            shareBtn.innerHTML = '<i class="fas fa-magic fa-spin mr-2"></i> BUILDING CARD...';
-
-            try {
-                const canvas = document.getElementById('shareCanvas');
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#0F1115';
-                ctx.fillRect(0, 0, 1080, 1080);
-
-                const img = new Image();
-                img.crossOrigin = "anonymous";
-                img.src = imgElement.src;
-                await new Promise((resolve, reject) => {
-                    img.onload = resolve;
-                    img.onerror = () => reject(new Error("Image Load Failed"));
+        function toggleWishlist(id) {
+            const idx = wishlist.indexOf(id);
+            if (idx > -1) {
+                wishlist.splice(idx, 1);
+                showToast("Removed from favorites");
+            } else {
+                wishlist.push(id);
+                showToast("Added to favorites");
+                // HEART POP ANIMATION TRIGGERS
+                const btns = [document.getElementById(`heart-${id}`), document.getElementById('modal-wishlist-btn')];
+                btns.forEach(btn => {
+                    if (btn) {
+                        btn.classList.remove('heart-bounce');
+                        void btn.offsetWidth; // Force Reflow
+                        btn.classList.add('heart-bounce');
+                    }
                 });
-
-                const maxSize = 700;
-                let w = img.width, h = img.height;
-                const ratio = Math.min(maxSize/w, maxSize/h);
-                w *= ratio; h *= ratio;
-                
-                ctx.fillStyle = '#FFFFFF';
-                ctx.beginPath(); ctx.roundRect(100, 150, 880, 700, 60); ctx.fill();
-                ctx.drawImage(img, (1080 - w) / 2, (1000 - h) / 2, w, h);
-
-                ctx.fillStyle = '#C5A02B';
-                ctx.font = 'bold 40px Plus Jakarta Sans'; ctx.textAlign = 'center';
-                ctx.fillText('L U X E  V A U L T', 540, 90);
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = 'bold 50px Plus Jakarta Sans';
-                ctx.fillText(title.toUpperCase(), 540, 950);
-
-                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-                const file = new File([blob], 'luxe-find.jpg', { type: 'image/jpeg' });
-
-                if (navigator.share && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file],
-                        title: title,
-                        text: `Check this out on LUXE!`,
-                        url: shareUrl
-                    });
-                } else {
-                    throw new Error("Share not available");
-                }
-            } catch (err) {
-                await navigator.clipboard.writeText(shareUrl);
-                shareBtn.innerHTML = '<i class="fas fa-check mr-2"></i> LINK COPIED';
-                setTimeout(() => shareBtn.innerHTML = originalHTML, 2000);
-                return;
             }
-            shareBtn.innerHTML = originalHTML;
-        }
-
-        function handleSearch(q) {
-            document.getElementById('searchInput').value = q;
-            document.getElementById('searchInputMobile').value = q;
-            
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
+            localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+            setTimeout(() => {
                 renderProducts();
-            }, 250);
+                if (activeProductId === id) updateWishlistUI(id);
+            }, 100);
         }
 
-        function filterCategory(cat, el) {
-            currentFilter = cat;
-            document.querySelectorAll('.cat-chip').forEach(btn => btn.classList.remove('active-chip'));
-            el.classList.add('active-chip');
-            renderProducts();
+        function updateWishlistCount() {
+            const el = document.getElementById('wishlist-count');
+            el.innerText = wishlist.length; el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+        }
+
+        function updateWishlistUI(id) {
+            const btn = document.getElementById('modal-wishlist-btn');
+            const tip = document.getElementById('modal-wishlist-tip');
+            const isSaved = wishlist.includes(id);
+            if (btn) btn.className = `text-2xl transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
+            if (tip) tip.innerText = isSaved ? 'Remove from favorites' : 'Add to favorites';
         }
 
         function openModal(id) {
-            const p = getAllProducts().find(prod => prod.id === id);
-            if (!p) return;
-            activeProductId = id;
+            const p = productCatalog.find(x => x.id === parseInt(id));
+            if (!p) return; activeProductId = p.id;
             document.getElementById('modal-img').src = p.img;
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-cat').innerText = p.cat;
             document.getElementById('modal-desc').innerText = p.desc;
+            document.getElementById('modal-price-status').innerText = p.status || 'Verified Premium';
             document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
             document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            
-            const newurl = window.location.origin + window.location.pathname + '?product=' + id;
-            window.history.pushState({path:newurl},'',newurl);
+            updateWishlistUI(p.id);
         }
 
-        function closeModal() { 
-            document.getElementById('modal').classList.add('hidden'); 
-            document.body.style.overflow = 'auto'; 
-            const cleanUrl = window.location.origin + window.location.pathname;
-            window.history.pushState({path:cleanUrl},'',cleanUrl);
-        }
-
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        function debouncedSearch(val) { clearTimeout(searchTimeout); searchTimeout = setTimeout(() => renderProducts(), 150); }
+        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2500); }
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+        function filterCategory(cat, el) { 
+            currentFilter = cat; 
+            document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip')); 
+            if (el.classList.contains('cat-chip')) el.classList.add('active-chip'); 
+            renderProducts(); 
+        }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const productId = params.get('product');
-            if (productId) {
-                setTimeout(() => openModal(parseInt(productId)), 500);
-            }
-            renderProducts();
-        });
+        function shareViaWhatsApp() {
+            const title = document.getElementById('modal-title').innerText;
+            const message = `✨ *LUXE FIND* ✨\n\nI found this premium ${title} in the LUXE Vault.\n\nView it here: ${window.location.href}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        async function shareProduct(event) {
+            const btn = event.currentTarget; const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            try {
+                const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
+                await new Promise((res) => { img.onload = res; });
+                ctx.fillStyle = '#0F1115'; ctx.fillRect(0, 0, 1080, 1080);
+                ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); 
+                if(ctx.roundRect) ctx.roundRect(100, 150, 880, 700, 60); else ctx.rect(100,150,880,700);
+                ctx.fill();
+                const r = Math.min(700/img.width, 700/img.height);
+                ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
+                const file = new File([blob], 'luxe-find.jpg', { type: 'image/jpeg' });
+                if (navigator.share) await navigator.share({ files: [file], title: "LUXE Find" });
+            } catch (err) { navigator.clipboard.writeText(window.location.href); showToast("Link Copied!"); }
+            btn.innerHTML = originalHTML;
+        }
+
+        window.addEventListener('DOMContentLoaded', renderProducts);
     </script>
 </body>
 </html>
