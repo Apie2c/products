@@ -182,6 +182,11 @@
 
     <script>
         const AFFILIATE_ID = "gitafstore-20";
+
+        // Helper: build a shareable deep-link URL for a specific product
+        function getProductURL(id) {
+            return window.location.origin + window.location.pathname + '#product-' + id;
+        }
         let activeProductId = null;
         let currentFilter = 'All';
         let wishlist = JSON.parse(localStorage.getItem('luxe_wishlist')) || [];
@@ -286,9 +291,15 @@
             document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             updateWishlistUI(p.id);
+            // Update URL so the current product is shareable
+            history.replaceState(null, '', '#product-' + p.id);
         }
 
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            history.replaceState(null, '', window.location.pathname);
+        }
         function debouncedSearch(val) { clearTimeout(searchTimeout); searchTimeout = setTimeout(() => renderProducts(), 150); }
         function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2500); }
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
@@ -302,8 +313,9 @@
 
         function shareViaWhatsApp() {
             const title = document.getElementById('modal-title').innerText;
-            const message = `✨ *LUXE FIND* ✨\n\nI found this premium ${title} in the LUXE Vault.\n\nView it here: ${window.location.href}`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+            const productUrl = getProductURL(activeProductId);
+            const message = '✨ *LUXE FIND* ✨\n\nI found this premium ' + title + ' in the LUXE Vault.\n\nView it here: ' + productUrl;
+            window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank');
         }
 
         async function shareProduct(event) {
@@ -321,12 +333,30 @@
                 ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
                 const file = new File([blob], 'luxe-find.jpg', { type: 'image/jpeg' });
-                if (navigator.share) await navigator.share({ files: [file], title: "LUXE Find" });
-            } catch (err) { navigator.clipboard.writeText(window.location.href); showToast("Link Copied!"); }
+                const productUrl = getProductURL(activeProductId);
+                const title = document.getElementById('modal-title').innerText;
+                if (navigator.share) {
+                    await navigator.share({ files: [file], title: 'LUXE Find: ' + title, url: productUrl });
+                } else {
+                    throw new Error('not available');
+                }
+            } catch (err) {
+                const productUrl = getProductURL(activeProductId);
+                navigator.clipboard.writeText(productUrl);
+                showToast('Link Copied!');
+            }
             btn.innerHTML = originalHTML;
         }
 
-        window.addEventListener('DOMContentLoaded', renderProducts);
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            // Deep-link: open product modal if URL contains #product-ID
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#product-')) {
+                const id = parseInt(hash.replace('#product-', ''));
+                if (!isNaN(id)) openModal(id);
+            }
+        });
     </script>
 </body>
 </html>
