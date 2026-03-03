@@ -21,35 +21,44 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .active-chip { background-color: #C5A02B !important; color: white !important; }
-        .product-card { transition: all 0.4s ease; border: 1px solid transparent; }
-        .product-card:hover { transform: translateY(-5px); border-color: #C5A02B; }
+        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px rgba(197, 160, 43, 0.3); }
+        .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
+        .product-card:hover { transform: translateY(-8px); border-color: #C5A02B; }
+        .blend-img { mix-blend-mode: multiply; filter: contrast(1.05); }
+        .dark .blend-img { filter: contrast(1.1) brightness(0.9); }
         
-        /* Amazon Center Button Pulse */
+        /* Pulse Animation for Amazon Button */
         @keyframes amazon-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(197, 160, 43, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(197, 160, 43, 0); }
             100% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0); }
         }
         .pulse-center { animation: amazon-pulse 2s infinite; }
         
-        #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.4s; z-index: 999; }
+        #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.4s; z-index: 1000; }
         #toast.active { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
-    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
-        <div class="max-w-7xl mx-auto h-16 flex items-center justify-between">
+    <nav class="sticky top-0 z-[60] bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
+        <div class="max-w-7xl mx-auto h-16 flex items-center justify-between gap-4">
             <h1 class="text-xl font-black tracking-tighter text-premium-gold cursor-pointer" onclick="window.location.reload()">LUXE<span class="text-slate-900 dark:text-white">.</span></h1>
             
-            <div class="hidden lg:flex items-center gap-4 border-r border-gray-200 dark:border-gray-800 pr-6 mr-6">
-                <a href="#" class="text-gray-400 hover:text-premium-gold"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-gray-400 hover:text-premium-gold"><i class="fab fa-tiktok"></i></a>
+            <div class="hidden lg:flex items-center flex-grow justify-center px-12">
+                <div class="relative w-full max-w-md">
+                    <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100 dark:bg-gray-800/50 border-none rounded-xl py-2 pl-10 pr-4 text-xs outline-none">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                </div>
             </div>
 
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-3 border-r border-gray-200 dark:border-gray-800 pr-4">
+                    <a href="#" class="text-gray-400 hover:text-premium-gold transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-premium-gold transition-colors"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-premium-gold transition-colors"><i class="fab fa-youtube"></i></a>
+                </div>
                 <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50">
                     <i class="fas fa-moon dark:hidden text-xs"></i>
                     <i class="fas fa-sun hidden dark:block text-premium-gold text-xs"></i>
@@ -58,69 +67,88 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 pt-8 pb-32">
+    <main class="max-w-7xl mx-auto px-4 pt-6 pb-32">
+        <div class="lg:hidden mb-6">
+            <div class="relative">
+                <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search items..." class="w-full bg-white dark:bg-premium-card shadow-sm border-none rounded-2xl py-4 pl-12 pr-4 text-sm outline-none">
+                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+
         <div id="loader" class="flex flex-col items-center justify-center py-20">
             <div class="w-10 h-10 border-4 border-gray-200 border-t-premium-gold rounded-full animate-spin"></div>
+            <p class="text-[10px] uppercase tracking-widest mt-4 text-gray-400 font-bold">Accessing Vault...</p>
         </div>
         
-        <div id="category-chips" class="flex overflow-x-auto gap-2 no-scrollbar mb-8 pb-2"></div>
+        <div id="category-chips" class="flex overflow-x-auto gap-2 no-scrollbar mb-8"></div>
 
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6"></div>
     </main>
 
-    <div class="fixed bottom-0 left-0 right-0 z-[100] lg:hidden bg-white dark:bg-premium-card border-t border-gray-200 dark:border-gray-800 pb-safe">
+    <div class="fixed bottom-0 left-0 right-0 z-[100] lg:hidden bg-white dark:bg-premium-card border-t border-gray-200 dark:border-gray-800">
         <div class="flex items-center justify-between px-6 h-16 relative">
-            
             <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center gap-1 text-premium-gold">
-                <i class="fas fa-home text-xl"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider">Home</span>
+                <i class="fas fa-home text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-wider">Home</span>
             </button>
 
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center gap-1 text-gray-400">
-                <i class="fas fa-search text-xl"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider">Search</span>
+            <button onclick="document.getElementById('searchInputMobile').focus()" class="flex flex-col items-center gap-1 text-gray-400">
+                <i class="fas fa-search text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-wider">Search</span>
             </button>
 
-            <div class="absolute left-1/2 -translate-x-1/2 -top-6">
-                <a id="mobile-amazon-fab" href="https://amazon.com" target="_blank" class="w-16 h-16 bg-premium-gold text-white rounded-full shadow-2xl flex items-center justify-center border-4 border-slate-50 dark:border-premium-dark pulse-center transition-transform active:scale-90">
-                    <i class="fab fa-amazon text-2xl"></i>
+            <div class="absolute left-1/2 -translate-x-1/2 -top-5">
+                <a id="mobile-amazon-fab" href="#" target="_blank" class="w-14 h-14 bg-premium-gold text-white rounded-full shadow-2xl flex items-center justify-center border-4 border-slate-50 dark:border-premium-dark pulse-center transition-all active:scale-90">
+                    <i class="fab fa-amazon text-xl"></i>
                 </a>
             </div>
 
-            <div class="w-16"></div>
-
-            <button id="mobile-saved-btn" onclick="filterCategory('Saved', this)" class="flex flex-col items-center gap-1 text-gray-300 pointer-events-none opacity-30 transition-all">
-                <i class="fas fa-heart text-xl"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider">Saved</span>
+            <div class="w-12"></div> <button id="mobile-saved-btn" onclick="filterCategory('Saved', this)" class="flex flex-col items-center gap-1 text-gray-300 pointer-events-none opacity-20 transition-all">
+                <i class="fas fa-heart text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-wider">Saved</span>
             </button>
 
             <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center gap-1 text-gray-400">
-                <i class="fas fa-chevron-up text-xl"></i>
-                <span class="text-[9px] font-bold uppercase tracking-wider">Top</span>
+                <i class="fas fa-chevron-up text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-wider">Top</span>
             </button>
         </div>
     </div>
 
-    <div id="modal" class="fixed inset-0 z-[110] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center" onclick="if(event.target===this) closeModal()">
-        <div class="bg-white dark:bg-premium-card w-full md:max-w-2xl rounded-t-3xl md:rounded-3xl p-8 relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400"><i class="fas fa-times text-xl"></i></button>
-            <div class="flex flex-col items-center text-center">
-                <img id="modal-img" src="" class="h-48 object-contain mb-6">
-                <h2 id="modal-title" class="text-xl font-bold mb-2"></h2>
-                <p id="modal-desc" class="text-sm text-gray-500 dark:text-gray-400 mb-6"></p>
-                <a id="modal-buy-btn" href="#" target="_blank" class="w-full bg-premium-gold text-white py-4 rounded-xl font-bold uppercase tracking-widest">Buy Now on Amazon</a>
-                <button id="modal-save-btn" onclick="toggleWishlist(activeId)" class="mt-4 text-gray-400 text-sm font-bold uppercase"><i class="fas fa-heart mr-2"></i> Save to Vault</button>
+    <div id="modal" class="fixed inset-0 z-[110] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="if(event.target===this) closeModal()">
+        <div class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl relative">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 bg-white p-12 flex items-center justify-center relative min-h-[300px]">
+                    <button onclick="closeModal()" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-800"><i class="fas fa-times"></i></button>
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-80 object-contain blend-img">
+                </div>
+                <div class="md:w-1/2 p-8 md:p-12 space-y-6">
+                    <div>
+                        <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">Category</span>
+                        <h2 id="modal-title" class="text-2xl font-extrabold mt-1">Product Title</h2>
+                    </div>
+                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
+                    <div class="flex gap-3">
+                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow bg-premium-gold text-white py-4 rounded-xl font-bold uppercase tracking-widest text-center shadow-lg text-xs">Buy on Amazon</a>
+                        <button onclick="shareProduct()" class="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center text-lg"><i class="fas fa-share-alt"></i></button>
+                    </div>
+                    <button id="modal-save-btn" onclick="toggleWishlist(activeId)" class="w-full text-center py-2 text-xs font-bold uppercase tracking-tighter opacity-60 hover:opacity-100 transition-opacity">
+                        <i class="fas fa-heart mr-2"></i> Save to Vault
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="bg-premium-gold text-white px-6 py-3 rounded-full shadow-xl text-xs font-bold uppercase tracking-widest">Saved to Vault</div>
+    <div id="toast" class="bg-premium-gold text-white px-8 py-3 rounded-2xl shadow-2xl font-bold text-[10px] uppercase tracking-widest">Saved</div>
+    <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
         const AFFILIATE_ID = "gitafstore-20";
         let products = [];
         let wishlist = JSON.parse(localStorage.getItem('luxe_wishlist')) || [];
         let activeId = null;
+        let currentFilter = 'All';
 
         async function init() {
             try {
@@ -128,24 +156,37 @@
                 const data = await res.json();
                 products = Object.keys(data).flatMap(cat => data[cat].map(p => ({...p, cat})));
                 renderCategories(Object.keys(data));
-                renderProducts(products);
+                renderProducts();
                 updateWishlistStatus();
                 document.getElementById('loader').classList.add('hidden');
-            } catch (e) { console.error("Load error"); }
+            } catch (e) { document.getElementById('loader').innerText = "Failed to load vault."; }
         }
 
         function renderCategories(cats) {
             const container = document.getElementById('category-chips');
-            container.innerHTML = ['All', ...cats].map(c => `<button onclick="filterCategory('${c}', this)" class="cat-chip px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-[10px] font-bold uppercase tracking-widest text-gray-500 whitespace-nowrap">${c}</button>`).join('');
+            container.innerHTML = ['All', ...cats].map(c => `
+                <button onclick="filterCategory('${c}', this)" class="cat-chip px-6 py-2 rounded-xl bg-white dark:bg-premium-card text-[9px] font-bold uppercase tracking-widest text-gray-500 whitespace-nowrap transition-all shadow-sm">
+                    ${c}
+                </button>
+            `).join('');
         }
 
-        function renderProducts(items) {
+        function renderProducts() {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = items.map(p => `
-                <div class="product-card bg-white dark:bg-premium-card rounded-2xl p-4 cursor-pointer" onclick="openModal(${p.id})">
-                    <img src="${p.img}" class="h-32 w-full object-contain mb-4">
-                    <p class="text-[8px] text-premium-gold font-bold uppercase mb-1">${p.cat}</p>
-                    <h3 class="text-xs font-bold truncate">${p.name}</h3>
+            const term = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || "").toLowerCase();
+            
+            const filtered = products.filter(p => {
+                const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
+                return matchesCat && p.name.toLowerCase().includes(term);
+            });
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card bg-white dark:bg-premium-card rounded-[2rem] p-6 cursor-pointer flex flex-col items-center text-center" onclick="openModal(${p.id})">
+                    <div class="h-32 w-full flex items-center justify-center mb-4">
+                        <img src="${p.img}" class="max-h-full max-w-full object-contain blend-img">
+                    </div>
+                    <p class="text-[7px] text-premium-gold font-bold uppercase tracking-[0.2em] mb-1">${p.cat}</p>
+                    <h3 class="text-[11px] font-bold dark:text-gray-100 truncate w-full">${p.name}</h3>
                 </div>
             `).join('');
         }
@@ -153,19 +194,26 @@
         function openModal(id) {
             const p = products.find(x => x.id === id);
             activeId = id;
+            const link = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
+            
             document.getElementById('modal-img').src = p.img;
+            document.getElementById('modal-cat').innerText = p.cat;
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-desc').innerText = p.desc;
-            const link = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
             document.getElementById('modal-buy-btn').href = link;
             document.getElementById('mobile-amazon-fab').href = link;
-            document.getElementById('modal').classList.remove('hidden');
             
             const isSaved = wishlist.includes(id);
-            document.getElementById('modal-save-btn').className = isSaved ? "mt-4 text-red-500 text-sm font-bold uppercase" : "mt-4 text-gray-400 text-sm font-bold uppercase";
+            document.getElementById('modal-save-btn').innerHTML = isSaved ? '<i class="fas fa-heart text-red-500 mr-2"></i> In Vault' : '<i class="fas fa-heart mr-2"></i> Save to Vault';
+            
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
 
         function toggleWishlist(id) {
             const idx = wishlist.indexOf(id);
@@ -178,25 +226,59 @@
             }
             localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
             updateWishlistStatus();
-            openModal(id); // Refresh modal UI
+            openModal(id);
+            if(currentFilter === 'Saved') renderProducts();
         }
 
         function updateWishlistStatus() {
             const btn = document.getElementById('mobile-saved-btn');
             if(wishlist.length > 0) {
-                btn.classList.remove('pointer-events-none', 'opacity-30', 'text-gray-300');
+                btn.classList.remove('pointer-events-none', 'opacity-20', 'text-gray-300');
                 btn.classList.add('text-red-500');
             } else {
-                btn.classList.add('pointer-events-none', 'opacity-30', 'text-gray-300');
+                btn.classList.add('pointer-events-none', 'opacity-20', 'text-gray-300');
                 btn.classList.remove('text-red-500');
             }
         }
 
         function filterCategory(cat, el) {
-            const filtered = cat === 'All' ? products : (cat === 'Saved' ? products.filter(p => wishlist.includes(p.id)) : products.filter(p => p.cat === cat));
-            renderProducts(filtered);
+            currentFilter = cat;
+            renderProducts();
             document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
-            if(el) el.classList.add('active-chip');
+            if(el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
+            window.scrollTo({top:0, behavior:'smooth'});
+        }
+
+        function syncSearch(val) {
+            document.getElementById('searchInput').value = val;
+            document.getElementById('searchInputMobile').value = val;
+            renderProducts();
+        }
+
+        async function shareProduct() {
+            const p = products.find(x => x.id === activeId);
+            const canvas = document.getElementById('shareCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = p.img;
+            await new Promise(r => img.onload = r);
+            
+            ctx.fillStyle = '#0F1115';
+            ctx.fillRect(0,0,1080,1080);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath(); ctx.roundRect(100,100,880,880,50); ctx.fill();
+            
+            const ratio = Math.min(700/img.width, 700/img.height);
+            ctx.drawImage(img, (1080-img.width*ratio)/2, (1000-img.height*ratio)/2, img.width*ratio, img.height*ratio);
+            
+            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
+            if(navigator.share) {
+                await navigator.share({ files: [new File([blob], 'luxe.jpg', {type:'image/jpeg'})], title: p.name });
+            } else {
+                showToast("Share not supported - Link copied");
+                navigator.clipboard.writeText(window.location.href);
+            }
         }
 
         function showToast(m) {
