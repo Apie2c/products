@@ -164,7 +164,6 @@
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-premium-gold text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-yellow-600 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
-                        <div class="tooltip-container"><button onclick="shareViaWhatsApp()" class="w-14 h-14 flex items-center justify-center bg-green-500/10 text-green-600 rounded-xl transition-all text-xl hover-whatsapp social-icon"><i class="fab fa-whatsapp"></i></button><span class="tooltip-text">WhatsApp</span></div>
                         <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
                     </div>
                 </div>
@@ -307,12 +306,6 @@
             document.getElementById('searchInputMobile').value = val;
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => renderProducts(), 150);
-        }
-
-        function shareViaWhatsApp() {
-            const p = productCatalog.find(x => x.id === activeProductId);
-            const url = window.location.origin + window.location.pathname + '#product-' + p.id;
-            window.open('https://wa.me/?text=' + encodeURIComponent('🔥 *LUXE FIND*: ' + p.name + '\n' + url), '_blank');
         }
 
         async function shareProduct(event) {
