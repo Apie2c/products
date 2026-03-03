@@ -1,0 +1,14 @@
+{
+  "Tech": [
+    { "id": 101, "name": "Apple AirPods 4", "asin": "B0DGVT3T92", "img": "https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg", "desc": "Active Noise Cancellation and adaptive audio.", "status": "Price Stable" },
+    { "id": 102, "name": "Logitech MX Master 3S", "asin": "B09HM94VDS", "img": "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg", "desc": "Precision mouse with 8k DPI tracking.", "status": "Best Seller" },
+    { "id": 103, "name": "Kindle Paperwhite (16GB)", "asin": "B0C9SKX59C", "img": "https://m.media-amazon.com/images/I/71BfAg60enL._AC_SL1500_.jpg", "desc": "Now with a 6.8\" display and thinner borders.", "status": "Best Seller" }
+  ],
+  "Home": [
+    { "id": 201, "name": "Nespresso Vertuo Next", "asin": "B084GSYV97", "img": "https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg", "desc": "Centrifusion technology for the perfect crema.", "status": "Price Drop" },
+    { "id": 204, "name": "Aarke Carbonator 3", "asin": "B08HPB19S2", "img": "https://m.media-amazon.com/images/I/61u9nB9zG0L._AC_SL1500_.jpg", "desc": "Premium stainless steel sparkling water maker.", "status": "Design Icon" }
+  ],
+  "Wellness": [
+    { "id": 501, "name": "Oura Ring Gen3", "asin": "B09K6F9M7S", "img": "https://m.media-amazon.com/images/I/41K7M1-DkDL._AC_.jpg", "desc": "Advanced sleep and health tracking.", "status": "Trending" }
+  ]
+}
