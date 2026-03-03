@@ -165,7 +165,7 @@
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-premium-gold text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-yellow-600 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
                         <div class="tooltip-container"><button onclick="shareViaWhatsApp()" class="w-14 h-14 flex items-center justify-center bg-green-500/10 text-green-600 rounded-xl transition-all text-xl hover-whatsapp social-icon"><i class="fab fa-whatsapp"></i></button><span class="tooltip-text">WhatsApp</span></div>
-                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
+                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Vault Card</span></div>
                     </div>
                 </div>
             </div>
@@ -312,12 +312,14 @@
         function shareViaWhatsApp() {
             const p = productCatalog.find(x => x.id === activeProductId);
             const url = window.location.origin + window.location.pathname + '#product-' + p.id;
-            window.open('https://wa.me/?text=' + encodeURIComponent('🔥 *LUXE FIND*: ' + p.name + '\n' + url), '_blank');
+            window.open('https://wa.me/?text=' + encodeURIComponent('🔥 *LUXE FIND*: ' + p.name + '\n' + p.desc + '\n' + url), '_blank');
         }
 
         async function shareProduct(event) {
             const btn = event.currentTarget; const old = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            const p = productCatalog.find(x => x.id === activeProductId);
+            
             try {
                 const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
                 const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
@@ -329,8 +331,24 @@
                 const r = Math.min(700/img.width, 700/img.height);
                 ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-                if (navigator.share) await navigator.share({ files: [new File([blob], 'luxe-find.jpg', {type:'image/jpeg'})], url: window.location.href });
-            } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
+                
+                const shareText = `🔥 LUXE FIND: ${p.name}\n\n${p.desc}`;
+                const shareUrl = window.location.origin + window.location.pathname + '#product-' + p.id;
+
+                if (navigator.share) {
+                    await navigator.share({ 
+                        files: [new File([blob], 'luxe-find.jpg', {type:'image/jpeg'})], 
+                        title: p.name,
+                        text: shareText,
+                        url: shareUrl 
+                    });
+                } else {
+                    navigator.clipboard.writeText(`${shareText}\n${shareUrl}`); 
+                    showToast('Link & Text Copied!'); 
+                }
+            } catch (e) { 
+                showToast('Share failed'); 
+            }
             btn.innerHTML = old;
         }
 
