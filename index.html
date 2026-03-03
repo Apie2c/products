@@ -21,276 +21,321 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px rgba(197, 160, 43, 0.3); }
+        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
         .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
-        .product-card:hover { transform: translateY(-8px); border-color: #C5A02B; }
-        .blend-img { mix-blend-mode: multiply; filter: contrast(1.05); }
-        .dark .blend-img { filter: contrast(1.1) brightness(0.9); }
-        
-        /* Pulse Animation for Amazon Button */
-        @keyframes amazon-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(197, 160, 43, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0); }
-        }
-        .pulse-center { animation: amazon-pulse 2s infinite; }
-        
-        #toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.4s; z-index: 1000; }
+        .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #C5A02B; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
+        .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .product-card:hover img { transform: scale(1.1); }
+        .dark .blend-img { mix-blend-mode: multiply; filter: contrast(1.1); }
+        .social-icon { transition: all 0.3s ease; }
+        .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
+        .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
+        .hover-twitter:hover { color: #1DA1F2 !important; transform: translateY(-2px); }
+        .hover-youtube:hover { color: #FF0000 !important; transform: translateY(-2px); }
+        .hover-telegram:hover { color: #0088CC !important; transform: translateY(-2px); }
+        .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
+        .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
+        @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
+        .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
+        .tooltip-container { position: relative; display: inline-flex; justify-content: center; align-items: center; }
+        .tooltip-text { visibility: hidden; position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(5px); background-color: #0F1115; color: #fff; text-align: center; padding: 6px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; white-space: nowrap; opacity: 0; transition: all 0.2s ease; z-index: 100; pointer-events: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
+        .dark .tooltip-text { background-color: #C5A02B; }
+        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
         #toast.active { transform: translateX(-50%) translateY(0); }
+        .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; }
+        .modal-body-container { overflow-y: auto; overflow-x: hidden; border-radius: inherit; scrollbar-width: none; }
+        .modal-body-container::-webkit-scrollbar { display: none; }
     </style>
 </head>
 
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
-    <nav class="sticky top-0 z-[60] bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
-        <div class="max-w-7xl mx-auto h-16 flex items-center justify-between gap-4">
-            <h1 class="text-xl font-black tracking-tighter text-premium-gold cursor-pointer" onclick="window.location.reload()">LUXE<span class="text-slate-900 dark:text-white">.</span></h1>
-            
-            <div class="hidden lg:flex items-center flex-grow justify-center px-12">
-                <div class="relative w-full max-w-md">
-                    <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100 dark:bg-gray-800/50 border-none rounded-xl py-2 pl-10 pr-4 text-xs outline-none">
-                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
+        <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
+            <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">LUXE<span class="text-slate-900 dark:text-white">.</span></h1>
+
+            <div class="flex lg:hidden items-center justify-center gap-4 overflow-x-auto no-scrollbar px-2 flex-grow">
+                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xs"></i></a>
+            </div>
+
+            <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
+                <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-4 border-r border-gray-200 dark:border-gray-700 pr-6">
+                        <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
+                    </div>
+                    <div class="relative group w-48">
+                        <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400"></i>
+                    </div>
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <div class="hidden sm:flex items-center gap-3 border-r border-gray-200 dark:border-gray-800 pr-4">
-                    <a href="#" class="text-gray-400 hover:text-premium-gold transition-colors"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-premium-gold transition-colors"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-premium-gold transition-colors"><i class="fab fa-youtube"></i></a>
-                </div>
-                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50">
+            <div class="flex items-center gap-1 sm:gap-4 flex-shrink-0">
+                <button id="header-wishlist-btn" onclick="filterCategory('Saved', this)" class="transition-colors relative p-2 text-gray-400">
+                    <i class="fas fa-heart text-lg"></i>
+                    <span id="wishlist-count" class="absolute top-1 right-0 bg-premium-gold text-white text-[7px] w-4 h-4 rounded-full hidden items-center justify-center font-bold border-2 border-white dark:border-premium-dark">0</span>
+                </button>
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 transition">
                     <i class="fas fa-moon dark:hidden text-xs"></i>
                     <i class="fas fa-sun hidden dark:block text-premium-gold text-xs"></i>
                 </button>
             </div>
         </div>
+
+        <div class="lg:hidden">
+            <div class="max-w-7xl mx-auto pb-2 px-2">
+                <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
+            </div>
+            <div class="max-w-7xl mx-auto pb-4 overflow-hidden"><div id="category-chips-mobile" class="flex justify-center overflow-x-auto gap-2 no-scrollbar px-2"></div></div>
+        </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 pt-6 pb-32">
-        <div class="lg:hidden mb-6">
-            <div class="relative">
-                <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search items..." class="w-full bg-white dark:bg-premium-card shadow-sm border-none rounded-2xl py-4 pl-12 pr-4 text-sm outline-none">
-                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
+    <div class="py-4">
+        <p class="text-[12px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">AS AN AMAZON ASSOCIATE I EARN FROM QUALIFYING PURCHASES.</p>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 pt-8 pb-24 min-h-screen">
+        <div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
+            <div class="w-12 h-12 border-4 border-gray-200 border-t-premium-gold rounded-full animate-spin"></div>
+            <p class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Unlocking Vault...</p>
         </div>
 
-        <div id="loader" class="flex flex-col items-center justify-center py-20">
-            <div class="w-10 h-10 border-4 border-gray-200 border-t-premium-gold rounded-full animate-spin"></div>
-            <p class="text-[10px] uppercase tracking-widest mt-4 text-gray-400 font-bold">Accessing Vault...</p>
-        </div>
-        
-        <div id="category-chips" class="flex overflow-x-auto gap-2 no-scrollbar mb-8"></div>
-
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6"></div>
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8 opacity-0 transition-opacity duration-700"></div>
     </main>
 
-    <div class="fixed bottom-0 left-0 right-0 z-[100] lg:hidden bg-white dark:bg-premium-card border-t border-gray-200 dark:border-gray-800">
-        <div class="flex items-center justify-between px-6 h-16 relative">
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center gap-1 text-premium-gold">
-                <i class="fas fa-home text-lg"></i>
-                <span class="text-[8px] font-bold uppercase tracking-wider">Home</span>
-            </button>
-
-            <button onclick="document.getElementById('searchInputMobile').focus()" class="flex flex-col items-center gap-1 text-gray-400">
-                <i class="fas fa-search text-lg"></i>
-                <span class="text-[8px] font-bold uppercase tracking-wider">Search</span>
-            </button>
-
-            <div class="absolute left-1/2 -translate-x-1/2 -top-5">
-                <a id="mobile-amazon-fab" href="#" target="_blank" class="w-14 h-14 bg-premium-gold text-white rounded-full shadow-2xl flex items-center justify-center border-4 border-slate-50 dark:border-premium-dark pulse-center transition-all active:scale-90">
-                    <i class="fab fa-amazon text-xl"></i>
-                </a>
+    <footer class="bg-white dark:bg-premium-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+            <div class="flex flex-wrap justify-center gap-8 text-gray-400">
+                <a href="#" class="social-icon hover-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#" class="social-icon hover-instagram"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="social-icon hover-twitter"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="social-icon hover-youtube"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="#" class="social-icon hover-telegram"><i class="fab fa-telegram text-xl"></i></a>
+                <a href="#" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="#" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
             </div>
-
-            <div class="w-12"></div> <button id="mobile-saved-btn" onclick="filterCategory('Saved', this)" class="flex flex-col items-center gap-1 text-gray-300 pointer-events-none opacity-20 transition-all">
-                <i class="fas fa-heart text-lg"></i>
-                <span class="text-[8px] font-bold uppercase tracking-wider">Saved</span>
-            </button>
-
-            <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center gap-1 text-gray-400">
-                <i class="fas fa-chevron-up text-lg"></i>
-                <span class="text-[8px] font-bold uppercase tracking-wider">Top</span>
-            </button>
+            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Premium Curated Vault</p>
         </div>
-    </div>
+    </footer>
 
-    <div id="modal" class="fixed inset-0 z-[110] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="if(event.target===this) closeModal()">
-        <div class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2.5rem] md:rounded-[2rem] overflow-hidden shadow-2xl relative">
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/2 bg-white p-12 flex items-center justify-center relative min-h-[300px]">
-                    <button onclick="closeModal()" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-800"><i class="fas fa-times"></i></button>
-                    <img id="modal-img" src="" class="max-h-64 md:max-h-80 object-contain blend-img">
+    <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
+        <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
+            <div class="modal-body-container flex flex-col md:flex-row max-h-[90vh]">
+                <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative min-h-[300px]">
+                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-premium-gold hover:text-white transition-all"><i class="fas fa-times"></i></button>
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110 blend-img">
                 </div>
-                <div class="md:w-1/2 p-8 md:p-12 space-y-6">
-                    <div>
-                        <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">Category</span>
-                        <h2 id="modal-title" class="text-2xl font-extrabold mt-1">Product Title</h2>
+                <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
+                            <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 text-slate-900 dark:text-white">Product</h2>
+                        </div>
+                        <div class="tooltip-container">
+                            <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors focus:outline-none">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <span class="tooltip-text" id="modal-tooltip-label">Save Product</span>
+                        </div>
                     </div>
+                    <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
-                    <div class="flex gap-3">
-                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow bg-premium-gold text-white py-4 rounded-xl font-bold uppercase tracking-widest text-center shadow-lg text-xs">Buy on Amazon</a>
-                        <button onclick="shareProduct()" class="w-14 h-14 bg-gray-100 dark:bg-gray-800 rounded-xl flex items-center justify-center text-lg"><i class="fas fa-share-alt"></i></button>
+                    <div class="pt-4 flex items-center gap-3">
+                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-premium-gold text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-yellow-600 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
+                        <div class="tooltip-container"><button onclick="shareViaWhatsApp()" class="w-14 h-14 flex items-center justify-center bg-green-500/10 text-green-600 rounded-xl transition-all text-xl hover-whatsapp social-icon"><i class="fab fa-whatsapp"></i></button><span class="tooltip-text">WhatsApp</span></div>
+                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
                     </div>
-                    <button id="modal-save-btn" onclick="toggleWishlist(activeId)" class="w-full text-center py-2 text-xs font-bold uppercase tracking-tighter opacity-60 hover:opacity-100 transition-opacity">
-                        <i class="fas fa-heart mr-2"></i> Save to Vault
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="bg-premium-gold text-white px-8 py-3 rounded-2xl shadow-2xl font-bold text-[10px] uppercase tracking-widest">Saved</div>
+    <div id="toast" class="bg-premium-gold text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
     <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
         const AFFILIATE_ID = "gitafstore-20";
-        let products = [];
+        let LUXE_VAULT = {};
+        let productCatalog = [];
         let wishlist = JSON.parse(localStorage.getItem('luxe_wishlist')) || [];
-        let activeId = null;
         let currentFilter = 'All';
+        let activeProductId = null;
+        let searchTimeout;
 
-        async function init() {
+        async function initializeVault() {
+            const loader = document.getElementById('loader');
+            const grid = document.getElementById('product-grid');
             try {
-                const res = await fetch('vault.json');
-                const data = await res.json();
-                products = Object.keys(data).flatMap(cat => data[cat].map(p => ({...p, cat})));
-                renderCategories(Object.keys(data));
+                const response = await fetch('vault.json');
+                if (!response.ok) throw new Error('Failed to fetch');
+                LUXE_VAULT = await response.json();
+                productCatalog = Object.keys(LUXE_VAULT).flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
+                initCategories();
                 renderProducts();
-                updateWishlistStatus();
-                document.getElementById('loader').classList.add('hidden');
-            } catch (e) { document.getElementById('loader').innerText = "Failed to load vault."; }
+                loader.classList.add('hidden');
+                grid.classList.remove('opacity-0');
+                if (window.location.hash.startsWith('#product-')) {
+                    const id = parseInt(window.location.hash.replace('#product-', ''));
+                    if (!isNaN(id)) openModal(id);
+                }
+            } catch (error) {
+                loader.innerHTML = `<p class="text-gray-400 text-xs">Error loading vault. Check vault.json file.</p>`;
+            }
         }
 
-        function renderCategories(cats) {
-            const container = document.getElementById('category-chips');
-            container.innerHTML = ['All', ...cats].map(c => `
-                <button onclick="filterCategory('${c}', this)" class="cat-chip px-6 py-2 rounded-xl bg-white dark:bg-premium-card text-[9px] font-bold uppercase tracking-widest text-gray-500 whitespace-nowrap transition-all shadow-sm">
-                    ${c}
-                </button>
-            `).join('');
+        function initCategories() {
+            const desktops = document.getElementById('category-chips-desktop');
+            const mobiles = document.getElementById('category-chips-mobile');
+            const keys = ['All', ...Object.keys(LUXE_VAULT)];
+            const html = keys.map(key => {
+                const isActive = key === currentFilter ? 'active-chip' : '';
+                return `<button onclick="filterCategory('${key}', this)" class="cat-chip ${isActive} bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-widest transition-all">${key}</button>`;
+            }).join('');
+            desktops.innerHTML = html; mobiles.innerHTML = html;
         }
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            const term = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || "").toLowerCase();
-            
-            const filtered = products.filter(p => {
+            const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || '').toLowerCase();
+            const displayItems = productCatalog.filter(p => {
                 const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
-                return matchesCat && p.name.toLowerCase().includes(term);
+                return matchesCat && p.name.toLowerCase().includes(searchVal);
             });
-
-            grid.innerHTML = filtered.map(p => `
-                <div class="product-card bg-white dark:bg-premium-card rounded-[2rem] p-6 cursor-pointer flex flex-col items-center text-center" onclick="openModal(${p.id})">
-                    <div class="h-32 w-full flex items-center justify-center mb-4">
-                        <img src="${p.img}" class="max-h-full max-w-full object-contain blend-img">
+            updateWishlistCount();
+            grid.innerHTML = displayItems.map((p, index) => {
+                const isSaved = wishlist.includes(p.id);
+                return `
+                <div class="product-card fade-in bg-white dark:bg-premium-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
+                    <div class="absolute top-4 right-4 z-[40]">
+                        <div class="tooltip-container">
+                             <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
+                                <i class="fas fa-heart text-sm"></i>
+                             </button>
+                             <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
+                        </div>
                     </div>
-                    <p class="text-[7px] text-premium-gold font-bold uppercase tracking-[0.2em] mb-1">${p.cat}</p>
-                    <h3 class="text-[11px] font-bold dark:text-gray-100 truncate w-full">${p.name}</h3>
-                </div>
-            `).join('');
+                    <div class="rounded-3xl overflow-hidden">
+                        <div class="img-aspect bg-white p-8 flex items-center justify-center"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-center mb-1"><p class="text-[7px] text-premium-gold font-extrabold uppercase tracking-widest">${p.cat}</p><span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span></div>
+                            <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
+                        </div>
+                    </div>
+                </div>`}).join('');
+        }
+
+        function toggleWishlist(id) {
+            const idx = wishlist.indexOf(id);
+            let isAdding = false;
+            if (idx > -1) { wishlist.splice(idx, 1); showToast("Removed from favorites"); }
+            else { wishlist.push(id); showToast("Added to favorites"); isAdding = true; }
+            localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+            const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
+            targetIds.forEach(elementId => {
+                const el = document.getElementById(elementId);
+                if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
+            });
+            renderProducts();
+            if (activeProductId === id) updateWishlistUI(id);
+        }
+
+        function updateWishlistCount() {
+            const el = document.getElementById('wishlist-count');
+            const hBtn = document.getElementById('header-wishlist-btn');
+            el.innerText = wishlist.length;
+            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+            hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
+        }
+
+        function updateWishlistUI(id) {
+            const btn = document.getElementById('modal-wishlist-btn');
+            const tooltip = document.getElementById('modal-tooltip-label');
+            const isSaved = wishlist.includes(id);
+            if (btn) btn.className = `text-2xl transition-colors focus:outline-none ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
+            if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
         }
 
         function openModal(id) {
-            const p = products.find(x => x.id === id);
-            activeId = id;
-            const link = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
-            
+            const p = productCatalog.find(x => x.id === parseInt(id));
+            if (!p) return;
+            activeProductId = p.id;
             document.getElementById('modal-img').src = p.img;
-            document.getElementById('modal-cat').innerText = p.cat;
             document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-cat').innerText = p.cat;
             document.getElementById('modal-desc').innerText = p.desc;
-            document.getElementById('modal-buy-btn').href = link;
-            document.getElementById('mobile-amazon-fab').href = link;
-            
-            const isSaved = wishlist.includes(id);
-            document.getElementById('modal-save-btn').innerHTML = isSaved ? '<i class="fas fa-heart text-red-500 mr-2"></i> In Vault' : '<i class="fas fa-heart mr-2"></i> Save to Vault';
-            
+            document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
             document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            updateWishlistUI(p.id);
+            window.history.pushState(null, '', '#product-' + p.id);
         }
 
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
             document.body.style.overflow = 'auto';
-        }
-
-        function toggleWishlist(id) {
-            const idx = wishlist.indexOf(id);
-            if(idx > -1) {
-                wishlist.splice(idx, 1);
-                showToast("Removed");
-            } else {
-                wishlist.push(id);
-                showToast("Saved to Vault");
-            }
-            localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
-            updateWishlistStatus();
-            openModal(id);
-            if(currentFilter === 'Saved') renderProducts();
-        }
-
-        function updateWishlistStatus() {
-            const btn = document.getElementById('mobile-saved-btn');
-            if(wishlist.length > 0) {
-                btn.classList.remove('pointer-events-none', 'opacity-20', 'text-gray-300');
-                btn.classList.add('text-red-500');
-            } else {
-                btn.classList.add('pointer-events-none', 'opacity-20', 'text-gray-300');
-                btn.classList.remove('text-red-500');
-            }
+            if (window.location.hash.startsWith('#product-')) window.history.replaceState(null, '', window.location.pathname);
         }
 
         function filterCategory(cat, el) {
             currentFilter = cat;
-            renderProducts();
             document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
-            if(el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
-            window.scrollTo({top:0, behavior:'smooth'});
+            if (el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
+            renderProducts();
         }
 
         function syncSearch(val) {
             document.getElementById('searchInput').value = val;
             document.getElementById('searchInputMobile').value = val;
-            renderProducts();
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => renderProducts(), 150);
         }
 
-        async function shareProduct() {
-            const p = products.find(x => x.id === activeId);
-            const canvas = document.getElementById('shareCanvas');
-            const ctx = canvas.getContext('2d');
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            img.src = p.img;
-            await new Promise(r => img.onload = r);
-            
-            ctx.fillStyle = '#0F1115';
-            ctx.fillRect(0,0,1080,1080);
-            ctx.fillStyle = '#FFFFFF';
-            ctx.beginPath(); ctx.roundRect(100,100,880,880,50); ctx.fill();
-            
-            const ratio = Math.min(700/img.width, 700/img.height);
-            ctx.drawImage(img, (1080-img.width*ratio)/2, (1000-img.height*ratio)/2, img.width*ratio, img.height*ratio);
-            
-            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-            if(navigator.share) {
-                await navigator.share({ files: [new File([blob], 'luxe.jpg', {type:'image/jpeg'})], title: p.name });
-            } else {
-                showToast("Share not supported - Link copied");
-                navigator.clipboard.writeText(window.location.href);
-            }
+        function shareViaWhatsApp() {
+            const p = productCatalog.find(x => x.id === activeProductId);
+            const url = window.location.origin + window.location.pathname + '#product-' + p.id;
+            window.open('https://wa.me/?text=' + encodeURIComponent('🔥 *LUXE FIND*: ' + p.name + '\n' + url), '_blank');
         }
 
-        function showToast(m) {
-            const t = document.getElementById('toast');
-            t.innerText = m;
-            t.classList.add('active');
-            setTimeout(() => t.classList.remove('active'), 2000);
+        async function shareProduct(event) {
+            const btn = event.currentTarget; const old = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            try {
+                const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
+                await new Promise(r => img.onload = r);
+                ctx.fillStyle = '#0F1115'; ctx.fillRect(0,0,1080,1080);
+                ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.roundRect(100,150,880,700,60); ctx.fill();
+                const r = Math.min(700/img.width, 700/img.height);
+                ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
+                if (navigator.share) await navigator.share({ files: [new File([blob], 'luxe-find.jpg', {type:'image/jpeg'})], url: window.location.href });
+            } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
+            btn.innerHTML = old;
         }
 
+        function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
+        function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
 
-        init();
+        window.addEventListener('DOMContentLoaded', initializeVault);
+        window.addEventListener('popstate', () => { if (!document.getElementById('modal').classList.contains('hidden')) closeModal(); });
     </script>
 </body>
 </html>
