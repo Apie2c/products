@@ -55,6 +55,9 @@
         }
         .share-pulse:hover { animation: pulse-gold 1.5s infinite; }
 
+        /* Ensure images maintain square layout without shifting */
+        .img-aspect { aspect-ratio: 1 / 1; }
+
         @media (max-width: 768px) {
             #modal.hidden #modal-content { transform: translateY(100%); }
             #modal:not(.hidden) #modal-content { transform: translateY(0); }
@@ -206,7 +209,7 @@
                      style="animation-delay: ${index * 50}ms"
                      onclick="openModal(${p.id})">
                     ${p.onSale ? '<span class="absolute top-4 left-4 z-10 bg-red-500 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">SALE</span>' : ''}
-                    <div class="h-48 md:h-64 bg-white p-8 relative flex items-center justify-center">
+                    <div class="img-aspect bg-white p-8 relative flex items-center justify-center overflow-hidden">
                         <img src="${p.img}" class="w-full h-full object-contain group-hover:scale-110 transition duration-700" loading="lazy">
                     </div>
                     <div class="p-5">
