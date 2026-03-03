@@ -52,19 +52,8 @@
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
-        <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
-            
+        <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between">
             <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">LUXE<span class="text-slate-900 dark:text-white">.</span></h1>
-
-            <div class="flex lg:hidden items-center justify-center gap-3 overflow-x-auto no-scrollbar flex-grow px-2">
-                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-[10px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-[10px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-[10px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-[10px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-[10px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-[10px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-[10px]"></i></a>
-            </div>
 
             <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
                 <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
@@ -97,7 +86,17 @@
             </div>
         </div>
 
-        <div class="lg:hidden">
+        <div class="lg:hidden border-t border-gray-100 dark:border-gray-800/50">
+            <div class="flex items-center justify-center gap-6 py-4">
+                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-base"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-base"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-base"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-base"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-base"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-base"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-base"></i></a>
+            </div>
+            
             <div class="max-w-7xl mx-auto pb-2 px-2">
                 <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
             </div>
