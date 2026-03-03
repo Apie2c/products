@@ -14,9 +14,6 @@
 
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -41,7 +38,6 @@
         #modal { transition: opacity 0.3s ease-in-out; }
         #modal-content { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
         
-        /* Entrance Animation */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -54,8 +50,6 @@
             100% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0); }
         }
         .share-pulse:hover { animation: pulse-gold 1.5s infinite; }
-
-        /* Ensure images maintain square layout without shifting */
         .img-aspect { aspect-ratio: 1 / 1; }
 
         @media (max-width: 768px) {
@@ -129,7 +123,7 @@
                     <button onclick="closeModal()" class="absolute top-5 left-5 z-10 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-premium-gold hover:text-white transition text-gray-900 shadow-md">
                         <i class="fas fa-times"></i>
                     </button>
-                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain">
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain" onerror="this.src='https://via.placeholder.com/400?text=Premium+Selection'">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
                     <div>
@@ -169,6 +163,7 @@
         const AFFILIATE_ID = "gitafstore-20";
         let activeProductId = null;
         let currentFilter = 'All';
+        let debounceTimer;
 
         const productCatalog = {
             Tech: [
@@ -210,7 +205,10 @@
                      onclick="openModal(${p.id})">
                     ${p.onSale ? '<span class="absolute top-4 left-4 z-10 bg-red-500 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">SALE</span>' : ''}
                     <div class="img-aspect bg-white p-8 relative flex items-center justify-center overflow-hidden">
-                        <img src="${p.img}" class="w-full h-full object-contain group-hover:scale-110 transition duration-700" loading="lazy">
+                        <img src="${p.img}" 
+                             class="w-full h-full object-contain group-hover:scale-110 transition duration-700" 
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300?text=Premium+Item'">
                     </div>
                     <div class="p-5">
                         <p class="text-[8px] text-premium-gold font-extrabold tracking-[0.2em] uppercase mb-1">${p.cat}</p>
@@ -285,9 +283,15 @@
         }
 
         function handleSearch(q) {
+            // Sync values immediately for UI feedback
             document.getElementById('searchInput').value = q;
             document.getElementById('searchInputMobile').value = q;
-            renderProducts();
+            
+            // Debounce the actual filtering for performance
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                renderProducts();
+            }, 250);
         }
 
         function filterCategory(cat, el) {
