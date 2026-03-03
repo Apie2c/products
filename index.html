@@ -26,7 +26,7 @@
         .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #C5A02B; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
         .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .product-card:hover img { transform: scale(1.1); }
-        .blend-img { mix-blend-mode: multiply; filter: contrast(1.05); }
+        .blend-img { mix-blend-mode: multiply; filter: contrast(1.1); }
         .social-icon { transition: all 0.3s ease; }
         .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
         .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
@@ -54,16 +54,6 @@
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
         <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
             <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">LUXE<span class="text-slate-900 dark:text-white">.</span></h1>
-
-            <div class="flex lg:hidden items-center justify-center gap-4 overflow-x-auto no-scrollbar px-2 flex-grow">
-                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xs"></i></a>
-            </div>
 
             <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
                 <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
@@ -97,6 +87,15 @@
         </div>
 
         <div class="lg:hidden">
+            <div class="flex items-center justify-center gap-4 overflow-x-auto no-scrollbar px-2 mb-3">
+                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xs"></i></a>
+            </div>
             <div class="max-w-7xl mx-auto pb-2 px-2">
                 <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
             </div>
@@ -119,6 +118,15 @@
 
     <footer class="bg-white dark:bg-premium-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
         <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+            <div class="flex flex-wrap justify-center gap-8 text-gray-400">
+                <a href="#" class="social-icon hover-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#" class="social-icon hover-instagram"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="social-icon hover-twitter"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="social-icon hover-youtube"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="#" class="social-icon hover-telegram"><i class="fab fa-telegram text-xl"></i></a>
+                <a href="#" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="#" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
+            </div>
             <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Premium Curated Vault</p>
         </div>
     </footer>
@@ -188,8 +196,7 @@
                     if (!isNaN(id)) openModal(id);
                 }
             } catch (error) {
-                loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json not found or invalid.</p>
-                <button onclick="location.reload()" class="bg-premium-gold text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
+                loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-premium-gold text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
             }
         }
 
@@ -242,7 +249,7 @@
             localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
             updateWishlistCount();
             
-            const targetIds = [`heart-${id}`, 'modal-wishlist-btn'];
+            const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
             targetIds.forEach(elementId => {
                 const el = document.getElementById(elementId);
                 if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
@@ -253,8 +260,10 @@
 
         function updateWishlistCount() {
             const el = document.getElementById('wishlist-count');
+            const hBtn = document.getElementById('header-wishlist-btn');
             el.innerText = wishlist.length;
             el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+            hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
         }
 
         function updateWishlistUI(id) {
@@ -328,21 +337,12 @@
         function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
-
-        // Back to Top Logic
         window.addEventListener('scroll', () => {
             const btn = document.getElementById('backToTop');
-            if (window.scrollY > 500) {
-                btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-                btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            } else {
-                btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-                btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            }
+            if (window.scrollY > 500) { btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
+            else { btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
         });
-
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
         window.addEventListener('DOMContentLoaded', initializeVault);
         window.addEventListener('popstate', () => { if (!document.getElementById('modal').classList.contains('hidden')) closeModal(); });
     </script>
