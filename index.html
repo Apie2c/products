@@ -24,17 +24,14 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
-        
         #modal { transition: opacity 0.3s ease-in-out; }
         #modal-content { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        
         @keyframes pulse-gold {
             0% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(197, 160, 43, 0); }
             100% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0); }
         }
         .share-pulse:hover { animation: pulse-gold 1.5s infinite; }
-
         @media (max-width: 768px) {
             #modal.hidden #modal-content { transform: translateY(100%); }
             #modal:not(.hidden) #modal-content { transform: translateY(0); }
@@ -46,7 +43,7 @@
 
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
         <div class="max-w-7xl mx-auto h-20 flex items-center gap-4 md:gap-8">
-            <h1 class="text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.reload()">
+            <h1 class="text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
                 LUXE<span class="text-slate-900 dark:text-white">.</span>
             </h1>
 
@@ -119,7 +116,7 @@
                             BUY ON AMAZON <i class="fas fa-external-link-alt text-xs"></i>
                         </a>
                         <button id="shareBtn" onclick="shareProduct(event)" class="share-pulse w-full py-3 bg-gray-100 dark:bg-gray-800/50 text-gray-500 dark:text-gray-300 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-premium-gold/10 hover:text-premium-gold transition-all duration-300">
-                            <i class="fas fa-magic mr-2"></i> Generate Social Card
+                            <i class="fas fa-magic mr-2"></i> Share Product Experience
                         </button>
                     </div>
                 </div>
@@ -144,21 +141,22 @@
 
     <script>
         const AFFILIATE_ID = "gitafstore-20";
+        let activeProductId = null;
 
         const productCatalog = {
             Tech: [
                 { id: 101, name: 'Apple AirPods 4', asin: 'B0DGVT3T92', onSale: true, img: 'https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg', desc: 'AirPods 4 have been redesigned for exceptional all-day comfort and stability.' },
-                { id: 102, name: 'Logitech MX Master 3S', asin: 'B09HM94VDS', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', desc: 'Quiet clicks and 8K DPI tracking on any surface.' }
+                { id: 102, name: 'Logitech MX Master 3S', asin: 'B09HM94VDS', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', desc: 'The iconic mouse remastered with quiet clicks and 8K DPI tracking.' }
             ],
             Home: [
                 { id: 201, name: 'Nespresso Vertuo Next', asin: 'B084GSYV97', onSale: true, img: 'https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg', desc: 'Luxury coffee experience in a compact, sleek design.' },
-                { id: 202, name: 'Hatch Restore 2', asin: 'B0BT9S7Y3K', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', desc: 'A sunrise alarm and white noise machine.' }
+                { id: 202, name: 'Hatch Restore 2', asin: 'B0BT9S7Y3K', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', desc: 'A sunrise alarm and white noise machine wrapped in premium fabric.' }
             ],
             Lifestyle: [
-                { id: 301, name: 'Ray-Ban Wayfarer Reverse', asin: 'B0C79N8K6P', img: 'https://m.media-amazon.com/images/I/51V1+YjE6KL._AC_SL1500_.jpg', desc: 'Inverted lens for a sharp, futuristic look.' }
+                { id: 301, name: 'Ray-Ban Wayfarer Reverse', asin: 'B0C79N8K6P', img: 'https://m.media-amazon.com/images/I/51V1+YjE6KL._AC_SL1500_.jpg', desc: 'An inverted lens design for a sharp, futuristic look.' }
             ],
             Fitness: [
-                { id: 401, name: 'Theragun Mini 2.0', asin: 'B0B88P9G7S', onSale: true, img: 'https://m.media-amazon.com/images/I/61S-rO-n3KL._AC_SL1500_.jpg', desc: 'Small but powerful recovery that goes wherever you do.' }
+                { id: 401, name: 'Theragun Mini 2.0', asin: 'B0B88P9G7S', onSale: true, img: 'https://m.media-amazon.com/images/I/61S-rO-n3KL._AC_SL1500_.jpg', desc: 'Portable recovery that goes wherever you do.' }
             ]
         };
 
@@ -186,75 +184,95 @@
 
         async function shareProduct(event) {
             const title = document.getElementById('modal-title').innerText;
-            const url = document.getElementById('modal-buy-btn').href;
             const imgElement = document.getElementById('modal-img');
             const shareBtn = event.currentTarget;
             const originalHTML = shareBtn.innerHTML;
 
-            shareBtn.innerHTML = '<i class="fas fa-magic fa-spin mr-2"></i> RENDERING CARD...';
+            // Generate the Site URL with Product ID Parameter
+            const shareUrl = `${window.location.origin}${window.location.pathname}?product=${activeProductId}`;
+
+            shareBtn.innerHTML = '<i class="fas fa-magic fa-spin mr-2"></i> BUILDING CARD...';
 
             try {
                 const canvas = document.getElementById('shareCanvas');
                 const ctx = canvas.getContext('2d');
-
-                // 1. Premium Background
                 ctx.fillStyle = '#0F1115';
                 ctx.fillRect(0, 0, 1080, 1080);
 
-                // 2. Load & Draw Image
                 const img = new Image();
                 img.crossOrigin = "anonymous";
                 img.src = imgElement.src;
                 await new Promise(r => img.onload = r);
 
                 const padding = 180;
-                const maxSize = 1080 - (padding * 2);
+                const maxSize = 700;
                 let w = img.width, h = img.height;
                 const ratio = Math.min(maxSize/w, maxSize/h);
                 w *= ratio; h *= ratio;
                 
-                // Draw white backing for product (optional but looks clean)
                 ctx.fillStyle = '#FFFFFF';
-                ctx.beginPath();
-                ctx.roundRect(100, 100, 880, 750, 40);
-                ctx.fill();
-                
-                ctx.drawImage(img, (1080 - w) / 2, (950 - h) / 2, w, h);
+                ctx.beginPath(); ctx.roundRect(100, 150, 880, 700, 60); ctx.fill();
+                ctx.drawImage(img, (1080 - w) / 2, (1000 - h) / 2, w, h);
 
-                // 3. Branding
                 ctx.fillStyle = '#C5A02B';
-                ctx.font = 'bold 36px Plus Jakarta Sans';
-                ctx.textAlign = 'center';
-                ctx.fillText('L U X E   S E L E C T I O N', 540, 70);
-
+                ctx.font = 'bold 40px Plus Jakarta Sans'; ctx.textAlign = 'center';
+                ctx.fillText('L U X E   V A U L T', 540, 90);
                 ctx.fillStyle = '#FFFFFF';
-                ctx.font = 'bold 54px Plus Jakarta Sans';
+                ctx.font = 'bold 50px Plus Jakarta Sans';
                 ctx.fillText(title.toUpperCase(), 540, 950);
+                ctx.font = '30px Plus Jakarta Sans'; ctx.fillStyle = '#C5A02B';
+                ctx.fillText('CLICK LINK TO VIEW IN STORE', 540, 1010);
 
-                ctx.font = '32px Plus Jakarta Sans';
-                ctx.fillStyle = '#666';
-                ctx.fillText('CURATED PREMIUM DEALS', 540, 1010);
-
-                // 4. Share
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-                const file = new File([blob], 'luxe-share.jpg', { type: 'image/jpeg' });
+                const file = new File([blob], 'luxe-find.jpg', { type: 'image/jpeg' });
 
-                if (navigator.share && navigator.canShare({ files: [file] })) {
+                if (navigator.share) {
                     await navigator.share({
                         files: [file],
                         title: title,
-                        text: `Found this on LUXE: ${title}`,
-                        url: url
+                        text: `Take a look at this on LUXE!`,
+                        url: shareUrl
                     });
-                } else {
-                    throw new Error('Fallback');
                 }
             } catch (err) {
-                navigator.clipboard.writeText(`${title}: ${url}`);
-                alert("Link copied to clipboard!");
+                navigator.clipboard.writeText(shareUrl);
+                alert("Deep-link copied!");
             } finally {
                 shareBtn.innerHTML = originalHTML;
             }
+        }
+
+        // Deep Linking Logic on Page Load
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('product');
+            if (productId) {
+                setTimeout(() => openModal(parseInt(productId)), 500);
+            }
+        });
+
+        function openModal(id) {
+            const p = getAllProducts().find(prod => prod.id === id);
+            if (!p) return;
+            activeProductId = id;
+            document.getElementById('modal-img').src = p.img;
+            document.getElementById('modal-title').innerText = p.name;
+            document.getElementById('modal-cat').innerText = p.cat;
+            document.getElementById('modal-desc').innerText = p.desc;
+            document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            // Update URL without refreshing for cleaner navigation
+            const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?product=' + id;
+            window.history.pushState({path:newurl},'',newurl);
+        }
+
+        function closeModal() { 
+            document.getElementById('modal').classList.add('hidden'); 
+            document.body.style.overflow = 'auto'; 
+            // Clear URL param when closing
+            const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.pushState({path:cleanUrl},'',cleanUrl);
         }
 
         let currentFilter = 'All';
@@ -271,18 +289,6 @@
             renderProducts();
         }
 
-        function openModal(id) {
-            const p = getAllProducts().find(prod => prod.id === id);
-            document.getElementById('modal-img').src = p.img;
-            document.getElementById('modal-title').innerText = p.name;
-            document.getElementById('modal-cat').innerText = p.cat;
-            document.getElementById('modal-desc').innerText = p.desc;
-            document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
-            document.getElementById('modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); document.body.style.overflow = 'auto'; }
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
 
