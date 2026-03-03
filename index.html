@@ -52,26 +52,18 @@
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
-        <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
+        <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-4">
+            
             <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">LUXE<span class="text-slate-900 dark:text-white">.</span></h1>
 
-            <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
-                <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
-                <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-4 border-r border-gray-200 dark:border-gray-700 pr-6">
-                        <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
-                    </div>
-                    <div class="relative group w-48">
-                        <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
-                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400"></i>
-                    </div>
-                </div>
+            <div class="flex items-center justify-center gap-3 sm:gap-4 overflow-x-auto no-scrollbar flex-grow px-2">
+                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-xs sm:text-sm"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-xs sm:text-sm"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-xs sm:text-sm"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-xs sm:text-sm"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-xs sm:text-sm"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-xs sm:text-sm"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xs sm:text-sm"></i></a>
             </div>
 
             <div class="flex items-center gap-1 sm:gap-4 flex-shrink-0">
@@ -86,28 +78,27 @@
             </div>
         </div>
 
-        <div class="lg:hidden">
-            <div class="flex items-center justify-center gap-4 overflow-x-auto no-scrollbar px-2 mb-3">
-                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-xs"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xs"></i></a>
+        <div class="max-w-7xl mx-auto pb-4 hidden lg:flex items-center justify-between border-t border-gray-100 dark:border-gray-800 pt-4">
+            <div id="category-chips-desktop" class="flex gap-2"></div>
+            <div class="relative group w-64">
+                <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400"></i>
             </div>
-            <div class="max-w-7xl mx-auto pb-2 px-2">
+        </div>
+
+        <div class="lg:hidden pb-4">
+            <div class="max-w-7xl mx-auto pb-3 px-2">
                 <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
             </div>
-            <div class="max-w-7xl mx-auto pb-4 overflow-hidden"><div id="category-chips-mobile" class="flex justify-center overflow-x-auto gap-2 no-scrollbar px-2"></div></div>
+            <div class="max-w-7xl mx-auto overflow-hidden"><div id="category-chips-mobile" class="flex justify-start overflow-x-auto gap-2 no-scrollbar px-2"></div></div>
         </div>
     </nav>
 
     <div class="py-4">
-        <p class="text-[12px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">AS AN AMAZON ASSOCIATE I EARN FROM QUALIFYING PURCHASES.</p>
+        <p class="text-[10px] sm:text-[12px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center px-4">AS AN AMAZON ASSOCIATE I EARN FROM QUALIFYING PURCHASES.</p>
     </div>
 
-    <main class="max-w-7xl mx-auto px-4 pt-8 pb-24 min-h-screen">
+    <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
         <div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
             <div class="w-12 h-12 border-4 border-gray-200 border-t-premium-gold rounded-full animate-spin"></div>
             <p class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Unlocking Vault...</p>
@@ -191,10 +182,6 @@
                 renderProducts();
                 loader.classList.add('hidden');
                 grid.classList.remove('opacity-0');
-                if (window.location.hash.startsWith('#product-')) {
-                    const id = parseInt(window.location.hash.replace('#product-', ''));
-                    if (!isNaN(id)) openModal(id);
-                }
             } catch (error) {
                 loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-premium-gold text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
             }
@@ -208,7 +195,8 @@
                 const isActive = key === currentFilter ? 'active-chip' : '';
                 return `<button onclick="filterCategory('${key}', this)" class="cat-chip ${isActive} bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-widest transition-all">${key}</button>`;
             }).join('');
-            desktops.innerHTML = html; mobiles.innerHTML = html;
+            if(desktops) desktops.innerHTML = html; 
+            if(mobiles) mobiles.innerHTML = html;
         }
 
         function renderProducts() {
@@ -261,9 +249,11 @@
         function updateWishlistCount() {
             const el = document.getElementById('wishlist-count');
             const hBtn = document.getElementById('header-wishlist-btn');
-            el.innerText = wishlist.length;
-            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
-            hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
+            if(el) {
+                el.innerText = wishlist.length;
+                el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+            }
+            if(hBtn) hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
         }
 
         function updateWishlistUI(id) {
@@ -334,7 +324,7 @@
             btn.innerHTML = old;
         }
 
-        function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
+        function showToast(m) { const t = document.getElementById('toast'); if(t){ t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }}
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
         window.addEventListener('scroll', () => {
