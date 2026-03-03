@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    
     <title>LUXE | Premium Curated Store</title>
+    <meta name="description" content="A highly curated vault of premium technology, home decor, and lifestyle essentials.">
+    <meta property="og:title" content="LUXE | Premium Curated Store">
+    <meta property="og:description" content="Discover hand-picked premium essentials for the modern aesthetic.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://img.icons8.com/ios-filled/100/C5A02B/diamond--v1.png">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/C5A02B/diamond--v1.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -24,14 +33,24 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
+        
         #modal { transition: opacity 0.3s ease-in-out; }
         #modal-content { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        
+        /* Entrance Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-card { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
+
         @keyframes pulse-gold {
             0% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(197, 160, 43, 0); }
             100% { box-shadow: 0 0 0 0 rgba(197, 160, 43, 0); }
         }
         .share-pulse:hover { animation: pulse-gold 1.5s infinite; }
+
         @media (max-width: 768px) {
             #modal.hidden #modal-content { transform: translateY(100%); }
             #modal:not(.hidden) #modal-content { transform: translateY(0); }
@@ -91,7 +110,7 @@
             As an Amazon Associate I earn from qualifying purchases.
         </p>
     </div>
-       
+        
     <main class="max-w-7xl mx-auto px-4 pt-4 pb-24">
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8"></div>
     </main>
@@ -116,7 +135,7 @@
                             VIEW PRICE ON AMAZON <i class="fas fa-external-link-alt text-xs"></i>
                         </a>
                         <button id="shareBtn" onclick="shareProduct(event)" class="share-pulse w-full py-3 bg-gray-100 dark:bg-gray-800/50 text-gray-500 dark:text-gray-300 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-premium-gold/10 hover:text-premium-gold transition-all duration-300">
-                            <i class="fas fa-magic mr-2"></i> Share
+                            <i class="fas fa-magic mr-2"></i> Share Find
                         </button>
                     </div>
                 </div>
@@ -142,6 +161,7 @@
     <script>
         const AFFILIATE_ID = "gitafstore-20";
         let activeProductId = null;
+        let currentFilter = 'All';
 
         const productCatalog = {
             Tech: [
@@ -162,11 +182,25 @@
 
         const getAllProducts = () => Object.entries(productCatalog).flatMap(([cat, items]) => items.map(i => ({...i, cat})));
 
-        function renderProducts(items = null) {
+        function renderProducts() {
             const grid = document.getElementById('product-grid');
-            const displayItems = items || (currentFilter === 'All' ? getAllProducts() : (productCatalog[currentFilter] || []).map(p => ({...p, cat: currentFilter})));
-            grid.innerHTML = displayItems.map(p => `
-                <div class="group bg-white dark:bg-premium-card rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm active:scale-95 transition-all cursor-pointer relative" onclick="openModal(${p.id})">
+            const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value).toLowerCase();
+            
+            const displayItems = getAllProducts().filter(p => {
+                const matchesCat = currentFilter === 'All' || p.cat === currentFilter;
+                const matchesSearch = p.name.toLowerCase().includes(searchVal);
+                return matchesCat && matchesSearch;
+            });
+
+            if (displayItems.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center opacity-40 uppercase tracking-widest text-xs">No treasures found</div>`;
+                return;
+            }
+
+            grid.innerHTML = displayItems.map((p, index) => `
+                <div class="product-card group bg-white dark:bg-premium-card rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm active:scale-95 transition-all cursor-pointer relative" 
+                     style="animation-delay: ${index * 50}ms"
+                     onclick="openModal(${p.id})">
                     ${p.onSale ? '<span class="absolute top-4 left-4 z-10 bg-red-500 text-white text-[8px] font-black px-2 py-1 rounded-full shadow-lg">SALE</span>' : ''}
                     <div class="h-48 md:h-64 bg-white p-8 relative flex items-center justify-center">
                         <img src="${p.img}" class="w-full h-full object-contain group-hover:scale-110 transition duration-700" loading="lazy">
@@ -187,8 +221,6 @@
             const imgElement = document.getElementById('modal-img');
             const shareBtn = event.currentTarget;
             const originalHTML = shareBtn.innerHTML;
-
-            // Generate the Site URL with Product ID Parameter
             const shareUrl = `${window.location.origin}${window.location.pathname}?product=${activeProductId}`;
 
             shareBtn.innerHTML = '<i class="fas fa-magic fa-spin mr-2"></i> BUILDING CARD...';
@@ -202,9 +234,11 @@
                 const img = new Image();
                 img.crossOrigin = "anonymous";
                 img.src = imgElement.src;
-                await new Promise(r => img.onload = r);
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = () => reject(new Error("Image Load Failed"));
+                });
 
-                const padding = 180;
                 const maxSize = 700;
                 let w = img.width, h = img.height;
                 const ratio = Math.min(maxSize/w, maxSize/h);
@@ -216,40 +250,45 @@
 
                 ctx.fillStyle = '#C5A02B';
                 ctx.font = 'bold 40px Plus Jakarta Sans'; ctx.textAlign = 'center';
-                ctx.fillText('L U X E   V A U L T', 540, 90);
+                ctx.fillText('L U X E  V A U L T', 540, 90);
                 ctx.fillStyle = '#FFFFFF';
                 ctx.font = 'bold 50px Plus Jakarta Sans';
                 ctx.fillText(title.toUpperCase(), 540, 950);
-                ctx.font = '30px Plus Jakarta Sans'; ctx.fillStyle = '#C5A02B';
-                ctx.fillText('CLICK LINK TO VIEW IN STORE', 540, 1010);
 
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
                 const file = new File([blob], 'luxe-find.jpg', { type: 'image/jpeg' });
 
-                if (navigator.share) {
+                if (navigator.share && navigator.canShare({ files: [file] })) {
                     await navigator.share({
                         files: [file],
                         title: title,
-                        text: `Take a look at this on LUXE!`,
+                        text: `Check this out on LUXE!`,
                         url: shareUrl
                     });
+                } else {
+                    throw new Error("Share not available");
                 }
             } catch (err) {
-                navigator.clipboard.writeText(shareUrl);
-                alert("Deep-link copied!");
-            } finally {
-                shareBtn.innerHTML = originalHTML;
+                await navigator.clipboard.writeText(shareUrl);
+                shareBtn.innerHTML = '<i class="fas fa-check mr-2"></i> LINK COPIED';
+                setTimeout(() => shareBtn.innerHTML = originalHTML, 2000);
+                return;
             }
+            shareBtn.innerHTML = originalHTML;
         }
 
-        // Deep Linking Logic on Page Load
-        window.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const productId = params.get('product');
-            if (productId) {
-                setTimeout(() => openModal(parseInt(productId)), 500);
-            }
-        });
+        function handleSearch(q) {
+            document.getElementById('searchInput').value = q;
+            document.getElementById('searchInputMobile').value = q;
+            renderProducts();
+        }
+
+        function filterCategory(cat, el) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-chip').forEach(btn => btn.classList.remove('active-chip'));
+            el.classList.add('active-chip');
+            renderProducts();
+        }
 
         function openModal(id) {
             const p = getAllProducts().find(prod => prod.id === id);
@@ -262,37 +301,29 @@
             document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
             document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
-            // Update URL without refreshing for cleaner navigation
-            const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?product=' + id;
+            
+            const newurl = window.location.origin + window.location.pathname + '?product=' + id;
             window.history.pushState({path:newurl},'',newurl);
         }
 
         function closeModal() { 
             document.getElementById('modal').classList.add('hidden'); 
             document.body.style.overflow = 'auto'; 
-            // Clear URL param when closing
-            const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            const cleanUrl = window.location.origin + window.location.pathname;
             window.history.pushState({path:cleanUrl},'',cleanUrl);
-        }
-
-        let currentFilter = 'All';
-        function handleSearch(q) {
-            const query = q.toLowerCase();
-            const filtered = getAllProducts().filter(p => (currentFilter === 'All' || p.cat === currentFilter) && p.name.toLowerCase().includes(query));
-            renderProducts(filtered);
-        }
-
-        function filterCategory(cat, el) {
-            currentFilter = cat;
-            document.querySelectorAll('.cat-chip').forEach(btn => btn.classList.remove('active-chip'));
-            el.classList.add('active-chip');
-            renderProducts();
         }
 
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
 
-        renderProducts();
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('product');
+            if (productId) {
+                setTimeout(() => openModal(parseInt(productId)), 500);
+            }
+            renderProducts();
+        });
     </script>
 </body>
 </html>
