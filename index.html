@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="dark"> <head>
+<html lang="en" class="dark">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>LUXE | Premium Curated Store</title>
@@ -20,77 +21,76 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 6px -1px rgba(197, 160, 43, 0.3); }
-        
-        #modal-content { transition: transform 0.3s ease-out, opacity 0.3s; }
+        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
+        #modal { transition: opacity 0.3s ease-in-out; }
+        #modal-content { transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
         @media (max-width: 768px) {
             #modal.hidden #modal-content { transform: translateY(100%); }
             #modal:not(.hidden) #modal-content { transform: translateY(0); }
         }
     </style>
 </head>
+
 <body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
-    <div class="max-w-7xl mx-auto h-20 flex items-center gap-4 md:gap-8">
-        <h1 class="text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.reload()">
-            LUXE<span class="text-slate-900 dark:text-white">.</span>
-        </h1>
+        <div class="max-w-7xl mx-auto h-20 flex items-center gap-4 md:gap-8">
+            <h1 class="text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.reload()">
+                LUXE<span class="text-slate-900 dark:text-white">.</span>
+            </h1>
 
-        <div class="relative group flex-grow max-w-md hidden sm:block">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <i class="fas fa-search text-xs text-gray-400 group-focus-within:text-premium-gold transition-colors"></i>
+            <div class="relative group flex-grow max-w-md hidden sm:block">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-xs text-gray-400 group-focus-within:text-premium-gold transition-colors"></i>
+                </div>
+                <input type="text" id="searchInput" oninput="handleSearch(this.value)" 
+                    placeholder="Search the vault..." 
+                    class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-full py-2 pl-10 pr-4 text-xs focus:ring-4 focus:ring-premium-gold/5 transition-all outline-none dark:text-white">
             </div>
-            <input type="text" id="searchInput" onkeyup="searchProducts()" 
-                placeholder="Search the vault..." 
-                class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-full py-2 pl-10 pr-4 text-xs focus:ring-4 focus:ring-premium-gold/5 transition-all outline-none dark:text-white">
+
+            <div class="flex items-center gap-3 md:gap-5 ml-auto">
+                <div class="flex items-center gap-3 md:gap-4 border-r pr-4 md:pr-6 border-gray-200 dark:border-gray-700">
+                    <a href="#" class="text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors"><i class="fab fa-tiktok text-sm"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-green-500 transition-colors"><i class="fab fa-whatsapp text-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i class="fab fa-telegram text-lg"></i></a>
+                </div>
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700 transition shadow-sm">
+                    <i class="fas fa-moon dark:hidden text-slate-700 text-sm"></i>
+                    <i class="fas fa-sun hidden dark:block text-premium-gold text-sm"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="flex items-center gap-3 md:gap-5 ml-auto">
-            <div class="flex items-center gap-3 md:gap-4 border-r pr-4 md:pr-6 border-gray-200 dark:border-gray-700">
-                <a href="https://tiktok.com" target="_blank" class="text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                    <i class="fab fa-tiktok text-sm"></i>
-                </a>
-                <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors">
-                    <i class="fab fa-whatsapp text-lg"></i>
-                </a>
-                <a href="https://t.me/yourchannel" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
-                    <i class="fab fa-telegram text-lg"></i>
-                </a>
+        <div class="sm:hidden pb-4">
+            <div class="relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-xs text-gray-400"></i>
+                </div>
+                <input type="text" id="searchInputMobile" oninput="handleSearch(this.value)" 
+                    placeholder="Search the vault..." 
+                    class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent rounded-xl py-2 pl-10 pr-4 text-xs outline-none dark:text-white">
             </div>
-            
-            <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700 transition shadow-sm">
-                <i class="fas fa-moon dark:hidden text-slate-700 text-sm"></i>
-                <i class="fas fa-sun hidden dark:block text-premium-gold text-sm"></i>
-            </button>
         </div>
+
+        <div class="max-w-7xl mx-auto pb-4">
+            <div class="flex overflow-x-auto gap-2 no-scrollbar">
+                <button onclick="filterCategory('All', this)" class="cat-chip active-chip whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">All</button>
+                <button onclick="filterCategory('Tech', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Technology</button>
+                <button onclick="filterCategory('Home', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Home Decor</button>
+                <button onclick="filterCategory('Lifestyle', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Lifestyle</button>
+                <button onclick="filterCategory('Fitness', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Fitness</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="py-6">
+        <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">
+            As an Amazon Associate I earn from qualifying purchases.
+        </p>
     </div>
-
-    <div class="sm:hidden pb-4">
-        <div class="relative group">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <i class="fas fa-search text-xs text-gray-400"></i>
-            </div>
-            <input type="text" id="searchInputMobile" onkeyup="searchProducts()" 
-                placeholder="Search the vault..." 
-                class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent rounded-xl py-2 pl-10 pr-4 text-xs outline-none dark:text-white">
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto pb-4">
-        <div class="flex overflow-x-auto gap-2 no-scrollbar">
-            <button onclick="filterCategory('All', this)" class="cat-chip active-chip whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">All</button>
-            <button onclick="filterCategory('Tech', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Technology</button>
-            <button onclick="filterCategory('Home', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Home Decor</button>
-            <button onclick="filterCategory('Lifestyle', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Lifestyle</button>
-            <button onclick="filterCategory('Fitness', this)" class="cat-chip bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-[0.15em] transition-all">Fitness</button>
-        </div>
-    </div>
-</nav>
-
-    <main class="max-w-7xl mx-auto px-4 pt-8 pb-24">
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
-            </div>
+       
+    <main class="max-w-7xl mx-auto px-4 pt-4 pb-24">
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8"></div>
     </main>
 
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
@@ -107,8 +107,7 @@
                         <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
                         <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 leading-tight tracking-tight text-slate-900 dark:text-white">Product Title</h2>
                     </div>
-                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm md:text-base leading-relaxed font-medium">Description goes here...</p>
-                    
+                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm md:text-base leading-relaxed font-medium">Description...</p>
                     <div class="pt-4 space-y-4">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex items-center justify-center gap-3 w-full bg-premium-gold text-white py-4 rounded-xl font-extrabold text-base shadow-lg shadow-premium-gold/20 hover:bg-yellow-600 transition-all">
                             BUY ON AMAZON <i class="fas fa-external-link-alt text-xs"></i>
@@ -136,23 +135,48 @@
     </footer>
 
     <script>
-        const AFFILIATE_ID = "YOUR_TAG_HERE";
+        const AFFILIATE_ID = "gitafstore-20";
 
-        const products = [
-            { id: 1, cat: 'Tech', name: 'Apple AirPods Max', img: 'https://m.media-amazon.com/images/I/81L7-oO3pNL._AC_SL1500_.jpg', asin: 'B08PZD76NS', desc: 'Experience the ultimate over-ear listening. High-fidelity audio, Active Noise Cancellation, and industry-leading design.' },
-            { id: 2, cat: 'Tech', name: 'Logitech MX Master 3S', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', asin: 'B09HM94VDS', desc: 'The iconic mouse remastered. Quiet clicks and 8K DPI tracking on any surface.' },
-            { id: 3, cat: 'Home', name: 'Nespresso Vertuo Next', img: 'https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg', asin: 'B084GSYV97', desc: 'Luxury coffee experience in a compact, sleek design. One-touch brewing for 5 cup sizes.' },
-            { id: 4, cat: 'Lifestyle', name: 'Ray-Ban Wayfarer Reverse', img: 'https://m.media-amazon.com/images/I/51V1+YjE6KL._AC_SL1500_.jpg', asin: 'B0C79N8K6P', desc: 'A disruptive new design featuring an inverted lens for a sharp, futuristic look.' },
-            { id: 5, cat: 'Fitness', name: 'Theragun Mini 2.0', img: 'https://m.media-amazon.com/images/I/61S-rO-n3KL._AC_SL1500_.jpg', asin: 'B0B88P9G7S', desc: 'The most agile massage device that goes wherever you do. Small but powerful recovery.' },
-            { id: 6, cat: 'Home', name: 'Hatch Restore 2', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', asin: 'B0BT9S7Y3K', desc: 'Rest easier than ever. A sunrise alarm and white noise machine wrapped in premium fabric.' }
-        ];
+        // Organised by category for easy editing
+        const productCatalog = {
+            Tech: [
+                { id: 101, name: 'Apple AirPods 4', asin: 'B0DGVT3T92', img: 'https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg', desc: 'AirPods 4 have been redesigned for exceptional all-day comfort and stability.' },
+                { id: 102, name: 'Logitech MX Master 3S', asin: 'B09HM94VDS', img: 'https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg', desc: 'The iconic mouse remastered. Quiet clicks and 8K DPI tracking.' }
+            ],
+            Home: [
+                { id: 201, name: 'Nespresso Vertuo Next', asin: 'B084GSYV97', img: 'https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg', desc: 'Luxury coffee experience in a compact, sleek design.' },
+                { id: 202, name: 'Hatch Restore 2', asin: 'B0BT9S7Y3K', img: 'https://m.media-amazon.com/images/I/61+9X3i-2KL._AC_SL1500_.jpg', desc: 'A sunrise alarm and white noise machine wrapped in premium fabric.' }
+            ],
+            Lifestyle: [
+                { id: 301, name: 'Ray-Ban Wayfarer Reverse Sunglass', asin: 'B0D484GKP8', img: 'https://m.media-amazon.com/images/I/61kPgxXwgXL._AC_SX679_.jpg', desc: 'These sunglasses are expertly crafted for both comfort and style, featuring 55mm lens width, 41mm lens height, 18mm bridge, and 145mm temple length. This tailored fit ensures maximum comfort, making them a stylish choice for any occasion. Embrace the perfect blend of luxury and practicality with these fashionable glasses.' },
+                { id: 302, name: 'Apple Smart Watches for Women', asin: 'B0BQ34KKLF', img: 'https://m.media-amazon.com/images/I/71XA0QCW5lL._AC_SX679_.jpg', desc: 'Alexa Built-in Fitness Watch with 1.8" LCD Screen & Bluetooth Call (Make/Answer), Heart Rate/SpO2/Sleep Monitor, 100 Sports, IP68 Waterproof Smartwatch for Apple Android. ' }
+            ],
+            Fitness: [
+                { id: 401, name: 'Theragun Mini 2.0', asin: 'B0B88P9G7S', img: 'https://m.media-amazon.com/images/I/61S-rO-n3KL._AC_SL1500_.jpg', desc: 'Portable recovery that goes wherever you do.' }
+            ]
+        };
 
-        function renderProducts(items = products) {
+        let currentFilter = 'All';
+
+        const getAllProducts = () => {
+            return Object.entries(productCatalog).flatMap(([category, items]) => 
+                items.map(item => ({ ...item, cat: category }))
+            );
+        };
+
+        function renderProducts(items = null) {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = items.map(p => `
+            const displayItems = items || (currentFilter === 'All' ? getAllProducts() : (productCatalog[currentFilter] || []).map(p => ({...p, cat: currentFilter})));
+
+            if (displayItems.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center text-gray-400 uppercase tracking-widest text-[10px]">Vault empty</div>`;
+                return;
+            }
+
+            grid.innerHTML = displayItems.map(p => `
                 <div class="group bg-white dark:bg-premium-card rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm active:scale-95 transition-all cursor-pointer" onclick="openModal(${p.id})">
                     <div class="h-48 md:h-64 bg-white p-8 relative flex items-center justify-center">
-                        <img src="${p.img}" class="w-full h-full object-contain group-hover:scale-110 transition duration-700">
+                        <img src="${p.img}" class="w-full h-full object-contain group-hover:scale-110 transition duration-700" loading="lazy">
                     </div>
                     <div class="p-5">
                         <p class="text-[8px] text-premium-gold font-extrabold tracking-[0.2em] uppercase mb-1">${p.cat}</p>
@@ -165,28 +189,33 @@
             `).join('');
         }
 
-        function filterCategory(cat, el) {
-            document.querySelectorAll('.cat-chip').forEach(btn => btn.classList.remove('active-chip'));
-            el.classList.add('active-chip');
-            
-            const filtered = cat === 'All' ? products : products.filter(p => p.cat === cat);
+        function handleSearch(query) {
+            document.getElementById('searchInput').value = query;
+            document.getElementById('searchInputMobile').value = query;
+            const q = query.toLowerCase();
+            const filtered = getAllProducts().filter(p => 
+                (currentFilter === 'All' || p.cat === currentFilter) &&
+                (p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q))
+            );
             renderProducts(filtered);
         }
 
-        function searchProducts() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
-            renderProducts(filtered);
+        function filterCategory(cat, el) {
+            currentFilter = cat;
+            document.querySelectorAll('.cat-chip').forEach(btn => btn.classList.remove('active-chip'));
+            el.classList.add('active-chip');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchInputMobile').value = '';
+            renderProducts();
         }
 
         function openModal(id) {
-            const p = products.find(prod => prod.id === id);
+            const p = getAllProducts().find(prod => prod.id === id);
             document.getElementById('modal-img').src = p.img;
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-cat').innerText = p.cat;
             document.getElementById('modal-desc').innerText = p.desc;
             document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
-            
             document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
