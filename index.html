@@ -57,12 +57,26 @@
         <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
             <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">LUXE<span class="text-slate-900 dark:text-white">.</span></h1>
 
+            <div class="flex lg:hidden items-center justify-center gap-4 overflow-x-auto no-scrollbar px-2 flex-grow">
+                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-xs"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xs"></i></a>
+            </div>
+
             <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
                 <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-4 border-r border-gray-200 dark:border-gray-700 pr-6">
                         <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
                         <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-sm"></i></a>
                         <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
                     </div>
                     <div class="relative group w-48">
@@ -77,15 +91,18 @@
                     <i class="fas fa-heart text-lg"></i>
                     <span id="wishlist-count" class="absolute top-1 right-0 bg-premium-gold text-white text-[7px] w-4 h-4 rounded-full hidden items-center justify-center font-bold border-2 border-white dark:border-premium-dark">0</span>
                 </button>
-                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 transition"><i class="fas fa-moon dark:hidden text-xs"></i><i class="fas fa-sun hidden dark:block text-premium-gold text-xs"></i></button>
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 transition">
+                    <i class="fas fa-moon dark:hidden text-xs"></i>
+                    <i class="fas fa-sun hidden dark:block text-premium-gold text-xs"></i>
+                </button>
             </div>
         </div>
 
-        <div class="lg:hidden pb-4">
+        <div class="lg:hidden">
             <div class="max-w-7xl mx-auto pb-2 px-2">
                 <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
             </div>
-            <div id="category-chips-mobile" class="flex justify-center overflow-x-auto gap-2 no-scrollbar px-2"></div>
+            <div class="max-w-7xl mx-auto pb-4 overflow-hidden"><div id="category-chips-mobile" class="flex justify-center overflow-x-auto gap-2 no-scrollbar px-2"></div></div>
         </div>
     </nav>
 
@@ -104,6 +121,15 @@
 
     <footer class="bg-white dark:bg-premium-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
         <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+            <div class="flex flex-wrap justify-center gap-8 text-gray-400">
+                <a href="#" class="social-icon hover-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#" class="social-icon hover-instagram"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="social-icon hover-twitter"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="social-icon hover-youtube"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="#" class="social-icon hover-telegram"><i class="fab fa-telegram text-xl"></i></a>
+                <a href="#" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="#" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
+            </div>
             <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Premium Curated Vault</p>
         </div>
     </footer>
@@ -133,6 +159,7 @@
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-premium-gold text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-yellow-600 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
                         <div class="tooltip-container"><button onclick="shareViaWhatsApp()" class="w-14 h-14 flex items-center justify-center bg-green-500/10 text-green-600 rounded-xl transition-all text-xl hover-whatsapp social-icon"><i class="fab fa-whatsapp"></i></button><span class="tooltip-text">WhatsApp</span></div>
+                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
                     </div>
                 </div>
             </div>
@@ -140,6 +167,7 @@
     </div>
 
     <div id="toast" class="bg-premium-gold text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
+    <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
         const AFFILIATE_ID = "gitafstore-20";
@@ -153,33 +181,21 @@
         async function initializeVault() {
             const loader = document.getElementById('loader');
             const grid = document.getElementById('product-grid');
-
             try {
-                // Fetch from external JSON
                 const response = await fetch('vault.json');
                 if (!response.ok) throw new Error('Failed to fetch');
-                
                 LUXE_VAULT = await response.json();
-                productCatalog = Object.keys(LUXE_VAULT).flatMap(cat => 
-                    LUXE_VAULT[cat].map(p => ({ ...p, cat }))
-                );
-
-                // Initialize UI
+                productCatalog = Object.keys(LUXE_VAULT).flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
                 initCategories();
                 renderProducts();
-                
-                // Reveal Content
                 loader.classList.add('hidden');
                 grid.classList.remove('opacity-0');
-
-                // Handle initial URL hash
                 if (window.location.hash.startsWith('#product-')) {
                     const id = parseInt(window.location.hash.replace('#product-', ''));
                     if (!isNaN(id)) openModal(id);
                 }
             } catch (error) {
-                console.error("Vault Error:", error);
-                loader.innerHTML = `<p class="text-gray-400 text-xs">Unable to load vault. Please check your connection.</p>`;
+                loader.innerHTML = `<p class="text-gray-400 text-xs">Error loading vault. Check vault.json file.</p>`;
             }
         }
 
@@ -201,16 +217,18 @@
                 const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
                 return matchesCat && p.name.toLowerCase().includes(searchVal);
             });
-            
             updateWishlistCount();
             grid.innerHTML = displayItems.map((p, index) => {
                 const isSaved = wishlist.includes(p.id);
                 return `
                 <div class="product-card fade-in bg-white dark:bg-premium-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
                     <div class="absolute top-4 right-4 z-[40]">
-                        <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
-                            <i class="fas fa-heart text-sm"></i>
-                        </button>
+                        <div class="tooltip-container">
+                             <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
+                                <i class="fas fa-heart text-sm"></i>
+                             </button>
+                             <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
+                        </div>
                     </div>
                     <div class="rounded-3xl overflow-hidden">
                         <div class="img-aspect bg-white p-8 flex items-center justify-center"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
@@ -224,24 +242,34 @@
 
         function toggleWishlist(id) {
             const idx = wishlist.indexOf(id);
-            if (idx > -1) { wishlist.splice(idx, 1); showToast("Removed"); }
-            else { wishlist.push(id); showToast("Saved to Vault"); }
+            let isAdding = false;
+            if (idx > -1) { wishlist.splice(idx, 1); showToast("Removed from favorites"); }
+            else { wishlist.push(id); showToast("Added to favorites"); isAdding = true; }
             localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
             updateWishlistCount();
+            const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
+            targetIds.forEach(elementId => {
+                const el = document.getElementById(elementId);
+                if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
+            });
             renderProducts();
             if (activeProductId === id) updateWishlistUI(id);
         }
 
         function updateWishlistCount() {
             const el = document.getElementById('wishlist-count');
+            const hBtn = document.getElementById('header-wishlist-btn');
             el.innerText = wishlist.length;
             el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+            hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
         }
 
         function updateWishlistUI(id) {
             const btn = document.getElementById('modal-wishlist-btn');
+            const tooltip = document.getElementById('modal-tooltip-label');
             const isSaved = wishlist.includes(id);
             if (btn) btn.className = `text-2xl transition-colors focus:outline-none ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
+            if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
         }
 
         function openModal(id) {
@@ -285,6 +313,23 @@
             window.open('https://wa.me/?text=' + encodeURIComponent('🔥 *LUXE FIND*: ' + p.name + '\n' + url), '_blank');
         }
 
+        async function shareProduct(event) {
+            const btn = event.currentTarget; const old = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            try {
+                const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
+                await new Promise(r => img.onload = r);
+                ctx.fillStyle = '#0F1115'; ctx.fillRect(0,0,1080,1080);
+                ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.roundRect(100,150,880,700,60); ctx.fill();
+                const r = Math.min(700/img.width, 700/img.height);
+                ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
+                if (navigator.share) await navigator.share({ files: [new File([blob], 'luxe-find.jpg', {type:'image/jpeg'})], url: window.location.href });
+            } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
+            btn.innerHTML = old;
+        }
+
         function showToast(m) { const t = document.getElementById('toast'); t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
@@ -294,4 +339,3 @@
     </script>
 </body>
 </html>
-
