@@ -6,14 +6,20 @@
     
     <title>LUXE | Premium Curated Store</title>
     <meta name="description" content="A highly curated vault of premium technology, home decor, and lifestyle essentials.">
+    
     <meta property="og:title" content="LUXE | Premium Curated Store">
     <meta property="og:description" content="Discover hand-picked premium essentials for the modern aesthetic.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://img.icons8.com/ios-filled/100/C5A02B/diamond--v1.png">
+    
+    <meta property="og:image" content="https://apie2c.github.io/products/favicon.png?v=2.0">
+    <meta name="twitter:image" content="https://apie2c.github.io/products/favicon.png?v=2.0">
+    
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -123,7 +129,7 @@
                     <button onclick="closeModal()" class="absolute top-5 left-5 z-10 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-premium-gold hover:text-white transition text-gray-900 shadow-md">
                         <i class="fas fa-times"></i>
                     </button>
-                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain" onerror="this.src='https://via.placeholder.com/400?text=Premium+Selection'">
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain" onerror="this.src='https://via.placeholder.com/400?text=Premium+Item'">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
                     <div>
@@ -283,11 +289,9 @@
         }
 
         function handleSearch(q) {
-            // Sync values immediately for UI feedback
             document.getElementById('searchInput').value = q;
             document.getElementById('searchInputMobile').value = q;
             
-            // Debounce the actual filtering for performance
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 renderProducts();
