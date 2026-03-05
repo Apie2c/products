@@ -257,7 +257,9 @@
 
     function renderProducts() {
         const grid = document.getElementById('product-grid');
-        const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || '').toLowerCase();
+        const searchInput = document.getElementById('searchInput');
+        const searchInputMobile = document.getElementById('searchInputMobile');
+        const searchVal = (searchInput.value || searchInputMobile.value || '').toLowerCase();
         
         const displayItems = productCatalog.filter(p => {
             const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
@@ -266,10 +268,20 @@
 
         updateWishlistCount();
 
+        // 1. Handle Empty Results
+        if (displayItems.length === 0) {
+            grid.innerHTML = `
+                <div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-400">
+                    <i class="fas fa-box-open text-4xl mb-4 opacity-20"></i>
+                    <p class="uppercase tracking-[0.2em] text-[10px] font-bold">No products found matching your search</p>
+                    <button onclick="clearSearch()" class="mt-4 text-brand-primary text-[9px] font-bold uppercase tracking-widest hover:underline">Clear Filters</button>
+                </div>`;
+            return; // Correctly exits if no results
+        }
+
+        // 2. Render Products (Now correctly outside the if-block)
         grid.innerHTML = displayItems.map((p, index) => {
             const isSaved = wishlist.includes(p.id);
-            
-            // Logic: Tag the first 4 items in the reversed catalog as "NEW"
             const isNew = productCatalog.slice(0, 4).some(newItem => newItem.id === p.id);
             const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">NEW</span>` : '';
 
@@ -284,7 +296,9 @@
                     </div>
                 </div>
                 <div class="rounded-3xl overflow-hidden">
-                    <div class="img-aspect p-8 flex items-center justify-center"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
+                    <div class="img-aspect p-8 flex items-center justify-center">
+                        <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
+                    </div>
                     <div class="p-5">
                         <div class="flex justify-between items-center mb-1">
                             <div class="flex items-center">
@@ -296,7 +310,20 @@
                         <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
                     </div>
                 </div>
-            </div>`}).join('');
+            </div>`;
+        }).join('');
+    }
+    
+
+    function clearSearch() {
+    // Reset inputs
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchInputMobile').value = '';
+    // Reset category
+        currentFilter = 'All';
+    // Refresh UI
+        initCategories();
+        renderProducts();
     }
 
     function toggleWishlist(id) {
