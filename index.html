@@ -14,10 +14,9 @@
                 extend: {
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
                     colors: {
-                        'premium-dark': '#0B0F1A',
-                        'premium-gold': '#C5A02B',
                         brand: {
-                            primary: '#2563EB',
+                            primary: '#2563EB',   // Electric Blue
+                            dark: '#0B0F1A',
                             card: '#111827'
                         }
                     }
@@ -33,11 +32,7 @@
         .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #C5A02B; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
         .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .product-card:hover img { transform: scale(1.1); }
-        
-        /* Fixed Image Blending */
         .blend-img { mix-blend-mode: multiply; filter: contrast(1.1); }
-        .dark .blend-img { mix-blend-mode: normal; filter: none; }
-        
         .social-icon { transition: all 0.3s ease; }
         .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
         .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
@@ -46,25 +41,23 @@
         .hover-telegram:hover { color: #0088CC !important; transform: translateY(-2px); }
         .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
         .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
-        
         @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
         .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
         .tooltip-container { position: relative; display: inline-flex; justify-content: center; align-items: center; }
         .tooltip-text { visibility: hidden; position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(5px); background-color: #0F1115; color: #fff; text-align: center; padding: 6px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; white-space: nowrap; opacity: 0; transition: all 0.2s ease; z-index: 100; pointer-events: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
         .dark .tooltip-text { background-color: #C5A02B; }
         .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
-        
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
         #toast.active { transform: translateX(-50%) translateY(0); }
         .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
     </style>
 </head>
 
-<body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
+<body class="bg-slate-50 dark:bg-brand-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
-    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
         <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
             
             <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
@@ -72,20 +65,26 @@
             </h1>
 
             <div class="flex lg:hidden items-center justify-center gap-3.5 flex-1 px-1">
-                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-[13px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-[13px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-[13px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-[13px]"></i></a>
+                <a href="https://facebook.com/luxe" target="_blank" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-[13px]"></i></a>
+                <a href="https://instagram.com/luxe" target="_blank" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-[13px]"></i></a>
+                <a href="https://twitter.com/luxe" target="_blank" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-[13px]"></i></a>
+                <a href="https://youtube.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-[13px]"></i></a>
+                <a href="https://t.me/luxe" target="_blank" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-[13px]"></i></a>
+                <a href="https://tiktok.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-[13px]"></i></a>
+                <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-[13px]"></i></a>
             </div>
 
             <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
                 <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-4 border-r border-gray-200 dark:border-gray-700 pr-6">
-                        <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
+                        <a href="https://facebook.com/luxe" target="_blank" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="https://instagram.com/luxe" target="_blank" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="https://twitter.com/luxe" target="_blank" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="https://youtube.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-sm"></i></a>
+                        <a href="https://t.me/luxe" target="_blank" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-sm"></i></a>
+                        <a href="https://tiktok.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-sm"></i></a>
+                        <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
                     </div>
                     <div class="relative group w-48">
                         <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
@@ -128,8 +127,17 @@
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8 opacity-0 transition-opacity duration-700"></div>
     </main>
 
-    <footer class="bg-white dark:bg-premium-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
+    <footer class="bg-white dark:bg-brand-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
         <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+            <div class="flex flex-wrap justify-center gap-8 text-gray-400">
+                <a href="https://facebook.com/luxe" target="_blank" class="social-icon hover-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="https://instagram.com/luxe" target="_blank" class="social-icon hover-instagram"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="https://twitter.com/luxe" target="_blank" class="social-icon hover-twitter"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="https://youtube.com/@luxe" target="_blank" class="social-icon hover-youtube"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="https://t.me/luxe" target="_blank" class="social-icon hover-telegram"><i class="fab fa-telegram text-xl"></i></a>
+                <a href="https://tiktok.com/@luxe" target="_blank" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="https://wa.me/yournumber" target="_blank" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
+            </div>
             <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Curated Innovation</p>
         </div>
     </footer>
@@ -139,11 +147,11 @@
     </button>
 
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
-        <div id="modal-content" class="bg-white dark:bg-brand-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
+        <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
             <div class="modal-body-container flex flex-col md:flex-row max-h-[90vh] overflow-y-auto no-scrollbar">
                 <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative min-h-[300px]">
-                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-premium-gold hover:text-white transition-all shadow-lg text-black"><i class="fas fa-times"></i></button>
-                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110">
+                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-premium-gold hover:text-white transition-all shadow-lg"><i class="fas fa-times"></i></button>
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110 blend-img">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
                     <div class="flex justify-between items-start">
@@ -162,6 +170,7 @@
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-premium-gold text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-yellow-600 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
+                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
                     </div>
                 </div>
             </div>
@@ -169,6 +178,7 @@
     </div>
 
     <div id="toast" class="bg-premium-gold text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
+    <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
         const AFFILIATE_ID = "gitafstore-20";
@@ -179,31 +189,21 @@
         let activeProductId = null;
         let searchTimeout;
 
-        // Fallback data if vault.json is missing
-        const fallbackData = {
-            "Tech": [
-                { "id": 101, "name": "Minimalist Wireless Keyboard", "asin": "B09WMS8S9G", "img": "https://m.media-amazon.com/images/I/71u968mYexL.jpg", "status": "In Stock", "desc": "Clean, tactile, and cordless." },
-                { "id": 102, "name": "Smart Ambient Light Bar", "asin": "B089697B7D", "img": "https://m.media-amazon.com/images/I/61mX-CsqV9L.jpg", "status": "Trending", "desc": "Immersive lighting for your desk." }
-            ]
-        };
-
         async function initializeVault() {
             const loader = document.getElementById('loader');
             const grid = document.getElementById('product-grid');
             try {
                 const response = await fetch('vault.json');
-                if (!response.ok) throw new Error();
+                if (!response.ok) throw new Error('Failed to fetch');
                 LUXE_VAULT = await response.json();
+                productCatalog = Object.keys(LUXE_VAULT).flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
+                initCategories();
+                renderProducts();
+                loader.classList.add('hidden');
+                grid.classList.remove('opacity-0');
             } catch (error) {
-                console.warn("Using fallback data. Create vault.json for custom products.");
-                LUXE_VAULT = fallbackData;
+                loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-premium-gold text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
             }
-            
-            productCatalog = Object.keys(LUXE_VAULT).flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
-            initCategories();
-            renderProducts();
-            loader.classList.add('hidden');
-            grid.classList.remove('opacity-0');
         }
 
         function initCategories() {
@@ -229,7 +229,7 @@
             grid.innerHTML = displayItems.map((p, index) => {
                 const isSaved = wishlist.includes(p.id);
                 return `
-                <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
+                <div class="product-card fade-in bg-white dark:bg-premium-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
                     <div class="absolute top-4 right-4 z-[40]">
                         <div class="tooltip-container">
                              <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
@@ -239,7 +239,7 @@
                         </div>
                     </div>
                     <div class="rounded-3xl overflow-hidden">
-                        <div class="img-aspect"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
+                        <div class="img-aspect p-8 flex items-center justify-center"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
                         <div class="p-5">
                             <div class="flex justify-between items-center mb-1"><p class="text-[7px] text-premium-gold font-extrabold uppercase tracking-widest">${p.cat}</p><span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span></div>
                             <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
@@ -250,23 +250,33 @@
 
         function toggleWishlist(id) {
             const idx = wishlist.indexOf(id);
+            let isAdding = false;
             if (idx > -1) { wishlist.splice(idx, 1); showToast("Removed from favorites"); }
-            else { wishlist.push(id); showToast("Added to favorites"); }
+            else { wishlist.push(id); showToast("Added to favorites"); isAdding = true; }
             localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
             updateWishlistCount();
+            const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
+            targetIds.forEach(elementId => {
+                const el = document.getElementById(elementId);
+                if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
+            });
             renderProducts();
             if (activeProductId === id) updateWishlistUI(id);
         }
 
         function updateWishlistCount() {
             const el = document.getElementById('wishlist-count');
+            const hBtn = document.getElementById('header-wishlist-btn');
             if(el) { el.innerText = wishlist.length; el.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
+            if(hBtn) hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
         }
 
         function updateWishlistUI(id) {
             const btn = document.getElementById('modal-wishlist-btn');
+            const tooltip = document.getElementById('modal-tooltip-label');
             const isSaved = wishlist.includes(id);
             if (btn) btn.className = `text-2xl transition-colors focus:outline-none ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
+            if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
         }
 
         function openModal(id) {
@@ -281,11 +291,13 @@
             document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             updateWishlistUI(p.id);
+            window.history.pushState(null, '', '#product-' + p.id);
         }
 
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
             document.body.style.overflow = 'auto';
+            if (window.location.hash.startsWith('#product-')) window.history.replaceState(null, '', window.location.pathname);
         }
 
         function filterCategory(cat, el) {
@@ -302,12 +314,36 @@
             searchTimeout = setTimeout(() => renderProducts(), 150);
         }
 
+        async function shareProduct(event) {
+            const btn = event.currentTarget; const old = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+            try {
+                const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+                const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
+                await new Promise(r => img.onload = r);
+                ctx.fillStyle = '#0F1115'; ctx.fillRect(0,0,1080,1080);
+                ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); 
+                if (ctx.roundRect) ctx.roundRect(100,150,880,700,60); else ctx.rect(100,150,880,700);
+                ctx.fill();
+                const r = Math.min(700/img.width, 700/img.height);
+                ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
+                if (navigator.share) await navigator.share({ files: [new File([blob], 'luxe-find.jpg', {type:'image/jpeg'})], url: window.location.href });
+            } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
+            btn.innerHTML = old;
+        }
+
         function showToast(m) { const t = document.getElementById('toast'); if(t){ t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }}
         function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
         function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 500) { btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
+            else { btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
+        });
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        
         window.addEventListener('DOMContentLoaded', initializeVault);
+        window.addEventListener('popstate', () => { if (!document.getElementById('modal').classList.contains('hidden')) closeModal(); });
     </script>
 </body>
 </html>
