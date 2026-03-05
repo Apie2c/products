@@ -92,13 +92,35 @@
         .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
 
 
-        /* Animation for the Amazon Button */
-        @keyframes pulse-amazon {
-            0% { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(255, 153, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0); }
+        /* Real 3D Amazon Button Effect */
+        .btn-3d-amazon {
+            position: relative;
+            background: #FF9900;
+            /* The shadow below creates the 3D depth */
+            box-shadow: 0 6px 0 0 #cc7a00, 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .animate-pulse-amazon { animation: pulse-amazon 2s infinite; }
+
+        /* Push down effect on click */
+        .btn-3d-amazon:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 0 #cc7a00, 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Updated pulse for 3D button */
+        @keyframes pulse-amazon-3d {
+            0% { outline: 0px solid rgba(255, 153, 0, 0.4); }
+            70% { outline: 8px solid rgba(255, 153, 0, 0); }
+            100% { outline: 0px solid rgba(255, 153, 0, 0); }
+        }
+
+        .animate-pulse-3d {
+            animation: pulse-amazon-3d 2s infinite;
+        }
+
 
         /* Add spacing to the bottom of the page so the bar covers nothing */
         @media (max-width: 1023px) {
@@ -106,7 +128,7 @@
             #backToTop { bottom: 75px; }   /* Moves back-to-top button above the bar */
         }
 
-        
+
     </style>
 </head>
 
@@ -576,9 +598,10 @@
         <span class="text-[7px] font-bold uppercase tracking-tighter">Home</span>
     </button>
 
-    <div class="relative -translate-y-4">
-        <a href="https://www.amazon.com?tag=gitafstore-20" target="_blank" class="w-11 h-11 bg-[#FF9900] rounded-full flex items-center justify-center shadow-lg animate-pulse-amazon border-[3px] border-slate-50 dark:border-brand-dark transition-transform active:scale-90">
-            <i class="fab fa-amazon text-white text-lg"></i>
+    <div class="relative -translate-y-6"> 
+        <a href="https://www.amazon.com?tag=gitafstore-20" target="_blank" 
+           class="btn-3d-amazon animate-pulse-3d w-16 h-16 rounded-full border-[3px] border-slate-50 dark:border-brand-dark">
+            <i class="fab fa-amazon text-white text-2xl"></i>
         </a>
     </div>
 
@@ -587,10 +610,6 @@
         <span class="text-[7px] font-bold uppercase tracking-tighter">More</span>
     </a>
 </div>
-
-
-
-
 
 </body>
 </html>
