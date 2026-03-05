@@ -573,29 +573,28 @@
 
 
 
-    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-[110] bg-white/95 dark:bg-brand-dark/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-800 px-12 h-10 flex items-center justify-between shadow-[0_-5px_20px_rgba(0,0,0,0.1)]">
-        
-        <button onclick="scrollToTop(); closeModal(); clearSearch();" class="flex flex-col items-center text-gray-400 active:text-brand-primary">
-            <i class="fas fa-home text-sm"></i>
-            <span class="text-[6px] font-extrabold uppercase tracking-tighter">Home</span>
-        </button>
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-[100] bg-white/90 dark:bg-brand-dark/90 backdrop-blur-xl border-t border-gray-200 dark:border-gray-800 px-8 py-1.5 flex items-center justify-between shadow-[0_-5px_15px_rgba(0,0,0,0.1)]">
+    
+    <button onclick="scrollToTop(); clearSearch();" class="flex flex-col items-center text-gray-400 hover:text-brand-primary transition-colors">
+        <i class="fas fa-home text-base"></i>
+        <span class="text-[7px] font-bold uppercase tracking-tighter">Home</span>
+    </button>
 
-        <div class="relative -translate-y-6">
-            <a href="https://www.amazon.com?tag=gitafstore-20" target="_blank" 
-               class="w-12 h-12 bg-[#FF9900] rounded-full flex items-center justify-center shadow-[0_8px_0_0_#cc7a00,0_15px_20px_rgba(0,0,0,0.3)] animate-pulse-amazon border-4 border-slate-50 dark:border-brand-dark transition-all active:translate-y-1 active:shadow-[0_4px_0_0_#cc7a00,0_8px_10px_rgba(0,0,0,0.3)]">
-                <i class="fab fa-amazon text-white text-3xl"></i>
-            </a>
-        </div>
-
-        <a href="https://your-external-site.com" target="_blank" class="flex flex-col items-center text-gray-400 active:text-brand-primary">
-            <i class="fas fa-plus-circle text-sm"></i>
-            <span class="text-[6px] font-extrabold uppercase tracking-tighter">More</span>
+    <div class="relative -translate-y-4">
+        <a href="https://www.amazon.com?tag=gitafstore-20" target="_blank" class="w-11 h-11 bg-[#FF9900] rounded-full flex items-center justify-center shadow-lg animate-pulse-amazon border-[3px] border-slate-50 dark:border-brand-dark transition-transform active:scale-90">
+            <i class="fab fa-amazon text-white text-lg"></i>
         </a>
     </div>
+
+    <a href="https://your-external-site.com" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-brand-primary transition-colors">
+        <i class="fas fa-plus-circle text-base"></i>
+        <span class="text-[7px] font-bold uppercase tracking-tighter">More</span>
+    </a>
+</div>
+
+
 
 
 
 </body>
 </html>
-
-
