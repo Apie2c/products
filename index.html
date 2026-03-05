@@ -15,7 +15,7 @@
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
                     colors: {
                         brand: {
-                            primary: '#2563EB',   // Electric Blue
+                            primary: '#2563EB',
                             dark: '#0B0F1A',
                             card: '#111827'
                         }
@@ -59,9 +59,7 @@
             70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
             100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
         }
-        .animate-pulse-blue {
-            animation: pulse-soft 3s infinite;
-        }
+        .animate-pulse-blue { animation: pulse-soft 3s infinite; }
 
         @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
         .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
@@ -198,7 +196,12 @@
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
-                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
+                        <div class="tooltip-container">
+                            <button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <span class="tooltip-text">Share Product</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -217,6 +220,21 @@
     let activeProductId = null;
     let searchTimeout;
 
+    // ── Deep-link helpers ──────────────────────────────────────────
+    // Returns the product id from the current URL hash, or null.
+    function getProductIdFromHash() {
+        const match = window.location.hash.match(/^#product-(\d+)$/);
+        return match ? parseInt(match[1], 10) : null;
+    }
+
+    // Build a full shareable URL for a product id.
+    function buildProductURL(id) {
+        const url = new URL(window.location.href);
+        url.hash = `product-${id}`;
+        // Strip any stale search params that don't belong
+        return url.toString();
+    }
+
     async function initializeVault() {
         const loader = document.getElementById('loader');
         const grid = document.getElementById('product-grid');
@@ -227,12 +245,21 @@
             
             productCatalog = Object.keys(LUXE_VAULT)
                 .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })))
-                .reverse(); 
+                .reverse();
 
             initCategories();
             renderProducts();
             loader.classList.add('hidden');
             grid.classList.remove('opacity-0');
+
+            // ── Auto-open product from shared link ─────────────────
+            const linkedId = getProductIdFromHash();
+            if (linkedId !== null) {
+                // Push a clean base state FIRST so back-press can return to it.
+                window.history.replaceState({ page: 'home' }, '', window.location.pathname);
+                openModal(linkedId);
+            }
+
         } catch (error) {
             loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
@@ -246,8 +273,8 @@
             const isActive = key === currentFilter ? 'active-chip' : '';
             return `<button onclick="filterCategory('${key}', this)" class="cat-chip ${isActive} bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-widest transition-all">${key}</button>`;
         }).join('');
-        if(desktops) desktops.innerHTML = html; 
-        if(mobiles) mobiles.innerHTML = html;
+        if (desktops) desktops.innerHTML = html;
+        if (mobiles) mobiles.innerHTML = html;
     }
 
     function renderProducts() {
@@ -306,7 +333,6 @@
             </div>`;
         }).join('');
     }
-    
 
     function clearSearch() {
         document.getElementById('searchInput').value = '';
@@ -336,9 +362,9 @@
         const el = document.getElementById('wishlist-count');
         const hBtn = document.getElementById('header-wishlist-btn');
         
-        if (el) { 
-            el.innerText = wishlist.length; 
-            el.style.display = wishlist.length > 0 ? 'flex' : 'none'; 
+        if (el) {
+            el.innerText = wishlist.length;
+            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
         }
         
         if (hBtn) {
@@ -348,7 +374,6 @@
             } else {
                 hBtn.classList.remove('text-red-500', 'cursor-pointer');
                 hBtn.classList.add('text-gray-400', 'opacity-20', 'pointer-events-none', 'cursor-not-allowed');
-                
                 if (currentFilter === 'Saved') {
                     currentFilter = 'All';
                     initCategories();
@@ -356,7 +381,6 @@
             }
         }
     }
-    
 
     function updateWishlistUI(id) {
         const btn = document.getElementById('modal-wishlist-btn');
@@ -378,13 +402,22 @@
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         updateWishlistUI(p.id);
-        window.history.pushState(null, '', '#product-' + p.id);
+
+        // Push a history entry so the browser back button can close the modal.
+        // State carries the product id so popstate knows what happened.
+        window.history.pushState({ productId: p.id }, '', `#product-${p.id}`);
     }
 
-    function closeModal() {
+    function closeModal(skipHistory) {
         document.getElementById('modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
-        if (window.location.hash.startsWith('#product-')) window.history.replaceState(null, '', window.location.pathname);
+        activeProductId = null;
+
+        // Only manipulate history when NOT called from the popstate handler
+        // (the handler already moved history backward for us).
+        if (!skipHistory && window.location.hash.startsWith('#product-')) {
+            window.history.back();
+        }
     }
 
     function filterCategory(cat, el) {
@@ -401,38 +434,76 @@
         searchTimeout = setTimeout(() => renderProducts(), 150);
     }
 
+    // ── Share product ──────────────────────────────────────────────
+    // Shares a direct link to the product. Falls back to copying the URL.
     async function shareProduct(event) {
-        const btn = event.currentTarget; const old = btn.innerHTML;
+        const btn = event.currentTarget;
+        const old = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+
+        const productURL = buildProductURL(activeProductId);
+
         try {
-            const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
-            const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
-            await new Promise(r => img.onload = r);
-            ctx.fillStyle = '#0F1115'; ctx.fillRect(0,0,1080,1080);
-            ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); 
-            if (ctx.roundRect) ctx.roundRect(100,150,880,700,60); else ctx.rect(100,150,880,700);
-            ctx.fill();
-            const r = Math.min(700/img.width, 700/img.height);
-            ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
-            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-            if (navigator.share) await navigator.share({ files: [new File([blob], 'nexora-find.jpg', {type:'image/jpeg'})], url: window.location.href });
-        } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
+            // Try native share sheet first (mobile / modern browsers)
+            if (navigator.share) {
+                const p = productCatalog.find(x => x.id === activeProductId);
+                await navigator.share({
+                    title: p ? p.name : 'Check this out on Nexora',
+                    text: p ? p.desc : '',
+                    url: productURL,
+                });
+                showToast('Shared!');
+            } else {
+                // Desktop fallback: copy link
+                await navigator.clipboard.writeText(productURL);
+                showToast('Link Copied!');
+            }
+        } catch (e) {
+            // User dismissed share sheet or clipboard failed – silently ignore
+            if (e.name !== 'AbortError') {
+                try { await navigator.clipboard.writeText(productURL); showToast('Link Copied!'); } catch (_) {}
+            }
+        }
+
         btn.innerHTML = old;
     }
 
-    function showToast(m) { const t = document.getElementById('toast'); if(t){ t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }}
+    function showToast(m) {
+        const t = document.getElementById('toast');
+        if (t) { t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
+    }
+
     function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
     function toggleTheme() { document.documentElement.classList.toggle('dark'); }
-    
+
     window.addEventListener('scroll', () => {
         const btn = document.getElementById('backToTop');
-        if (window.scrollY > 500) { btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
-        else { btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
+        if (window.scrollY > 500) {
+            btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        } else {
+            btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        }
     });
 
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    // ── Popstate: handle back/forward navigation ───────────────────
+    window.addEventListener('popstate', (event) => {
+        const modal = document.getElementById('modal');
+        const isModalOpen = !modal.classList.contains('hidden');
+
+        if (event.state && event.state.productId) {
+            // Navigated forward to a product — open it (without re-pushing history)
+            if (!isModalOpen) openModal(event.state.productId);
+        } else {
+            // Navigated back to home state — close modal without touching history
+            if (isModalOpen) closeModal(true);
+        }
+    });
+
     window.addEventListener('DOMContentLoaded', initializeVault);
-    window.addEventListener('popstate', () => { if (!document.getElementById('modal').classList.contains('hidden')) closeModal(); });
-</script>
+    </script>
 </body>
 </html>
