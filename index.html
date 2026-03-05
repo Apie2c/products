@@ -11,15 +11,15 @@
 
 <script>
 tailwind.config = {
-darkMode: 'class',
-theme: {
-extend: {
-fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-colors: {
-brand: {
-primary: '#2563EB',
-dark: '#0B0F1A',
-card: '#111827'
+darkMode:'class',
+theme:{
+extend:{
+fontFamily:{sans:['Plus Jakarta Sans','sans-serif']},
+colors:{
+brand:{
+primary:'#2563EB',
+dark:'#0B0F1A',
+card:'#111827'
 }
 }
 }
@@ -28,21 +28,27 @@ card: '#111827'
 </script>
 
 <style>
-.no-scrollbar::-webkit-scrollbar { display:none; }
-.no-scrollbar { -ms-overflow-style:none; scrollbar-width:none; }
+.no-scrollbar::-webkit-scrollbar{display:none;}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
 
-.active-chip { background-color:#2563EB !important; color:white !important; }
+.active-chip{background:#2563EB!important;color:white!important;}
 
-.product-card { transition: all .4s cubic-bezier(.165,.84,.44,1); }
-.product-card:hover { transform:translateY(-8px) scale(1.03); border-color:#2563EB; box-shadow:0 15px 25px rgba(37,99,235,.25); }
+.product-card{transition:.4s cubic-bezier(.165,.84,.44,1);border:1px solid transparent;}
+.product-card:hover{transform:translateY(-8px) scale(1.03);border-color:#2563EB;box-shadow:0 20px 30px rgba(37,99,235,.25);}
+.product-card img{transition:.6s cubic-bezier(.165,.84,.44,1);}
+.product-card:hover img{transform:scale(1.1);}
 
-.product-card img { transition: transform .6s cubic-bezier(.165,.84,.44,1); }
-.product-card:hover img { transform:scale(1.1); }
+.img-aspect{aspect-ratio:1/1;overflow:hidden;background:white;}
 
-.img-aspect { aspect-ratio:1/1; overflow:hidden; background:white; }
+#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);transition:.5s;z-index:999;}
+#toast.active{transform:translateX(-50%) translateY(0);}
 
-#toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(120px); transition:.5s; z-index:999; }
-#toast.active { transform:translateX(-50%) translateY(0); }
+@keyframes heartPop{
+0%{transform:scale(1);}
+40%{transform:scale(2);color:#ef4444;}
+100%{transform:scale(1);}
+}
+.heart-bounce{animation:heartPop .5s cubic-bezier(.175,.885,.32,1.275) forwards!important;}
 </style>
 </head>
 
@@ -50,24 +56,56 @@ card: '#111827'
 
 <!-- NAV -->
 <nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 px-4">
-<div class="max-w-7xl mx-auto h-16 flex items-center justify-between">
+<div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
 
-<h1 class="text-2xl font-black tracking-tight text-white cursor-pointer">
+<h1 class="text-2xl font-black tracking-tight text-white cursor-pointer"
+onclick="location.href=window.location.pathname">
 NEXORA<span class="text-blue-500">.</span>
 </h1>
 
-<div class="hidden lg:flex items-center gap-6">
-
+<div class="hidden lg:flex items-center flex-grow justify-between ml-8">
 <div id="category-chips-desktop" class="flex gap-2"></div>
 
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 border-r border-gray-700 pr-6">
+<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
+<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-instagram"></i></a>
+<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-twitter"></i></a>
+<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-youtube"></i></a>
+</div>
+
 <div class="relative w-48">
-<input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..."
+<input type="text" id="searchInput" oninput="syncSearch(this.value)"
+placeholder="Search..."
 class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-blue-500 rounded-xl py-2 pl-9 pr-4 text-xs outline-none">
 <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
 </div>
+</div>
+</div>
+
+<div class="flex items-center gap-2">
+<button id="header-wishlist-btn" onclick="filterCategory('Saved', this)" class="relative p-2 text-gray-400">
+<i class="fas fa-heart text-lg"></i>
+<span id="wishlist-count"
+class="absolute top-1 right-0 bg-blue-600 text-white text-[8px] w-4 h-4 rounded-full hidden items-center justify-center font-bold">
+0
+</span>
+</button>
+
+<button onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center">
+<i class="fas fa-moon dark:hidden text-gray-400"></i>
+<i class="fas fa-sun hidden dark:block text-blue-500"></i>
+</button>
+</div>
 
 </div>
 
+<!-- MOBILE -->
+<div class="lg:hidden px-4 pb-4">
+<input type="text" id="searchInputMobile" oninput="syncSearch(this.value)"
+placeholder="Search Nexora..."
+class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-blue-500 rounded-xl py-2 pl-4 pr-4 text-xs outline-none">
+<div id="category-chips-mobile" class="flex gap-2 overflow-x-auto no-scrollbar mt-3"></div>
 </div>
 </nav>
 
@@ -77,7 +115,7 @@ class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:borde
 Smart Tech. Modern Living.
 </h2>
 <p class="mt-6 text-gray-500 max-w-2xl mx-auto">
-Discover curated innovations in tech, home, wellness and style — handpicked for the modern lifestyle.
+Discover curated innovations in tech, home, wellness and style — built for the modern world.
 </p>
 </section>
 
@@ -86,90 +124,146 @@ As an Amazon Associate, Nexora earns from qualifying purchases.
 </div>
 
 <!-- MAIN -->
-<main class="max-w-7xl mx-auto px-4 pb-24 min-h-screen">
+<main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
 
-<div id="loader" class="flex flex-col items-center justify-center py-20 space-y-4">
+<div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
 <div class="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
 <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">
 Loading Nexora...
 </p>
 </div>
 
-<div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 opacity-0 transition-opacity duration-700"></div>
+<div id="product-grid"
+class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 opacity-0 transition-opacity duration-700">
+</div>
 
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-white dark:bg-brand-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
-<div class="max-w-7xl mx-auto text-center space-y-4">
+<footer class="bg-white dark:bg-brand-dark border-t border-gray-800 py-12 text-center">
 <p class="text-sm text-gray-400">
 © 2026 Nexora. All Rights Reserved.
 </p>
-</div>
 </footer>
 
-<div id="toast" class="bg-blue-600 text-white px-8 py-3 rounded-2xl shadow-xl font-bold text-xs uppercase tracking-widest">
-Product Saved
+<!-- MODAL -->
+<div id="modal"
+class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+onclick="handleOutsideClick(event)">
+
+<div class="bg-white dark:bg-brand-card max-w-4xl w-full rounded-3xl overflow-hidden relative">
+
+<button onclick="closeModal()"
+class="absolute top-5 right-5 w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+<i class="fas fa-times"></i>
+</button>
+
+<div class="flex flex-col md:flex-row">
+
+<div class="md:w-1/2 p-10 flex items-center justify-center bg-white">
+<img id="modal-img" class="max-h-[400px] object-contain">
 </div>
 
+<div class="md:w-1/2 p-10 space-y-6">
+<h2 id="modal-title" class="text-2xl font-bold"></h2>
+<p id="modal-desc" class="text-gray-400 text-sm"></p>
+
+<div class="flex items-center gap-3">
+<a id="modal-buy-btn" target="_blank"
+class="flex-grow bg-blue-600 text-white py-4 rounded-xl font-bold text-center uppercase text-xs tracking-widest">
+View on Amazon
+</a>
+
+<button id="modal-wishlist-btn"
+onclick="toggleWishlist(activeProductId)"
+class="text-gray-400 text-xl">
+<i class="fas fa-heart"></i>
+</button>
+
+<button onclick="shareProduct(event)"
+class="text-gray-400 text-xl">
+<i class="fas fa-share-alt"></i>
+</button>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"
+class="bg-blue-600 text-white px-8 py-3 rounded-2xl shadow-xl font-bold text-xs uppercase tracking-widest">
+Saved
+</div>
+
+<canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
+
 <script>
-
-const AFFILIATE_ID = "nexora-20";
-
-let NEXORA_VAULT = {};
-let productCatalog = [];
-let wishlist = JSON.parse(localStorage.getItem('nexora_wishlist')) || [];
-let currentFilter = 'All';
+const AFFILIATE_ID="nexora-20";
+let NEXORA_VAULT={};
+let productCatalog=[];
+let wishlist=JSON.parse(localStorage.getItem('nexora_wishlist'))||[];
+let currentFilter='All';
+let activeProductId=null;
 let searchTimeout;
 
-async function initializeVault() {
-const loader = document.getElementById('loader');
-const grid = document.getElementById('product-grid');
-
-try {
-const response = await fetch('vault.json');
-NEXORA_VAULT = await response.json();
-
-productCatalog = Object.keys(NEXORA_VAULT)
-.flatMap(cat => NEXORA_VAULT[cat].map(p => ({ ...p, cat })));
-
+async function initializeVault(){
+const loader=document.getElementById('loader');
+const grid=document.getElementById('product-grid');
+try{
+const response=await fetch('vault.json');
+NEXORA_VAULT=await response.json();
+productCatalog=Object.keys(NEXORA_VAULT)
+.flatMap(cat=>NEXORA_VAULT[cat].map(p=>({...p,cat})));
 initCategories();
 renderProducts();
-
 loader.classList.add('hidden');
 grid.classList.remove('opacity-0');
-
-} catch {
-loader.innerHTML = `<p class="text-gray-400 text-sm">vault.json required.</p>`;
+}catch{
+loader.innerHTML=`<p class="text-gray-400 text-sm">vault.json required.</p>`;
 }
 }
 
-function initCategories() {
-const desktop = document.getElementById('category-chips-desktop');
-const keys = ['All', ...Object.keys(NEXORA_VAULT)];
-
-desktop.innerHTML = keys.map(key =>
-`<button onclick="filterCategory('${key}', this)"
+function initCategories(){
+const keys=['All','Saved',...Object.keys(NEXORA_VAULT)];
+const html=keys.map(key=>`
+<button onclick="filterCategory('${key}',this)"
 class="cat-chip ${key===currentFilter?'active-chip':''}
 bg-gray-100 dark:bg-gray-800 text-gray-500
 px-4 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider">
 ${key}
-</button>`
-).join('');
+</button>`).join('');
+document.getElementById('category-chips-desktop').innerHTML=html;
+document.getElementById('category-chips-mobile').innerHTML=html;
 }
 
-function renderProducts() {
-const grid = document.getElementById('product-grid');
-const searchVal = (document.getElementById('searchInput').value || '').toLowerCase();
+function renderProducts(){
+const grid=document.getElementById('product-grid');
+const searchVal=(document.getElementById('searchInput').value||
+document.getElementById('searchInputMobile').value||'').toLowerCase();
 
-const displayItems = productCatalog.filter(p =>
-(currentFilter==='All'||p.cat===currentFilter)
-&& p.name.toLowerCase().includes(searchVal)
-);
+const displayItems=productCatalog.filter(p=>{
+const matchesCat=currentFilter==='All'||
+(currentFilter==='Saved'?wishlist.includes(p.id):p.cat===currentFilter);
+return matchesCat&&p.name.toLowerCase().includes(searchVal);
+});
 
-grid.innerHTML = displayItems.map(p => `
-<div class="product-card bg-white dark:bg-brand-card rounded-3xl cursor-pointer"
-onclick="openProduct('${p.asin}')">
+updateWishlistCount();
+
+grid.innerHTML=displayItems.map(p=>{
+const isSaved=wishlist.includes(p.id);
+return `
+<div class="product-card bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative"
+onclick="openModal(${p.id})">
+
+<div class="absolute top-4 right-4">
+<button id="heart-${p.id}"
+onclick="event.stopPropagation();toggleWishlist(${p.id})"
+class="${isSaved?'text-red-500':'text-gray-300'}">
+<i class="fas fa-heart"></i>
+</button>
+</div>
 
 <div class="img-aspect p-8 flex items-center justify-center">
 <img src="${p.img}" class="object-contain w-full h-full">
@@ -179,29 +273,79 @@ onclick="openProduct('${p.asin}')">
 <p class="text-xs text-blue-500 font-bold uppercase tracking-widest">${p.cat}</p>
 <h3 class="font-semibold text-sm mt-1">${p.name}</h3>
 </div>
-
-</div>
-`).join('');
+</div>`;
+}).join('');
 }
 
-function openProduct(asin){
-window.open(`https://www.amazon.com/dp/${asin}?tag=${AFFILIATE_ID}`,'_blank');
-}
-
-function filterCategory(cat, el){
-currentFilter=cat;
-document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('active-chip'));
-el.classList.add('active-chip');
+function toggleWishlist(id){
+const idx=wishlist.indexOf(id);
+if(idx>-1){wishlist.splice(idx,1);showToast("Removed");}
+else{wishlist.push(id);showToast("Saved");}
+localStorage.setItem('nexora_wishlist',JSON.stringify(wishlist));
 renderProducts();
 }
 
-function syncSearch(val){
+function updateWishlistCount(){
+const el=document.getElementById('wishlist-count');
+el.innerText=wishlist.length;
+el.style.display=wishlist.length>0?'flex':'none';
+}
+
+function openModal(id){
+const p=productCatalog.find(x=>x.id===parseInt(id));
+if(!p)return;
+activeProductId=p.id;
+document.getElementById('modal-img').src=p.img;
+document.getElementById('modal-title').innerText=p.name;
+document.getElementById('modal-desc').innerText=p.desc;
+document.getElementById('modal-buy-btn').href=
+`https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
+document.getElementById('modal').classList.remove('hidden');
+document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+document.getElementById('modal').classList.add('hidden');
+document.body.style.overflow='auto';
+}
+
+function filterCategory(cat,el){
+currentFilter=cat;
+document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('active-chip'));
+if(el.classList.contains('cat-chip'))el.classList.add('active-chip');
+renderProducts();
+}
+
+function syncSearch(){
 clearTimeout(searchTimeout);
 searchTimeout=setTimeout(renderProducts,150);
 }
 
-window.addEventListener('DOMContentLoaded', initializeVault);
+async function shareProduct(event){
+try{
+await navigator.share({url:window.location.href});
+}catch{
+navigator.clipboard.writeText(window.location.href);
+showToast("Link Copied");
+}
+}
 
+function showToast(msg){
+const t=document.getElementById('toast');
+t.innerText=msg;
+t.classList.add('active');
+setTimeout(()=>t.classList.remove('active'),2000);
+}
+
+function handleOutsideClick(e){
+if(e.target.id==='modal')closeModal();
+}
+
+function toggleTheme(){
+document.documentElement.classList.toggle('dark');
+}
+
+window.addEventListener('DOMContentLoaded',initializeVault);
 </script>
 
 </body>
