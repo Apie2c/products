@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>LUXE | Premium Curated Vault</title>
+    <title>Nexora | Smart Tech. Modern Living. Elevated Style.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -13,7 +13,13 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-                    colors: { premium: { gold: '#C5A02B', dark: '#0F1115', card: '#1C1F26' } }
+                    colors: {
+                        brand: {
+                            primary: '#2563EB',   // Electric Blue
+                            dark: '#0B0F1A',
+                            card: '#111827'
+                        }
+                    }
                 }
             }
         }
@@ -55,7 +61,7 @@
         <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
             
             <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
-                LUXE<span class="text-slate-900 dark:text-white">.</span>
+                NEXORA<span class="text-blue-500">.</span>
             </h1>
 
             <div class="flex lg:hidden items-center justify-center gap-3.5 flex-1 px-1">
@@ -101,7 +107,7 @@
 
         <div class="lg:hidden">
             <div class="max-w-7xl mx-auto pb-2 px-2">
-                <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
+                <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Discover Smart Living..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
             </div>
             <div class="max-w-7xl mx-auto pb-4 overflow-hidden">
                 <div id="category-chips-mobile" class="flex justify-center items-center overflow-x-auto gap-2 no-scrollbar px-4"></div>
@@ -116,7 +122,7 @@
     <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
         <div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
             <div class="w-12 h-12 border-4 border-gray-200 border-t-premium-gold rounded-full animate-spin"></div>
-            <p class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Unlocking Vault...</p>
+            <p class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Loading Nexora...</p>
         </div>
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8 opacity-0 transition-opacity duration-700"></div>
     </main>
@@ -132,7 +138,7 @@
                 <a href="https://tiktok.com/@luxe" target="_blank" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
                 <a href="https://wa.me/yournumber" target="_blank" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
             </div>
-            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Premium Curated Vault</p>
+            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Curated Innovation</p>
         </div>
     </footer>
 
