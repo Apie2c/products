@@ -55,7 +55,18 @@
         .hover-telegram:hover { color: #0088CC !important; transform: translateY(-2px); }
         .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
         .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
-        
+
+
+
+        @keyframes pulse-soft {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+        .animate-pulse-blue {
+            animation: pulse-soft 3s infinite;
+        }
+
         @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
         .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
         
@@ -202,169 +213,190 @@
     <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
-        const AFFILIATE_ID = "gitafstore-20";
-        let LUXE_VAULT = {};
-        let productCatalog = [];
-        let wishlist = JSON.parse(localStorage.getItem('luxe_wishlist')) || [];
-        let currentFilter = 'All';
-        let activeProductId = null;
-        let searchTimeout;
+    const AFFILIATE_ID = "gitafstore-20";
+    let LUXE_VAULT = {};
+    let productCatalog = [];
+    let wishlist = JSON.parse(localStorage.getItem('luxe_wishlist')) || [];
+    let currentFilter = 'All';
+    let activeProductId = null;
+    let searchTimeout;
 
-        async function initializeVault() {
-            const loader = document.getElementById('loader');
-            const grid = document.getElementById('product-grid');
-            try {
-                const response = await fetch('vault.json');
-                if (!response.ok) throw new Error('Failed to fetch');
-                LUXE_VAULT = await response.json();
-                productCatalog = Object.keys(LUXE_VAULT).flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
-                initCategories();
-                renderProducts();
-                loader.classList.add('hidden');
-                grid.classList.remove('opacity-0');
-            } catch (error) {
-                loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
-            }
-        }
+    async function initializeVault() {
+        const loader = document.getElementById('loader');
+        const grid = document.getElementById('product-grid');
+        try {
+            const response = await fetch('vault.json');
+            if (!response.ok) throw new Error('Failed to fetch');
+            LUXE_VAULT = await response.json();
+            
+            // Logic: Combine categories and REVERSE so newest items in JSON appear first
+            productCatalog = Object.keys(LUXE_VAULT)
+                .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })))
+                .reverse(); 
 
-        function initCategories() {
-            const desktops = document.getElementById('category-chips-desktop');
-            const mobiles = document.getElementById('category-chips-mobile');
-            const keys = ['All', ...Object.keys(LUXE_VAULT)];
-            const html = keys.map(key => {
-                const isActive = key === currentFilter ? 'active-chip' : '';
-                return `<button onclick="filterCategory('${key}', this)" class="cat-chip ${isActive} bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-widest transition-all">${key}</button>`;
-            }).join('');
-            if(desktops) desktops.innerHTML = html; 
-            if(mobiles) mobiles.innerHTML = html;
-        }
-
-        function renderProducts() {
-            const grid = document.getElementById('product-grid');
-            const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || '').toLowerCase();
-            const displayItems = productCatalog.filter(p => {
-                const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
-                return matchesCat && p.name.toLowerCase().includes(searchVal);
-            });
-            updateWishlistCount();
-            grid.innerHTML = displayItems.map((p, index) => {
-                const isSaved = wishlist.includes(p.id);
-                return `
-                <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
-                    <div class="absolute top-4 right-4 z-[40]">
-                        <div class="tooltip-container">
-                             <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
-                                <i class="fas fa-heart text-sm"></i>
-                             </button>
-                             <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
-                        </div>
-                    </div>
-                    <div class="rounded-3xl overflow-hidden">
-                        <div class="img-aspect p-8 flex items-center justify-center"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
-                        <div class="p-5">
-                            <div class="flex justify-between items-center mb-1"><p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p><span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span></div>
-                            <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
-                        </div>
-                    </div>
-                </div>`}).join('');
-        }
-
-        function toggleWishlist(id) {
-            const idx = wishlist.indexOf(id);
-            let isAdding = false;
-            if (idx > -1) { wishlist.splice(idx, 1); showToast("Removed from favorites"); }
-            else { wishlist.push(id); showToast("Added to favorites"); isAdding = true; }
-            localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
-            updateWishlistCount();
-            const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
-            targetIds.forEach(elementId => {
-                const el = document.getElementById(elementId);
-                if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
-            });
+            initCategories();
             renderProducts();
-            if (activeProductId === id) updateWishlistUI(id);
+            loader.classList.add('hidden');
+            grid.classList.remove('opacity-0');
+        } catch (error) {
+            loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
+    }
 
-        function updateWishlistCount() {
-            const el = document.getElementById('wishlist-count');
-            const hBtn = document.getElementById('header-wishlist-btn');
-            if(el) { el.innerText = wishlist.length; el.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
-            if(hBtn) hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
-        }
+    function initCategories() {
+        const desktops = document.getElementById('category-chips-desktop');
+        const mobiles = document.getElementById('category-chips-mobile');
+        const keys = ['All', ...Object.keys(LUXE_VAULT)];
+        const html = keys.map(key => {
+            const isActive = key === currentFilter ? 'active-chip' : '';
+            return `<button onclick="filterCategory('${key}', this)" class="cat-chip ${isActive} bg-gray-100 dark:bg-gray-800/50 text-gray-500 whitespace-nowrap px-4 py-1.5 rounded-lg font-bold text-[9px] uppercase tracking-widest transition-all">${key}</button>`;
+        }).join('');
+        if(desktops) desktops.innerHTML = html; 
+        if(mobiles) mobiles.innerHTML = html;
+    }
 
-        function updateWishlistUI(id) {
-            const btn = document.getElementById('modal-wishlist-btn');
-            const tooltip = document.getElementById('modal-tooltip-label');
-            const isSaved = wishlist.includes(id);
-            if (btn) btn.className = `text-2xl transition-colors focus:outline-none ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
-            if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
-        }
-
-        function openModal(id) {
-            const p = productCatalog.find(x => x.id === parseInt(id));
-            if (!p) return;
-            activeProductId = p.id;
-            document.getElementById('modal-img').src = p.img;
-            document.getElementById('modal-title').innerText = p.name;
-            document.getElementById('modal-cat').innerText = p.cat;
-            document.getElementById('modal-desc').innerText = p.desc;
-            document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
-            document.getElementById('modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            updateWishlistUI(p.id);
-            window.history.pushState(null, '', '#product-' + p.id);
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-            if (window.location.hash.startsWith('#product-')) window.history.replaceState(null, '', window.location.pathname);
-        }
-
-        function filterCategory(cat, el) {
-            currentFilter = cat;
-            document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
-            if (el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
-            renderProducts();
-        }
-
-        function syncSearch(val) {
-            document.getElementById('searchInput').value = val;
-            document.getElementById('searchInputMobile').value = val;
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => renderProducts(), 150);
-        }
-
-        async function shareProduct(event) {
-            const btn = event.currentTarget; const old = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
-            try {
-                const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
-                const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
-                await new Promise(r => img.onload = r);
-                ctx.fillStyle = '#0F1115'; ctx.fillRect(0,0,1080,1080);
-                ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); 
-                if (ctx.roundRect) ctx.roundRect(100,150,880,700,60); else ctx.rect(100,150,880,700);
-                ctx.fill();
-                const r = Math.min(700/img.width, 700/img.height);
-                ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
-                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-                if (navigator.share) await navigator.share({ files: [new File([blob], 'nexora-find.jpg', {type:'image/jpeg'})], url: window.location.href });
-            } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
-            btn.innerHTML = old;
-        }
-
-        function showToast(m) { const t = document.getElementById('toast'); if(t){ t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }}
-        function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
-        function toggleTheme() { document.documentElement.classList.toggle('dark'); }
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('backToTop');
-            if (window.scrollY > 500) { btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
-            else { btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
+    function renderProducts() {
+        const grid = document.getElementById('product-grid');
+        const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || '').toLowerCase();
+        
+        const displayItems = productCatalog.filter(p => {
+            const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
+            return matchesCat && p.name.toLowerCase().includes(searchVal);
         });
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        window.addEventListener('DOMContentLoaded', initializeVault);
-        window.addEventListener('popstate', () => { if (!document.getElementById('modal').classList.contains('hidden')) closeModal(); });
-    </script>
+
+        updateWishlistCount();
+
+        grid.innerHTML = displayItems.map((p, index) => {
+            const isSaved = wishlist.includes(p.id);
+            
+            // Logic: Tag the first 4 items in the reversed catalog as "NEW"
+            const isNew = productCatalog.slice(0, 4).some(newItem => newItem.id === p.id);
+            const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">NEW</span>` : '';
+
+            return `        
+            <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
+                <div class="absolute top-4 right-4 z-[40]">
+                    <div class="tooltip-container">
+                         <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
+                            <i class="fas fa-heart text-sm"></i>
+                         </button>
+                         <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden">
+                    <div class="img-aspect p-8 flex items-center justify-center"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <div class="flex items-center">
+                                ${newBadge}
+                                <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                            </div>
+                            <span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span>
+                        </div>
+                        <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
+                    </div>
+                </div>
+            </div>`}).join('');
+    }
+
+    function toggleWishlist(id) {
+        const idx = wishlist.indexOf(id);
+        let isAdding = false;
+        if (idx > -1) { wishlist.splice(idx, 1); showToast("Removed from favorites"); }
+        else { wishlist.push(id); showToast("Added to favorites"); isAdding = true; }
+        localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
+        updateWishlistCount();
+        const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
+        targetIds.forEach(elementId => {
+            const el = document.getElementById(elementId);
+            if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
+        });
+        renderProducts();
+        if (activeProductId === id) updateWishlistUI(id);
+    }
+
+    function updateWishlistCount() {
+        const el = document.getElementById('wishlist-count');
+        const hBtn = document.getElementById('header-wishlist-btn');
+        if(el) { el.innerText = wishlist.length; el.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
+        if(hBtn) hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
+    }
+
+    function updateWishlistUI(id) {
+        const btn = document.getElementById('modal-wishlist-btn');
+        const tooltip = document.getElementById('modal-tooltip-label');
+        const isSaved = wishlist.includes(id);
+        if (btn) btn.className = `text-2xl transition-colors focus:outline-none ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
+        if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
+    }
+
+    function openModal(id) {
+        const p = productCatalog.find(x => x.id === parseInt(id));
+        if (!p) return;
+        activeProductId = p.id;
+        document.getElementById('modal-img').src = p.img;
+        document.getElementById('modal-title').innerText = p.name;
+        document.getElementById('modal-cat').innerText = p.cat;
+        document.getElementById('modal-desc').innerText = p.desc;
+        document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
+        document.getElementById('modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        updateWishlistUI(p.id);
+        window.history.pushState(null, '', '#product-' + p.id);
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        if (window.location.hash.startsWith('#product-')) window.history.replaceState(null, '', window.location.pathname);
+    }
+
+    function filterCategory(cat, el) {
+        currentFilter = cat;
+        document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
+        if (el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
+        renderProducts();
+    }
+
+    function syncSearch(val) {
+        document.getElementById('searchInput').value = val;
+        document.getElementById('searchInputMobile').value = val;
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => renderProducts(), 150);
+    }
+
+    async function shareProduct(event) {
+        const btn = event.currentTarget; const old = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+        try {
+            const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
+            const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
+            await new Promise(r => img.onload = r);
+            ctx.fillStyle = '#0F1115'; ctx.fillRect(0,0,1080,1080);
+            ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); 
+            if (ctx.roundRect) ctx.roundRect(100,150,880,700,60); else ctx.rect(100,150,880,700);
+            ctx.fill();
+            const r = Math.min(700/img.width, 700/img.height);
+            ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
+            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
+            if (navigator.share) await navigator.share({ files: [new File([blob], 'nexora-find.jpg', {type:'image/jpeg'})], url: window.location.href });
+        } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
+        btn.innerHTML = old;
+    }
+
+    function showToast(m) { const t = document.getElementById('toast'); if(t){ t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }}
+    function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
+    function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+    
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('backToTop');
+        if (window.scrollY > 500) { btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
+        else { btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none'); btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto'); }
+    });
+
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    window.addEventListener('DOMContentLoaded', initializeVault);
+    window.addEventListener('popstate', () => { if (!document.getElementById('modal').classList.contains('hidden')) closeModal(); });
+</script>
 </body>
 </html>
