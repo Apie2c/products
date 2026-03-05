@@ -31,34 +31,89 @@ card:'#111827'
 .no-scrollbar::-webkit-scrollbar{display:none;}
 .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
 
-.active-chip{background:#2563EB!important;color:white!important;}
+.active-chip{
+background:#2563EB!important;
+color:white!important;
+box-shadow:0 4px 12px rgba(37,99,235,.4);
+}
 
-.product-card{transition:.4s cubic-bezier(.165,.84,.44,1);border:1px solid transparent;}
-.product-card:hover{transform:translateY(-8px) scale(1.03);border-color:#2563EB;box-shadow:0 20px 30px rgba(37,99,235,.25);}
-.product-card img{transition:.6s cubic-bezier(.165,.84,.44,1);}
+.product-card{
+transition:all .4s cubic-bezier(.165,.84,.44,1);
+border:1px solid transparent;
+}
+.product-card:hover{
+transform:translateY(-8px) scale(1.03);
+border-color:#2563EB;
+box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(37,99,235,.3);
+}
+.product-card img{
+transition:transform .6s cubic-bezier(.165,.84,.44,1);
+}
 .product-card:hover img{transform:scale(1.1);}
 
+.blend-img{mix-blend-mode:multiply;filter:contrast(1.1);}
 .img-aspect{aspect-ratio:1/1;overflow:hidden;background:white;}
 
-#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);transition:.5s;z-index:999;}
-#toast.active{transform:translateX(-50%) translateY(0);}
+.tooltip-container{position:relative;display:inline-flex;}
+.tooltip-text{
+visibility:hidden;
+position:absolute;
+bottom:135%;
+left:50%;
+transform:translateX(-50%) translateY(5px);
+background:#0B0F1A;
+color:white;
+padding:6px 10px;
+border-radius:6px;
+font-size:9px;
+font-weight:800;
+white-space:nowrap;
+opacity:0;
+transition:.2s;
+z-index:100;
+}
+.tooltip-container:hover .tooltip-text{
+visibility:visible;
+opacity:1;
+transform:translateX(-50%) translateY(0);
+}
 
 @keyframes heartPop{
 0%{transform:scale(1);}
 40%{transform:scale(2);color:#ef4444;}
 100%{transform:scale(1);}
 }
-.heart-bounce{animation:heartPop .5s cubic-bezier(.175,.885,.32,1.275) forwards!important;}
+.heart-bounce{
+animation:heartPop .5s cubic-bezier(.175,.885,.32,1.275) forwards!important;
+}
+
+.fade-in{opacity:0;animation:fadeInUp .5s ease-out forwards;}
+@keyframes fadeInUp{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+#toast{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%) translateY(120px);
+transition:.5s cubic-bezier(.175,.885,.32,1.275);
+z-index:999;
+}
+#toast.active{
+transform:translateX(-50%) translateY(0);
+}
 </style>
 </head>
 
 <body class="bg-slate-50 dark:bg-brand-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
 <!-- NAV -->
-<nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 px-4">
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
 <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
 
-<h1 class="text-2xl font-black tracking-tight text-white cursor-pointer"
+<h1 class="text-xl md:text-2xl font-black tracking-tighter text-white cursor-pointer"
 onclick="location.href=window.location.pathname">
 NEXORA<span class="text-blue-500">.</span>
 </h1>
@@ -68,16 +123,16 @@ NEXORA<span class="text-blue-500">.</span>
 
 <div class="flex items-center gap-6">
 <div class="flex items-center gap-4 border-r border-gray-700 pr-6">
-<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
-<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-instagram"></i></a>
-<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-twitter"></i></a>
-<a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-youtube"></i></a>
+<i class="fab fa-facebook-f text-gray-400 hover:text-blue-500 cursor-pointer"></i>
+<i class="fab fa-instagram text-gray-400 hover:text-blue-500 cursor-pointer"></i>
+<i class="fab fa-twitter text-gray-400 hover:text-blue-500 cursor-pointer"></i>
+<i class="fab fa-youtube text-gray-400 hover:text-blue-500 cursor-pointer"></i>
 </div>
 
 <div class="relative w-48">
 <input type="text" id="searchInput" oninput="syncSearch(this.value)"
 placeholder="Search..."
-class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-blue-500 rounded-xl py-2 pl-9 pr-4 text-xs outline-none">
+class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-blue-500 rounded-xl py-2 pl-9 pr-4 text-[11px] outline-none">
 <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
 </div>
 </div>
@@ -100,11 +155,14 @@ class="absolute top-1 right-0 bg-blue-600 text-white text-[8px] w-4 h-4 rounded-
 
 </div>
 
-<!-- MOBILE -->
+<!-- MOBILE SEARCH + CHIPS -->
 <div class="lg:hidden px-4 pb-4">
+<div class="relative">
 <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)"
 placeholder="Search Nexora..."
-class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-blue-500 rounded-xl py-2 pl-4 pr-4 text-xs outline-none">
+class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-blue-500 rounded-xl py-2 pl-9 pr-4 text-xs outline-none">
+<i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
+</div>
 <div id="category-chips-mobile" class="flex gap-2 overflow-x-auto no-scrollbar mt-3"></div>
 </div>
 </nav>
@@ -125,7 +183,6 @@ As an Amazon Associate, Nexora earns from qualifying purchases.
 
 <!-- MAIN -->
 <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
-
 <div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
 <div class="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
 <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">
@@ -136,64 +193,17 @@ Loading Nexora...
 <div id="product-grid"
 class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 opacity-0 transition-opacity duration-700">
 </div>
-
 </main>
 
-<!-- FOOTER -->
-<footer class="bg-white dark:bg-brand-dark border-t border-gray-800 py-12 text-center">
-<p class="text-sm text-gray-400">
-© 2026 Nexora. All Rights Reserved.
-</p>
-</footer>
-
-<!-- MODAL -->
-<div id="modal"
-class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-onclick="handleOutsideClick(event)">
-
-<div class="bg-white dark:bg-brand-card max-w-4xl w-full rounded-3xl overflow-hidden relative">
-
-<button onclick="closeModal()"
-class="absolute top-5 right-5 w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-<i class="fas fa-times"></i>
+<!-- BACK TO TOP -->
+<button id="backToTop" onclick="scrollToTop()"
+class="fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 shadow-xl pointer-events-none">
+<i class="fas fa-chevron-up"></i>
 </button>
-
-<div class="flex flex-col md:flex-row">
-
-<div class="md:w-1/2 p-10 flex items-center justify-center bg-white">
-<img id="modal-img" class="max-h-[400px] object-contain">
-</div>
-
-<div class="md:w-1/2 p-10 space-y-6">
-<h2 id="modal-title" class="text-2xl font-bold"></h2>
-<p id="modal-desc" class="text-gray-400 text-sm"></p>
-
-<div class="flex items-center gap-3">
-<a id="modal-buy-btn" target="_blank"
-class="flex-grow bg-blue-600 text-white py-4 rounded-xl font-bold text-center uppercase text-xs tracking-widest">
-View on Amazon
-</a>
-
-<button id="modal-wishlist-btn"
-onclick="toggleWishlist(activeProductId)"
-class="text-gray-400 text-xl">
-<i class="fas fa-heart"></i>
-</button>
-
-<button onclick="shareProduct(event)"
-class="text-gray-400 text-xl">
-<i class="fas fa-share-alt"></i>
-</button>
-
-</div>
-</div>
-</div>
-</div>
-</div>
 
 <!-- TOAST -->
 <div id="toast"
-class="bg-blue-600 text-white px-8 py-3 rounded-2xl shadow-xl font-bold text-xs uppercase tracking-widest">
+class="bg-blue-600 text-white px-8 py-3 rounded-2xl shadow-2xl font-bold text-xs uppercase tracking-widest">
 Saved
 </div>
 
@@ -251,11 +261,12 @@ return matchesCat&&p.name.toLowerCase().includes(searchVal);
 
 updateWishlistCount();
 
-grid.innerHTML=displayItems.map(p=>{
+grid.innerHTML=displayItems.map((p,i)=>{
 const isSaved=wishlist.includes(p.id);
 return `
-<div class="product-card bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative"
-onclick="openModal(${p.id})">
+<div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative"
+style="animation-delay:${i*50}ms"
+onclick="window.open('https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}','_blank')">
 
 <div class="absolute top-4 right-4">
 <button id="heart-${p.id}"
@@ -266,7 +277,7 @@ class="${isSaved?'text-red-500':'text-gray-300'}">
 </div>
 
 <div class="img-aspect p-8 flex items-center justify-center">
-<img src="${p.img}" class="object-contain w-full h-full">
+<img src="${p.img}" class="object-contain w-full h-full blend-img">
 </div>
 
 <div class="p-4">
@@ -279,9 +290,13 @@ class="${isSaved?'text-red-500':'text-gray-300'}">
 
 function toggleWishlist(id){
 const idx=wishlist.indexOf(id);
+let isAdding=false;
 if(idx>-1){wishlist.splice(idx,1);showToast("Removed");}
-else{wishlist.push(id);showToast("Saved");}
+else{wishlist.push(id);showToast("Saved");isAdding=true;}
 localStorage.setItem('nexora_wishlist',JSON.stringify(wishlist));
+updateWishlistCount();
+const el=document.getElementById(`heart-${id}`);
+if(el&&isAdding){el.classList.add('heart-bounce');}
 renderProducts();
 }
 
@@ -291,43 +306,18 @@ el.innerText=wishlist.length;
 el.style.display=wishlist.length>0?'flex':'none';
 }
 
-function openModal(id){
-const p=productCatalog.find(x=>x.id===parseInt(id));
-if(!p)return;
-activeProductId=p.id;
-document.getElementById('modal-img').src=p.img;
-document.getElementById('modal-title').innerText=p.name;
-document.getElementById('modal-desc').innerText=p.desc;
-document.getElementById('modal-buy-btn').href=
-`https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
-document.getElementById('modal').classList.remove('hidden');
-document.body.style.overflow='hidden';
-}
-
-function closeModal(){
-document.getElementById('modal').classList.add('hidden');
-document.body.style.overflow='auto';
-}
-
 function filterCategory(cat,el){
 currentFilter=cat;
 document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('active-chip'));
-if(el.classList.contains('cat-chip'))el.classList.add('active-chip');
+if(el&&el.classList.contains('cat-chip'))el.classList.add('active-chip');
 renderProducts();
 }
 
-function syncSearch(){
+function syncSearch(val){
+document.getElementById('searchInput').value=val;
+document.getElementById('searchInputMobile').value=val;
 clearTimeout(searchTimeout);
 searchTimeout=setTimeout(renderProducts,150);
-}
-
-async function shareProduct(event){
-try{
-await navigator.share({url:window.location.href});
-}catch{
-navigator.clipboard.writeText(window.location.href);
-showToast("Link Copied");
-}
 }
 
 function showToast(msg){
@@ -337,13 +327,22 @@ t.classList.add('active');
 setTimeout(()=>t.classList.remove('active'),2000);
 }
 
-function handleOutsideClick(e){
-if(e.target.id==='modal')closeModal();
-}
-
 function toggleTheme(){
 document.documentElement.classList.toggle('dark');
 }
+
+window.addEventListener('scroll',()=>{
+const btn=document.getElementById('backToTop');
+if(window.scrollY>500){
+btn.classList.remove('opacity-0','translate-y-10','pointer-events-none');
+btn.classList.add('opacity-100','translate-y-0','pointer-events-auto');
+}else{
+btn.classList.add('opacity-0','translate-y-10','pointer-events-none');
+btn.classList.remove('opacity-100','translate-y-0','pointer-events-auto');
+}
+});
+
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 
 window.addEventListener('DOMContentLoaded',initializeVault);
 </script>
