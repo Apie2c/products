@@ -257,7 +257,11 @@
             if (linkedId !== null) {
                 // Push a clean base state FIRST so back-press can return to it.
                 window.history.replaceState({ page: 'home' }, '', window.location.pathname);
+                
+
+                setTimeout(() => {
                 openModal(linkedId);
+                }, 100);
             }
 
         } catch (error) {
@@ -415,8 +419,8 @@
 
         // Only manipulate history when NOT called from the popstate handler
         // (the handler already moved history backward for us).
-        if (!skipHistory && window.location.hash.startsWith('#product-')) {
-            window.history.back();
+        if (!skipHistory && window.location.hash.includes('product-')) {
+        window.history.pushState({ page: 'home' }, '', window.location.pathname);
         }
     }
 
