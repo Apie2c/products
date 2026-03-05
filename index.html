@@ -96,15 +96,15 @@
         .btn-3d-amazon {
             position: relative;
             background: #FF9900;
-            /* The shadow below creates the 3D depth */
-            box-shadow: 0 6px 0 0 #cc7a00, 0 8px 15px rgba(0, 0, 0, 0.2);
+            /* Simulated 3D thickness */
+            box-shadow: 0 6px 0 0 #cc7a00, 0 8px 15px rgba(0, 0, 0, 0.3);
             transition: all 0.1s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Push down effect on click */
+        /* Mechanical press effect */
         .btn-3d-amazon:active {
             transform: translateY(4px);
             box-shadow: 0 2px 0 0 #cc7a00, 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -113,7 +113,7 @@
         /* Updated pulse for 3D button */
         @keyframes pulse-amazon-3d {
             0% { outline: 0px solid rgba(255, 153, 0, 0.4); }
-            70% { outline: 8px solid rgba(255, 153, 0, 0); }
+            70% { outline: 10px solid rgba(255, 153, 0, 0); }
             100% { outline: 0px solid rgba(255, 153, 0, 0); }
         }
 
