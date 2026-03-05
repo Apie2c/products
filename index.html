@@ -89,7 +89,11 @@
         
         .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
+        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: radial-gradient(circle, #f8fafc 0%, #f1f5f9 100%); }
+        .dark .img-aspect {
+            background: radial-gradient(circle, #1f2937 0%, #111827 100%);
+        }
+
     </style>
 </head>
 
@@ -336,7 +340,7 @@
                 </div>
                 <div class="rounded-3xl overflow-hidden">
                     <div class="img-aspect p-8 flex items-center justify-center">
-                        <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" class="w-full h-full object-contain blend-img">
                     </div>
                     <div class="p-5">
                         <div class="flex justify-between items-center mb-1">
@@ -413,7 +417,7 @@
         const p = productCatalog.find(x => x.id === parseInt(id));
         if (!p) return;
         activeProductId = p.id;
-        document.getElementById('modal-img').src = p.img;
+        document.getElementById('modal-img').src = p.img; modalImg.alt = p.name;
         document.getElementById('modal-title').innerText = p.name;
         document.getElementById('modal-cat').innerText = p.cat;
         document.getElementById('modal-desc').innerText = p.desc;
