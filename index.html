@@ -495,6 +495,23 @@
         btn.innerHTML = old;
     }
 
+
+        function shareWhatsApp(event) {
+            const p = productCatalog.find(x => x.id === activeProductId);
+            if (!p) return;
+
+            const productURL = buildProductURL(activeProductId);
+    
+            // Customize your share message here
+            const message = `Check out the ${p.name} on Nexora! 🚀\n\n${p.desc}\n\nView here: ${productURL}`;
+    
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    
+            window.open(whatsappUrl, '_blank');
+        }
+
+
     function showToast(m) {
         const t = document.getElementById('toast');
         if (t) { t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
