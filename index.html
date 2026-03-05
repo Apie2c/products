@@ -28,7 +28,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Fixed syntax and updated shadow for Blue theme */
         .active-chip { 
             background-color: #2563EB !important; 
             color: white !important; 
@@ -37,7 +36,6 @@
 
         .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
         
-        /* Updated hover border and shadow to Blue */
         .product-card:hover { 
             transform: translateY(-8px) scale(1.03); 
             border-color: #2563EB; 
@@ -55,8 +53,6 @@
         .hover-telegram:hover { color: #0088CC !important; transform: translateY(-2px); }
         .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
         .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
-
-
 
         @keyframes pulse-soft {
             0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
@@ -123,7 +119,7 @@
             </div>
 
             <div class="flex items-center gap-0.5 sm:gap-2 flex-shrink-0">
-                <button id="header-wishlist-btn" onclick="filterCategory('Saved', this)" class="transition-colors relative p-2 text-gray-400">
+                <button id="header-wishlist-btn" onclick="filterCategory('Saved', this)" class="transition-all relative p-2 text-gray-400">
                     <i class="fas fa-heart text-lg"></i>
                     <span id="wishlist-count" class="absolute top-1 right-0 bg-brand-primary text-white text-[7px] w-4 h-4 rounded-full hidden items-center justify-center font-bold border-2 border-white dark:border-gray-900">0</span>
                 </button>
@@ -229,7 +225,6 @@
             if (!response.ok) throw new Error('Failed to fetch');
             LUXE_VAULT = await response.json();
             
-            // Logic: Combine categories and REVERSE so newest items in JSON appear first
             productCatalog = Object.keys(LUXE_VAULT)
                 .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })))
                 .reverse(); 
@@ -268,7 +263,6 @@
 
         updateWishlistCount();
 
-        // 1. Handle Empty Results
         if (displayItems.length === 0) {
             grid.innerHTML = `
                 <div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-400">
@@ -276,10 +270,9 @@
                     <p class="uppercase tracking-[0.2em] text-[10px] font-bold">No products found matching your search</p>
                     <button onclick="clearSearch()" class="mt-4 text-brand-primary text-[9px] font-bold uppercase tracking-widest hover:underline">Clear Filters</button>
                 </div>`;
-            return; // Correctly exits if no results
+            return;
         }
 
-        // 2. Render Products (Now correctly outside the if-block)
         grid.innerHTML = displayItems.map((p, index) => {
             const isSaved = wishlist.includes(p.id);
             const isNew = productCatalog.slice(0, 4).some(newItem => newItem.id === p.id);
@@ -316,12 +309,9 @@
     
 
     function clearSearch() {
-    // Reset inputs
         document.getElementById('searchInput').value = '';
         document.getElementById('searchInputMobile').value = '';
-    // Reset category
         currentFilter = 'All';
-    // Refresh UI
         initCategories();
         renderProducts();
     }
@@ -345,9 +335,28 @@
     function updateWishlistCount() {
         const el = document.getElementById('wishlist-count');
         const hBtn = document.getElementById('header-wishlist-btn');
-        if(el) { el.innerText = wishlist.length; el.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
-        if(hBtn) hBtn.className = `transition-colors relative p-2 ${wishlist.length > 0 ? 'text-red-500' : 'text-gray-400'}`;
+        
+        if (el) { 
+            el.innerText = wishlist.length; 
+            el.style.display = wishlist.length > 0 ? 'flex' : 'none'; 
+        }
+        
+        if (hBtn) {
+            if (wishlist.length > 0) {
+                hBtn.classList.remove('opacity-20', 'pointer-events-none', 'cursor-not-allowed', 'text-gray-400');
+                hBtn.classList.add('text-red-500', 'cursor-pointer');
+            } else {
+                hBtn.classList.remove('text-red-500', 'cursor-pointer');
+                hBtn.classList.add('text-gray-400', 'opacity-20', 'pointer-events-none', 'cursor-not-allowed');
+                
+                if (currentFilter === 'Saved') {
+                    currentFilter = 'All';
+                    initCategories();
+                }
+            }
+        }
     }
+    
 
     function updateWishlistUI(id) {
         const btn = document.getElementById('modal-wishlist-btn');
