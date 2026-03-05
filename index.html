@@ -69,12 +69,18 @@
         .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
         .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
 
-        @keyframes pulse-soft {
-            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        /* Replace the code at with this */
+        @keyframes pulse-scaling {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
         }
-        .animate-pulse-blue { animation: pulse-soft 3s infinite; }
+
+        /* Replace the code at with this */
+        .animate-pulse-blue { 
+            animation: pulse-scaling 1.2s ease-in-out infinite; 
+            display: inline-block; 
+        }
 
         @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
         .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
