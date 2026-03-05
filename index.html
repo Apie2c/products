@@ -92,51 +92,55 @@
         .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
 
 
-
-        //* Creates a curved scoop in the bar to seat the button */
-        .bottom-bar-cutout {
-            mask-image: radial-gradient(circle 44px at 50% 0, transparent 100%, black 100%);
-            -webkit-mask-image: radial-gradient(circle 44px at 50% 0, transparent 100%, black 100%);
+        /* Animation for the Amazon Button */
+        @keyframes pulse-amazon {
+            0% { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 153, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0); }
         }
-
-        /* Enhanced 3D Amazon Button  */
-        .btn-3d-amazon {
-            position: relative;
-            background: #FF9900;
-            box-shadow: 0 6px 0 0 #cc7a00, 0 8px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.1s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 110;
-        }
-
-        /* Mechanical press effect */
-        .btn-3d-amazon:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 0 #cc7a00, 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-
-        /* Updated pulse for 3D button */
-        @keyframes pulse-amazon-3d {
-            0% { outline: 0px solid rgba(255, 153, 0, 0.4); }
-            70% { outline: 10px solid rgba(255, 153, 0, 0); }
-            100% { outline: 0px solid rgba(255, 153, 0, 0); }
-        }
-
-        .animate-pulse-3d {
-            animation: pulse-amazon-3d 2s infinite;
-        }
-
+        .animate-pulse-amazon { animation: pulse-amazon 2s infinite; }
 
         /* Add spacing to the bottom of the page so the bar covers nothing */
         @media (max-width: 1023px) {
-            body { padding-bottom: 60px; } /* Ensures footer is fully visible */
-            #backToTop { bottom: 75px; }   /* Moves back-to-top button above the bar */
+            body { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+            #backToTop { bottom: calc(85px + env(safe-area-inset-bottom, 0px)); }
         }
 
+        /* Bottom bar safe area support */
+        .mobile-bottom-bar {
+            height: calc(44px + env(safe-area-inset-bottom, 0px));
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
 
+        /* Amazon 3D button */
+        .amazon-3d {
+            width: 52px;
+            height: 52px;
+            position: absolute;
+            bottom: 30%; /* floats 70% up from bar base */
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FF9900;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                0 6px 0 #b86e00,
+                0 8px 12px rgba(0,0,0,0.35),
+                0 2px 4px rgba(255,153,0,0.4);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            border: 3px solid rgba(255,255,255,0.15);
+        }
+        .amazon-3d:active {
+            transform: translateX(-50%) translateY(4px);
+            box-shadow:
+                0 2px 0 #b86e00,
+                0 3px 6px rgba(0,0,0,0.3),
+                0 1px 2px rgba(255,153,0,0.3);
+        }
+
+        
     </style>
 </head>
 
@@ -599,26 +603,30 @@
 
 
 
-    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-[100] h-[55px] bg-white/95 dark:bg-brand-dark/95 backdrop-blur-xl border-t border-gray-200 dark:border-gray-800 px-10 flex items-center justify-between shadow-[0_-10px_20px_rgba(0,0,0,0.1)] bottom-bar-cutout">
-    
-    <button type="button" onclick="scrollToTop(); clearSearch();" class="flex flex-col items-center text-gray-400 hover:text-brand-primary transition-colors focus:outline-none">
-        <i class="fas fa-home text-base"></i>
-        <span class="text-[7px] font-bold uppercase tracking-tighter">Home</span>
-    </button>
+    <div class="mobile-bottom-bar lg:hidden fixed bottom-0 left-0 right-0 z-[100] bg-white/90 dark:bg-brand-dark/90 backdrop-blur-xl border-t border-gray-200 dark:border-gray-800 px-8 flex items-center justify-between shadow-[0_-5px_15px_rgba(0,0,0,0.1)]">
 
-    <div class="relative -translate-y-[20%]"> 
-        <a href="https://www.amazon.com?tag=gitafstore-20" target="_blank" 
-           class="btn-3d-amazon animate-pulse-amazon w-16 h-16 rounded-full border-[4px] border-slate-50 dark:border-brand-dark">
-            <i class="fab fa-amazon text-white text-2xl"></i>
+        <button onclick="scrollToTop(); clearSearch();" class="flex flex-col items-center text-gray-400 hover:text-brand-primary transition-colors">
+            <i class="fas fa-home text-sm"></i>
+            <span class="text-[7px] font-bold uppercase tracking-tighter mt-0.5">Home</span>
+        </button>
+
+        <!-- Spacer so flexbox doesn't crowd center -->
+        <div class="w-14"></div>
+
+        <a href="https://your-external-site.com" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-brand-primary transition-colors">
+            <i class="fas fa-plus-circle text-sm"></i>
+            <span class="text-[7px] font-bold uppercase tracking-tighter mt-0.5">More</span>
+        </a>
+
+        <!-- Amazon 3D floating button, centered absolutely -->
+        <a href="https://www.amazon.com?tag=gitafstore-20" target="_blank" class="amazon-3d animate-pulse-amazon">
+            <i class="fab fa-amazon text-white text-xl"></i>
         </a>
     </div>
 
-    <a href="https://your-external-site.com" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-brand-primary transition-colors">
-        <i class="fas fa-plus-circle text-base"></i>
-        <span class="text-[7px] font-bold uppercase tracking-tighter">More</span>
-    </a>
-</div>
+
+
+
 
 </body>
 </html>
-
