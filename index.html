@@ -27,12 +27,12 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
+        .active-chip { background-color: #2563EB !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
         .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
-        .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #C5A02B; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
+        .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #2563EB; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
         .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .product-card:hover img { transform: scale(1.1); }
-        .blend-img { mix-blend-mode: multiply; filter: contrast(1.1); }
+        .blend-img { mix-blend-mode: normal; filter: contrast(1.1); }
         .social-icon { transition: all 0.3s ease; }
         .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
         .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
@@ -45,7 +45,7 @@
         .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
         .tooltip-container { position: relative; display: inline-flex; justify-content: center; align-items: center; }
         .tooltip-text { visibility: hidden; position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(5px); background-color: #0F1115; color: #fff; text-align: center; padding: 6px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; white-space: nowrap; opacity: 0; transition: all 0.2s ease; z-index: 100; pointer-events: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
-        .dark .tooltip-text { background-color: #C5A02B; }
+        .dark .tooltip-text { background-color: #2563EB; }
         .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
         #toast.active { transform: translateX(-50%) translateY(0); }
