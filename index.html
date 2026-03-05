@@ -3,16 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Nexora | Smart Tech. Modern Living.</title>
-    
-    <meta name="description" content="Curated innovation for the modern home. Discover smart tech and elevated style.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourdomain.com/">
-    <meta property="og:title" content="Nexora | Elevated Tech & Style">
-    <meta property="og:description" content="Curated innovation for the modern home.">
-    <meta property="og:image" content="https://yourdomain.com/assets/banner.jpg">
-    <meta property="twitter:card" content="summary_large_image">
+    <title>Nexora | Smart Tech. Modern Living. Elevated Style.</title>
 
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -36,9 +29,21 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .active-chip { background-color: #2563EB !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); }
+        
+        .active-chip { 
+            background-color: #2563EB !important; 
+            color: white !important; 
+            box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); 
+        }
+
         .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
-        .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #2563EB; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(37, 99, 235, 0.2); }
+        
+        .product-card:hover { 
+            transform: translateY(-8px) scale(1.03); 
+            border-color: #2563EB; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(37, 99, 235, 0.2); 
+        }
+
         .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .product-card:hover img { transform: scale(1.1); }
         .blend-img { mix-blend-mode: normal; filter: contrast(1.1); }
@@ -46,17 +51,29 @@
         .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
         .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
         .hover-twitter:hover { color: #1DA1F2 !important; transform: translateY(-2px); }
+        .hover-youtube:hover { color: #FF0000 !important; transform: translateY(-2px); }
+        .hover-telegram:hover { color: #0088CC !important; transform: translateY(-2px); }
+        .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
         .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
-        @keyframes pulse-soft { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
+
+        @keyframes pulse-soft {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
         .animate-pulse-blue { animation: pulse-soft 3s infinite; }
+
         @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
         .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
+        
         .tooltip-container { position: relative; display: inline-flex; justify-content: center; align-items: center; }
-        .tooltip-text { visibility: hidden; position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(5px); background-color: #0F1115; color: #fff; text-align: center; padding: 6px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; white-space: nowrap; opacity: 0; transition: all 0.2s ease; z-index: 100; pointer-events: none; }
+        .tooltip-text { visibility: hidden; position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(5px); background-color: #0F1115; color: #fff; text-align: center; padding: 6px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; white-space: nowrap; opacity: 0; transition: all 0.2s ease; z-index: 100; pointer-events: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
         .dark .tooltip-text { background-color: #2563EB; }
         .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+        
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
         #toast.active { transform: translateX(-50%) translateY(0); }
+        
         .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
@@ -67,23 +84,32 @@
 
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
         <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
+            
             <h1 class="text-xl md:text-2xl font-black tracking-tighter text-brand-primary cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
                 NEXORA<span class="text-blue-500">.</span>
             </h1>
 
-            <div class="flex lg:hidden items-center justify-center gap-3 flex-1 px-1">
-                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-[12px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-[12px]"></i></a>
-                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-[12px]"></i></a>
+            <div class="flex lg:hidden items-center justify-center gap-3.5 flex-1 px-1">
+                <a href="https://facebook.com/luxe" target="_blank" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-[13px]"></i></a>
+                <a href="https://instagram.com/luxe" target="_blank" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-[13px]"></i></a>
+                <a href="https://twitter.com/luxe" target="_blank" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-[13px]"></i></a>
+                <a href="https://youtube.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-[13px]"></i></a>
+                <a href="https://t.me/luxe" target="_blank" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-[13px]"></i></a>
+                <a href="https://tiktok.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-[13px]"></i></a>
+                <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-[13px]"></i></a>
             </div>
 
             <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
                 <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-4 border-r border-gray-200 dark:border-gray-700 pr-6">
-                        <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
-                        <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
+                        <a href="https://facebook.com/luxe" target="_blank" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="https://instagram.com/luxe" target="_blank" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="https://twitter.com/luxe" target="_blank" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="https://youtube.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-sm"></i></a>
+                        <a href="https://t.me/luxe" target="_blank" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-sm"></i></a>
+                        <a href="https://tiktok.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-sm"></i></a>
+                        <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
                     </div>
                     <div class="relative group w-48">
                         <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-brand-primary/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
@@ -104,19 +130,21 @@
             </div>
         </div>
 
-        <div class="lg:hidden pb-4">
-            <div class="px-2 pb-2">
-                <div class="relative w-full">
-                    <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Discover Smart Living..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white">
+        <div class="lg:hidden">
+            <div class="max-w-7xl mx-auto pb-2 px-2">
+                <div class="relative group w-full">
+                    <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Discover Smart Living..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-brand-primary/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
                 </div>
             </div>
-            <div id="category-chips-mobile" class="flex justify-start items-center overflow-x-auto gap-2 no-scrollbar px-4"></div>
+            <div class="max-w-7xl mx-auto pb-4 overflow-hidden">
+                <div id="category-chips-mobile" class="flex justify-center items-center overflow-x-auto gap-2 no-scrollbar px-4"></div>
+            </div>
         </div>
     </nav>
 
     <div class="py-4">
-        <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">AS AN AMAZON ASSOCIATE I EARN FROM QUALIFYING PURCHASES.</p>
+        <p class="text-[10px] sm:text-[12px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center px-4">AS AN AMAZON ASSOCIATE I EARN FROM QUALIFYING PURCHASES.</p>
     </div>
 
     <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
@@ -127,6 +155,21 @@
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8 opacity-0 transition-opacity duration-700"></div>
     </main>
 
+    <footer class="bg-white dark:bg-brand-dark border-t border-gray-200 dark:border-gray-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center space-y-8">
+            <div class="flex flex-wrap justify-center gap-8 text-gray-400">
+                <a href="https://facebook.com/luxe" target="_blank" class="social-icon hover-facebook"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="https://instagram.com/luxe" target="_blank" class="social-icon hover-instagram"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="https://twitter.com/luxe" target="_blank" class="social-icon hover-twitter"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="https://youtube.com/@luxe" target="_blank" class="social-icon hover-youtube"><i class="fab fa-youtube text-xl"></i></a>
+                <a href="https://t.me/luxe" target="_blank" class="social-icon hover-telegram"><i class="fab fa-telegram text-xl"></i></a>
+                <a href="https://tiktok.com/@luxe" target="_blank" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="https://wa.me/yournumber" target="_blank" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
+            </div>
+            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 NEXORA STUDIO | Curated Innovation</p>
+        </div>
+    </footer>
+
     <button id="backToTop" onclick="scrollToTop()" class="fixed bottom-8 right-8 z-[60] w-12 h-12 bg-white/10 dark:bg-brand-primary/20 backdrop-blur-xl border border-gray-200 dark:border-brand-primary/30 text-brand-primary rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 hover:bg-brand-primary hover:text-white shadow-2xl pointer-events-none">
         <i class="fas fa-chevron-up"></i>
     </button>
@@ -135,7 +178,7 @@
         <div id="modal-content" class="bg-white dark:bg-brand-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
             <div class="modal-body-container flex flex-col md:flex-row max-h-[90vh] overflow-y-auto no-scrollbar">
                 <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative min-h-[300px]">
-                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all shadow-lg"><i class="fas fa-times"></i></button>
+                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all shadow-lg"><i class="fas fa-times"></i></button>
                     <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110 blend-img">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
@@ -144,30 +187,22 @@
                             <span id="modal-cat" class="text-brand-primary font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
                             <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 text-slate-900 dark:text-white">Product</h2>
                         </div>
-                        <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors focus:outline-none">
-                            <i class="fas fa-heart"></i>
-                        </button>
+                        <div class="tooltip-container">
+                            <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors focus:outline-none">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <span class="tooltip-text" id="modal-tooltip-label">Save Product</span>
+                        </div>
                     </div>
-                    <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit">
-                        <i class="fas fa-chart-line text-xs"></i>
-                        <span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span>
-                    </div>
+                    <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
-                        
-                        <div class="tooltip-container">
-                            <button onclick="copyProductImage(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl">
-                                <i class="fas fa-file-image"></i>
-                            </button>
-                            <span class="tooltip-text">Copy Image</span>
-                        </div>
-
                         <div class="tooltip-container">
                             <button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl">
                                 <i class="fas fa-share-alt"></i>
                             </button>
-                            <span class="tooltip-text">Share Link</span>
+                            <span class="tooltip-text">Share Product</span>
                         </div>
                     </div>
                 </div>
@@ -176,6 +211,7 @@
     </div>
 
     <div id="toast" class="bg-brand-primary text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
+    <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
     const AFFILIATE_ID = "gitafstore-20";
@@ -186,14 +222,18 @@
     let activeProductId = null;
     let searchTimeout;
 
+    // ── Deep-link helpers ──────────────────────────────────────────
+    // Returns the product id from the current URL hash, or null.
     function getProductIdFromHash() {
         const match = window.location.hash.match(/^#product-(\d+)$/);
         return match ? parseInt(match[1], 10) : null;
     }
 
+    // Build a full shareable URL for a product id.
     function buildProductURL(id) {
-        const url = new URL(window.location.origin + window.location.pathname);
+        const url = new URL(window.location.href);
         url.hash = `product-${id}`;
+        // Strip any stale search params that don't belong
         return url.toString();
     }
 
@@ -214,14 +254,20 @@
             loader.classList.add('hidden');
             grid.classList.remove('opacity-0');
 
-            // FIX: History Fix for WhatsApp/Shared Links
+            // ── Auto-open product from shared link ─────────────────
             const linkedId = getProductIdFromHash();
             if (linkedId !== null) {
+                // Push a clean base state FIRST so back-press can return to it.
                 window.history.replaceState({ page: 'home' }, '', window.location.pathname);
-                setTimeout(() => openModal(linkedId), 100);
+                
+
+                setTimeout(() => {
+                openModal(linkedId);
+                }, 100);
             }
+
         } catch (error) {
-            loader.innerHTML = `<p class="text-gray-400 text-xs">Vault connection required.</p>`;
+            loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
     }
 
@@ -239,7 +285,9 @@
 
     function renderProducts() {
         const grid = document.getElementById('product-grid');
-        const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || '').toLowerCase();
+        const searchInput = document.getElementById('searchInput');
+        const searchInputMobile = document.getElementById('searchInputMobile');
+        const searchVal = (searchInput.value || searchInputMobile.value || '').toLowerCase();
         
         const displayItems = productCatalog.filter(p => {
             const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
@@ -249,7 +297,12 @@
         updateWishlistCount();
 
         if (displayItems.length === 0) {
-            grid.innerHTML = `<div class="col-span-full py-20 text-center text-gray-400 text-[10px] uppercase font-bold tracking-widest">No products found</div>`;
+            grid.innerHTML = `
+                <div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-400">
+                    <i class="fas fa-box-open text-4xl mb-4 opacity-20"></i>
+                    <p class="uppercase tracking-[0.2em] text-[10px] font-bold">No products found matching your search</p>
+                    <button onclick="clearSearch()" class="mt-4 text-brand-primary text-[9px] font-bold uppercase tracking-widest hover:underline">Clear Filters</button>
+                </div>`;
             return;
         }
 
@@ -261,22 +314,86 @@
             return `        
             <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
                 <div class="absolute top-4 right-4 z-[40]">
-                    <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
-                        <i class="fas fa-heart text-sm"></i>
-                    </button>
-                </div>
-                <div class="img-aspect p-8 flex items-center justify-center">
-                    <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
-                </div>
-                <div class="p-5">
-                    <div class="flex items-center mb-1">
-                        ${newBadge}
-                        <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                    <div class="tooltip-container">
+                         <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
+                            <i class="fas fa-heart text-sm"></i>
+                         </button>
+                         <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
                     </div>
-                    <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
+                </div>
+                <div class="rounded-3xl overflow-hidden">
+                    <div class="img-aspect p-8 flex items-center justify-center">
+                        <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-1">
+                            <div class="flex items-center">
+                                ${newBadge}
+                                <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                            </div>
+                            <span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span>
+                        </div>
+                        <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
+                    </div>
                 </div>
             </div>`;
         }).join('');
+    }
+
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchInputMobile').value = '';
+        currentFilter = 'All';
+        initCategories();
+        renderProducts();
+    }
+
+    function toggleWishlist(id) {
+        const idx = wishlist.indexOf(id);
+        let isAdding = false;
+        if (idx > -1) { wishlist.splice(idx, 1); showToast("Removed from favorites"); }
+        else { wishlist.push(id); showToast("Added to favorites"); isAdding = true; }
+        localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
+        updateWishlistCount();
+        const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
+        targetIds.forEach(elementId => {
+            const el = document.getElementById(elementId);
+            if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
+        });
+        renderProducts();
+        if (activeProductId === id) updateWishlistUI(id);
+    }
+
+    function updateWishlistCount() {
+        const el = document.getElementById('wishlist-count');
+        const hBtn = document.getElementById('header-wishlist-btn');
+        
+        if (el) {
+            el.innerText = wishlist.length;
+            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+        }
+        
+        if (hBtn) {
+            if (wishlist.length > 0) {
+                hBtn.classList.remove('opacity-20', 'pointer-events-none', 'cursor-not-allowed', 'text-gray-400');
+                hBtn.classList.add('text-red-500', 'cursor-pointer');
+            } else {
+                hBtn.classList.remove('text-red-500', 'cursor-pointer');
+                hBtn.classList.add('text-gray-400', 'opacity-20', 'pointer-events-none', 'cursor-not-allowed');
+                if (currentFilter === 'Saved') {
+                    currentFilter = 'All';
+                    initCategories();
+                }
+            }
+        }
+    }
+
+    function updateWishlistUI(id) {
+        const btn = document.getElementById('modal-wishlist-btn');
+        const tooltip = document.getElementById('modal-tooltip-label');
+        const isSaved = wishlist.includes(id);
+        if (btn) btn.className = `text-2xl transition-colors focus:outline-none ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
+        if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
     }
 
     function openModal(id) {
@@ -288,98 +405,25 @@
         document.getElementById('modal-cat').innerText = p.cat;
         document.getElementById('modal-desc').innerText = p.desc;
         document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
-        document.getElementById('modal-wishlist-btn').className = `text-2xl transition-colors focus:outline-none ${wishlist.includes(p.id) ? 'text-red-500' : 'text-gray-300'}`;
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
+        updateWishlistUI(p.id);
 
-        if (window.location.hash !== `#product-${id}`) {
-            window.history.pushState({ productId: id }, '', `#product-${id}`);
-        }
+        // Push a history entry so the browser back button can close the modal.
+        // State carries the product id so popstate knows what happened.
+        window.history.pushState({ productId: p.id }, '', `#product-${p.id}`);
     }
 
-    function closeModal(skipHistory = false) {
+    function closeModal(skipHistory) {
         document.getElementById('modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
         activeProductId = null;
+
+        // Only manipulate history when NOT called from the popstate handler
+        // (the handler already moved history backward for us).
         if (!skipHistory && window.location.hash.includes('product-')) {
-            window.history.pushState({ page: 'home' }, '', window.location.pathname);
+        window.history.pushState({ page: 'home' }, '', window.location.pathname);
         }
-    }
-
-    async function copyProductImage(event) {
-        const btn = event.currentTarget;
-        const oldIcon = btn.innerHTML;
-        const p = productCatalog.find(x => x.id === activeProductId);
-        if (!p) return;
-
-        try {
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
-            const response = await fetch(p.img);
-            const blob = await response.blob();
-            const data = [new ClipboardItem({ [blob.type]: blob })];
-            await navigator.clipboard.write(data);
-            showToast('Image Copied!');
-        } catch (err) {
-            showToast('Copy failed');
-        } finally {
-            btn.innerHTML = oldIcon;
-        }
-    }
-
-    async function shareProduct(event) {
-        const btn = event.currentTarget;
-        const old = btn.innerHTML;
-        const p = productCatalog.find(x => x.id === activeProductId);
-        if (!p) return;
-        
-        const productURL = buildProductURL(activeProductId);
-        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
-        
-        try {
-            if (navigator.share) {
-                await navigator.share({ title: p.name, text: p.desc, url: productURL });
-            } else {
-                await navigator.clipboard.writeText(productURL);
-                showToast('Link Copied!');
-            }
-        } catch (e) {}
-        btn.innerHTML = old;
-    }
-
-    function toggleWishlist(id) {
-        const idx = wishlist.indexOf(id);
-        if (idx > -1) {
-            wishlist.splice(idx, 1);
-            showToast("Removed");
-        } else {
-            wishlist.push(id);
-            showToast("Saved");
-        }
-        localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
-        updateWishlistCount();
-        renderProducts();
-        if (activeProductId === id) {
-            document.getElementById('modal-wishlist-btn').className = `text-2xl transition-colors focus:outline-none ${wishlist.includes(id) ? 'text-red-500' : 'text-gray-300'}`;
-        }
-    }
-
-    function updateWishlistCount() {
-        const el = document.getElementById('wishlist-count');
-        const hBtn = document.getElementById('header-wishlist-btn');
-        if (el) {
-            el.innerText = wishlist.length;
-            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
-        }
-        if (hBtn) {
-            hBtn.className = wishlist.length > 0 ? 'relative p-2 text-red-500' : 'relative p-2 text-gray-400';
-        }
-    }
-
-    function syncSearch(val) {
-        document.getElementById('searchInput').value = val;
-        document.getElementById('searchInputMobile').value = val;
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => renderProducts(), 150);
     }
 
     function filterCategory(cat, el) {
@@ -389,12 +433,54 @@
         renderProducts();
     }
 
-    function showToast(m) {
-        const t = document.getElementById('toast');
-        t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000);
+    function syncSearch(val) {
+        document.getElementById('searchInput').value = val;
+        document.getElementById('searchInputMobile').value = val;
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => renderProducts(), 150);
     }
 
-    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    // ── Share product ──────────────────────────────────────────────
+    // Shares a direct link to the product. Falls back to copying the URL.
+    async function shareProduct(event) {
+        const btn = event.currentTarget;
+        const old = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+
+        const productURL = buildProductURL(activeProductId);
+
+        try {
+            // Try native share sheet first (mobile / modern browsers)
+            if (navigator.share) {
+                const p = productCatalog.find(x => x.id === activeProductId);
+                await navigator.share({
+                    title: p ? p.name : 'Check this out on Nexora',
+                    text: p ? p.desc : '',
+                    url: productURL,
+                });
+                showToast('Shared!');
+            } else {
+                // Desktop fallback: copy link
+                await navigator.clipboard.writeText(productURL);
+                showToast('Link Copied!');
+            }
+        } catch (e) {
+            // User dismissed share sheet or clipboard failed – silently ignore
+            if (e.name !== 'AbortError') {
+                try { await navigator.clipboard.writeText(productURL); showToast('Link Copied!'); } catch (_) {}
+            }
+        }
+
+        btn.innerHTML = old;
+    }
+
+    function showToast(m) {
+        const t = document.getElementById('toast');
+        if (t) { t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
+    }
+
+    function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
+    function toggleTheme() { document.documentElement.classList.toggle('dark'); }
 
     window.addEventListener('scroll', () => {
         const btn = document.getElementById('backToTop');
@@ -407,16 +493,21 @@
         }
     });
 
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    // ── Popstate: handle back/forward navigation ───────────────────
     window.addEventListener('popstate', (event) => {
+        const modal = document.getElementById('modal');
+        const isModalOpen = !modal.classList.contains('hidden');
+
         if (event.state && event.state.productId) {
-            openModal(event.state.productId);
+            // Navigated forward to a product — open it (without re-pushing history)
+            if (!isModalOpen) openModal(event.state.productId);
         } else {
-            closeModal(true);
+            // Navigated back to home state — close modal without touching history
+            if (isModalOpen) closeModal(true);
         }
     });
-
-    function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
-    function toggleTheme() { document.documentElement.classList.toggle('dark'); }
 
     window.addEventListener('DOMContentLoaded', initializeVault);
     </script>
