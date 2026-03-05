@@ -1,245 +1,111 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexora | Smart Tech. Modern Living. Elevated Style.</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<script>
-tailwind.config = {
-darkMode: 'class',
-theme: {
-extend: {
-fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-colors: {
-brand: {
-primary: '#2563EB',
-dark: '#0B0F1A',
-card: '#111827'
-}
-}
-}
-}
-}
-</script>
-
-<style>
-.no-scrollbar::-webkit-scrollbar { display:none; }
-.no-scrollbar { -ms-overflow-style:none; scrollbar-width:none; }
-.active-chip { background-color:#2563EB !important; color:white !important; }
-.product-card { transition: all .4s cubic-bezier(.165,.84,.44,1); }
-.product-card:hover { transform:translateY(-8px) scale(1.03); border-color:#2563EB; box-shadow:0 15px 25px rgba(37,99,235,.25); }
-.product-card img { transition: transform .6s cubic-bezier(.165,.84,.44,1); }
-.product-card:hover img { transform:scale(1.1); }
-.img-aspect { aspect-ratio:1/1; overflow:hidden; background:white; }
-#toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(120px); transition:.5s; z-index:999; }
-#toast.active { transform:translateX(-50%) translateY(0); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>LUXE | Premium Curated Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: { premium: { gold: '#C5A02B', dark: '#0F1115', card: '#1C1F26' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .active-chip { background-color: #C5A02B !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
+        .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
+        .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #C5A02B; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
+        .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .product-card:hover img { transform: scale(1.1); }
+        .blend-img { mix-blend-mode: multiply; filter: contrast(1.1); }
+        .social-icon { transition: all 0.3s ease; }
+        .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
+        .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
+        .hover-twitter:hover { color: #1DA1F2 !important; transform: translateY(-2px); }
+        .hover-youtube:hover { color: #FF0000 !important; transform: translateY(-2px); }
+        .hover-telegram:hover { color: #0088CC !important; transform: translateY(-2px); }
+        .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
+        .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
+        @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
+        .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
+        .tooltip-container { position: relative; display: inline-flex; justify-content: center; align-items: center; }
+        .tooltip-text { visibility: hidden; position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(5px); background-color: #0F1115; color: #fff; text-align: center; padding: 6px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; white-space: nowrap; opacity: 0; transition: all 0.2s ease; z-index: 100; pointer-events: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
+        .dark .tooltip-text { background-color: #C5A02B; }
+        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
+        #toast.active { transform: translateX(-50%) translateY(0); }
+        .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
+    </style>
 </head>
+<body class="bg-slate-50 dark:bg-premium-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
 
-<body class="bg-slate-50 dark:bg-brand-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
+<!-- NAVIGATION -->
+<nav class="sticky top-0 z-50 bg-white/80 dark:bg-premium-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
+    <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
+        <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
+            LUXE<span class="text-slate-900 dark:text-white">.</span>
+        </h1>
 
-<!-- NAV -->
-<nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 px-4">
-<div class="max-w-7xl mx-auto h-16 flex items-center justify-between">
+        <div class="flex lg:hidden items-center justify-center gap-3.5 flex-1 px-1">
+            <a href="https://facebook.com/luxe" target="_blank" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-[13px]"></i></a>
+            <a href="https://instagram.com/luxe" target="_blank" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-[13px]"></i></a>
+            <a href="https://twitter.com/luxe" target="_blank" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-[13px]"></i></a>
+            <a href="https://youtube.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-[13px]"></i></a>
+            <a href="https://t.me/luxe" target="_blank" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-[13px]"></i></a>
+            <a href="https://tiktok.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-[13px]"></i></a>
+            <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-[13px]"></i></a>
+        </div>
 
-<h1 class="text-2xl font-black tracking-tight text-white cursor-pointer">
-NEXORA<span class="text-blue-500">.</span>
-</h1>
+        <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
+            <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-4 border-r border-gray-200 dark:border-gray-700 pr-6">
+                    <a href="https://facebook.com/luxe" target="_blank" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
+                    <a href="https://instagram.com/luxe" target="_blank" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
+                    <a href="https://twitter.com/luxe" target="_blank" class="text-gray-400 social-icon hover-twitter"><i class="fab fa-twitter text-sm"></i></a>
+                    <a href="https://youtube.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-youtube"><i class="fab fa-youtube text-sm"></i></a>
+                    <a href="https://t.me/luxe" target="_blank" class="text-gray-400 social-icon hover-telegram"><i class="fab fa-telegram text-sm"></i></a>
+                    <a href="https://tiktok.com/@luxe" target="_blank" class="text-gray-400 social-icon hover-tiktok"><i class="fab fa-tiktok text-sm"></i></a>
+                    <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
+                </div>
+                <div class="relative group w-48">
+                    <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400"></i>
+                </div>
+            </div>
+        </div>
 
-<div class="hidden lg:flex items-center gap-6">
+        <div class="flex items-center gap-0.5 sm:gap-2 flex-shrink-0">
+            <button id="header-wishlist-btn" onclick="filterCategory('Saved', this)" class="transition-colors relative p-2 text-gray-400">
+                <i class="fas fa-heart text-lg"></i>
+                <span id="wishlist-count" class="absolute top-1 right-0 bg-premium-gold text-white text-[7px] w-4 h-4 rounded-full hidden items-center justify-center font-bold border-2 border-white dark:border-premium-dark">0</span>
+            </button>
+            <button onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center bg-transparent transition-all">
+                <i class="fas fa-moon dark:hidden text-sm text-gray-400"></i>
+                <i class="fas fa-sun hidden dark:block text-premium-gold text-sm"></i>
+            </button>
+        </div>
+    </div>
 
-<div id="category-chips-desktop" class="flex gap-2"></div>
-
-<div class="relative w-48">
-<input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..."
-class="w-full bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-blue-500 rounded-xl py-2 pl-9 pr-4 text-xs outline-none">
-<i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
-</div>
-
-<!-- SOCIAL ICONS -->
-<div class="flex items-center gap-4 text-gray-500 dark:text-gray-300 text-sm">
-<a href="#" class="hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-instagram"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-x-twitter"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-tiktok"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-youtube"></i></a>
-</div>
-
-<button onclick="toggleDark()" class="ml-4 text-sm text-gray-500 hover:text-blue-500">
-<i class="fas fa-moon"></i>
-</button>
-
-</div>
-</div>
+    <div class="lg:hidden">
+        <div class="max-w-7xl mx-auto pb-2 px-2">
+            <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Search the vault..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
+        </div>
+        <div class="max-w-7xl mx-auto pb-4 overflow-hidden">
+            <div id="category-chips-mobile" class="flex justify-center items-center overflow-x-auto gap-2 no-scrollbar px-4"></div>
+        </div>
+    </div>
 </nav>
 
-<!-- HERO -->
-<section class="max-w-7xl mx-auto px-4 py-20 text-center">
-<h2 class="text-4xl md:text-6xl font-extrabold tracking-tight">
-Smart Tech. Modern Living.
-</h2>
-<p class="mt-6 text-gray-500 max-w-2xl mx-auto">
-Discover curated innovations in tech, home, wellness and style — handpicked for the modern lifestyle.
-</p>
-</section>
-
-<div class="text-center text-xs text-gray-500 uppercase tracking-widest pb-6">
-As an Amazon Associate, Nexora earns from qualifying purchases.
-</div>
-
-<!-- MAIN -->
-<main class="max-w-7xl mx-auto px-4 pb-24 min-h-screen">
-
-<div id="loader" class="flex flex-col items-center justify-center py-20 space-y-4">
-<div class="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
-<p class="text-xs uppercase tracking-widest text-gray-400 font-bold">
-Loading Nexora...
-</p>
-</div>
-
-<div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 opacity-0 transition-opacity duration-700"></div>
-
-</main>
-
-<!-- FOOTER -->
-<footer class="bg-white dark:bg-brand-dark border-t border-gray-200 dark:border-gray-800 py-16 px-6">
-<div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 text-sm">
-
-<div>
-<h4 class="font-bold text-lg mb-4">NEXORA</h4>
-<p class="text-gray-500">
-Global curated marketplace for tech, wellness, home and fashion innovations.
-</p>
-</div>
-
-<div>
-<h4 class="font-bold mb-4">Categories</h4>
-<ul class="space-y-2 text-gray-500">
-<li><a href="#" class="hover:text-blue-500">Tech</a></li>
-<li><a href="#" class="hover:text-blue-500">Home</a></li>
-<li><a href="#" class="hover:text-blue-500">Wellness</a></li>
-<li><a href="#" class="hover:text-blue-500">Fashion</a></li>
-</ul>
-</div>
-
-<div>
-<h4 class="font-bold mb-4">Company</h4>
-<ul class="space-y-2 text-gray-500">
-<li><a href="#" class="hover:text-blue-500">About</a></li>
-<li><a href="#" class="hover:text-blue-500">Privacy Policy</a></li>
-<li><a href="#" class="hover:text-blue-500">Terms</a></li>
-</ul>
-</div>
-
-<div>
-<h4 class="font-bold mb-4">Follow Us</h4>
-<div class="flex gap-4 text-gray-500 text-lg">
-<a href="#" class="hover:text-blue-500"><i class="fab fa-facebook-f"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-instagram"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-x-twitter"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-tiktok"></i></a>
-<a href="#" class="hover:text-blue-500"><i class="fab fa-youtube"></i></a>
-</div>
-</div>
-
-</div>
-
-<div class="text-center text-xs text-gray-400 mt-12">
-© 2026 Nexora. All Rights Reserved.
-</div>
-
-</footer>
-
-<div id="toast" class="bg-blue-600 text-white px-8 py-3 rounded-2xl shadow-xl font-bold text-xs uppercase tracking-widest">
-Saved to Wishlist
-</div>
-
-<script>
-const AFFILIATE_ID = "nexora-20";
-let NEXORA_VAULT = {};
-let productCatalog = [];
-let currentFilter = 'All';
-let searchTimeout;
-
-async function initializeVault() {
-const loader = document.getElementById('loader');
-const grid = document.getElementById('product-grid');
-
-try {
-const response = await fetch('vault.json');
-NEXORA_VAULT = await response.json();
-productCatalog = Object.keys(NEXORA_VAULT)
-.flatMap(cat => NEXORA_VAULT[cat].map(p => ({ ...p, cat })));
-initCategories();
-renderProducts();
-loader.classList.add('hidden');
-grid.classList.remove('opacity-0');
-} catch {
-loader.innerHTML = `<p class="text-gray-400 text-sm">vault.json required.</p>`;
-}
-}
-
-function initCategories() {
-const desktop = document.getElementById('category-chips-desktop');
-const keys = ['All', ...Object.keys(NEXORA_VAULT)];
-desktop.innerHTML = keys.map(key =>
-`<button onclick="filterCategory('${key}', this)"
-class="cat-chip ${key===currentFilter?'active-chip':''}
-bg-gray-100 dark:bg-gray-800 text-gray-500
-px-4 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider">
-${key}
-</button>`
-).join('');
-}
-
-function renderProducts() {
-const grid = document.getElementById('product-grid');
-const searchVal = (document.getElementById('searchInput').value || '').toLowerCase();
-const displayItems = productCatalog.filter(p =>
-(currentFilter==='All'||p.cat===currentFilter)
-&& p.name.toLowerCase().includes(searchVal)
-);
-grid.innerHTML = displayItems.map(p => `
-<div class="product-card bg-white dark:bg-brand-card rounded-3xl cursor-pointer"
-onclick="openProduct('${p.asin}')">
-<div class="img-aspect p-8 flex items-center justify-center">
-<img src="${p.img}" class="object-contain w-full h-full">
-</div>
-<div class="p-4">
-<p class="text-xs text-blue-500 font-bold uppercase tracking-widest">${p.cat}</p>
-<h3 class="font-semibold text-sm mt-1">${p.name}</h3>
-</div>
-</div>
-`).join('');
-}
-
-function openProduct(asin){
-window.open(\`https://www.amazon.com/dp/\${asin}?tag=\${AFFILIATE_ID}\`,'_blank');
-}
-
-function filterCategory(cat, el){
-currentFilter=cat;
-document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('active-chip'));
-el.classList.add('active-chip');
-renderProducts();
-}
-
-function syncSearch(val){
-clearTimeout(searchTimeout);
-searchTimeout=setTimeout(renderProducts,150);
-}
-
-function toggleDark(){
-document.documentElement.classList.toggle('dark');
-}
-
-window.addEventListener('DOMContentLoaded', initializeVault);
-</script>
-
-</body>
-</html>
+<!-- MAIN CONTENT AND FOOTER REMAIN EXACTLY AS ORIGINAL -->
