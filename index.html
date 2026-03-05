@@ -12,8 +12,6 @@
     <meta property="og:description" content="Curated innovation for the modern home.">
     <meta property="og:image" content="https://yourdomain.com/assets/banner.jpg">
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Nexora | Elevated Tech & Style">
-    <meta property="twitter:image" content="https://yourdomain.com/assets/banner.jpg">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -73,9 +71,20 @@
                 NEXORA<span class="text-blue-500">.</span>
             </h1>
 
+            <div class="flex lg:hidden items-center justify-center gap-3 flex-1 px-1">
+                <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-[12px]"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-[12px]"></i></a>
+                <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-[12px]"></i></a>
+            </div>
+
             <div class="hidden lg:flex items-center flex-grow justify-between ml-8">
                 <div id="category-chips-desktop" class="flex gap-2 mr-4"></div>
                 <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-4 border-r border-gray-200 dark:border-gray-700 pr-6">
+                        <a href="#" class="text-gray-400 social-icon hover-facebook"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-instagram"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
+                    </div>
                     <div class="relative group w-48">
                         <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-brand-primary/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
                         <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400"></i>
@@ -98,7 +107,7 @@
         <div class="lg:hidden pb-4">
             <div class="px-2 pb-2">
                 <div class="relative w-full">
-                    <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Discover..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white">
+                    <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Discover Smart Living..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
                 </div>
             </div>
@@ -106,13 +115,21 @@
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 pt-8 pb-24 min-h-screen">
+    <div class="py-4">
+        <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">AS AN AMAZON ASSOCIATE I EARN FROM QUALIFYING PURCHASES.</p>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
         <div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
             <div class="w-12 h-12 border-4 border-gray-200 border-t-brand-primary rounded-full animate-spin"></div>
             <p class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Loading Nexora...</p>
         </div>
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8 opacity-0 transition-opacity duration-700"></div>
     </main>
+
+    <button id="backToTop" onclick="scrollToTop()" class="fixed bottom-8 right-8 z-[60] w-12 h-12 bg-white/10 dark:bg-brand-primary/20 backdrop-blur-xl border border-gray-200 dark:border-brand-primary/30 text-brand-primary rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 hover:bg-brand-primary hover:text-white shadow-2xl pointer-events-none">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
         <div id="modal-content" class="bg-white dark:bg-brand-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
@@ -130,6 +147,10 @@
                         <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors focus:outline-none">
                             <i class="fas fa-heart"></i>
                         </button>
+                    </div>
+                    <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit">
+                        <i class="fas fa-chart-line text-xs"></i>
+                        <span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span>
                     </div>
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
                     <div class="pt-4 flex items-center gap-3">
@@ -193,6 +214,7 @@
             loader.classList.add('hidden');
             grid.classList.remove('opacity-0');
 
+            // FIX: History Fix for WhatsApp/Shared Links
             const linkedId = getProductIdFromHash();
             if (linkedId !== null) {
                 window.history.replaceState({ page: 'home' }, '', window.location.pathname);
@@ -226,14 +248,31 @@
 
         updateWishlistCount();
 
+        if (displayItems.length === 0) {
+            grid.innerHTML = `<div class="col-span-full py-20 text-center text-gray-400 text-[10px] uppercase font-bold tracking-widest">No products found</div>`;
+            return;
+        }
+
         grid.innerHTML = displayItems.map((p, index) => {
+            const isSaved = wishlist.includes(p.id);
+            const isNew = productCatalog.slice(0, 4).some(newItem => newItem.id === p.id);
+            const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">NEW</span>` : '';
+
             return `        
             <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
+                <div class="absolute top-4 right-4 z-[40]">
+                    <button onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
+                        <i class="fas fa-heart text-sm"></i>
+                    </button>
+                </div>
                 <div class="img-aspect p-8 flex items-center justify-center">
                     <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
                 </div>
                 <div class="p-5">
-                    <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                    <div class="flex items-center mb-1">
+                        ${newBadge}
+                        <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                    </div>
                     <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
                 </div>
             </div>`;
@@ -249,6 +288,7 @@
         document.getElementById('modal-cat').innerText = p.cat;
         document.getElementById('modal-desc').innerText = p.desc;
         document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
+        document.getElementById('modal-wishlist-btn').className = `text-2xl transition-colors focus:outline-none ${wishlist.includes(p.id) ? 'text-red-500' : 'text-gray-300'}`;
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
 
@@ -280,7 +320,7 @@
             await navigator.clipboard.write(data);
             showToast('Image Copied!');
         } catch (err) {
-            showToast('Copying failed');
+            showToast('Copy failed');
         } finally {
             btn.innerHTML = oldIcon;
         }
@@ -293,18 +333,46 @@
         if (!p) return;
         
         const productURL = buildProductURL(activeProductId);
-        const shareText = `Check out the ${p.name} on Nexora!`;
-
         btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+        
         try {
             if (navigator.share) {
-                await navigator.share({ title: p.name, text: shareText, url: productURL });
+                await navigator.share({ title: p.name, text: p.desc, url: productURL });
             } else {
                 await navigator.clipboard.writeText(productURL);
                 showToast('Link Copied!');
             }
         } catch (e) {}
         btn.innerHTML = old;
+    }
+
+    function toggleWishlist(id) {
+        const idx = wishlist.indexOf(id);
+        if (idx > -1) {
+            wishlist.splice(idx, 1);
+            showToast("Removed");
+        } else {
+            wishlist.push(id);
+            showToast("Saved");
+        }
+        localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
+        updateWishlistCount();
+        renderProducts();
+        if (activeProductId === id) {
+            document.getElementById('modal-wishlist-btn').className = `text-2xl transition-colors focus:outline-none ${wishlist.includes(id) ? 'text-red-500' : 'text-gray-300'}`;
+        }
+    }
+
+    function updateWishlistCount() {
+        const el = document.getElementById('wishlist-count');
+        const hBtn = document.getElementById('header-wishlist-btn');
+        if (el) {
+            el.innerText = wishlist.length;
+            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+        }
+        if (hBtn) {
+            hBtn.className = wishlist.length > 0 ? 'relative p-2 text-red-500' : 'relative p-2 text-gray-400';
+        }
     }
 
     function syncSearch(val) {
@@ -321,30 +389,23 @@
         renderProducts();
     }
 
-    function toggleWishlist(id) {
-        const idx = wishlist.indexOf(id);
-        if (idx > -1) wishlist.splice(idx, 1);
-        else wishlist.push(id);
-        localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
-        updateWishlistCount();
-        renderProducts();
-    }
-
-    function updateWishlistCount() {
-        const el = document.getElementById('wishlist-count');
-        if (el) {
-            el.innerText = wishlist.length;
-            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
-        }
-    }
-
     function showToast(m) {
         const t = document.getElementById('toast');
         t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000);
     }
 
-    function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
-    function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('backToTop');
+        if (window.scrollY > 500) {
+            btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        } else {
+            btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        }
+    });
 
     window.addEventListener('popstate', (event) => {
         if (event.state && event.state.productId) {
@@ -353,6 +414,9 @@
             closeModal(true);
         }
     });
+
+    function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
+    function toggleTheme() { document.documentElement.classList.toggle('dark'); }
 
     window.addEventListener('DOMContentLoaded', initializeVault);
     </script>
