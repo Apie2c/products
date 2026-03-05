@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Nexora | Smart Tech. Modern Living. Elevated Style.</title>
+    <title>Nexora | Smart Tech. Modern Living.</title>
+    <meta name="title" content="Nexora | Smart Tech. Modern Living.">
+    <meta name="description" content="Curated innovation for the modern home. Discover smart tech and elevated style.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="Nexora | Elevated Tech & Style">
+    <meta property="og:description" content="Curated innovation for the modern home.">
+    <meta property="og:image" content="https://yourdomain.com/assets/banner.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Nexora | Elevated Tech & Style">
+    <meta property="twitter:image" content="https://yourdomain.com/assets/banner.jpg">
+
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -446,6 +460,8 @@
         btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
 
         const productURL = buildProductURL(activeProductId);
+
+        const shareText = `Check out the ${p.name} on Nexora!\n\n${p.desc}\n\n`;
 
         try {
             // Try native share sheet first (mobile / modern browsers)
