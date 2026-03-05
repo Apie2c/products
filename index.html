@@ -27,9 +27,23 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .active-chip { background-color: #2563EB !important; color: white !important; box-shadow: 0 4px 12px -2px rgba(197, 160, 43, 0.4); }
+        
+        /* Fixed syntax and updated shadow for Blue theme */
+        .active-chip { 
+            background-color: #2563EB !important; 
+            color: white !important; 
+            box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); 
+        }
+
         .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
-        .product-card:hover { transform: translateY(-8px) scale(1.03); border-color: #2563EB; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(197, 160, 43, 0.2); }
+        
+        /* Updated hover border and shadow to Blue */
+        .product-card:hover { 
+            transform: translateY(-8px) scale(1.03); 
+            border-color: #2563EB; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(37, 99, 235, 0.2); 
+        }
+
         .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .product-card:hover img { transform: scale(1.1); }
         .blend-img { mix-blend-mode: normal; filter: contrast(1.1); }
@@ -41,14 +55,18 @@
         .hover-telegram:hover { color: #0088CC !important; transform: translateY(-2px); }
         .hover-tiktok:hover { color: #00f2ea !important; transform: translateY(-2px); text-shadow: 2px 0 #ff0050; }
         .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
+        
         @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
         .heart-bounce { animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
+        
         .tooltip-container { position: relative; display: inline-flex; justify-content: center; align-items: center; }
         .tooltip-text { visibility: hidden; position: absolute; bottom: 135%; left: 50%; transform: translateX(-50%) translateY(5px); background-color: #0F1115; color: #fff; text-align: center; padding: 6px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; white-space: nowrap; opacity: 0; transition: all 0.2s ease; z-index: 100; pointer-events: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); }
         .dark .tooltip-text { background-color: #2563EB; }
         .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+        
         #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(120px); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; }
         #toast.active { transform: translateX(-50%) translateY(0); }
+        
         .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
@@ -60,7 +78,7 @@
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
         <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
             
-            <h1 class="text-xl md:text-2xl font-black tracking-tighter text-premium-gold cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
+            <h1 class="text-xl md:text-2xl font-black tracking-tighter text-brand-primary cursor-pointer flex-shrink-0" onclick="location.href=window.location.pathname">
                 NEXORA<span class="text-blue-500">.</span>
             </h1>
 
@@ -87,7 +105,7 @@
                         <a href="https://wa.me/yournumber" target="_blank" class="text-gray-400 social-icon hover-whatsapp"><i class="fab fa-whatsapp text-sm"></i></a>
                     </div>
                     <div class="relative group w-48">
-                        <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
+                        <input type="text" id="searchInput" oninput="syncSearch(this.value)" placeholder="Search..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-brand-primary/30 rounded-xl py-2 pl-9 pr-4 text-[10px] outline-none dark:text-white">
                         <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-400"></i>
                     </div>
                 </div>
@@ -96,18 +114,21 @@
             <div class="flex items-center gap-0.5 sm:gap-2 flex-shrink-0">
                 <button id="header-wishlist-btn" onclick="filterCategory('Saved', this)" class="transition-colors relative p-2 text-gray-400">
                     <i class="fas fa-heart text-lg"></i>
-                    <span id="wishlist-count" class="absolute top-1 right-0 bg-premium-gold text-white text-[7px] w-4 h-4 rounded-full hidden items-center justify-center font-bold border-2 border-white dark:border-premium-dark">0</span>
+                    <span id="wishlist-count" class="absolute top-1 right-0 bg-brand-primary text-white text-[7px] w-4 h-4 rounded-full hidden items-center justify-center font-bold border-2 border-white dark:border-gray-900">0</span>
                 </button>
                 <button onclick="toggleTheme()" class="w-9 h-9 flex items-center justify-center bg-transparent transition-all">
                     <i class="fas fa-moon dark:hidden text-sm text-gray-400"></i>
-                    <i class="fas fa-sun hidden dark:block text-premium-gold text-sm"></i>
+                    <i class="fas fa-sun hidden dark:block text-brand-primary text-sm"></i>
                 </button>
             </div>
         </div>
 
         <div class="lg:hidden">
             <div class="max-w-7xl mx-auto pb-2 px-2">
-                <div class="relative group w-full"><input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Discover Smart Living..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-premium-gold/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i></div>
+                <div class="relative group w-full">
+                    <input type="text" id="searchInputMobile" oninput="syncSearch(this.value)" placeholder="Discover Smart Living..." class="w-full bg-gray-100/50 dark:bg-gray-800/40 border border-transparent focus:border-brand-primary/30 rounded-xl py-2.5 pl-10 pr-4 text-xs outline-none dark:text-white">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-xs text-gray-400"></i>
+                </div>
             </div>
             <div class="max-w-7xl mx-auto pb-4 overflow-hidden">
                 <div id="category-chips-mobile" class="flex justify-center items-center overflow-x-auto gap-2 no-scrollbar px-4"></div>
@@ -121,7 +142,7 @@
 
     <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
         <div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
-            <div class="w-12 h-12 border-4 border-gray-200 border-t-premium-gold rounded-full animate-spin"></div>
+            <div class="w-12 h-12 border-4 border-gray-200 border-t-brand-primary rounded-full animate-spin"></div>
             <p class="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold">Loading Nexora...</p>
         </div>
         <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8 opacity-0 transition-opacity duration-700"></div>
@@ -138,25 +159,25 @@
                 <a href="https://tiktok.com/@luxe" target="_blank" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
                 <a href="https://wa.me/yournumber" target="_blank" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
             </div>
-            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 LUXE STUDIO | Curated Innovation</p>
+            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 NEXORA STUDIO | Curated Innovation</p>
         </div>
     </footer>
 
-    <button id="backToTop" onclick="scrollToTop()" class="fixed bottom-8 right-8 z-[60] w-12 h-12 bg-white/10 dark:bg-premium-gold/20 backdrop-blur-xl border border-gray-200 dark:border-premium-gold/30 text-premium-gold rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 hover:bg-premium-gold hover:text-white shadow-2xl pointer-events-none">
+    <button id="backToTop" onclick="scrollToTop()" class="fixed bottom-8 right-8 z-[60] w-12 h-12 bg-white/10 dark:bg-brand-primary/20 backdrop-blur-xl border border-gray-200 dark:border-brand-primary/30 text-brand-primary rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 hover:bg-brand-primary hover:text-white shadow-2xl pointer-events-none">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
-        <div id="modal-content" class="bg-white dark:bg-premium-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
+        <div id="modal-content" class="bg-white dark:bg-brand-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
             <div class="modal-body-container flex flex-col md:flex-row max-h-[90vh] overflow-y-auto no-scrollbar">
                 <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative min-h-[300px]">
-                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-premium-gold hover:text-white transition-all shadow-lg"><i class="fas fa-times"></i></button>
+                    <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all shadow-lg"><i class="fas fa-times"></i></button>
                     <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110 blend-img">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
                     <div class="flex justify-between items-start">
                         <div>
-                            <span id="modal-cat" class="text-premium-gold font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
+                            <span id="modal-cat" class="text-brand-primary font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
                             <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 text-slate-900 dark:text-white">Product</h2>
                         </div>
                         <div class="tooltip-container">
@@ -169,7 +190,7 @@
                     <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
                     <div class="pt-4 flex items-center gap-3">
-                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-premium-gold text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-yellow-600 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
+                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
                         <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
                     </div>
                 </div>
@@ -177,7 +198,7 @@
         </div>
     </div>
 
-    <div id="toast" class="bg-premium-gold text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
+    <div id="toast" class="bg-brand-primary text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
     <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
@@ -202,7 +223,7 @@
                 loader.classList.add('hidden');
                 grid.classList.remove('opacity-0');
             } catch (error) {
-                loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-premium-gold text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
+                loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
             }
         }
 
@@ -229,7 +250,7 @@
             grid.innerHTML = displayItems.map((p, index) => {
                 const isSaved = wishlist.includes(p.id);
                 return `
-                <div class="product-card fade-in bg-white dark:bg-premium-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
+                <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
                     <div class="absolute top-4 right-4 z-[40]">
                         <div class="tooltip-container">
                              <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
@@ -241,7 +262,7 @@
                     <div class="rounded-3xl overflow-hidden">
                         <div class="img-aspect p-8 flex items-center justify-center"><img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"></div>
                         <div class="p-5">
-                            <div class="flex justify-between items-center mb-1"><p class="text-[7px] text-premium-gold font-extrabold uppercase tracking-widest">${p.cat}</p><span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span></div>
+                            <div class="flex justify-between items-center mb-1"><p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p><span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span></div>
                             <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
                         </div>
                     </div>
@@ -328,7 +349,7 @@
                 const r = Math.min(700/img.width, 700/img.height);
                 ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-                if (navigator.share) await navigator.share({ files: [new File([blob], 'luxe-find.jpg', {type:'image/jpeg'})], url: window.location.href });
+                if (navigator.share) await navigator.share({ files: [new File([blob], 'nexora-find.jpg', {type:'image/jpeg'})], url: window.location.href });
             } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
             btn.innerHTML = old;
         }
