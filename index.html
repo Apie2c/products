@@ -198,7 +198,7 @@
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
-                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Image</span></div>
+                        <div class="tooltip-container"><button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl"><i class="fas fa-share-alt"></i></button><span class="tooltip-text">Share Product</span></div>
                     </div>
                 </div>
             </div>
@@ -233,6 +233,14 @@
             renderProducts();
             loader.classList.add('hidden');
             grid.classList.remove('opacity-0');
+
+            // --- Deep Linking Fix: Check URL on load ---
+            const hash = window.location.hash;
+            if (hash.startsWith('#product-')) {
+                const id = hash.replace('#product-', '');
+                setTimeout(() => openModal(parseInt(id), false), 300);
+            }
+
         } catch (error) {
             loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
@@ -306,7 +314,6 @@
             </div>`;
         }).join('');
     }
-    
 
     function clearSearch() {
         document.getElementById('searchInput').value = '';
@@ -348,7 +355,6 @@
             } else {
                 hBtn.classList.remove('text-red-500', 'cursor-pointer');
                 hBtn.classList.add('text-gray-400', 'opacity-20', 'pointer-events-none', 'cursor-not-allowed');
-                
                 if (currentFilter === 'Saved') {
                     currentFilter = 'All';
                     initCategories();
@@ -356,7 +362,6 @@
             }
         }
     }
-    
 
     function updateWishlistUI(id) {
         const btn = document.getElementById('modal-wishlist-btn');
@@ -366,7 +371,7 @@
         if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
     }
 
-    function openModal(id) {
+    function openModal(id, pushHistory = true) {
         const p = productCatalog.find(x => x.id === parseInt(id));
         if (!p) return;
         activeProductId = p.id;
@@ -378,13 +383,20 @@
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         updateWishlistUI(p.id);
-        window.history.pushState(null, '', '#product-' + p.id);
+        
+        // Update URL to reflect the open product for sharing/history
+        if (pushHistory) {
+            window.history.pushState({productId: p.id}, '', '#product-' + p.id);
+        }
     }
 
     function closeModal() {
         document.getElementById('modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
-        if (window.location.hash.startsWith('#product-')) window.history.replaceState(null, '', window.location.pathname);
+        // When closing, if the hash is for a product, clear it
+        if (window.location.hash.startsWith('#product-')) {
+            window.history.replaceState(null, '', window.location.pathname);
+        }
     }
 
     function filterCategory(cat, el) {
@@ -401,23 +413,39 @@
         searchTimeout = setTimeout(() => renderProducts(), 150);
     }
 
+    // --- Fixed Sharing Functionality ---
     async function shareProduct(event) {
-        const btn = event.currentTarget; const old = btn.innerHTML;
+        const btn = event.currentTarget; 
+        const oldInner = btn.innerHTML;
+        const p = productCatalog.find(x => x.id === activeProductId);
+        if (!p) return;
+
         btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+        
+        const shareUrl = `${window.location.origin}${window.location.pathname}#product-${p.id}`;
+        const shareTitle = p.name;
+        const shareText = `Discover the ${p.name} on Nexora: ${p.desc.substring(0, 100)}...`;
+
         try {
-            const canvas = document.getElementById('shareCanvas'); const ctx = canvas.getContext('2d');
-            const img = new Image(); img.crossOrigin = "anonymous"; img.src = document.getElementById('modal-img').src;
-            await new Promise(r => img.onload = r);
-            ctx.fillStyle = '#0F1115'; ctx.fillRect(0,0,1080,1080);
-            ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); 
-            if (ctx.roundRect) ctx.roundRect(100,150,880,700,60); else ctx.rect(100,150,880,700);
-            ctx.fill();
-            const r = Math.min(700/img.width, 700/img.height);
-            ctx.drawImage(img, (1080-img.width*r)/2, (1000-img.height*r)/2, img.width*r, img.height*r);
-            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.9));
-            if (navigator.share) await navigator.share({ files: [new File([blob], 'nexora-find.jpg', {type:'image/jpeg'})], url: window.location.href });
-        } catch (e) { navigator.clipboard.writeText(window.location.href); showToast('Link Copied!'); }
-        btn.innerHTML = old;
+            if (navigator.share) {
+                await navigator.share({
+                    title: shareTitle,
+                    text: shareText,
+                    url: shareUrl
+                });
+            } else {
+                // Fallback: Copy to clipboard
+                await navigator.clipboard.writeText(shareUrl);
+                showToast('Link Copied!');
+            }
+        } catch (e) {
+            if (e.name !== 'AbortError') {
+                await navigator.clipboard.writeText(shareUrl);
+                showToast('Link Copied!');
+            }
+        } finally {
+            btn.innerHTML = oldInner;
+        }
     }
 
     function showToast(m) { const t = document.getElementById('toast'); if(t){ t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }}
@@ -431,8 +459,23 @@
     });
 
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    
+    // --- Initial and History Listeners ---
     window.addEventListener('DOMContentLoaded', initializeVault);
-    window.addEventListener('popstate', () => { if (!document.getElementById('modal').classList.contains('hidden')) closeModal(); });
+
+    // This handles the Mobile Back Key and Desktop Back Button
+    window.addEventListener('popstate', (event) => {
+        const modal = document.getElementById('modal');
+        if (!modal.classList.contains('hidden')) {
+            // Close the modal if open when back is pressed
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        } else if (window.location.hash.startsWith('#product-')) {
+            // If we went back to a state that should have a product open
+            const id = window.location.hash.replace('#product-', '');
+            openModal(parseInt(id), false);
+        }
+    });
 </script>
 </body>
 </html>
