@@ -12,6 +12,8 @@
     <meta property="og:description" content="Curated innovation for the modern home.">
     <meta property="og:image" content="https://yourdomain.com/assets/banner.jpg">
     <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Nexora | Elevated Tech & Style">
+    <meta property="twitter:image" content="https://yourdomain.com/assets/banner.jpg">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -43,9 +45,10 @@
         .product-card:hover img { transform: scale(1.1); }
         .blend-img { mix-blend-mode: normal; filter: contrast(1.1); }
         .social-icon { transition: all 0.3s ease; }
-        .hover-facebook:hover { color: #1877F2 !important; }
-        .hover-instagram:hover { color: #E4405F !important; }
-        .hover-whatsapp:hover { color: #25D366 !important; }
+        .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
+        .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
+        .hover-twitter:hover { color: #1DA1F2 !important; transform: translateY(-2px); }
+        .hover-whatsapp:hover { color: #25D366 !important; transform: translateY(-2px); }
         @keyframes pulse-soft { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
         .animate-pulse-blue { animation: pulse-soft 3s infinite; }
         @keyframes heartPop { 0% { transform: scale(1); } 40% { transform: scale(2.0); color: #ef4444; } 100% { transform: scale(1); } }
@@ -190,15 +193,13 @@
             loader.classList.add('hidden');
             grid.classList.remove('opacity-0');
 
-            // ── FIX: History Management for Shared Links ──
             const linkedId = getProductIdFromHash();
             if (linkedId !== null) {
-                // Force a 'Home' state behind the current URL so 'Back' has a destination
                 window.history.replaceState({ page: 'home' }, '', window.location.pathname);
                 setTimeout(() => openModal(linkedId), 100);
             }
         } catch (error) {
-            loader.innerHTML = `<p class="text-gray-400 text-xs">Error loading vault.json</p>`;
+            loader.innerHTML = `<p class="text-gray-400 text-xs">Vault connection required.</p>`;
         }
     }
 
@@ -216,7 +217,7 @@
 
     function renderProducts() {
         const grid = document.getElementById('product-grid');
-        const searchVal = (document.getElementById('searchInput').value || '').toLowerCase();
+        const searchVal = (document.getElementById('searchInput').value || document.getElementById('searchInputMobile').value || '').toLowerCase();
         
         const displayItems = productCatalog.filter(p => {
             const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
@@ -226,7 +227,6 @@
         updateWishlistCount();
 
         grid.innerHTML = displayItems.map((p, index) => {
-            const isSaved = wishlist.includes(p.id);
             return `        
             <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
                 <div class="img-aspect p-8 flex items-center justify-center">
@@ -252,7 +252,6 @@
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
 
-        // ── FIX: Push state so browser 'Back' closes the modal ──
         if (window.location.hash !== `#product-${id}`) {
             window.history.pushState({ productId: id }, '', `#product-${id}`);
         }
@@ -262,8 +261,6 @@
         document.getElementById('modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
         activeProductId = null;
-
-        // If closing manually, reset the URL hash
         if (!skipHistory && window.location.hash.includes('product-')) {
             window.history.pushState({ page: 'home' }, '', window.location.pathname);
         }
@@ -279,13 +276,11 @@
             btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
             const response = await fetch(p.img);
             const blob = await response.blob();
-            if (navigator.clipboard && window.ClipboardItem) {
-                const data = [new ClipboardItem({ [blob.type]: blob })];
-                await navigator.clipboard.write(data);
-                showToast('Image Copied! Paste in Chat');
-            }
+            const data = [new ClipboardItem({ [blob.type]: blob })];
+            await navigator.clipboard.write(data);
+            showToast('Image Copied!');
         } catch (err) {
-            showToast('Failed to copy image');
+            showToast('Copying failed');
         } finally {
             btn.innerHTML = oldIcon;
         }
@@ -295,19 +290,52 @@
         const btn = event.currentTarget;
         const old = btn.innerHTML;
         const p = productCatalog.find(x => x.id === activeProductId);
+        if (!p) return;
+        
         const productURL = buildProductURL(activeProductId);
-        const shareText = `🔥 Check out the ${p.name} on Nexora!\n\n${p.desc}\n\n`;
+        const shareText = `Check out the ${p.name} on Nexora!`;
 
         btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
         try {
             if (navigator.share) {
                 await navigator.share({ title: p.name, text: shareText, url: productURL });
             } else {
-                await navigator.clipboard.writeText(`${shareText}${productURL}`);
+                await navigator.clipboard.writeText(productURL);
                 showToast('Link Copied!');
             }
         } catch (e) {}
         btn.innerHTML = old;
+    }
+
+    function syncSearch(val) {
+        document.getElementById('searchInput').value = val;
+        document.getElementById('searchInputMobile').value = val;
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => renderProducts(), 150);
+    }
+
+    function filterCategory(cat, el) {
+        currentFilter = cat;
+        document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
+        if (el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
+        renderProducts();
+    }
+
+    function toggleWishlist(id) {
+        const idx = wishlist.indexOf(id);
+        if (idx > -1) wishlist.splice(idx, 1);
+        else wishlist.push(id);
+        localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
+        updateWishlistCount();
+        renderProducts();
+    }
+
+    function updateWishlistCount() {
+        const el = document.getElementById('wishlist-count');
+        if (el) {
+            el.innerText = wishlist.length;
+            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+        }
     }
 
     function showToast(m) {
@@ -318,7 +346,6 @@
     function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
     function toggleTheme() { document.documentElement.classList.toggle('dark'); }
 
-    // ── FIX: Back button handling ──
     window.addEventListener('popstate', (event) => {
         if (event.state && event.state.productId) {
             openModal(event.state.productId);
