@@ -10,15 +10,14 @@
     <link rel="shortcut icon" href="https://apie2c.github.io/products/favicon.ico">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://apie2c.github.io/products/"> 
-    <meta property="og:title" content="Nexora | Smart Tech. Elevated Style.">
+    <meta property="og:url" content="https://https://apie2c.github.io/products/"> <meta property="og:title" content="Nexora | Smart Tech. Elevated Style.">
     <meta property="og:description" content="Curated innovation for modern living. Discover the future of smart home tech.">
-    <meta property="og:image" content="https://apie2c.github.io/products/nexora-og.jpg"> 
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="https://apie2c.github.io/products/nexora-og.jpg"> <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://apie2c.github.io/products/">
     <meta name="twitter:title" content="Nexora | Smart Tech. Elevated Style.">
     <meta name="twitter:description" content="Curated innovation for modern living.">
     <meta name="twitter:image" content="https://apie2c.github.io/products/nexora-og.jpg">
+
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -50,7 +49,7 @@
             box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.4); 
         }
 
-        .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; overflow: hidden; }
+        .product-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); border: 1px solid transparent; }
         
         .product-card:hover { 
             transform: translateY(-8px) scale(1.03); 
@@ -60,11 +59,7 @@
 
         .product-card img { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .product-card:hover img { transform: scale(1.1); }
-        
-        /* Full Bleed Image Fixes */
-        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; position: relative; width: 100%; }
-        .fill-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-
+        .blend-img { mix-blend-mode: normal; filter: contrast(1.1); }
         .social-icon { transition: all 0.3s ease; }
         .hover-facebook:hover { color: #1877F2 !important; transform: translateY(-2px); }
         .hover-instagram:hover { color: #E4405F !important; transform: translateY(-2px); }
@@ -94,6 +89,7 @@
         
         .fade-in { opacity: 0; animation: fadeInUp 0.5s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .img-aspect { aspect-ratio: 1 / 1; overflow: hidden; background: white; }
     </style>
 </head>
 
@@ -194,9 +190,9 @@
     <div id="modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-end md:items-center justify-center p-0 md:p-4" onclick="handleOutsideClick(event)">
         <div id="modal-content" class="bg-white dark:bg-brand-card w-full md:max-w-4xl rounded-t-[2rem] md:rounded-[2rem] shadow-2xl relative overflow-hidden">
             <div class="modal-body-container flex flex-col md:flex-row max-h-[90vh] overflow-y-auto no-scrollbar">
-                <div class="md:w-1/2 bg-white flex items-center justify-center relative min-h-[400px] overflow-hidden">
+                <div class="md:w-1/2 bg-white p-10 flex items-center justify-center relative min-h-[300px]">
                     <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all shadow-lg"><i class="fas fa-times"></i></button>
-                    <img id="modal-img" src="" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                    <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110 blend-img">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
                     <div class="flex justify-between items-start">
@@ -213,17 +209,8 @@
                     </div>
                     <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
                     <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
-                    
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
-                        
-                        <div class="tooltip-container">
-                            <button onclick="shareWhatsApp(event)" class="w-14 h-14 flex items-center justify-center bg-green-500/10 text-green-500 rounded-xl transition-all text-xl hover:bg-green-500 hover:text-white border border-green-500/20">
-                                <i class="fab fa-whatsapp"></i>
-                            </button>
-                            <span class="tooltip-text">WhatsApp</span>
-                        </div>
-
                         <div class="tooltip-container">
                             <button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl">
                                 <i class="fas fa-share-alt"></i>
@@ -237,6 +224,7 @@
     </div>
 
     <div id="toast" class="bg-brand-primary text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
+    <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
     <script>
     const AFFILIATE_ID = "gitafstore-20";
@@ -247,14 +235,18 @@
     let activeProductId = null;
     let searchTimeout;
 
+    // ── Deep-link helpers ──────────────────────────────────────────
+    // Returns the product id from the current URL hash, or null.
     function getProductIdFromHash() {
         const match = window.location.hash.match(/^#product-(\d+)$/);
         return match ? parseInt(match[1], 10) : null;
     }
 
+    // Build a full shareable URL for a product id.
     function buildProductURL(id) {
         const url = new URL(window.location.href);
         url.hash = `product-${id}`;
+        // Strip any stale search params that don't belong
         return url.toString();
     }
 
@@ -275,11 +267,18 @@
             loader.classList.add('hidden');
             grid.classList.remove('opacity-0');
 
+            // ── Auto-open product from shared link ─────────────────
             const linkedId = getProductIdFromHash();
             if (linkedId !== null) {
+                // Push a clean base state FIRST so back-press can return to it.
                 window.history.replaceState({ page: 'home' }, '', window.location.pathname);
-                setTimeout(() => openModal(linkedId), 100);
+                
+
+                setTimeout(() => {
+                openModal(linkedId);
+                }, 100);
             }
+
         } catch (error) {
             loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
@@ -311,13 +310,20 @@
         updateWishlistCount();
 
         if (displayItems.length === 0) {
-            grid.innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-400"><i class="fas fa-box-open text-4xl mb-4 opacity-20"></i><p class="uppercase tracking-[0.2em] text-[10px] font-bold">No matches found</p></div>`;
+            grid.innerHTML = `
+                <div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-400">
+                    <i class="fas fa-box-open text-4xl mb-4 opacity-20"></i>
+                    <p class="uppercase tracking-[0.2em] text-[10px] font-bold">No products found matching your search</p>
+                    <button onclick="clearSearch()" class="mt-4 text-brand-primary text-[9px] font-bold uppercase tracking-widest hover:underline">Clear Filters</button>
+                </div>`;
             return;
         }
 
         grid.innerHTML = displayItems.map((p, index) => {
             const isSaved = wishlist.includes(p.id);
             const isNew = productCatalog.slice(0, 4).some(newItem => newItem.id === p.id);
+            const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">NEW</span>` : '';
+
             return `        
             <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
                 <div class="absolute top-4 right-4 z-[40]">
@@ -325,15 +331,19 @@
                          <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
                             <i class="fas fa-heart text-sm"></i>
                          </button>
+                         <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
                     </div>
                 </div>
                 <div class="rounded-3xl overflow-hidden">
-                    <div class="img-aspect">
-                        <img src="${p.img}" alt="${p.name}" loading="lazy" class="fill-image">
+                    <div class="img-aspect p-8 flex items-center justify-center">
+                        <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
                     </div>
                     <div class="p-5">
                         <div class="flex justify-between items-center mb-1">
-                            <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                            <div class="flex items-center">
+                                ${newBadge}
+                                <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                            </div>
                             <span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span>
                         </div>
                         <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
@@ -343,6 +353,14 @@
         }).join('');
     }
 
+    function clearSearch() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchInputMobile').value = '';
+        currentFilter = 'All';
+        initCategories();
+        renderProducts();
+    }
+
     function toggleWishlist(id) {
         const idx = wishlist.indexOf(id);
         let isAdding = false;
@@ -350,6 +368,11 @@
         else { wishlist.push(id); showToast("Added to favorites"); isAdding = true; }
         localStorage.setItem('luxe_wishlist', JSON.stringify(wishlist));
         updateWishlistCount();
+        const targetIds = [`heart-${id}`, 'modal-wishlist-btn', 'header-wishlist-btn'];
+        targetIds.forEach(elementId => {
+            const el = document.getElementById(elementId);
+            if (el) { el.classList.remove('heart-bounce'); void el.offsetWidth; if (isAdding) el.classList.add('heart-bounce'); }
+        });
         renderProducts();
         if (activeProductId === id) updateWishlistUI(id);
     }
@@ -357,17 +380,33 @@
     function updateWishlistCount() {
         const el = document.getElementById('wishlist-count');
         const hBtn = document.getElementById('header-wishlist-btn');
-        if (el) { el.innerText = wishlist.length; el.style.display = wishlist.length > 0 ? 'flex' : 'none'; }
+        
+        if (el) {
+            el.innerText = wishlist.length;
+            el.style.display = wishlist.length > 0 ? 'flex' : 'none';
+        }
+        
         if (hBtn) {
-            if (wishlist.length > 0) { hBtn.classList.remove('text-gray-400'); hBtn.classList.add('text-red-500'); }
-            else { hBtn.classList.remove('text-red-500'); hBtn.classList.add('text-gray-400'); }
+            if (wishlist.length > 0) {
+                hBtn.classList.remove('opacity-20', 'pointer-events-none', 'cursor-not-allowed', 'text-gray-400');
+                hBtn.classList.add('text-red-500', 'cursor-pointer');
+            } else {
+                hBtn.classList.remove('text-red-500', 'cursor-pointer');
+                hBtn.classList.add('text-gray-400', 'opacity-20', 'pointer-events-none', 'cursor-not-allowed');
+                if (currentFilter === 'Saved') {
+                    currentFilter = 'All';
+                    initCategories();
+                }
+            }
         }
     }
 
     function updateWishlistUI(id) {
         const btn = document.getElementById('modal-wishlist-btn');
+        const tooltip = document.getElementById('modal-tooltip-label');
         const isSaved = wishlist.includes(id);
         if (btn) btn.className = `text-2xl transition-colors focus:outline-none ${isSaved ? 'text-red-500' : 'text-gray-300'}`;
+        if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
     }
 
     function openModal(id) {
@@ -382,6 +421,9 @@
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         updateWishlistUI(p.id);
+
+        // Push a history entry so the browser back button can close the modal.
+        // State carries the product id so popstate knows what happened.
         window.history.pushState({ productId: p.id }, '', `#product-${p.id}`);
     }
 
@@ -389,36 +431,12 @@
         document.getElementById('modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
         activeProductId = null;
+
+        // Only manipulate history when NOT called from the popstate handler
+        // (the handler already moved history backward for us).
         if (!skipHistory && window.location.hash.includes('product-')) {
-            window.history.pushState({ page: 'home' }, '', window.location.pathname);
+        window.history.pushState({ page: 'home' }, '', window.location.pathname);
         }
-    }
-
-    async function shareProduct(event) {
-        const btn = event.currentTarget;
-        const old = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
-        const productURL = buildProductURL(activeProductId);
-        try {
-            if (navigator.share) {
-                const p = productCatalog.find(x => x.id === activeProductId);
-                await navigator.share({ title: p.name, text: p.desc, url: productURL });
-            } else {
-                await navigator.clipboard.writeText(productURL);
-                showToast('Link Copied!');
-            }
-        } catch (e) {
-            if (e.name !== 'AbortError') { await navigator.clipboard.writeText(productURL); showToast('Link Copied!'); }
-        }
-        btn.innerHTML = old;
-    }
-
-    function shareWhatsApp(event) {
-        const p = productCatalog.find(x => x.id === activeProductId);
-        if (!p) return;
-        const productURL = buildProductURL(activeProductId);
-        const message = `Check out the ${p.name} on Nexora! 🚀\n\n${p.desc}\n\nView here: ${productURL}`;
-        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
     }
 
     function filterCategory(cat, el) {
@@ -435,6 +453,40 @@
         searchTimeout = setTimeout(() => renderProducts(), 150);
     }
 
+    // ── Share product ──────────────────────────────────────────────
+    // Shares a direct link to the product. Falls back to copying the URL.
+    async function shareProduct(event) {
+        const btn = event.currentTarget;
+        const old = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
+
+        const productURL = buildProductURL(activeProductId);
+
+        try {
+            // Try native share sheet first (mobile / modern browsers)
+            if (navigator.share) {
+                const p = productCatalog.find(x => x.id === activeProductId);
+                await navigator.share({
+                    title: p ? p.name : 'Check this out on Nexora',
+                    text: p ? p.desc : '',
+                    url: productURL,
+                });
+                showToast('Shared!');
+            } else {
+                // Desktop fallback: copy link
+                await navigator.clipboard.writeText(productURL);
+                showToast('Link Copied!');
+            }
+        } catch (e) {
+            // User dismissed share sheet or clipboard failed – silently ignore
+            if (e.name !== 'AbortError') {
+                try { await navigator.clipboard.writeText(productURL); showToast('Link Copied!'); } catch (_) {}
+            }
+        }
+
+        btn.innerHTML = old;
+    }
+
     function showToast(m) {
         const t = document.getElementById('toast');
         if (t) { t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
@@ -442,14 +494,31 @@
 
     function handleOutsideClick(e) { if (e.target.id === 'modal') closeModal(); }
     function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('backToTop');
+        if (window.scrollY > 500) {
+            btn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        } else {
+            btn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        }
+    });
+
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
+    // ── Popstate: handle back/forward navigation ───────────────────
     window.addEventListener('popstate', (event) => {
         const modal = document.getElementById('modal');
+        const isModalOpen = !modal.classList.contains('hidden');
+
         if (event.state && event.state.productId) {
-            if (modal.classList.contains('hidden')) openModal(event.state.productId);
+            // Navigated forward to a product — open it (without re-pushing history)
+            if (!isModalOpen) openModal(event.state.productId);
         } else {
-            if (!modal.classList.contains('hidden')) closeModal(true);
+            // Navigated back to home state — close modal without touching history
+            if (isModalOpen) closeModal(true);
         }
     });
 
