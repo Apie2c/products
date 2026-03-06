@@ -56,13 +56,12 @@
     { "id": 510, "name": "Apollo Neuro Wearable", "asin": "B09VPHVT2Z", "img": "https://m.media-amazon.com/images/I/61fI63y6p5L._AC_SL1500_.jpg", "desc": "Stress relief through gentle vibration.", "status": "Calm" },
     { "id": 511, "name": "Beam Dream Powder", "asin": "B07QBPC739", "img": "https://m.media-amazon.com/images/I/71vU-G99C6L._AC_SL1500_.jpg", "desc": "Nano-CBD sleep cocoa for deep rest.", "status": "Nutrition" },
     { "id": 512, "name": "Sakara Life Detox Tea", "asin": "B09VLK9W3S", "img": "https://m.media-amazon.com/images/I/61K89rYF81L._AC_SL1500_.jpg", "desc": "Organic herbal tea for digestion support.", "status": "Cleanse" },
-    { "id": 513, "name": "Mirror by lululemon", "asin": "B09XS7JWHH", "img": "https://m.media-amazon.com/images/I/51aXvjzcukL._AC_SL1500_.jpg", "desc": "The nearly invisible home gym system.", "status": "High Tech" },
-    { "id": 514, "name": "Peloton Bike+", "asin": "B08G9Y8Z9D", "img": "https://m.media-amazon.com/images/I/61X-u7qL7aL._AC_SL1500_.jpg", "desc": "Ultimate cardio with immersive screen.", "status": "Bestseller" },
-    { "id": 515, "name": "Bowflex SelectTech 552", "asin": "B001ARYU58", "img": "https://m.media-amazon.com/images/I/81R9B-9S7PL._AC_SL1500_.jpg", "desc": "Adjustable dumbbells for small home gyms.", "status": "Compact" },
-    { "id": 516, "name": "TriggerPoint GRID Roller", "asin": "B0040EGLBO", "img": "https://m.media-amazon.com/images/I/61c1G8-9VXL._AC_SL1500_.jpg", "desc": "Patented foam roller for muscle knots.", "status": "Recovery" },
-    { "id": 517, "name": "Gaiam Yoga Block", "asin": "B0027T8VKL", "img": "https://m.media-amazon.com/images/I/71Yf1MvG0iL._AC_SL1500_.jpg", "desc": "Support and alignment during practice.", "status": "Essential" },
-    { "id": 518, "name": "Bala Bangles 1lb", "asin": "B07MD1W7M1", "img": "https://m.media-amazon.com/images/I/61zC4X-3kAL._AC_SL1500_.jpg", "desc": "Stylish wrist and ankle weights.", "status": "Aesthetic" },
-    { "id": 519, "name": "Fitbit Charge 6", "asin": "B0CH1SRWWW", "img": "https://m.media-amazon.com/images/I/71T1T0GfH2L._AC_SL1500_.jpg", "desc": "Advanced fitness tracker with GPS.", "status": "Popular" },
-    { "id": 220, "name": "Whoop 4.0 Strap", "asin": "B09VLK9W3S", "img": "https://m.media-amazon.com/images/I/71W9f9M9PzL._AC_SL1500_.jpg", "desc": "Continuous strain and recovery monitoring.", "status": "Elite" }
+    { "id": 513, "name": "Peloton Bike+", "asin": "B08G9Y8Z9D", "img": "https://m.media-amazon.com/images/I/61X-u7qL7aL._AC_SL1500_.jpg", "desc": "Ultimate cardio with immersive screen.", "status": "Bestseller" },
+    { "id": 514, "name": "Bowflex SelectTech 552", "asin": "B001ARYU58", "img": "https://m.media-amazon.com/images/I/81R9B-9S7PL._AC_SL1500_.jpg", "desc": "Adjustable dumbbells for small home gyms.", "status": "Compact" },
+    { "id": 515, "name": "TriggerPoint GRID Roller", "asin": "B0040EGLBO", "img": "https://m.media-amazon.com/images/I/61c1G8-9VXL._AC_SL1500_.jpg", "desc": "Patented foam roller for muscle knots.", "status": "Recovery" },
+    { "id": 516, "name": "Gaiam Yoga Block", "asin": "B0027T8VKL", "img": "https://m.media-amazon.com/images/I/71Yf1MvG0iL._AC_SL1500_.jpg", "desc": "Support and alignment during practice.", "status": "Essential" },
+    { "id": 517, "name": "Bala Bangles 1lb", "asin": "B07MD1W7M1", "img": "https://m.media-amazon.com/images/I/61zC4X-3kAL._AC_SL1500_.jpg", "desc": "Stylish wrist and ankle weights.", "status": "Aesthetic" },
+    { "id": 518, "name": "Fitbit Charge 6", "asin": "B0CH1SRWWW", "img": "https://m.media-amazon.com/images/I/71T1T0GfH2L._AC_SL1500_.jpg", "desc": "Advanced fitness tracker with GPS.", "status": "Popular" },
+    { "id": 219, "name": "Whoop 4.0 Strap", "asin": "B09VLK9W3S", "img": "https://m.media-amazon.com/images/I/71W9f9M9PzL._AC_SL1500_.jpg", "desc": "Continuous strain and recovery monitoring.", "status": "Elite" }
   ]
 }
