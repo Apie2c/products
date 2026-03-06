@@ -1,67 +1,36 @@
 {
   "Tech": [
-    { "id": 101, "name": "Apple AirPods 4", "asin": "B0DGVT3T92", "img": "https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg", "desc": "Active Noise Cancellation and adaptive audio.", "status": "Price Stable" },
-    { "id": 102, "name": "Logitech MX Master 3S", "asin": "B09HM94VDS", "img": "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg", "desc": "Precision mouse with 8k DPI tracking.", "status": "Best Seller" },
-    { "id": 103, "name": "Kindle Paperwhite (16GB)", "asin": "B0C9SKX59C", "img": "https://m.media-amazon.com/images/I/71BfAg60enL._AC_SL1500_.jpg", "desc": "6.8 inch display with adjustable warm light.", "status": "Essential" },
-    { "id": 104, "name": "Anker 737 Power Bank", "asin": "B09VPHVT2Z", "img": "https://m.media-amazon.com/images/I/61fI63y6p5L._AC_SL1500_.jpg", "desc": "140W bi-directional charging for laptops.", "status": "Tech Choice" },
-    { "id": 105, "name": "Satechi USB4 Multiport Adapter", "asin": "B0962S6KNY", "img": "https://m.media-amazon.com/images/I/61p-3X7XwVL._AC_SL1500_.jpg", "desc": "Premium aluminum 8K HDMI and Ethernet hub.", "status": "Workplace" },
-    { "id": 106, "name": "Walker's Razor Slim headphones", "asin": "B06ZY6GMYD", "img": "https://m.media-amazon.com/images/I/71bwSIsZouL._AC_SX679_.jpg", "desc": "Protect your ear - Walker's Razor Ear Muffs have an ultra low-profile design featuring extra slim ear cups, for a secure fit; these ear muffs protect against hazardous noises, while still letting you clearly hear everything going on around you.", "status": "Top Rated" },
-    { "id": 107, "name": "Sony Premium Headphones", "asin": "B09XS7JWHH", "img": "https://m.media-amazon.com/images/I/61BGLYEN-xL._AC_SL1500_.jpg", "desc": "Experience the magic of noise cancelling headphones bluetooth technology, ensuring an uninterrupted listening experience free from external disturbances. This unique, distraction-free listening experience sets the Sony WH-1000XM5 apart from other headphones in the market.", "status": "Top Rated" },
-    { "id": 108, "name": "Elgato Stream Deck MK.2", "asin": "B09738CVIV", "img": "https://m.media-amazon.com/images/I/61-d7nAt8mL._AC_SL1500_.jpg", "desc": "15 programmable keys for workflow control.", "status": "Productivity" },
-    { "id": 109, "name": "SteelSeries Apex Pro TKL", "asin": "B0B619H39Z", "img": "https://m.media-amazon.com/images/I/71X8kS8S44L._AC_SL1500_.jpg", "desc": "World's fastest adjustable mechanical switches.", "status": "Gaming" },
-    { "id": 110, "name": "Keychron K2 Mechanical Keyboard", "asin": "B07QBPC739", "img": "https://m.media-amazon.com/images/I/71vU-G99C6L._AC_SL1500_.jpg", "desc": "75% layout wireless mechanical keyboard.", "status": "Iconic" },
-    { "id": 111, "name": "Samsung T7 Shield 2TB", "asin": "B09VLK9W3S", "img": "https://m.media-amazon.com/images/I/61K89rYF81L._AC_SL1500_.jpg", "desc": "Rugged external SSD with 1050MB/s speeds.", "status": "Storage" },
-    { "id": 112, "name": "Twelve South AirFly Pro", "asin": "B07Z13H4TP", "img": "https://m.media-amazon.com/images/I/61vYjN-3VvL._AC_SL1500_.jpg", "desc": "Connect wireless headphones to airplane jacks.", "status": "Travel" },
-    { "id": 113, "name": "Nanleaf Shapes Hexagons", "asin": "B089KV6S9G", "img": "https://m.media-amazon.com/images/I/61pXh7pAByL._AC_SL1500_.jpg", "desc": "Modular smart light panels for wall decor.", "status": "Atmosphere" },
-    { "id": 114, "name": "Bose Music Amplifier", "asin": "B0B9R2G3X9", "img": "https://m.media-amazon.com/images/I/61X-u7qL7aL._AC_SL1500_.jpg", "desc": "Power passive speakers with Wi-Fi streaming.", "status": "Audiophile" },
-    { "id": 115, "name": "Native Union Eclipse Charger", "asin": "B0797C22N1", "img": "https://m.media-amazon.com/images/I/71Yf1MvG0iL._AC_SL1500_.jpg", "desc": "Hidden cable management with 3 USB ports.", "status": "Design" },
-    { "id": 116, "name": "Evergoods CIVIC Panel Loader", "asin": "B0BMNZFSRF", "img": "https://m.media-amazon.com/images/I/61lO7h8A1nL._AC_SL1500_.jpg", "desc": "Premium 24L backpack for EDC and tech.", "status": "Elite" },
-    { "id": 117, "name": "NOMAD Base One Max", "asin": "B09RQ5W3Y8", "img": "https://m.media-amazon.com/images/I/61D19lX8l7L._AC_SL1500_.jpg", "desc": "Official MagSafe charging station in glass.", "status": "Luxury" },
-    { "id": 118, "name": "Insta360 Flow Gimbal", "asin": "B0BWMTX9XQ", "img": "https://m.media-amazon.com/images/I/61zC4X-3kAL._AC_SL1500_.jpg", "desc": "AI-powered smartphone stabilizer.", "status": "Creator" },
-    { "id": 119, "name": "Rode NT-USB Mini", "asin": "B084P1CXFD", "img": "https://m.media-amazon.com/images/I/71T1T0GfH2L._AC_SL1500_.jpg", "desc": "Studio-quality USB microphone for podcasting.", "status": "Studio" },
-    { "id": 120, "name": "DJI Mini 4 Pro", "asin": "B0C9R4K9R9", "img": "https://m.media-amazon.com/images/I/61-9f9M9PzL._AC_SL1500_.jpg", "desc": "Under 249g drone with 4K HDR video.", "status": "Aviation" }
+    { "id": 101, "name": "Logitech MX Master 3S", "asin": "B09HM94VDS", "img": "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg", "desc": "Precision mouse with 8k DPI tracking.", "status": "Best Seller" },
+    { "id": 102, "name": "Kindle Paperwhite (16GB)", "asin": "B0C9SKX59C", "img": "https://m.media-amazon.com/images/I/71BfAg60enL._AC_SL1500_.jpg", "desc": "6.8 inch display with adjustable warm light.", "status": "Essential" },
+    { "id": 103, "name": "Anker 737 Power Bank", "asin": "B09VPHVT2Z", "img": "https://m.media-amazon.com/images/I/61fI63y6p5L._AC_SL1500_.jpg", "desc": "140W bi-directional charging for laptops.", "status": "Tech Choice" },
+    { "id": 104, "name": "Satechi USB4 Multiport Adapter", "asin": "B0962S6KNY", "img": "https://m.media-amazon.com/images/I/61p-3X7XwVL._AC_SL1500_.jpg", "desc": "Premium aluminum 8K HDMI and Ethernet hub.", "status": "Workplace" },
+    { "id": 105, "name": "Elgato Stream Deck MK.2", "asin": "B09738CVIV", "img": "https://m.media-amazon.com/images/I/61-d7nAt8mL._AC_SL1500_.jpg", "desc": "15 programmable keys for workflow control.", "status": "Productivity" },
+    { "id": 106, "name": "SteelSeries Apex Pro TKL", "asin": "B0B619H39Z", "img": "https://m.media-amazon.com/images/I/71X8kS8S44L._AC_SL1500_.jpg", "desc": "World's fastest adjustable mechanical switches.", "status": "Gaming" }
+
+
   ],
   "Home": [
     { "id": 201, "name": "Nespresso Vertuo Next", "asin": "B084GSYV97", "img": "https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg", "desc": "Centrifusion technology for the perfect crema.", "status": "Price Drop" },
     { "id": 202, "name": "Aarke Carbonator 3", "asin": "B08HPB19S2", "img": "https://m.media-amazon.com/images/I/61u9nB9zG0L._AC_SL1500_.jpg", "desc": "Premium stainless steel sparkling water maker.", "status": "Design Icon" },
     { "id": 203, "name": "Ember Mug 2 (14 oz)", "asin": "B07X3X4FDP", "img": "https://m.media-amazon.com/images/I/51U68N6Z-PL._AC_SL1500_.jpg", "desc": "Smart temperature-controlled coffee mug.", "status": "Must Have" },
-    { "id": 204, "name": "Fellow Stagg EKG Kettle", "asin": "B077JBQZPX", "img": "https://m.media-amazon.com/images/I/51mX-G8G9GL._AC_SL1500_.jpg", "desc": "Gooseneck electric kettle for pour-over tea.", "status": "Aesthetic" },
-    { "id": 205, "name": "Molekule Air Mini+", "asin": "B08C1T77L8", "img": "https://m.media-amazon.com/images/I/61D8o8T8WTL._AC_SL1500_.jpg", "desc": "PECO air purifier for small spaces.", "status": "Clean Air" },
-    { "id": 206, "name": "Philips Hue Bridge", "asin": "B016H0QZ7I", "img": "https://m.media-amazon.com/images/I/51mY9T8Yk-L._AC_SL1500_.jpg", "desc": "The heart of your smart lighting system.", "status": "Essential" },
-    { "id": 207, "name": "Dyson V15 Detect", "asin": "B091B8T8L6", "img": "https://m.media-amazon.com/images/I/61b1Y8-3vKL._AC_SL1500_.jpg", "desc": "Laser-equipped cordless vacuum cleaner.", "status": "High Tech" },
-    { "id": 208, "name": "Levoit Core 400S", "asin": "B08S79D8V8", "img": "https://m.media-amazon.com/images/I/71Y-tW-9PGL._AC_SL1500_.jpg", "desc": "Smart HEPA air purifier for large rooms.", "status": "Top Rated" },
-    { "id": 209, "name": "Breville Barista Express", "asin": "B00CH9QWOU", "img": "https://m.media-amazon.com/images/I/71R9G9T9B6L._AC_SL1500_.jpg", "desc": "All-in-one espresso machine with grinder.", "status": "Pro Grade" },
-    { "id": 210, "name": "KitchenAid Artisan 5-Qt", "asin": "B00004SGFW", "img": "https://m.media-amazon.com/images/I/71C9D9-9VXL._AC_SL1500_.jpg", "desc": "Iconic tilt-head stand mixer for baking.", "status": "Legacy" },
-    { "id": 211, "name": "Ring Video Doorbell Pro 2", "asin": "B086Q54K5D", "img": "https://m.media-amazon.com/images/I/61f9B8T8VKL._AC_SL1500_.jpg", "desc": "Head-to-toe HD video and 3D motion detection.", "status": "Security" },
-    { "id": 212, "name": "August Smart Lock (4th Gen)", "asin": "B082VQRWTY", "img": "https://m.media-amazon.com/images/I/61c8X7U9-KL._AC_SL1500_.jpg", "desc": "Wi-Fi smart lock fits over existing deadbolt.", "status": "Smart Home" },
-    { "id": 213, "name": "Samsung The Frame 55\"", "asin": "B09T9B8P8L", "img": "https://m.media-amazon.com/images/I/81R9B-9S7PL._AC_SL1500_.jpg", "desc": "QLED 4K TV that looks like art when off.", "status": "Living Room" },
-    { "id": 214, "name": "Sonos Era 100", "asin": "B0BW9Q8RKL", "img": "https://m.media-amazon.com/images/I/61c1G8-9VXL._AC_SL1500_.jpg", "desc": "Acoustically superior smart speaker.", "status": "Audio" },
-    { "id": 215, "name": "Vitra Eames Style Chair", "asin": "B079D8V8X9", "img": "https://m.media-amazon.com/images/I/61X-u7qL7aL._AC_SL1500_.jpg", "desc": "Mid-century modern aesthetic desk chair.", "status": "Office" },
-    { "id": 216, "name": "Casper Glow Light", "asin": "B07MD1W7M1", "img": "https://m.media-amazon.com/images/I/61-d7nAt8mL._AC_SL1500_.jpg", "desc": "Sleep-optimizing bedside smart light.", "status": "Wellness" },
-    { "id": 217, "name": "Boll & Branch Signature Set", "asin": "B079R5W3Y8", "img": "https://m.media-amazon.com/images/I/71Yf1MvG0iL._AC_SL1500_.jpg", "desc": "100% Organic cotton luxury bed sheets.", "status": "Elite" },
-    { "id": 218, "name": "Parachute Classic Robe", "asin": "B0BWMTX9XQ", "img": "https://m.media-amazon.com/images/I/61zC4X-3kAL._AC_SL1500_.jpg", "desc": "Ultra-soft Turkish cotton bathrobe.", "status": "Lounge" },
-    { "id": 219, "name": "Vitruvi Stone Diffuser", "asin": "B01LW8CNYL", "img": "https://m.media-amazon.com/images/I/71T1T0GfH2L._AC_SL1500_.jpg", "desc": "Ceramic essential oil diffuser for spa vibes.", "status": "Aroma" },
-    { "id": 220, "name": "YETI Tundra 45 Cooler", "asin": "B004YIBWNS", "img": "https://m.media-amazon.com/images/I/71W9f9M9PzL._AC_SL1500_.jpg", "desc": "Indestructible rotomolded outdoor cooler.", "status": "Outdoor" }
+    { "id": 204, "name": "Fellow Stagg EKG Kettle", "asin": "B077JBQZPX", "img": "https://m.media-amazon.com/images/I/51mX-G8G9GL._AC_SL1500_.jpg", "desc": "Gooseneck electric kettle for pour-over tea.", "status": "Aesthetic" }
+  
+
   ],
   "Wellness": [
-    { "id": 501, "name": "Oura Ring Gen3", "asin": "B09K6F9M7S", "img": "https://m.media-amazon.com/images/I/41K7M1-DkDL._AC_.jpg", "desc": "Advanced sleep and health tracking.", "status": "Trending" },
-    { "id": 502, "name": "Theragun Mini 2.0", "asin": "B0BMNZFSRF", "img": "https://m.media-amazon.com/images/I/61lO7h8A1nL._AC_SL1500_.jpg", "desc": "Portable percussion muscle massager.", "status": "Recovery" },
-    { "id": 503, "name": "Hatch Restore 2", "asin": "B0BSRD37Y6", "img": "https://m.media-amazon.com/images/I/61XmO02kRKL._AC_SL1500_.jpg", "desc": "Sunrise alarm clock and sound machine.", "status": "Viral" },
-    { "id": 504, "name": "HigherDOSE Sauna Blanket", "asin": "B089KV6S9G", "img": "https://m.media-amazon.com/images/I/61pXh7pAByL._AC_SL1500_.jpg", "desc": "Infrared sauna experience at home.", "status": "Luxury" },
-    { "id": 505, "name": "Lululemon The Mat 5mm", "asin": "B0962S6KNY", "img": "https://m.media-amazon.com/images/I/61p-3X7XwVL._AC_SL1500_.jpg", "desc": "Natural rubber yoga mat with extra grip.", "status": "Fitness" },
-    { "id": 506, "name": "Hydro Flask 32 oz", "asin": "B083FB968M", "img": "https://m.media-amazon.com/images/I/51X-u7qL7aL._AC_SL1500_.jpg", "desc": "Insulated stainless steel water bottle.", "status": "Daily" },
-    { "id": 507, "name": "Manduka PRO Yoga Mat", "asin": "B000C9R4K9", "img": "https://m.media-amazon.com/images/I/71BfAg60enL._AC_SL1500_.jpg", "desc": "Dense support and unmatched durability.", "status": "Pro" },
-    { "id": 508, "name": "Hyperice Venom 2", "asin": "B0B619H39Z", "img": "https://m.media-amazon.com/images/I/71X8kS8S44L._AC_SL1500_.jpg", "desc": "Heated back massage wrap for pain relief.", "status": "Health" },
-    { "id": 509, "name": "Withings Body Comp", "asin": "B0BSRD37Y6", "img": "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg", "desc": "Smart scale for cardiovascular assessment.", "status": "Biohack" },
-    { "id": 510, "name": "Apollo Neuro Wearable", "asin": "B09VPHVT2Z", "img": "https://m.media-amazon.com/images/I/61fI63y6p5L._AC_SL1500_.jpg", "desc": "Stress relief through gentle vibration.", "status": "Calm" },
-    { "id": 511, "name": "Beam Dream Powder", "asin": "B07QBPC739", "img": "https://m.media-amazon.com/images/I/71vU-G99C6L._AC_SL1500_.jpg", "desc": "Nano-CBD sleep cocoa for deep rest.", "status": "Nutrition" },
-    { "id": 512, "name": "Sakara Life Detox Tea", "asin": "B09VLK9W3S", "img": "https://m.media-amazon.com/images/I/61K89rYF81L._AC_SL1500_.jpg", "desc": "Organic herbal tea for digestion support.", "status": "Cleanse" },
-    { "id": 513, "name": "Peloton Bike+", "asin": "B08G9Y8Z9D", "img": "https://m.media-amazon.com/images/I/61X-u7qL7aL._AC_SL1500_.jpg", "desc": "Ultimate cardio with immersive screen.", "status": "Bestseller" },
-    { "id": 514, "name": "Bowflex SelectTech 552", "asin": "B001ARYU58", "img": "https://m.media-amazon.com/images/I/81R9B-9S7PL._AC_SL1500_.jpg", "desc": "Adjustable dumbbells for small home gyms.", "status": "Compact" },
-    { "id": 515, "name": "TriggerPoint GRID Roller", "asin": "B0040EGLBO", "img": "https://m.media-amazon.com/images/I/61c1G8-9VXL._AC_SL1500_.jpg", "desc": "Patented foam roller for muscle knots.", "status": "Recovery" },
-    { "id": 516, "name": "Gaiam Yoga Block", "asin": "B0027T8VKL", "img": "https://m.media-amazon.com/images/I/71Yf1MvG0iL._AC_SL1500_.jpg", "desc": "Support and alignment during practice.", "status": "Essential" },
-    { "id": 517, "name": "Bala Bangles 1lb", "asin": "B07MD1W7M1", "img": "https://m.media-amazon.com/images/I/61zC4X-3kAL._AC_SL1500_.jpg", "desc": "Stylish wrist and ankle weights.", "status": "Aesthetic" },
-    { "id": 518, "name": "Fitbit Charge 6", "asin": "B0CH1SRWWW", "img": "https://m.media-amazon.com/images/I/71T1T0GfH2L._AC_SL1500_.jpg", "desc": "Advanced fitness tracker with GPS.", "status": "Popular" },
-    { "id": 219, "name": "Whoop 4.0 Strap", "asin": "B09VLK9W3S", "img": "https://m.media-amazon.com/images/I/71W9f9M9PzL._AC_SL1500_.jpg", "desc": "Continuous strain and recovery monitoring.", "status": "Elite" }
+    { "id": 301, "name": "Oura Ring Gen3", "asin": "B09K6F9M7S", "img": "https://m.media-amazon.com/images/I/41K7M1-DkDL._AC_.jpg", "desc": "Advanced sleep and health tracking.", "status": "Trending" },
+    { "id": 302, "name": "Theragun Mini 2.0", "asin": "B0BMNZFSRF", "img": "https://m.media-amazon.com/images/I/61lO7h8A1nL._AC_SL1500_.jpg", "desc": "Portable percussion muscle massager.", "status": "Recovery" },
+    { "id": 303, "name": "Hatch Restore 2", "asin": "B0BSRD37Y6", "img": "https://m.media-amazon.com/images/I/61XmO02kRKL._AC_SL1500_.jpg", "desc": "Sunrise alarm clock and sound machine.", "status": "Viral" },
+    { "id": 304, "name": "HigherDOSE Sauna Blanket", "asin": "B089KV6S9G", "img": "https://m.media-amazon.com/images/I/61pXh7pAByL._AC_SL1500_.jpg", "desc": "Infrared sauna experience at home.", "status": "Luxury" }
+  
+
+  ],
+   "Headphones": [
+    { "id": 401, "name": "Sony Premium Headphones", "asin": "B09XS7JWHH", "img": "https://m.media-amazon.com/images/I/61BGLYEN-xL._AC_SL1500_.jpg", "desc": "Experience the magic of noise cancelling headphones bluetooth technology, ensuring an uninterrupted listening experience free from external disturbances. This unique, distraction-free listening experience sets the Sony WH-1000XM5 apart from other headphones in the market.", "status": "Top Rated" },
+    { "id": 402, "name": "Walker's Razor Slim headphones", "asin": "B06ZY6GMYD", "img": "https://m.media-amazon.com/images/I/71bwSIsZouL._AC_SX679_.jpg", "desc": "Protect your ear - Walker's Razor Ear Muffs have an ultra low-profile design featuring extra slim ear cups, for a secure fit; these ear muffs protect against hazardous noises, while still letting you clearly hear everything going on around you.", "status": "Top Rated" },
+    { "id": 403, "name": "Apple AirPods 4", "asin": "B0DGVT3T92", "img": "https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg", "desc": "Active Noise Cancellation and adaptive audio.", "status": "Price Stable" }
   ]
+
+
+  
 }
