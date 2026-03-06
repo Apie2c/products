@@ -1,7 +1,7 @@
 {
   "Tech": [
     { "id": 101, "name": "Logitech MX Master 3S", "asin": "B09HM94VDS", "img": "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg", "desc": "Precision mouse with 8k DPI tracking.", "status": "Best Seller" },
-    { "id": 102, "name": "Kindle Paperwhite (16GB)", "asin": "B0C9SKX59C", "img": "https://m.media-amazon.com/images/I/71BfAg60enL._AC_SL1500_.jpg", "desc": "6.8 inch display with adjustable warm light.", "status": "Essential" },
+    { "id": 102, "name": "Amazon Echo Show 5", "asin": "B09B2SBHQK", "img": "https://m.media-amazon.com/images/I/61gwIm-iSnL._AC_SL1500_.jpg", "desc": "Alexa can show you more - Echo Show 5 includes a 5.5” display so you can see news and weather at a glance, make video calls, view compatible cameras, stream music and shows, and more.Small size, bigger sound ", "status": "Amazon's Choice" },
     { "id": 103, "name": "Anker 737 Power Bank", "asin": "B09VPHVT2Z", "img": "https://m.media-amazon.com/images/I/61fI63y6p5L._AC_SL1500_.jpg", "desc": "140W bi-directional charging for laptops.", "status": "Tech Choice" },
     { "id": 104, "name": "Satechi USB4 Multiport Adapter", "asin": "B0962S6KNY", "img": "https://m.media-amazon.com/images/I/61p-3X7XwVL._AC_SL1500_.jpg", "desc": "Premium aluminum 8K HDMI and Ethernet hub.", "status": "Workplace" },
     { "id": 105, "name": "Elgato Stream Deck MK.2", "asin": "B09738CVIV", "img": "https://m.media-amazon.com/images/I/61-d7nAt8mL._AC_SL1500_.jpg", "desc": "15 programmable keys for workflow control.", "status": "Productivity" },
@@ -13,8 +13,9 @@
     { "id": 201, "name": "Nespresso Vertuo Next", "asin": "B084GSYV97", "img": "https://m.media-amazon.com/images/I/71-0pYf2YLL._AC_SL1500_.jpg", "desc": "Centrifusion technology for the perfect crema.", "status": "Price Drop" },
     { "id": 202, "name": "Aarke Carbonator 3", "asin": "B08HPB19S2", "img": "https://m.media-amazon.com/images/I/61u9nB9zG0L._AC_SL1500_.jpg", "desc": "Premium stainless steel sparkling water maker.", "status": "Design Icon" },
     { "id": 203, "name": "Ember Mug 2 (14 oz)", "asin": "B07X3X4FDP", "img": "https://m.media-amazon.com/images/I/51U68N6Z-PL._AC_SL1500_.jpg", "desc": "Smart temperature-controlled coffee mug.", "status": "Must Have" },
-    { "id": 204, "name": "Fellow Stagg EKG Kettle", "asin": "B077JBQZPX", "img": "https://m.media-amazon.com/images/I/51mX-G8G9GL._AC_SL1500_.jpg", "desc": "Gooseneck electric kettle for pour-over tea.", "status": "Aesthetic" }
-  
+    { "id": 204, "name": "Fellow Stagg EKG Kettle", "asin": "B077JBQZPX", "img": "https://m.media-amazon.com/images/I/51mX-G8G9GL._AC_SL1500_.jpg", "desc": "Gooseneck electric kettle for pour-over tea.", "status": "Aesthetic" },
+    { "id": 105, "name": "Amazon Echo Show 5", "asin": "B09B2SBHQK", "img": "https://m.media-amazon.com/images/I/61gwIm-iSnL._AC_SL1500_.jpg", "desc": "Alexa can show you more - Echo Show 5 includes a 5.5” display so you can see news and weather at a glance, make video calls, view compatible cameras, stream music and shows, and more.Small size, bigger sound ", "status": "Amazon's Choice" },
+
 
   ],
   "Wellness": [
@@ -28,8 +29,11 @@
    "Headphones": [
     { "id": 401, "name": "Sony Premium Headphones", "asin": "B09XS7JWHH", "img": "https://m.media-amazon.com/images/I/61BGLYEN-xL._AC_SL1500_.jpg", "desc": "Experience the magic of noise cancelling headphones bluetooth technology, ensuring an uninterrupted listening experience free from external disturbances. This unique, distraction-free listening experience sets the Sony WH-1000XM5 apart from other headphones in the market.", "status": "Top Rated" },
     { "id": 402, "name": "Walker's Razor Slim headphones", "asin": "B06ZY6GMYD", "img": "https://m.media-amazon.com/images/I/71bwSIsZouL._AC_SX679_.jpg", "desc": "Protect your ear - Walker's Razor Ear Muffs have an ultra low-profile design featuring extra slim ear cups, for a secure fit; these ear muffs protect against hazardous noises, while still letting you clearly hear everything going on around you.", "status": "Top Rated" },
-    { "id": 403, "name": "Apple AirPods 4", "asin": "B0DGVT3T92", "img": "https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg", "desc": "Active Noise Cancellation and adaptive audio.", "status": "Price Stable" }
-  ]
+    { "id": 403, "name": "Apple AirPods 4", "asin": "B0DGVT3T92", "img": "https://m.media-amazon.com/images/I/51adYj9+L3L._AC_SL1500_.jpg", "desc": "Active Noise Cancellation and adaptive audio.", "status": "Price Stable" },,
+    { "id": 404, "name": "Gen 2 Gaming Headset", "asin": "B0FRNNXWNK", "img": "https://m.media-amazon.com/images/I/61jjUyYY-1L._AC_SX679_.jpg", "desc": "REAL-TIME GAME AUDIO CONTROL — Pinpoint enemies with what GamingTrend calls “the biggest cheat code in the industry. 200+ game specific audio presets to choose from.", "status": "Amazon's Choice" }
+    
+  ],
+  
 
 
   
