@@ -100,11 +100,11 @@
 
         /* Animation for the Amazon Button */
         @keyframes pulse-amazon {
-            0% { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0.4); }
-            70% { box-shadow: 0 0 0 8px rgba(255, 153, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 153, 0, 0); }
+            0%   { filter: drop-shadow(0 0 0px rgba(255,153,0,0)); }
+            50%  { filter: drop-shadow(0 0 8px rgba(255,153,0,0.5)); }
+            100% { filter: drop-shadow(0 0 0px rgba(255,153,0,0)); }
         }
-        .animate-pulse-amazon { animation: pulse-amazon 2s infinite; }
+        .animate-pulse-amazon { animation: pulse-amazon 2.4s ease-in-out infinite; }
 
         /* Mobile bottom bar with curved notch */
         @media (max-width: 1023px) {
@@ -160,26 +160,27 @@
             top: -32px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(145deg, #FFc060, #FF9900);
-            border-radius: 50%;
+            background: transparent;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow:
-                0 8px 0 #a05e00,
-                0 12px 24px rgba(0,0,0,0.35),
-                inset 0 2px 3px rgba(255,255,255,0.4),
-                inset 0 -2px 4px rgba(0,0,0,0.15);
+                0 8px 0 rgba(0,0,0,0.55),
+                0 14px 28px rgba(0,0,0,0.45);
             transition: transform 0.1s ease, box-shadow 0.1s ease;
             z-index: 10;
+            overflow: hidden;
+        }
+        .amazon-3d svg {
+            display: block;
+            border-radius: 12px;
         }
         .amazon-3d:active {
             transform: translateX(-50%) translateY(6px);
             box-shadow:
-                0 2px 0 #a05e00,
-                0 4px 8px rgba(0,0,0,0.25),
-                inset 0 1px 2px rgba(255,255,255,0.2),
-                inset 0 -1px 3px rgba(0,0,0,0.1);
+                0 2px 0 rgba(0,0,0,0.5),
+                0 4px 10px rgba(0,0,0,0.3);
         }
 
         .bar-btn {
@@ -623,210 +624,258 @@
 
 
         /* ══════════════════════════════════════════
-           MOBILE HERO CAROUSEL  (< 768px)
+           MOBILE HERO — single screen  (< 768px)
         ══════════════════════════════════════════ */
 
         .hero-mob {
             display: block;
             position: relative;
             overflow: hidden;
-            background: #060912;
-            touch-action: pan-y;
         }
         @media (min-width: 768px) { .hero-mob { display: none; } }
 
-        /* ── Track ── */
-        .hmc-track {
-            display: flex;
-            width: 100%;
-            transition: transform .42s cubic-bezier(.4,0,.2,1);
-            will-change: transform;
-        }
-
-        /* ── Individual slide ── */
-        .hmc-slide {
-            flex: 0 0 100%;
-            width: 100%;
-            min-height: 320px;
+        /* ── Dark background with layered depth ── */
+        .hm-scene {
             position: relative;
-            overflow: hidden;
+            min-height: 360px;
+            background: #03060e;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 0 0 56px;
+            padding: 0 0 28px;
+            overflow: hidden;
         }
 
-        /* Slide background layer — unique per slide via inline var */
-        .hmc-slide-bg {
-            position: absolute; inset: 0;
-            background: var(--slide-bg, #060912);
-            transition: opacity .4s;
-        }
-        /* Diagonal cut */
-        .hmc-slide-bg::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(160deg, transparent 48%, rgba(0,0,0,.55) 48%);
-        }
-        html:not(.dark) .hmc-slide-bg::after {
-            background: linear-gradient(160deg, transparent 48%, rgba(0,0,0,.15) 48%);
-        }
-
-        /* Big icon backdrop */
-        .hmc-bg-icon {
+        /* Diagonal colour shard — top-right accent */
+        .hm-shard {
             position: absolute;
-            top: -10px; right: -10px;
-            font-size: 130px;
+            top: 0; right: 0;
+            width: 65%; height: 100%;
+            background: linear-gradient(160deg, #0d1f3c 0%, #091428 60%, transparent 100%);
+            clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+            pointer-events: none;
+        }
+
+        /* Glow blob top-right */
+        .hm-glow-tr {
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 240px; height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,.28) 0%, transparent 65%);
+            filter: blur(45px);
+            pointer-events: none;
+            animation: hmGlowDrift 7s ease-in-out infinite;
+        }
+        /* Glow blob bottom-left */
+        .hm-glow-bl {
+            position: absolute;
+            bottom: -30px; left: -30px;
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56,189,248,.15) 0%, transparent 65%);
+            filter: blur(40px);
+            pointer-events: none;
+            animation: hmGlowDrift 9s ease-in-out infinite reverse;
+        }
+        @keyframes hmGlowDrift {
+            0%,100% { transform: translate(0,0); }
+            50%      { transform: translate(10px,-14px); }
+        }
+
+        /* Dot-grid texture */
+        .hm-dots-bg {
+            position: absolute; inset: 0; pointer-events: none;
+            background-image: radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+            background-size: 28px 28px;
+            mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+        }
+        html:not(.dark) .hm-dots-bg {
+            background-image: radial-gradient(circle, rgba(37,99,235,.1) 1px, transparent 1px);
+        }
+
+        /* ── Floating product tags — top area ── */
+        .hm-tags-row {
+            position: absolute;
+            top: 20px; left: 0; right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 20px;
+            pointer-events: none;
+            z-index: 4;
+        }
+        .hm-tag-chip {
+            display: flex; align-items: center; gap: 5px;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 100px;
+            padding: 5px 10px;
+            backdrop-filter: blur(8px);
+            animation: hmChipFloat 4s ease-in-out infinite;
+        }
+        .hm-tag-chip:nth-child(2) { animation-delay: -1.3s; }
+        .hm-tag-chip:nth-child(3) { animation-delay: -2.7s; }
+        @keyframes hmChipFloat {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-5px); }
+        }
+        .hm-tag-chip span:first-child { font-size: 14px; line-height: 1; }
+        .hm-tag-chip span:last-child {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 9px; font-weight: 700;
+            color: rgba(255,255,255,.55);
+            letter-spacing: .04em;
+        }
+        html:not(.dark) .hm-tag-chip span:last-child { color: rgba(255,255,255,.7); }
+
+        /* ── Big decorative number / wordmark ── */
+        .hm-deco-num {
+            position: absolute;
+            top: 50%; right: -8px;
+            transform: translateY(-50%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 130px; font-weight: 800;
             line-height: 1;
-            opacity: .08;
+            color: rgba(255,255,255,.025);
+            letter-spacing: -.05em;
             pointer-events: none;
             user-select: none;
-            filter: blur(2px);
         }
 
-        /* Glow orb */
-        .hmc-orb {
-            position: absolute;
-            top: -40px; left: -40px;
-            width: 220px; height: 220px;
-            border-radius: 50%;
-            background: var(--slide-orb, rgba(37,99,235,.35));
-            filter: blur(55px);
-            pointer-events: none;
+        /* ── Content block ── */
+        .hm-content {
+            position: relative; z-index: 5;
+            padding: 0 22px;
         }
 
-        /* Content inside slide */
-        .hmc-content {
-            position: relative; z-index: 4;
-            padding: 0 24px;
-        }
-
-        /* Category label */
-        .hmc-label {
+        /* Live badge */
+        .hm-live {
             display: inline-flex; align-items: center; gap: 6px;
-            margin-bottom: 10px;
+            background: rgba(37,99,235,.14);
+            border: 1px solid rgba(37,99,235,.3);
+            border-radius: 100px;
+            padding: 4px 10px 4px 7px;
+            margin-bottom: 14px;
         }
-        .hmc-label-dot {
-            width: 5px; height: 5px; border-radius: 50%;
-            background: var(--slide-accent, #3b82f6);
-            box-shadow: 0 0 6px 2px var(--slide-accent, #3b82f6);
+        .hm-live-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,.2);
+            animation: hmLivePulse 2s ease-in-out infinite;
         }
-        .hmc-label span {
+        @keyframes hmLivePulse {
+            0%,100% { box-shadow: 0 0 0 3px rgba(59,130,246,.2); }
+            50%      { box-shadow: 0 0 0 6px rgba(59,130,246,.06); }
+        }
+        .hm-live span {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 9px; font-weight: 800;
-            letter-spacing: .22em; text-transform: uppercase;
-            color: var(--slide-accent, #93c5fd);
+            letter-spacing: .2em; text-transform: uppercase;
+            color: #93c5fd;
         }
+        html:not(.dark) .hm-live span { color: #2563eb; }
 
-        /* Slide headline */
-        .hmc-h1 {
+        /* Headline */
+        .hm-h1 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
-            font-size: 1.85rem;
+            font-size: 2rem;
             line-height: 1.1;
-            letter-spacing: -.03em;
+            letter-spacing: -.035em;
             color: #f1f5f9;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-        html:not(.dark) .hmc-h1 { color: #fff; } /* always white on coloured bg */
-
-        .hmc-h1 em {
-            font-style: normal;
-            color: var(--slide-accent, #3b82f6);
+        .hm-h1-grad {
+            display: inline;
+            background: linear-gradient(90deg, #60a5fa 0%, #38bdf8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Slide body */
-        .hmc-body {
+        /* Sub */
+        .hm-sub {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: .8rem; font-weight: 400; line-height: 1.6;
-            color: rgba(255,255,255,.55);
-            margin-bottom: 20px;
-            max-width: 260px;
+            font-size: .78rem; font-weight: 400; line-height: 1.65;
+            color: rgba(255,255,255,.4);
+            margin-bottom: 22px;
+            max-width: 280px;
         }
 
-        /* CTA */
-        .hmc-btn {
+        /* CTA row */
+        .hm-ctas {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .hm-cta-primary {
             display: inline-flex; align-items: center; gap: 7px;
-            padding: 11px 22px;
-            background: var(--slide-accent, #2563eb);
+            padding: 12px 22px;
+            background: #2563eb;
             color: #fff;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 12px; font-weight: 700; letter-spacing: .02em;
+            font-size: 12px; font-weight: 800;
             border: none; border-radius: 10px; cursor: pointer;
-            box-shadow: 0 6px 20px -4px var(--slide-shadow, rgba(37,99,235,.6));
-            transition: filter .18s ease, transform .18s ease;
-        }
-        .hmc-btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
-        .hmc-btn i { font-size: 10px; }
-
-        /* Progress bar at top */
-        .hmc-progress-bar {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: rgba(255,255,255,.08);
-            z-index: 10;
-        }
-        .hmc-progress-fill {
-            height: 100%;
-            background: var(--slide-accent, #3b82f6);
-            width: 0%;
-            transition: width .1s linear;
-            box-shadow: 0 0 6px var(--slide-accent, #3b82f6);
-        }
-
-        /* Dots */
-        .hmc-dots {
-            position: absolute;
-            bottom: 20px; left: 50%;
-            transform: translateX(-50%);
-            display: flex; gap: 6px;
-            z-index: 10;
-        }
-        .hmc-dot {
-            width: 5px; height: 5px; border-radius: 50%;
-            background: rgba(255,255,255,.25);
-            transition: all .3s ease;
-            cursor: pointer;
-        }
-        .hmc-dot.active {
-            width: 20px;
-            border-radius: 3px;
-            background: #fff;
-        }
-
-        /* Prev / Next arrow buttons */
-        .hmc-arrow {
-            position: absolute;
-            top: 50%; transform: translateY(-60%);
-            z-index: 10;
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            background: rgba(255,255,255,.08);
-            border: 1px solid rgba(255,255,255,.12);
-            color: rgba(255,255,255,.7);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px;
-            cursor: pointer;
+            box-shadow: 0 6px 22px -4px rgba(37,99,235,.6);
             transition: all .2s ease;
-            backdrop-filter: blur(8px);
+            text-decoration: none;
         }
-        .hmc-arrow:hover { background: rgba(255,255,255,.18); color: #fff; }
-        .hmc-arrow.prev { left: 12px; }
-        .hmc-arrow.next { right: 12px; }
+        .hm-cta-primary:active { transform: scale(.97); }
+        .hm-cta-primary i { font-size: 10px; }
 
-        /* Slide-in animation for active slide content */
-        @keyframes hmcSlideIn {
-            from { opacity: 0; transform: translateY(14px); }
+        .hm-cta-ghost {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 11px 16px;
+            background: rgba(255,255,255,.06);
+            color: rgba(255,255,255,.55);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 12px; font-weight: 700;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 10px; cursor: pointer;
+            transition: all .2s ease;
+            text-decoration: none;
+        }
+        .hm-cta-ghost:active { background: rgba(255,255,255,.1); }
+        .hm-cta-ghost i { font-size: 9px; }
+
+        /* ── Stats strip ── */
+        .hm-stats {
+            display: flex;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.06);
+            gap: 0;
+        }
+        .hm-stat {
+            flex: 1; text-align: center;
+            border-right: 1px solid rgba(255,255,255,.06);
+        }
+        .hm-stat:last-child { border-right: none; }
+        .hm-stat-n {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem; font-weight: 800; line-height: 1;
+            color: #f1f5f9;
+        }
+        .hm-stat-n sup { font-size: .65em; color: #60a5fa; }
+        .hm-stat-l {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 8px; font-weight: 600;
+            color: rgba(255,255,255,.3);
+            text-transform: uppercase; letter-spacing: .1em;
+            margin-top: 3px;
+        }
+
+        /* ── Entrance animations ── */
+        @keyframes hmFadeUp {
+            from { opacity: 0; transform: translateY(16px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        .hmc-slide.is-active .hmc-content > * {
-            animation: hmcSlideIn .45s cubic-bezier(.22,1,.36,1) both;
-        }
-        .hmc-slide.is-active .hmc-label  { animation-delay: .05s; }
-        .hmc-slide.is-active .hmc-h1     { animation-delay: .13s; }
-        .hmc-slide.is-active .hmc-body   { animation-delay: .21s; }
-        .hmc-slide.is-active .hmc-btn    { animation-delay: .29s; }
+        .hm-in { opacity: 0; animation: hmFadeUp .6s cubic-bezier(.22,1,.36,1) forwards; }
+        .hm-in.d1 { animation-delay: .05s; }
+        .hm-in.d2 { animation-delay: .15s; }
+        .hm-in.d3 { animation-delay: .25s; }
+        .hm-in.d4 { animation-delay: .36s; }
+        .hm-in.d5 { animation-delay: .48s; }
+        .hm-in.d6 { animation-delay: .60s; }
 
     </style>
 
@@ -939,207 +988,74 @@
         </div>
     </section>
 
-    <!-- ── MOBILE HERO CAROUSEL ────────────────────── -->
-    <section class="hero-mob" id="hmCarousel">
+    <!-- ── MOBILE HERO ──────────────────────────────── -->
+    <section class="hero-mob">
+        <div class="hm-scene">
 
-        <!-- Top progress bar -->
-        <div class="hmc-progress-bar"><div class="hmc-progress-fill" id="hmProgress"></div></div>
+            <!-- Background layers -->
+            <div class="hm-shard"></div>
+            <div class="hm-glow-tr"></div>
+            <div class="hm-glow-bl"></div>
+            <div class="hm-dots-bg"></div>
 
-        <!-- Slide track -->
-        <div class="hmc-track" id="hmTrack">
+            <!-- Decorative large number -->
+            <div class="hm-deco-num">NX</div>
 
-            <!-- Slide 1 — Smart Home -->
-            <div class="hmc-slide is-active"
-                 style="--slide-bg: linear-gradient(135deg,#060e24 0%,#091840 100%);
-                        --slide-accent:#3b82f6;
-                        --slide-orb:rgba(37,99,235,.4);
-                        --slide-shadow:rgba(37,99,235,.55);">
-                <div class="hmc-slide-bg"></div>
-                <div class="hmc-orb"></div>
-                <div class="hmc-bg-icon">💡</div>
-                <div class="hmc-content">
-                    <div class="hmc-label">
-                        <span class="hmc-label-dot"></span>
-                        <span>Smart Home</span>
-                    </div>
-                    <h2 class="hmc-h1">Make your home<br><em>brilliantly smart.</em></h2>
-                    <p class="hmc-body">Lighting, sensors, and automation — curated picks for an intelligent home.</p>
-                    <button class="hmc-btn" onclick="document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})">
-                        <i class="fas fa-bolt"></i> Shop Now
-                    </button>
-                </div>
+            <!-- Floating category chips -->
+            <div class="hm-tags-row hm-in d1">
+                <div class="hm-tag-chip"><span>💡</span><span>Smart Home</span></div>
+                <div class="hm-tag-chip"><span>🎧</span><span>Audio</span></div>
+                <div class="hm-tag-chip"><span>⌚</span><span>Wearables</span></div>
             </div>
 
-            <!-- Slide 2 — Audio -->
-            <div class="hmc-slide"
-                 style="--slide-bg: linear-gradient(135deg,#0d0a1e 0%,#1a0a35 100%);
-                        --slide-accent:#a78bfa;
-                        --slide-orb:rgba(139,92,246,.4);
-                        --slide-shadow:rgba(139,92,246,.55);">
-                <div class="hmc-slide-bg"></div>
-                <div class="hmc-orb"></div>
-                <div class="hmc-bg-icon">🎧</div>
-                <div class="hmc-content">
-                    <div class="hmc-label">
-                        <span class="hmc-label-dot"></span>
-                        <span>Audio & Sound</span>
-                    </div>
-                    <h2 class="hmc-h1">Hear every detail,<br><em>feel every beat.</em></h2>
-                    <p class="hmc-body">Premium headphones and speakers handpicked for audiophiles and everyday listeners.</p>
-                    <button class="hmc-btn" onclick="document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})">
-                        <i class="fas fa-headphones"></i> Explore Audio
-                    </button>
+            <!-- Main content -->
+            <div class="hm-content">
+
+                <div class="hm-live hm-in d2">
+                    <span class="hm-live-dot"></span>
+                    <span>Curated Daily</span>
                 </div>
-            </div>
 
-            <!-- Slide 3 — Wearables -->
-            <div class="hmc-slide"
-                 style="--slide-bg: linear-gradient(135deg,#001a12 0%,#002b1e 100%);
-                        --slide-accent:#34d399;
-                        --slide-orb:rgba(16,185,129,.35);
-                        --slide-shadow:rgba(16,185,129,.5);">
-                <div class="hmc-slide-bg"></div>
-                <div class="hmc-orb"></div>
-                <div class="hmc-bg-icon">⌚</div>
-                <div class="hmc-content">
-                    <div class="hmc-label">
-                        <span class="hmc-label-dot"></span>
-                        <span>Wearables</span>
-                    </div>
-                    <h2 class="hmc-h1">Wear the future<br><em>on your wrist.</em></h2>
-                    <p class="hmc-body">Smartwatches and fitness trackers that keep you connected and in shape.</p>
-                    <button class="hmc-btn" onclick="document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})">
-                        <i class="fas fa-watch"></i> View Wearables
+                <h1 class="hm-h1 hm-in d3">
+                    Tech that fits<br>
+                    <span class="hm-h1-grad">your world.</span>
+                </h1>
+
+                <p class="hm-sub hm-in d4">
+                    Hand-picked gadgets & smart home devices for modern living.
+                </p>
+
+                <div class="hm-ctas hm-in d5">
+                    <button class="hm-cta-primary" onclick="document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-bolt"></i> Browse Products
                     </button>
+                    <a href="https://apie2c.blogspot.com/" target="_blank" class="hm-cta-ghost">
+                        Blog <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-            </div>
 
-            <!-- Slide 4 — Mobile & Desk -->
-            <div class="hmc-slide"
-                 style="--slide-bg: linear-gradient(135deg,#1a0a00 0%,#2a1200 100%);
-                        --slide-accent:#fb923c;
-                        --slide-orb:rgba(249,115,22,.35);
-                        --slide-shadow:rgba(249,115,22,.5);">
-                <div class="hmc-slide-bg"></div>
-                <div class="hmc-orb"></div>
-                <div class="hmc-bg-icon">📱</div>
-                <div class="hmc-content">
-                    <div class="hmc-label">
-                        <span class="hmc-label-dot"></span>
-                        <span>Mobile & Desk</span>
+                <div class="hm-stats hm-in d6">
+                    <div class="hm-stat">
+                        <div class="hm-stat-n">500<sup>+</sup></div>
+                        <div class="hm-stat-l">Products</div>
                     </div>
-                    <h2 class="hmc-h1">Power up your<br><em>everyday setup.</em></h2>
-                    <p class="hmc-body">Accessories, chargers, and desk gear to level up your workspace and on-the-go life.</p>
-                    <button class="hmc-btn" onclick="document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})">
-                        <i class="fas fa-mobile-alt"></i> Shop Accessories
-                    </button>
-                </div>
-            </div>
-
-            <!-- Slide 5 — AI & Robotics -->
-            <div class="hmc-slide"
-                 style="--slide-bg: linear-gradient(135deg,#000d1a 0%,#001a2e 100%);
-                        --slide-accent:#38bdf8;
-                        --slide-orb:rgba(14,165,233,.35);
-                        --slide-shadow:rgba(14,165,233,.5);">
-                <div class="hmc-slide-bg"></div>
-                <div class="hmc-orb"></div>
-                <div class="hmc-bg-icon">🤖</div>
-                <div class="hmc-content">
-                    <div class="hmc-label">
-                        <span class="hmc-label-dot"></span>
-                        <span>AI & Robotics</span>
+                    <div class="hm-stat">
+                        <div class="hm-stat-n">12<sup>K</sup></div>
+                        <div class="hm-stat-l">Customers</div>
                     </div>
-                    <h2 class="hmc-h1">The next frontier<br><em>starts here.</em></h2>
-                    <p class="hmc-body">AI-powered gadgets and robotics that bring tomorrow's technology into your home today.</p>
-                    <button class="hmc-btn" onclick="document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})">
-                        <i class="fas fa-robot"></i> Discover AI Tech
-                    </button>
+                    <div class="hm-stat">
+                        <div class="hm-stat-n">4.9<sup>★</sup></div>
+                        <div class="hm-stat-l">Rating</div>
+                    </div>
+                    <div class="hm-stat">
+                        <div class="hm-stat-n">24<sup>/7</sup></div>
+                        <div class="hm-stat-l">Support</div>
+                    </div>
                 </div>
+
             </div>
-
-        </div><!-- /track -->
-
-        <!-- Arrow nav -->
-        <button class="hmc-arrow prev" id="hmPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-        <button class="hmc-arrow next" id="hmNext" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
-
-        <!-- Dot indicators -->
-        <div class="hmc-dots" id="hmDots">
-            <div class="hmc-dot active" data-i="0"></div>
-            <div class="hmc-dot" data-i="1"></div>
-            <div class="hmc-dot" data-i="2"></div>
-            <div class="hmc-dot" data-i="3"></div>
-            <div class="hmc-dot" data-i="4"></div>
         </div>
-
     </section>
-
-    <script>
-    (function() {
-        const track    = document.getElementById('hmTrack');
-        const slides   = track.querySelectorAll('.hmc-slide');
-        const dots     = document.querySelectorAll('#hmDots .hmc-dot');
-        const progress = document.getElementById('hmProgress');
-        const total    = slides.length;
-        let cur = 0, timer, progTimer, progVal = 0;
-        const INTERVAL = 4000; // ms per slide
-
-        function goTo(n) {
-            slides[cur].classList.remove('is-active');
-            dots[cur].classList.remove('active');
-            cur = (n + total) % total;
-            slides[cur].classList.add('is-active');
-            dots[cur].classList.add('active');
-            track.style.transform = `translateX(-${cur * 100}%)`;
-            // sync progress bar accent colour
-            const accent = getComputedStyle(slides[cur]).getPropertyValue('--slide-accent').trim();
-            progress.style.background = accent;
-            progress.style.boxShadow  = `0 0 6px ${accent}`;
-            resetProgress();
-        }
-
-        function resetProgress() {
-            clearInterval(progTimer);
-            progVal = 0;
-            progress.style.transition = 'none';
-            progress.style.width = '0%';
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    progress.style.transition = `width ${INTERVAL}ms linear`;
-                    progress.style.width = '100%';
-                });
-            });
-        }
-
-        function startAuto() {
-            clearInterval(timer);
-            timer = setInterval(() => goTo(cur + 1), INTERVAL);
-        }
-
-        // Dots
-        dots.forEach(d => d.addEventListener('click', () => {
-            goTo(+d.dataset.i);
-            startAuto();
-        }));
-
-        // Arrows
-        document.getElementById('hmPrev').addEventListener('click', () => { goTo(cur - 1); startAuto(); });
-        document.getElementById('hmNext').addEventListener('click', () => { goTo(cur + 1); startAuto(); });
-
-        // Touch / swipe
-        let tx0 = 0;
-        track.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
-        track.addEventListener('touchend',   e => {
-            const dx = e.changedTouches[0].clientX - tx0;
-            if (Math.abs(dx) > 40) { goTo(dx < 0 ? cur + 1 : cur - 1); startAuto(); }
-        }, { passive: true });
-
-        // Init
-        goTo(0);
-        startAuto();
-    })();
-    </script>
     <!-- ═══════ END HERO ═══════ -->
 
     <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
@@ -1553,8 +1469,46 @@
 
         <!-- Amazon 3D button sits in the notch -->
         <a href="https://www.amazon.com/?tag=gitafstore-20" target="_blank" class="amazon-3d animate-pulse-amazon" aria-label="Shop on Amazon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="white">
-                <path d="M13.958 10.09c0 1.232.029 2.256-.592 3.351-.502.891-1.301 1.439-2.186 1.439-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.684zm3.186 7.705c-.209.189-.512.201-.745.074-1.047-.872-1.234-1.276-1.807-2.107-1.727 1.761-2.951 2.288-5.192 2.288-2.652 0-4.711-1.638-4.711-4.917 0-2.561 1.387-4.305 3.363-5.159 1.714-.754 4.11-.891 5.942-1.097v-.41c0-.753.06-1.642-.384-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.549.582l-3.061-.333c-.259-.056-.548-.266-.472-.66C5.973 1.6 9.051 0 12.437 0c1.734 0 4.002.462 5.369 1.775 1.734 1.617 1.568 3.77 1.568 6.116v5.542c0 1.666.69 2.397 1.339 3.296.228.32.277.702-.012.939-.726.607-2.015 1.735-2.726 2.369l-.008-.011-.013-.011zm3.728 1.564c-3.849 2.838-9.427 4.35-14.226 4.35-6.727 0-12.784-2.487-17.361-6.621-.36-.325-.038-.769.393-.516 4.94 2.875 11.043 4.602 17.346 4.602 4.252 0 8.927-.882 13.233-2.707.649-.277 1.193.426.615.892z"/>
+            <!--
+                Amazon app icon — dark rounded square, white 'a', orange smile arrow.
+                Designed to sit inside the 62×62px gold circle button.
+            -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" width="46" height="46">
+                <!-- Dark rounded-square background -->
+                <rect width="56" height="56" rx="12" ry="12" fill="#1c1c1c"/>
+
+                <!-- White 'a' letterform (open-bowl lowercase, Amazon app style) -->
+                <!-- Outer shape: open right column + bowl -->
+                <path fill="white" d="
+                  M36.5 9
+                  C36.5 9 36.5 9 36.5 9
+                  L24 9
+                  C16.3 9 10 15.3 10 23
+                  C10 30.7 16.3 37 24 37
+                  C27.4 37 30.5 35.7 32.8 33.6
+                  L32.8 35.5
+                  C32.8 36.3 33.5 37 34.3 37
+                  L37 37
+                  C37.8 37 38.5 36.3 38.5 35.5
+                  L38.5 11.5
+                  C38.5 10.1 37.7 9 36.5 9
+                  Z
+                  M24 30
+                  C20.1 30 17 26.9 17 23
+                  C17 19.1 20.1 16 24 16
+                  C27.9 16 31 19.1 31 23
+                  C31 26.9 27.9 30 24 30
+                  Z
+                "/>
+
+                <!-- Orange smile arrow -->
+                <!-- Curved smile arc -->
+                <path d="M12 42 Q28 53 44 42"
+                      stroke="#FF9900" stroke-width="3" stroke-linecap="round" fill="none"/>
+                <!-- Arrow head pointing right -->
+                <path d="M41 39.2 L44.4 42.1 L41.5 45.2"
+                      stroke="#FF9900" stroke-width="3"
+                      stroke-linecap="round" stroke-linejoin="round" fill="none"/>
             </svg>
         </a>
 
