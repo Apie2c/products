@@ -274,6 +274,395 @@
         <p class="text-[10px] sm:text-[12px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center px-4">AS AN AMAZON ASSOCIATE I EARN FROM QUALIFYING PURCHASES.</p>
     </div>
 
+    <!-- ═══════════════════════════════════════════════
+         PREMIUM HERO SECTION
+    ═══════════════════════════════════════════════ -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400&display=swap');
+
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+            background: #050810;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Animated gradient mesh background */
+        .hero-bg-mesh {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 10% 50%, rgba(37,99,235,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 90% 20%, rgba(99,102,241,0.12) 0%, transparent 55%),
+                radial-gradient(ellipse 50% 70% at 60% 90%, rgba(14,165,233,0.10) 0%, transparent 55%),
+                #050810;
+        }
+
+        /* Noise grain overlay */
+        .hero-grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 200px;
+        }
+
+        /* Glowing orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            animation: hero-orb-float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .hero-orb-1 {
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(37,99,235,0.30) 0%, transparent 70%);
+            top: -80px; left: -60px;
+            animation-delay: 0s;
+        }
+        .hero-orb-2 {
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+            bottom: -60px; right: 15%;
+            animation-delay: -3s;
+        }
+        .hero-orb-3 {
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(14,165,233,0.20) 0%, transparent 70%);
+            top: 30%; right: 30%;
+            animation-delay: -5.5s;
+        }
+        @keyframes hero-orb-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(20px, -25px) scale(1.05); }
+            66% { transform: translate(-15px, 15px) scale(0.97); }
+        }
+
+        /* Thin horizontal rule lines */
+        .hero-lines {
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 79px,
+                    rgba(255,255,255,0.025) 79px,
+                    rgba(255,255,255,0.025) 80px
+                );
+        }
+
+        /* Vertical accent line */
+        .hero-vline {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, transparent, #2563EB, transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 64px 24px 56px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #60a5fa;
+            margin-bottom: 24px;
+        }
+        .hero-eyebrow-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #2563EB;
+            box-shadow: 0 0 8px 2px rgba(37,99,235,0.8);
+            animation: hero-pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes hero-pulse-dot {
+            0%, 100% { box-shadow: 0 0 6px 1px rgba(37,99,235,0.7); }
+            50% { box-shadow: 0 0 14px 4px rgba(37,99,235,1); }
+        }
+        .hero-eyebrow-line {
+            width: 32px;
+            height: 1px;
+            background: linear-gradient(to right, #2563EB, transparent);
+        }
+
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.6rem, 6vw, 5rem);
+            line-height: 1.04;
+            letter-spacing: -0.03em;
+            color: #f1f5f9;
+            margin-bottom: 20px;
+        }
+        .hero-title-accent {
+            background: linear-gradient(90deg, #3b82f6, #818cf8, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            font-weight: 300;
+            color: #94a3b8;
+            max-width: 460px;
+            line-height: 1.7;
+            margin-bottom: 36px;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .hero-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            background: linear-gradient(135deg, #2563EB, #3b82f6);
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.02em;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 0 1px rgba(37,99,235,0.4), 0 8px 32px -4px rgba(37,99,235,0.5);
+            transition: all 0.25s ease;
+        }
+        .hero-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 0 1px rgba(59,130,246,0.6), 0 14px 40px -4px rgba(37,99,235,0.65);
+        }
+        .hero-btn-primary i { font-size: 11px; }
+
+        .hero-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 24px;
+            background: rgba(255,255,255,0.04);
+            color: #94a3b8;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.02em;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+        .hero-btn-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            color: #e2e8f0;
+        }
+
+        /* Stats row */
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .hero-stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #f1f5f9;
+            line-height: 1;
+        }
+        .hero-stat-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        /* Floating product icons panel */
+        .hero-visual {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 42%;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 900px) { .hero-visual { display: none; } }
+
+        .hero-float-card {
+            position: absolute;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            animation: hero-card-float 6s ease-in-out infinite;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+        .hero-float-card.c1 { width:80px;height:80px; top:18%; right:28%; animation-delay:0s; }
+        .hero-float-card.c2 { width:100px;height:100px; top:42%; right:12%; animation-delay:-2s; }
+        .hero-float-card.c3 { width:72px;height:72px; top:65%; right:34%; animation-delay:-4s; }
+        .hero-float-card.c4 { width:60px;height:60px; top:25%; right:8%; animation-delay:-1s; }
+        .hero-float-card.c5 { width:64px;height:64px; top:72%; right:10%; animation-delay:-3.5s; }
+
+        @keyframes hero-card-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-12px) rotate(2deg); }
+            66% { transform: translateY(8px) rotate(-1.5deg); }
+        }
+
+        .hero-float-card .glow-ring {
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(37,99,235,0.3), transparent 50%);
+        }
+
+        /* Connecting line between cards */
+        .hero-connector {
+            position: absolute;
+            right: 0; top: 0; bottom: 0; width: 42%;
+            pointer-events: none;
+        }
+
+        /* light theme override */
+        .light-hero, html:not(.dark) .hero-section {
+            background: #f8faff;
+        }
+        html:not(.dark) .hero-bg-mesh {
+            background:
+                radial-gradient(ellipse 80% 60% at 10% 50%, rgba(37,99,235,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 90% 20%, rgba(99,102,241,0.05) 0%, transparent 55%),
+                #f8faff;
+        }
+        html:not(.dark) .hero-title { color: #0f172a; }
+        html:not(.dark) .hero-subtitle { color: #64748b; }
+        html:not(.dark) .hero-stat-num { color: #0f172a; }
+        html:not(.dark) .hero-stat-label { color: #94a3b8; }
+        html:not(.dark) .hero-float-card { background: rgba(255,255,255,0.7); border-color: rgba(37,99,235,0.12); }
+        html:not(.dark) .hero-stats { border-top-color: rgba(0,0,0,0.06); }
+        html:not(.dark) .hero-btn-secondary { background: rgba(0,0,0,0.03); color: #64748b; border-color: rgba(0,0,0,0.1); }
+        html:not(.dark) .hero-btn-secondary:hover { background: rgba(0,0,0,0.07); color: #334155; }
+        html:not(.dark) .hero-section { background: #f8faff; }
+        html:not(.dark) .hero-lines { display: none; }
+        html:not(.dark) .hero-orb-1 { background: radial-gradient(circle, rgba(37,99,235,0.10) 0%, transparent 70%); }
+        html:not(.dark) .hero-orb-2 { background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%); }
+        html:not(.dark) .hero-grain { opacity: 0; }
+
+        /* Entrance animations */
+        .hero-animate { opacity: 0; transform: translateY(22px); animation: heroIn 0.7s ease-out forwards; }
+        .hero-animate.d1 { animation-delay: 0.05s; }
+        .hero-animate.d2 { animation-delay: 0.18s; }
+        .hero-animate.d3 { animation-delay: 0.30s; }
+        .hero-animate.d4 { animation-delay: 0.44s; }
+        .hero-animate.d5 { animation-delay: 0.58s; }
+        @keyframes heroIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <section class="hero-section">
+        <div class="hero-bg-mesh"></div>
+        <div class="hero-grain"></div>
+        <div class="hero-lines"></div>
+        <div class="hero-vline"></div>
+
+        <!-- Glowing orbs -->
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <!-- Floating product icon cards -->
+        <div class="hero-visual">
+            <div class="hero-float-card c1"><div class="glow-ring"></div>🎧</div>
+            <div class="hero-float-card c2"><div class="glow-ring"></div>📱</div>
+            <div class="hero-float-card c3"><div class="glow-ring"></div>💡</div>
+            <div class="hero-float-card c4"><div class="glow-ring"></div>⌚</div>
+            <div class="hero-float-card c5"><div class="glow-ring"></div>🤖</div>
+        </div>
+
+        <!-- Main content -->
+        <div class="hero-content">
+            <div class="hero-eyebrow hero-animate d1">
+                <span class="hero-eyebrow-dot"></span>
+                <span class="hero-eyebrow-line"></span>
+                Curated Smart Living
+            </div>
+
+            <h2 class="hero-title hero-animate d2">
+                The Future of<br>
+                <span class="hero-title-accent">Smart Home Tech</span><br>
+                Starts Here.
+            </h2>
+
+            <p class="hero-subtitle hero-animate d3">
+                Hand-picked gadgets and intelligent devices — tested, curated, and delivered straight to your world.
+            </p>
+
+            <div class="hero-cta-group hero-animate d4">
+                <button class="hero-btn-primary" onclick="document.getElementById('product-grid').scrollIntoView({behavior:'smooth'})">
+                    <i class="fas fa-bolt"></i> Shop the Collection
+                </button>
+                <a href="https://apie2c.blogspot.com/" target="_blank" class="hero-btn-secondary">
+                    <i class="fas fa-arrow-right" style="font-size:10px"></i> Read the Blog
+                </a>
+            </div>
+
+            <div class="hero-stats hero-animate d5">
+                <div>
+                    <div class="hero-stat-num">500<span style="color:#2563EB">+</span></div>
+                    <div class="hero-stat-label">Products Curated</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">12<span style="color:#2563EB">K</span></div>
+                    <div class="hero-stat-label">Happy Customers</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">4.9<span style="color:#2563EB">★</span></div>
+                    <div class="hero-stat-label">Avg. Rating</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">24<span style="color:#2563EB">/7</span></div>
+                    <div class="hero-stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════ END HERO ═══════ -->
+
     <main class="max-w-7xl mx-auto px-4 pt-4 pb-24 min-h-screen">
         <div id="loader" class="flex flex-col items-center justify-center py-32 space-y-4">
             <div class="w-12 h-12 border-4 border-gray-200 border-t-brand-primary rounded-full animate-spin"></div>
@@ -293,7 +682,7 @@
                 <a href="https://tiktok.com/@luxe" target="_blank" class="social-icon hover-tiktok"><i class="fab fa-tiktok text-xl"></i></a>
                 <a href="https://wa.me/yournumber" target="_blank" class="social-icon hover-whatsapp"><i class="fab fa-whatsapp text-xl"></i></a>
             </div>
-            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 NEXORA.com | Email us:nfonexromito@outlook.com</p>
+            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.3em] font-bold text-center">© 2026 NEXORA.com | Email us:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="48262e27262d303a2725213c2708273d3c24272723662b2725">[email&#160;protected]</a></p>
         </div>
     </footer>
 
@@ -348,7 +737,7 @@
     <div id="toast" class="bg-brand-primary text-white px-8 py-3 rounded-2xl shadow-2xl font-extrabold text-[10px] uppercase tracking-[0.2em]">Product saved</div>
     <canvas id="shareCanvas" width="1080" height="1080" style="display:none;"></canvas>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const AFFILIATE_ID = "gitafstore-20";
     let LUXE_VAULT = {};
     let productCatalog = [];
@@ -684,9 +1073,12 @@
         </a>
 
         <!-- Amazon 3D button sits in the notch -->
-        <a href="https://www.amazon.com?tag=gitafstore-20" target="_blank" class="amazon-3d animate-pulse-amazon">
-            <i class="fab fa-amazon text-white text-[28px]"></i>
+        <a href="https://www.amazon.com/?tag=gitafstore-20" target="_blank" class="amazon-3d animate-pulse-amazon" aria-label="Shop on Amazon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="white">
+                <path d="M13.958 10.09c0 1.232.029 2.256-.592 3.351-.502.891-1.301 1.439-2.186 1.439-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.684zm3.186 7.705c-.209.189-.512.201-.745.074-1.047-.872-1.234-1.276-1.807-2.107-1.727 1.761-2.951 2.288-5.192 2.288-2.652 0-4.711-1.638-4.711-4.917 0-2.561 1.387-4.305 3.363-5.159 1.714-.754 4.11-.891 5.942-1.097v-.41c0-.753.06-1.642-.384-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.549.582l-3.061-.333c-.259-.056-.548-.266-.472-.66C5.973 1.6 9.051 0 12.437 0c1.734 0 4.002.462 5.369 1.775 1.734 1.617 1.568 3.77 1.568 6.116v5.542c0 1.666.69 2.397 1.339 3.296.228.32.277.702-.012.939-.726.607-2.015 1.735-2.726 2.369l-.008-.011-.013-.011zm3.728 1.564c-3.849 2.838-9.427 4.35-14.226 4.35-6.727 0-12.784-2.487-17.361-6.621-.36-.325-.038-.769.393-.516 4.94 2.875 11.043 4.602 17.346 4.602 4.252 0 8.927-.882 13.233-2.707.649-.277 1.193.426.615.892z"/>
+            </svg>
         </a>
+
     </div>
 
 </body>
