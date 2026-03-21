@@ -114,7 +114,6 @@
             align-items: center;
             justify-content: space-around;
             background-color: transparent;
-            filter: drop-shadow(0 -4px 14px rgba(0,0,0,0.13));
         }
 
         /* Bar face layer */
@@ -124,6 +123,7 @@
             inset: 0;
             background: linear-gradient(180deg, #ffffff 0%, #f0f4ff 100%);
             clip-path: path('M0,0 L calc(50% - 40px),0 Q calc(50% - 26px),0 calc(50% - 22px),10px Q calc(50% - 6px),38px 50%,38px Q calc(50% + 6px),38px calc(50% + 22px),10px Q calc(50% + 26px),0 calc(50% + 40px),0 L 100%,0 L 100%,200px L 0,200px Z');
+            filter: drop-shadow(0 -4px 14px rgba(0,0,0,0.13));
             z-index: -1;
         }
         .dark .mobile-bottom-bar::before {
@@ -148,8 +148,8 @@
         .amazon-3d {
             width: 66px;
             height: 66px;
-            position: fixed;
-            bottom: calc(26px + env(safe-area-inset-bottom, 0px));
+            position: absolute;
+            top: -34px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 50%;
@@ -161,7 +161,7 @@
             background: transparent;
             box-shadow: none;
             transition: transform .12s ease, filter .12s ease;
-            z-index: 200;
+            z-index: 110;
             animation: amzPulse 2.8s ease-in-out infinite;
         }
         .amazon-3d img {
