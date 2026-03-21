@@ -148,8 +148,8 @@
         .amazon-3d {
             width: 66px;
             height: 66px;
-            position: absolute;
-            top: -34px;
+            position: fixed;
+            bottom: calc(26px + env(safe-area-inset-bottom, 0px));
             left: 50%;
             transform: translateX(-50%);
             border-radius: 50%;
@@ -161,7 +161,7 @@
             background: transparent;
             box-shadow: none;
             transition: transform .12s ease, filter .12s ease;
-            z-index: 10;
+            z-index: 200;
             animation: amzPulse 2.8s ease-in-out infinite;
         }
         .amazon-3d img {
@@ -174,7 +174,7 @@
             filter: drop-shadow(0 6px 10px rgba(0,0,0,.55));
         }
         .amazon-3d:active {
-            transform: translateX(-50%) translateY(5px);
+            transform: translateX(-50%) translateY(3px);
         }
         .amazon-3d:active img {
             filter: drop-shadow(0 1px 3px rgba(0,0,0,.4));
