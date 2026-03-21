@@ -114,6 +114,7 @@
             align-items: center;
             justify-content: space-around;
             background-color: transparent;
+            filter: drop-shadow(0 -4px 14px rgba(0,0,0,0.13));
         }
 
         /* Bar face layer */
@@ -123,7 +124,6 @@
             inset: 0;
             background: linear-gradient(180deg, #ffffff 0%, #f0f4ff 100%);
             clip-path: path('M0,0 L calc(50% - 40px),0 Q calc(50% - 26px),0 calc(50% - 22px),10px Q calc(50% - 6px),38px 50%,38px Q calc(50% + 6px),38px calc(50% + 22px),10px Q calc(50% + 26px),0 calc(50% + 40px),0 L 100%,0 L 100%,200px L 0,200px Z');
-            filter: drop-shadow(0 -4px 14px rgba(0,0,0,0.13));
             z-index: -1;
         }
         .dark .mobile-bottom-bar::before {
@@ -161,7 +161,7 @@
             background: transparent;
             box-shadow: none;
             transition: transform .12s ease, filter .12s ease;
-            z-index: 110;
+            z-index: 10;
             animation: amzPulse 2.8s ease-in-out infinite;
         }
         .amazon-3d img {
@@ -174,7 +174,7 @@
             filter: drop-shadow(0 6px 10px rgba(0,0,0,.55));
         }
         .amazon-3d:active {
-            transform: translateX(-50%) translateY(3px);
+            transform: translateX(-50%) translateY(5px);
         }
         .amazon-3d:active img {
             filter: drop-shadow(0 1px 3px rgba(0,0,0,.4));
@@ -1260,46 +1260,6 @@
         if (mobiles) mobiles.innerHTML = html;
     }
 
-    function getSimilarProducts(searchVal, filter) {
-        // Extract keywords from the search term (split on spaces, drop short words)
-        const keywords = (searchVal || '').toLowerCase().split(/\s+/).filter(w => w.length > 2);
-
-        // Score every product that is NOT in the current (empty) result set
-        const scored = productCatalog
-            .filter(p => {
-                // Exclude products that belong to the filtered category when it's "Saved"
-                if (filter === 'Saved') return !wishlist.includes(p.id);
-                return true;
-            })
-            .map(p => {
-                let score = 0;
-                const haystack = (p.name + ' ' + p.cat + ' ' + (p.desc || '')).toLowerCase();
-
-                // Boost for each keyword found in name/category/description
-                keywords.forEach(kw => {
-                    if (p.name.toLowerCase().includes(kw)) score += 3;
-                    else if (p.cat.toLowerCase().includes(kw)) score += 2;
-                    else if ((p.desc || '').toLowerCase().includes(kw)) score += 1;
-                });
-
-                // If searching within a category, boost same-category products
-                if (filter && filter !== 'All' && filter !== 'Saved' && p.cat === filter) score += 2;
-
-                // Always give a base score to recent products so we have fallbacks
-                const recentIndex = productCatalog.indexOf(p);
-                if (recentIndex < 20) score += (20 - recentIndex) * 0.05;
-
-                return { p, score };
-            })
-            .filter(x => x.score > 0)
-            .sort((a, b) => b.score - a.score);
-
-        // Fallback: if no keyword matches, return the newest products
-        const results = scored.length > 0 ? scored : productCatalog.map(p => ({ p, score: 0 }));
-
-        return results.slice(0, 5).map(x => x.p);
-    }
-
     function renderProducts() {
         const grid = document.getElementById('product-grid');
         const pagination = document.getElementById('pagination');
@@ -1315,53 +1275,12 @@
         updateWishlistCount();
 
         if (displayItems.length === 0) {
-            // Build similar product suggestions based on search terms
-            const similarItems = getSimilarProducts(searchVal, currentFilter);
-            const similarHTML = similarItems.length > 0 ? `
-                <div class="col-span-full mt-10">
-                    <p class="text-[9px] uppercase tracking-[0.25em] font-bold text-brand-primary mb-4 text-center">You might also like</p>
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
-                        ${similarItems.map((p, index) => {
-                            const isSaved = wishlist.includes(p.id);
-                            const isNew = productCatalog.slice(0, 4).some(newItem => newItem.id === p.id);
-                            const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">NEW</span>` : '';
-                            return `
-                            <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
-                                <div class="absolute top-4 right-4 z-[40]">
-                                    <div class="tooltip-container">
-                                        <button id="heart-sim-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
-                                            <i class="fas fa-heart text-sm"></i>
-                                        </button>
-                                        <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
-                                    </div>
-                                </div>
-                                <div class="rounded-3xl overflow-hidden">
-                                    <div class="img-aspect p-2 flex items-center justify-center">
-                                        <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
-                                    </div>
-                                    <div class="p-5">
-                                        <div class="flex justify-between items-center mb-1">
-                                            <div class="flex items-center">
-                                                ${newBadge}
-                                                <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
-                                            </div>
-                                            <span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span>
-                                        </div>
-                                        <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
-                                    </div>
-                                </div>
-                            </div>`;
-                        }).join('')}
-                    </div>
-                </div>` : '';
-
             grid.innerHTML = `
-                <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-400">
-                    <i class="fas fa-search text-4xl mb-4 opacity-20"></i>
-                    <p class="uppercase tracking-[0.2em] text-[10px] font-bold">No products found for "${searchVal || currentFilter}"</p>
+                <div class="col-span-full flex flex-col items-center justify-center py-20 text-gray-400">
+                    <i class="fas fa-box-open text-4xl mb-4 opacity-20"></i>
+                    <p class="uppercase tracking-[0.2em] text-[10px] font-bold">No products found matching your search</p>
                     <button onclick="clearSearch()" class="mt-4 text-brand-primary text-[9px] font-bold uppercase tracking-widest hover:underline">Clear Filters</button>
-                </div>
-                ${similarHTML}`;
+                </div>`;
             pagination.classList.add('hidden');
             pagination.classList.remove('flex');
             return;
