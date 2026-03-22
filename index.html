@@ -1343,17 +1343,18 @@
         updateWishlistCount();
 
         if (displayItems.length === 0) {
-            // Try to find similar products
-            const similar = getSimilarProducts(searchVal);
-            const similarHTML = similar.length > 0 ? `
+            // Show other (random) products from the catalog
+            const shuffled = [...productCatalog].sort(() => Math.random() - 0.5);
+            const other = shuffled.slice(0, 8);
+            const similarHTML = other.length > 0 ? `
                 <div class="col-span-full mt-6">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
-                        <p class="text-[9px] uppercase tracking-[0.25em] font-bold text-gray-400">You might like these instead</p>
+                        <p class="text-[9px] uppercase tracking-[0.25em] font-bold text-gray-400">Other products you may like</p>
                         <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
-                        ${similar.map((p, i) => renderProductCard(p, i)).join('')}
+                        ${other.map((p, i) => renderProductCard(p, i)).join('')}
                     </div>
                 </div>` : '';
 
@@ -1467,6 +1468,7 @@
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         updateWishlistUI(p.id);
+        setBarMoreBtn(true);
 
         // Push a history entry so the browser back button can close the modal.
         // State carries the product id so popstate knows what happened.
@@ -1493,6 +1495,7 @@
         document.getElementById('modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
         activeProductId = null;
+        setBarMoreBtn(false);
 
         // Only manipulate history when NOT called from the popstate handler
         // (the handler already moved history backward for us).
@@ -1568,6 +1571,30 @@
         }
 
 
+    // ── Mobile bottom bar: More ↔ Back ────────────────────────────
+    function setBarMoreBtn(isBack) {
+        const icon = document.getElementById('bar-more-icon');
+        const label = document.getElementById('bar-more-label');
+        if (!icon || !label) return;
+        if (isBack) {
+            icon.className = 'fas fa-arrow-left text-base';
+            label.innerText = 'Back';
+        } else {
+            icon.className = 'fas fa-plus-circle text-base';
+            label.innerText = 'More';
+        }
+    }
+
+    function handleBarMoreBtn() {
+        const modal = document.getElementById('modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeModal();
+            scrollToTop();
+        } else {
+            window.open('https://apie2c.blogspot.com/', '_blank');
+        }
+    }
+
     function showToast(m) {
         const t = document.getElementById('toast');
         if (t) { t.innerText = m; t.classList.add('active'); setTimeout(() => t.classList.remove('active'), 2000); }
@@ -1619,11 +1646,11 @@
         <!-- Center gap for the notch -->
         <div class="bar-notch-gap"></div>
 
-        <!-- Right button -->
-        <a href="https://apie2c.blogspot.com/" target="https://apie2c.blogspot.com" class="bar-btn">
-            <i class="fas fa-plus-circle text-base"></i>
-            <span>More</span>
-        </a>
+        <!-- Right button: shows "Back" when product modal is open, otherwise "More" -->
+        <button id="bar-more-btn" onclick="handleBarMoreBtn()" class="bar-btn">
+            <i id="bar-more-icon" class="fas fa-plus-circle text-base"></i>
+            <span id="bar-more-label">More</span>
+        </button>
 
         <!-- Amazon 3D button sits in the notch -->
         <a href="https://amzn.to/4sxqzNO" class="amazon-3d" aria-label="Shop on Amazon">
