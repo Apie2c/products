@@ -1117,7 +1117,10 @@
                         </div>
                     </div>
                     <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
-                    <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
+                    <div id="modal-desc-wrap">
+                        <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
+                        <button id="modal-desc-toggle" onclick="toggleModalDesc()" class="mt-1 text-brand-primary text-xs font-bold hover:underline focus:outline-none hidden"></button>
+                    </div>
                     <div class="pt-4 flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View on Amazon</a>
     
@@ -1241,7 +1244,7 @@
                         </div>
                         <span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span>
                     </div>
-                    <h3 class="font-bold text-xs truncate dark:text-gray-100">${p.name}</h3>
+                    <h3 class="font-bold text-xs leading-snug dark:text-gray-100">${p.name}</h3>
                 </div>
             </div>
         </div>`;
@@ -1447,7 +1450,19 @@
         document.getElementById('modal-img').src = p.img;
         document.getElementById('modal-title').innerText = p.name;
         document.getElementById('modal-cat').innerText = p.cat;
-        document.getElementById('modal-desc').innerText = p.desc;
+        const CHAR_LIMIT = 120;
+        const descEl = document.getElementById('modal-desc');
+        const toggleBtn = document.getElementById('modal-desc-toggle');
+        descEl.dataset.full = p.desc;
+        if (p.desc.length > CHAR_LIMIT) {
+            descEl.innerText = p.desc.slice(0, CHAR_LIMIT).trimEnd() + '…';
+            toggleBtn.innerText = 'more';
+            toggleBtn.dataset.expanded = 'false';
+            toggleBtn.classList.remove('hidden');
+        } else {
+            descEl.innerText = p.desc;
+            toggleBtn.classList.add('hidden');
+        }
         document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
@@ -1456,6 +1471,22 @@
         // Push a history entry so the browser back button can close the modal.
         // State carries the product id so popstate knows what happened.
         window.history.pushState({ productId: p.id }, '', `#product-${p.id}`);
+    }
+
+    function toggleModalDesc() {
+        const descEl = document.getElementById('modal-desc');
+        const toggleBtn = document.getElementById('modal-desc-toggle');
+        const CHAR_LIMIT = 120;
+        const fullText = descEl.dataset.full;
+        if (toggleBtn.dataset.expanded === 'false') {
+            descEl.innerText = fullText;
+            toggleBtn.innerText = 'less';
+            toggleBtn.dataset.expanded = 'true';
+        } else {
+            descEl.innerText = fullText.slice(0, CHAR_LIMIT).trimEnd() + '…';
+            toggleBtn.innerText = 'more';
+            toggleBtn.dataset.expanded = 'false';
+        }
     }
 
     function closeModal(skipHistory) {
