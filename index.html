@@ -1179,7 +1179,7 @@
             const response = await fetch('vault.json');
             if (!response.ok) throw new Error('Failed to fetch');
             LUXE_VAULT = await response.json();
-            
+
             productCatalog = Object.keys(LUXE_VAULT)
                 .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })))
                 .reverse();
@@ -1192,13 +1192,8 @@
             // ── Auto-open product from shared link ─────────────────
             const linkedId = getProductIdFromHash();
             if (linkedId !== null) {
-                // Push a clean base state FIRST so back-press can return to it.
                 window.history.replaceState({ page: 'home' }, '', window.location.pathname);
-                
-
-                setTimeout(() => {
-                openModal(linkedId);
-                }, 100);
+                setTimeout(() => { openModal(linkedId); }, 100);
             }
 
         } catch (error) {
