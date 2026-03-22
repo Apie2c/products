@@ -1343,27 +1343,40 @@
         updateWishlistCount();
 
         if (displayItems.length === 0) {
-            // Try to find similar products
-            const similar = getSimilarProducts(searchVal);
-            const similarHTML = similar.length > 0 ? `
+            // Try to find similar products by search term, or fall back to random picks
+            let similar = searchVal ? getSimilarProducts(searchVal) : [];
+            // If no fuzzy matches (or no search term), show popular/random products
+            if (similar.length === 0) {
+                similar = [...productCatalog].sort(() => 0.5 - Math.random()).slice(0, 8);
+            }
+            const isSearchEmpty = !searchVal;
+            const sectionLabel = isSearchEmpty ? 'You might also like' : 'You might like these instead';
+            const noResultsMsg = isSearchEmpty
+                ? `No products in this category yet`
+                : `No results for &ldquo;${searchVal}&rdquo;`;
+            const noResultsSub = isSearchEmpty
+                ? 'Check back soon or browse all products'
+                : 'Check spelling or try a different term';
+
+            const similarHTML = `
                 <div class="col-span-full mt-6">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
-                        <p class="text-[9px] uppercase tracking-[0.25em] font-bold text-gray-400">You might like these instead</p>
+                        <p class="text-[9px] uppercase tracking-[0.25em] font-bold text-gray-400">${sectionLabel}</p>
                         <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
                         ${similar.map((p, i) => renderProductCard(p, i)).join('')}
                     </div>
-                </div>` : '';
+                </div>`;
 
             grid.innerHTML = `
                 <div class="col-span-full flex flex-col items-center justify-center pt-16 pb-4 text-gray-400">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800/60 flex items-center justify-center mb-4">
                         <i class="fas fa-search text-2xl opacity-30"></i>
                     </div>
-                    <p class="uppercase tracking-[0.2em] text-[10px] font-bold mb-1">No results for "${searchVal}"</p>
-                    <p class="text-[9px] text-gray-400 mb-4">Check spelling or try a different term</p>
+                    <p class="uppercase tracking-[0.2em] text-[10px] font-bold mb-1">${noResultsMsg}</p>
+                    <p class="text-[9px] text-gray-400 mb-4">${noResultsSub}</p>
                     <button onclick="clearSearch()" class="text-brand-primary text-[9px] font-bold uppercase tracking-widest hover:underline flex items-center gap-1">
                         <i class="fas fa-times-circle text-[9px]"></i> Clear Search
                     </button>
@@ -1443,7 +1456,37 @@
         if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
     }
 
-    function openModal(id) {
+    function setBarRightBtn(mode) {
+        // mode: 'back' | 'more'
+        const btn = document.getElementById('bar-right-btn');
+        const icon = document.getElementById('bar-right-icon');
+        const label = document.getElementById('bar-right-label');
+        if (!btn || !icon || !label) return;
+        if (mode === 'back') {
+            icon.className = 'fas fa-arrow-left text-base';
+            label.textContent = 'Back';
+            btn.style.color = '#2563EB';
+        } else {
+            icon.className = 'fas fa-plus-circle text-base';
+            label.textContent = 'More';
+            btn.style.color = '';
+        }
+    }
+
+    function handleBarRightBtn() {
+        const icon = document.getElementById('bar-right-icon');
+        if (icon && icon.classList.contains('fa-arrow-left')) {
+            // We're in "Back" mode — close modal and go to home
+            closeModal();
+            scrollToTop();
+            clearSearch();
+        } else {
+            // Normal "More" mode — navigate to blog
+            window.open('https://apie2c.blogspot.com/', '_blank');
+        }
+    }
+
+
         const p = productCatalog.find(x => x.id === parseInt(id));
         if (!p) return;
         activeProductId = p.id;
@@ -1467,6 +1510,7 @@
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
         updateWishlistUI(p.id);
+        setBarRightBtn('back');
 
         // Push a history entry so the browser back button can close the modal.
         // State carries the product id so popstate knows what happened.
@@ -1493,6 +1537,7 @@
         document.getElementById('modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
         activeProductId = null;
+        setBarRightBtn('more');
 
         // Only manipulate history when NOT called from the popstate handler
         // (the handler already moved history backward for us).
@@ -1619,11 +1664,11 @@
         <!-- Center gap for the notch -->
         <div class="bar-notch-gap"></div>
 
-        <!-- Right button -->
-        <a href="https://apie2c.blogspot.com/" target="https://apie2c.blogspot.com" class="bar-btn">
-            <i class="fas fa-plus-circle text-base"></i>
-            <span>More</span>
-        </a>
+        <!-- Right button: shows "More" normally, "Back" when product modal is open -->
+        <button id="bar-right-btn" onclick="handleBarRightBtn()" class="bar-btn">
+            <i id="bar-right-icon" class="fas fa-plus-circle text-base"></i>
+            <span id="bar-right-label">More</span>
+        </button>
 
         <!-- Amazon 3D button sits in the notch -->
         <a href="https://amzn.to/4sxqzNO" class="amazon-3d" aria-label="Shop on Amazon">
