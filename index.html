@@ -626,7 +626,7 @@
         ══════════════════════════════════════════ */
 
         .hero-mob {
-            display: none; /* Hidden on mobile — remove this line to show it again */
+            display: none;
             position: relative;
             overflow: hidden;
         }
@@ -931,24 +931,59 @@
 
         </div>
 
-        <!-- Right: featured product card -->
-        <div class="hd-right h-in i3" style="position:relative;">
-            <div style="position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 65%);filter:blur(50px);pointer-events:none;z-index:0;"></div>
-            <div id="hero-product-card" onclick="if(window._heroProductId) openModal(window._heroProductId)" style="position:relative;z-index:1;width:280px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:24px;overflow:hidden;backdrop-filter:blur(12px);box-shadow:0 24px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(37,99,235,0.12);cursor:pointer;transition:transform 0.3s ease, box-shadow 0.3s ease;"
-            onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 32px 70px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(37,99,235,0.35)'"
-            onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 24px 60px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(37,99,235,0.12)'">
-                <div id="hero-product-skeleton" style="padding:40px;display:flex;flex-direction:column;align-items:center;gap:14px;">
-                    <div style="width:44px;height:44px;border:3px solid rgba(37,99,235,0.25);border-top-color:#2563EB;border-radius:50%;animation:heroSpin .8s linear infinite;"></div>
-                    <div style="height:10px;width:70%;background:rgba(255,255,255,0.06);border-radius:6px;"></div>
-                    <div style="height:14px;width:90%;background:rgba(255,255,255,0.07);border-radius:6px;"></div>
-                </div>
-                <style>@keyframes heroSpin{to{transform:rotate(360deg);}}</style>
-            </div>
-            <!-- legacy showcase wrapper kept empty for DOM compatibility -->
-            <div class="hd-showcase" style="display:none;">
+        <!-- Right: animated product showcase -->
+        <div class="hd-right h-in i3">
+            <div class="hd-showcase">
 
-            </div><!-- /.hd-showcase hidden -->
-        </div><!-- /.hd-right -->
+                <!-- Orbit ring -->
+                <div class="hd-ring"></div>
+
+                <!-- SVG connector lines -->
+                <svg class="hd-svg-lines" viewBox="0 0 340 380">
+                    <line class="hd-line" x1="170" y1="190" x2="170" y2="50"/>
+                    <line class="hd-line" x1="170" y1="190" x2="50"  y2="200" style="animation-delay:-.8s"/>
+                    <line class="hd-line" x1="170" y1="190" x2="290" y2="200" style="animation-delay:-1.6s"/>
+                    <line class="hd-line" x1="170" y1="190" x2="170" y2="330" style="animation-delay:-2.4s"/>
+                </svg>
+
+                <!-- Product chip cards -->
+                <div class="hd-chip hd-chip-a">
+                    <div class="hd-chip-icon">🎧</div>
+                    <div>
+                        <span class="hd-chip-txt-top">Audio & Sound</span>
+                        <span class="hd-chip-txt-bot">Headphones · Speakers</span>
+                    </div>
+                </div>
+
+                <div class="hd-chip hd-chip-b">
+                    <div class="hd-chip-icon">💡</div>
+                    <div>
+                        <span class="hd-chip-txt-top">Smart Home</span>
+                        <span class="hd-chip-txt-bot">Lights · Sensors</span>
+                    </div>
+                </div>
+
+                <div class="hd-chip hd-chip-c">
+                    <div class="hd-chip-icon">⌚</div>
+                    <div>
+                        <span class="hd-chip-txt-top">Wearables</span>
+                        <span class="hd-chip-txt-bot">Watches · Fitness</span>
+                    </div>
+                </div>
+
+                <div class="hd-chip hd-chip-d">
+                    <div class="hd-chip-icon">📱</div>
+                    <div>
+                        <span class="hd-chip-txt-top">Mobile & Desk</span>
+                        <span class="hd-chip-txt-bot">Accessories · Gear</span>
+                    </div>
+                </div>
+
+                <!-- Center icon -->
+                <div class="hd-center-icon">⚡</div>
+
+            </div>
+        </div>
     </section>
 
     <!-- ── MOBILE HERO ──────────────────────────────── -->
@@ -1151,7 +1186,6 @@
 
             initCategories();
             renderProducts();
-            populateHeroProduct();
             loader.classList.add('hidden');
             grid.classList.remove('opacity-0');
 
@@ -1170,35 +1204,6 @@
         } catch (error) {
             loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
-    }
-
-    function populateHeroProduct() {
-        const card = document.getElementById('hero-product-card');
-        if (!card || !productCatalog.length) return;
-        const p = productCatalog[0]; // first = most recently added / featured product
-        window._heroProductId = p.id;
-        card.innerHTML = `
-            <div style="background:#fff;padding:16px;display:flex;align-items:center;justify-content:center;min-height:200px;">
-                <img src="${p.img}" alt="${p.name}" style="max-height:180px;max-width:100%;object-fit:contain;transition:transform .6s ease;" 
-                     onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-            </div>
-            <div style="padding:20px 20px 22px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                    <span style="font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#2563EB;">${p.cat}</span>
-                    <span style="display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;color:#22c55e;background:rgba(34,197,94,.1);border-radius:100px;padding:3px 9px;">
-                        <span style="width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
-                        ${p.status || 'In Stock'}
-                    </span>
-                </div>
-                <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:800;line-height:1.3;color:#f1f5f9;margin:0 0 8px;">${p.name}</h3>
-                <p style="font-size:.72rem;color:rgba(255,255,255,.38);line-height:1.6;margin:0 0 18px;">${(p.desc||'').slice(0,80).trimEnd()}${(p.desc||'').length>80?'…':''}</p>
-                <div style="display:flex;align-items:center;justify-content:space-between;">
-                    <span style="font-size:9px;font-weight:700;color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;">🔥 Most Popular</span>
-                    <span style="display:inline-flex;align-items:center;gap:5px;background:#2563EB;color:#fff;font-size:10px;font-weight:800;padding:7px 14px;border-radius:9px;box-shadow:0 4px 14px -2px rgba(37,99,235,.55);">
-                        View <i class="fas fa-arrow-right" style="font-size:8px;"></i>
-                    </span>
-                </div>
-            </div>`;
     }
 
     function initCategories() {
