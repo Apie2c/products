@@ -1181,8 +1181,15 @@
             LUXE_VAULT = await response.json();
             
             productCatalog = Object.keys(LUXE_VAULT)
-                .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })))
-                .reverse();
+                .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
+
+            // IDs of the last product in each category (shown as NEW on "All" view)
+            window.categoryLatestIds = new Set(
+                Object.keys(LUXE_VAULT).map(cat => {
+                    const items = LUXE_VAULT[cat];
+                    return items[items.length - 1].id;
+                })
+            );
 
             initCategories();
             renderProducts();
@@ -1220,7 +1227,7 @@
 
     function renderProductCard(p, index) {
         const isSaved = wishlist.includes(p.id);
-        const isNew = productCatalog.slice(0, 4).some(newItem => newItem.id === p.id);
+        const isNew = currentFilter === 'All' && window.categoryLatestIds && window.categoryLatestIds.has(p.id);
         const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">NEW</span>` : '';
         return `        
         <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
@@ -1335,10 +1342,17 @@
         const searchInputMobile = document.getElementById('searchInputMobile');
         const searchVal = (searchInput.value || searchInputMobile.value || '').toLowerCase();
         
-        const displayItems = productCatalog.filter(p => {
+        let displayItems = productCatalog.filter(p => {
             const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
             return matchesCat && p.name.toLowerCase().includes(searchVal);
         });
+
+        // "All" view: category-latest items float to top, rest stay in original insertion order
+        if (currentFilter === 'All' && window.categoryLatestIds) {
+            const latest = displayItems.filter(p => window.categoryLatestIds.has(p.id));
+            const rest   = displayItems.filter(p => !window.categoryLatestIds.has(p.id));
+            displayItems = [...latest, ...rest];
+        }
 
         updateWishlistCount();
 
