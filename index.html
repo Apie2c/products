@@ -1191,6 +1191,9 @@
                 })
             );
 
+            // Build the initial shuffled All-view order
+            buildAllViewOrder();
+
             initCategories();
             renderProducts();
             loader.classList.add('hidden');
@@ -1211,6 +1214,47 @@
         } catch (error) {
             loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
+    }
+
+    // ── Build a fresh shuffled order for the "All" view ───────────
+    // Latest product from each category floats to the top (marked NEW).
+    // The rest are interleaved round-robin across categories so every
+    // page gets a mix, then lightly shuffled within each page-sized
+    // chunk to avoid a mechanical pattern.
+    function buildAllViewOrder() {
+        const cats = Object.keys(LUXE_VAULT);
+
+        // 1. Pin the latest (last) product from each category at the top
+        const pinned = cats.map(cat => {
+            const items = LUXE_VAULT[cat];
+            return { ...items[items.length - 1], cat };
+        });
+
+        // 2. Collect the rest, grouped by category (excluding the pinned one)
+        const buckets = cats.map(cat => {
+            const items = LUXE_VAULT[cat];
+            return items.slice(0, -1).map(p => ({ ...p, cat }));
+        }).filter(b => b.length > 0);
+
+        // Shuffle within each bucket so order varies on each "All" click
+        buckets.forEach(b => b.sort(() => Math.random() - 0.5));
+
+        // 3. Interleave buckets round-robin so each page sees mixed categories
+        const interleaved = [];
+        const maxLen = Math.max(...buckets.map(b => b.length), 0);
+        for (let i = 0; i < maxLen; i++) {
+            buckets.forEach(b => { if (b[i]) interleaved.push(b[i]); });
+        }
+
+        // 4. Lightly shuffle within each page-sized chunk to break rigid pattern
+        const chunked = [];
+        for (let i = 0; i < interleaved.length; i += PRODUCTS_PER_PAGE) {
+            const chunk = interleaved.slice(i, i + PRODUCTS_PER_PAGE);
+            chunk.sort(() => Math.random() - 0.5);
+            chunked.push(...chunk);
+        }
+
+        window.allViewOrder = [...pinned, ...chunked];
     }
 
     function initCategories() {
@@ -1347,11 +1391,16 @@
             return matchesCat && p.name.toLowerCase().includes(searchVal);
         });
 
-        // "All" view: category-latest items float to top, rest stay in original insertion order
-        if (currentFilter === 'All' && window.categoryLatestIds) {
-            const latest = displayItems.filter(p => window.categoryLatestIds.has(p.id));
-            const rest   = displayItems.filter(p => !window.categoryLatestIds.has(p.id));
-            displayItems = [...latest, ...rest];
+        // "All" view: use the pre-built shuffled order (latest per category on top,
+        // rest interleaved across categories so every page shows a variety).
+        if (currentFilter === 'All' && window.allViewOrder) {
+            if (searchVal) {
+                // When searching, filter the shuffled order so relative order is kept
+                const idSet = new Set(displayItems.map(p => p.id));
+                displayItems = window.allViewOrder.filter(p => idSet.has(p.id) && p.name.toLowerCase().includes(searchVal));
+            } else {
+                displayItems = window.allViewOrder;
+            }
         }
 
         updateWishlistCount();
@@ -1523,6 +1572,8 @@
         currentPage = 1;
         document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
         if (el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
+        // Reshuffle every time "All" is clicked
+        if (cat === 'All') buildAllViewOrder();
         renderProducts();
     }
 
