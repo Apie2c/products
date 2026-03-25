@@ -1,0 +1,7 @@
+{
+  "categories": [
+    { "name": "Laptops",  "file": "laptops.json"  },
+    { "name": "Headphones",  "file": "headphones.json"  },
+    { "name": "Smart Home",    "file": "smart_home.json"    }
+  ]
+}

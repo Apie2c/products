@@ -1176,36 +1176,10 @@
         const loader = document.getElementById('loader');
         const grid = document.getElementById('product-grid');
         try {
-            // ── Step 1: fetch the manifest (index.json) ───────────────
-            // index.json format:
-            // {
-            //   "categories": [
-            //     { "name": "Phones",   "file": "phones.json"   },
-            //     { "name": "Laptops",  "file": "laptops.json"  },
-            //     { "name": "Cameras",  "file": "cameras.json"  }
-            //   ]
-            // }
-            const manifestRes = await fetch('index.json');
-            if (!manifestRes.ok) throw new Error('Failed to fetch index.json');
-            const manifest = await manifestRes.json();
-            const categoryList = manifest.categories; // [{ name, file }, ...]
-
-            // ── Step 2: fetch all category files in parallel ──────────
-            const results = await Promise.all(
-                categoryList.map(async ({ name, file }) => {
-                    const res = await fetch(file);
-                    if (!res.ok) throw new Error(`Failed to fetch ${file}`);
-                    const products = await res.json();
-                    return { name, products };
-                })
-            );
-
-            // ── Step 3: assemble LUXE_VAULT from the results ──────────
-            LUXE_VAULT = {};
-            results.forEach(({ name, products }) => {
-                LUXE_VAULT[name] = products;
-            });
-
+            const response = await fetch('vault.json');
+            if (!response.ok) throw new Error('Failed to fetch');
+            LUXE_VAULT = await response.json();
+            
             productCatalog = Object.keys(LUXE_VAULT)
                 .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
 
@@ -1230,6 +1204,7 @@
             if (linkedId !== null) {
                 // Push a clean base state FIRST so back-press can return to it.
                 window.history.replaceState({ page: 'home' }, '', window.location.pathname);
+                
 
                 setTimeout(() => {
                 openModal(linkedId);
@@ -1237,7 +1212,7 @@
             }
 
         } catch (error) {
-            loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">index.json manifest required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
+            loader.innerHTML = `<div class="text-center"><p class="text-gray-400 text-xs mb-4">Vault.json configuration required.</p><button onclick="location.reload()" class="bg-brand-primary text-white px-6 py-2 rounded-lg text-[10px] font-bold uppercase">Retry</button></div>`;
         }
     }
 
