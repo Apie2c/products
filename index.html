@@ -1209,11 +1209,12 @@
             productCatalog = Object.keys(LUXE_VAULT)
                 .flatMap(cat => LUXE_VAULT[cat].map(p => ({ ...p, cat })));
 
-            // categoryLatestIds is rebuilt each time buildAllViewOrder() runs
-            // (top 4 positions in the All view get the LATEST badge)
-
             // Build the initial shuffled All-view order
             buildAllViewOrder();
+
+            // Pre-build shuffled orders for each specific category tab
+            window.categoryViewOrders = {};
+            Object.keys(LUXE_VAULT).forEach(cat => buildCategoryOrder(cat));
 
             initCategories();
             renderProducts();
@@ -1236,42 +1237,27 @@
         }
     }
 
-    // ── Build a fresh shuffled order for the "All" view ───────────
-    // One product per category floats to the top (shuffled each time).
-    // The top 4 of those are labelled LATEST. The rest are interleaved
-    // round-robin across categories so every page shows a variety, then
-    // lightly shuffled within each page-sized chunk.
+    // ── Build a fresh shuffled order for the "All" / Home view ─────
+    // All products are interleaved round-robin across category buckets
+    // then lightly shuffled within each page-chunk for variety.
+    // The top 4 visible on page 1 get the "LATEST" badge.
     function buildAllViewOrder() {
         const cats = Object.keys(LUXE_VAULT);
 
-        // 1. Pick one representative (last) product from each category and
-        //    shuffle their order so "top 4" varies on every All/Home click.
-        const pinned = cats.map(cat => {
-            const items = LUXE_VAULT[cat];
-            return { ...items[items.length - 1], cat };
-        });
-        pinned.sort(() => Math.random() - 0.5);
+        // 1. Build per-category buckets, each fully shuffled
+        const buckets = cats.map(cat =>
+            LUXE_VAULT[cat].map(p => ({ ...p, cat }))
+                           .sort(() => Math.random() - 0.5)
+        ).filter(b => b.length > 0);
 
-        // 2. Top 4 pinned products get the LATEST badge
-        window.categoryLatestIds = new Set(pinned.slice(0, 4).map(p => p.id));
-
-        // 3. Collect the rest, grouped by category (excluding the pinned one)
-        const buckets = cats.map(cat => {
-            const items = LUXE_VAULT[cat];
-            return items.slice(0, -1).map(p => ({ ...p, cat }));
-        }).filter(b => b.length > 0);
-
-        // Shuffle within each bucket so order varies on each "All" click
-        buckets.forEach(b => b.sort(() => Math.random() - 0.5));
-
-        // 4. Interleave buckets round-robin so each page sees mixed categories
+        // 2. Interleave round-robin so pages stay category-diverse
         const interleaved = [];
         const maxLen = Math.max(...buckets.map(b => b.length), 0);
         for (let i = 0; i < maxLen; i++) {
             buckets.forEach(b => { if (b[i]) interleaved.push(b[i]); });
         }
 
-        // 5. Lightly shuffle within each page-sized chunk to break rigid pattern
+        // 3. Light shuffle within each page-chunk to avoid mechanical pattern
         const chunked = [];
         for (let i = 0; i < interleaved.length; i += PRODUCTS_PER_PAGE) {
             const chunk = interleaved.slice(i, i + PRODUCTS_PER_PAGE);
@@ -1279,16 +1265,17 @@
             chunked.push(...chunk);
         }
 
-        window.allViewOrder = [...pinned, ...chunked];
+        window.allViewOrder = chunked;
     }
 
     // ── Build a fresh shuffled order for a specific category view ──
-    // Called whenever a non-All category tab is clicked.
-    function buildCategoryViewOrder(cat) {
-        const items = (LUXE_VAULT[cat] || []).map(p => ({ ...p, cat }));
-        const shuffled = [...items].sort(() => Math.random() - 0.5);
+    // Called every time a category tab is clicked so products reshuffle.
+    // The top 4 that appear on page 1 get the "LATEST" badge.
+    function buildCategoryOrder(cat) {
         window.categoryViewOrders = window.categoryViewOrders || {};
-        window.categoryViewOrders[cat] = shuffled;
+        window.categoryViewOrders[cat] =
+            (LUXE_VAULT[cat] || []).map(p => ({ ...p, cat }))
+                                   .sort(() => Math.random() - 0.5);
     }
 
     function initCategories() {
@@ -1304,10 +1291,10 @@
         if (mobiles) mobiles.innerHTML = html;
     }
 
-    function renderProductCard(p, index) {
+    function renderProductCard(p, index, latestSet) {
         const isSaved = wishlist.includes(p.id);
-        const isNew = currentFilter === 'All' && window.categoryLatestIds && window.categoryLatestIds.has(p.id);
-        const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">LATEST</span>` : '';
+        const isLatest = latestSet && latestSet.has(p.id);
+        const newBadge = isLatest ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">LATEST</span>` : '';
         return `        
         <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
             <div class="absolute top-4 right-4 z-[40]">
@@ -1420,13 +1407,13 @@
         const searchInput = document.getElementById('searchInput');
         const searchInputMobile = document.getElementById('searchInputMobile');
         const searchVal = (searchInput.value || searchInputMobile.value || '').toLowerCase();
-        
+
         let displayItems = productCatalog.filter(p => {
             const matchesCat = currentFilter === 'All' || (currentFilter === 'Saved' ? wishlist.includes(p.id) : p.cat === currentFilter);
             return matchesCat && p.name.toLowerCase().includes(searchVal);
         });
 
-        // "All" view: use the pre-built shuffled order
+        // Use the pre-built shuffled order for "All" / Home view
         if (currentFilter === 'All' && window.allViewOrder) {
             if (searchVal) {
                 const idSet = new Set(displayItems.map(p => p.id));
@@ -1436,14 +1423,14 @@
             }
         }
 
-        // Category view: use the pre-built shuffled order for that category
+        // Use the per-category shuffled order for specific category tabs
         if (currentFilter !== 'All' && currentFilter !== 'Saved' &&
             window.categoryViewOrders && window.categoryViewOrders[currentFilter]) {
+            const catOrder = window.categoryViewOrders[currentFilter];
             if (searchVal) {
-                const idSet = new Set(displayItems.map(p => p.id));
-                displayItems = window.categoryViewOrders[currentFilter].filter(p => idSet.has(p.id) && p.name.toLowerCase().includes(searchVal));
+                displayItems = catOrder.filter(p => p.name.toLowerCase().includes(searchVal));
             } else {
-                displayItems = window.categoryViewOrders[currentFilter];
+                displayItems = catOrder;
             }
         }
 
@@ -1461,7 +1448,7 @@
                         <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-8">
-                        ${other.map((p, i) => renderProductCard(p, i)).join('')}
+                        ${other.map((p, i) => renderProductCard(p, i, null)).join('')}
                     </div>
                 </div>` : '';
 
@@ -1483,14 +1470,17 @@
             return;
         }
 
-        // Reset to page 1 if filter/search changed and current page is out of range
+        // Reset to page 1 if current page is out of range
         const totalPages = Math.ceil(displayItems.length / PRODUCTS_PER_PAGE);
         if (currentPage > totalPages) currentPage = 1;
 
         const startIdx = (currentPage - 1) * PRODUCTS_PER_PAGE;
         const pageItems = displayItems.slice(startIdx, startIdx + PRODUCTS_PER_PAGE);
 
-        grid.innerHTML = pageItems.map((p, index) => renderProductCard(p, index)).join('');
+        // Top 4 products on the current page get the "LATEST" badge
+        const latestSet = new Set(pageItems.slice(0, 4).map(p => p.id));
+
+        grid.innerHTML = pageItems.map((p, index) => renderProductCard(p, index, latestSet)).join('');
         renderPagination(displayItems.length);
     }
 
@@ -1616,11 +1606,11 @@
         currentPage = 1;
         document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
         if (el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
-        // Reshuffle on every tab click
+        // Reshuffle on every tab click so products get a fresh order
         if (cat === 'All') {
             buildAllViewOrder();
         } else if (cat !== 'Saved') {
-            buildCategoryViewOrder(cat);
+            buildCategoryOrder(cat);
         }
         renderProducts();
     }
