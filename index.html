@@ -1643,187 +1643,37 @@
     }
 
     // ── Share product ──────────────────────────────────────────────
-    // Builds a branded share card (product image + name) and shares it.
+    // Shares a direct link to the product. Falls back to copying the URL.
     async function shareProduct(event) {
         const btn = event.currentTarget;
         const old = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>';
 
-        const p = productCatalog.find(x => x.id === activeProductId);
         const productURL = buildProductURL(activeProductId);
 
         try {
-            // Build branded image on canvas
-            const blob = await buildShareImage(p);
-            const shareTitle = p ? p.name : 'Check this out on Nexora';
-            const shareText = p ? `${p.name}\n${productURL}` : productURL;
-
-            if (navigator.share && navigator.canShare && blob) {
-                const file = new File([blob], 'nexora-product.png', { type: 'image/png' });
-                const shareData = { files: [file], title: shareTitle, text: shareText, url: productURL };
-                if (navigator.canShare(shareData)) {
-                    await navigator.share(shareData);
-                    showToast('Shared!');
-                    btn.innerHTML = old; return;
-                }
-            }
-            // Fallback: share link only (no file)
+            // Try native share sheet first (mobile / modern browsers)
             if (navigator.share) {
-                await navigator.share({ title: shareTitle, text: shareText, url: productURL });
+                const p = productCatalog.find(x => x.id === activeProductId);
+                await navigator.share({
+                    title: p ? p.name : 'Check this out on Nexora',
+                    text: p ? p.desc : '',
+                    url: productURL,
+                });
                 showToast('Shared!');
             } else {
-                await navigator.clipboard.writeText(`${shareTitle}\n${productURL}`);
+                // Desktop fallback: copy link
+                await navigator.clipboard.writeText(productURL);
                 showToast('Link Copied!');
             }
         } catch (e) {
+            // User dismissed share sheet or clipboard failed – silently ignore
             if (e.name !== 'AbortError') {
                 try { await navigator.clipboard.writeText(productURL); showToast('Link Copied!'); } catch (_) {}
             }
         }
 
         btn.innerHTML = old;
-    }
-
-    // Draws a branded 1080×1080 card and returns a PNG Blob.
-    function buildShareImage(p) {
-        return new Promise((resolve) => {
-            const canvas = document.getElementById('shareCanvas');
-            const ctx = canvas.getContext('2d');
-            const W = 1080, H = 1080;
-            canvas.width = W; canvas.height = H;
-
-            const isDark = document.documentElement.classList.contains('dark');
-            const bg = isDark ? '#0B0F1A' : '#f0f4ff';
-            const cardBg = isDark ? '#111827' : '#ffffff';
-            const textColor = isDark ? '#f1f5f9' : '#0f172a';
-            const accent = '#2563EB';
-
-            // Background
-            ctx.fillStyle = bg;
-            ctx.fillRect(0, 0, W, H);
-
-            // Subtle grid
-            ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(37,99,235,0.06)';
-            ctx.lineWidth = 1;
-            for (let x = 0; x < W; x += 52) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-            for (let y = 0; y < H; y += 52) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-
-            // Card
-            const pad = 60, r = 40;
-            ctx.fillStyle = cardBg;
-            roundRect(ctx, pad, pad, W - pad * 2, H - pad * 2, r);
-            ctx.fill();
-
-            // Blue accent bar top
-            ctx.fillStyle = accent;
-            roundRect(ctx, pad, pad, W - pad * 2, 8, { tl: r, tr: r, bl: 0, br: 0 });
-            ctx.fill();
-
-            // Brand name
-            ctx.fillStyle = accent;
-            ctx.font = 'bold 52px "Plus Jakarta Sans", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('NEXORA.', W / 2, pad + 80);
-
-            // Load product image
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            img.onload = () => {
-                // Product image area
-                const imgAreaY = pad + 110, imgAreaH = 560;
-                const imgAreaW = W - pad * 2 - 80;
-                const imgAreaX = pad + 40;
-
-                // White image bg
-                ctx.fillStyle = '#ffffff';
-                roundRect(ctx, imgAreaX, imgAreaY, imgAreaW, imgAreaH, 24);
-                ctx.fill();
-
-                // Draw product image centered and contained
-                const scale = Math.min(imgAreaW / img.width, imgAreaH / img.height) * 0.85;
-                const dw = img.width * scale, dh = img.height * scale;
-                const dx = imgAreaX + (imgAreaW - dw) / 2;
-                const dy = imgAreaY + (imgAreaH - dh) / 2;
-                ctx.drawImage(img, dx, dy, dw, dh);
-
-                // Product name
-                const nameY = imgAreaY + imgAreaH + 56;
-                ctx.fillStyle = textColor;
-                ctx.font = 'bold 38px Montserrat, "Plus Jakarta Sans", sans-serif';
-                ctx.textAlign = 'center';
-                wrapText(ctx, p ? p.name : '', W / 2, nameY, W - pad * 2 - 80, 52, 2);
-
-                // Category pill — sits just above the URL bar
-                if (p && p.cat) {
-                    ctx.fillStyle = 'rgba(37,99,235,0.12)';
-                    const pillW = 200, pillH = 40, pillX = W / 2 - pillW / 2, pillY = H - pad - 188;
-                    roundRect(ctx, pillX, pillY, pillW, pillH, 20);
-                    ctx.fill();
-                    ctx.fillStyle = accent;
-                    ctx.font = 'bold 17px "Plus Jakarta Sans", sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(p.cat.toUpperCase(), W / 2, pillY + 27);
-                }
-
-                // Product URL bar
-                const urlBarH = 52, urlBarY = H - pad - 120;
-                ctx.fillStyle = isDark ? 'rgba(37,99,235,0.15)' : 'rgba(37,99,235,0.08)';
-                roundRect(ctx, pad + 40, urlBarY, W - pad * 2 - 80, urlBarH, 14);
-                ctx.fill();
-                ctx.strokeStyle = 'rgba(37,99,235,0.3)';
-                ctx.lineWidth = 1.5;
-                roundRect(ctx, pad + 40, urlBarY, W - pad * 2 - 80, urlBarH, 14);
-                ctx.stroke();
-
-                // Link icon + URL text
-                const urlText = p ? buildProductURL(p.id) : '';
-                ctx.fillStyle = accent;
-                ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
-                ctx.textAlign = 'center';
-                // Truncate URL if too long for display
-                let displayUrl = urlText;
-                if (ctx.measureText(displayUrl).width > W - pad * 2 - 140) {
-                    while (ctx.measureText(displayUrl + '…').width > W - pad * 2 - 140 && displayUrl.length > 10) {
-                        displayUrl = displayUrl.slice(0, -1);
-                    }
-                    displayUrl += '…';
-                }
-                ctx.fillText('🔗 ' + displayUrl, W / 2, urlBarY + 33);
-
-                // Footer tagline
-                ctx.fillStyle = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.25)';
-                ctx.font = '20px "Plus Jakarta Sans", sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('Smart Tech. Modern Living. Elevated Style.', W / 2, H - pad - 44);
-
-                canvas.toBlob(blob => resolve(blob), 'image/png');
-            };
-            img.onerror = () => resolve(null);
-            img.src = p ? p.img : '';
-        });
-    }
-
-    function roundRect(ctx, x, y, w, h, r) {
-        if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
-        ctx.beginPath();
-        ctx.moveTo(x + r.tl, y);
-        ctx.lineTo(x + w - r.tr, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r.tr);
-        ctx.lineTo(x + w, y + h - r.br); ctx.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
-        ctx.lineTo(x + r.bl, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r.bl);
-        ctx.lineTo(x, y + r.tl); ctx.quadraticCurveTo(x, y, x + r.tl, y);
-        ctx.closePath();
-    }
-
-    function wrapText(ctx, text, x, y, maxW, lineH, maxLines) {
-        const words = text.split(' ');
-        let line = '', lines = [];
-        for (const word of words) {
-            const test = line ? line + ' ' + word : word;
-            if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = word; } else { line = test; }
-        }
-        if (line) lines.push(line);
-        if (lines.length > maxLines) { lines = lines.slice(0, maxLines); lines[maxLines - 1] = lines[maxLines - 1].slice(0, -3) + '…'; }
-        lines.forEach((l, i) => ctx.fillText(l, x, y + i * lineH));
     }
 
 
