@@ -1655,10 +1655,12 @@
         try {
             // Build branded image on canvas
             const blob = await buildShareImage(p);
+            const shareTitle = p ? p.name : 'Check this out on Nexora';
+            const shareText = p ? `${p.name}\n${productURL}` : productURL;
 
             if (navigator.share && navigator.canShare && blob) {
                 const file = new File([blob], 'nexora-product.png', { type: 'image/png' });
-                const shareData = { files: [file], title: p ? p.name : 'Check this out on Nexora', url: productURL };
+                const shareData = { files: [file], title: shareTitle, text: shareText, url: productURL };
                 if (navigator.canShare(shareData)) {
                     await navigator.share(shareData);
                     showToast('Shared!');
@@ -1667,10 +1669,10 @@
             }
             // Fallback: share link only (no file)
             if (navigator.share) {
-                await navigator.share({ title: p ? p.name : 'Check this out on Nexora', url: productURL });
+                await navigator.share({ title: shareTitle, text: shareText, url: productURL });
                 showToast('Shared!');
             } else {
-                await navigator.clipboard.writeText(productURL);
+                await navigator.clipboard.writeText(`${shareTitle}\n${productURL}`);
                 showToast('Link Copied!');
             }
         } catch (e) {
@@ -1745,29 +1747,54 @@
                 ctx.drawImage(img, dx, dy, dw, dh);
 
                 // Product name
-                const nameY = imgAreaY + imgAreaH + 60;
+                const nameY = imgAreaY + imgAreaH + 56;
                 ctx.fillStyle = textColor;
                 ctx.font = 'bold 38px Montserrat, "Plus Jakarta Sans", sans-serif';
                 ctx.textAlign = 'center';
-                wrapText(ctx, p ? p.name : '', W / 2, nameY, W - pad * 2 - 80, 52, 3);
+                wrapText(ctx, p ? p.name : '', W / 2, nameY, W - pad * 2 - 80, 52, 2);
 
-                // Category pill
+                // Category pill — sits just above the URL bar
                 if (p && p.cat) {
                     ctx.fillStyle = 'rgba(37,99,235,0.12)';
-                    const pillW = 200, pillH = 44, pillX = W / 2 - pillW / 2, pillY = H - pad - 110;
-                    roundRect(ctx, pillX, pillY, pillW, pillH, 22);
+                    const pillW = 200, pillH = 40, pillX = W / 2 - pillW / 2, pillY = H - pad - 188;
+                    roundRect(ctx, pillX, pillY, pillW, pillH, 20);
                     ctx.fill();
                     ctx.fillStyle = accent;
-                    ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+                    ctx.font = 'bold 17px "Plus Jakarta Sans", sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText(p.cat.toUpperCase(), W / 2, pillY + 29);
+                    ctx.fillText(p.cat.toUpperCase(), W / 2, pillY + 27);
                 }
 
-                // Footer tagline
-                ctx.fillStyle = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)';
-                ctx.font = '22px "Plus Jakarta Sans", sans-serif';
+                // Product URL bar
+                const urlBarH = 52, urlBarY = H - pad - 120;
+                ctx.fillStyle = isDark ? 'rgba(37,99,235,0.15)' : 'rgba(37,99,235,0.08)';
+                roundRect(ctx, pad + 40, urlBarY, W - pad * 2 - 80, urlBarH, 14);
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(37,99,235,0.3)';
+                ctx.lineWidth = 1.5;
+                roundRect(ctx, pad + 40, urlBarY, W - pad * 2 - 80, urlBarH, 14);
+                ctx.stroke();
+
+                // Link icon + URL text
+                const urlText = p ? buildProductURL(p.id) : '';
+                ctx.fillStyle = accent;
+                ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText('Smart Tech. Modern Living. Elevated Style.', W / 2, H - pad - 50);
+                // Truncate URL if too long for display
+                let displayUrl = urlText;
+                if (ctx.measureText(displayUrl).width > W - pad * 2 - 140) {
+                    while (ctx.measureText(displayUrl + '…').width > W - pad * 2 - 140 && displayUrl.length > 10) {
+                        displayUrl = displayUrl.slice(0, -1);
+                    }
+                    displayUrl += '…';
+                }
+                ctx.fillText('🔗 ' + displayUrl, W / 2, urlBarY + 33);
+
+                // Footer tagline
+                ctx.fillStyle = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.25)';
+                ctx.font = '20px "Plus Jakarta Sans", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Smart Tech. Modern Living. Elevated Style.', W / 2, H - pad - 44);
 
                 canvas.toBlob(blob => resolve(blob), 'image/png');
             };
