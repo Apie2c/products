@@ -1617,6 +1617,16 @@
         } else if (cat !== 'Saved') {
             buildCategoryOrder(cat);
         }
+        // Hide hero when any category other than 'All' is selected
+        const heroDesk = document.querySelector('.hero-desk');
+        const heroMob = document.querySelector('.hero-mob');
+        if (cat === 'All') {
+            if (heroDesk) heroDesk.style.display = '';
+            if (heroMob) heroMob.style.display = '';
+        } else {
+            if (heroDesk) heroDesk.style.display = 'none';
+            if (heroMob) heroMob.style.display = 'none';
+        }
         renderProducts();
     }
 
