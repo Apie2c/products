@@ -369,14 +369,6 @@
     },
     {
         "id": 2047,
-        "name": "Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel Ultra 7 155U Processor, 14\" WUXGA 100% sRGB Touchscreen, 32GB 6400MHz RAM, 1TB Gen4 Performance SSD, FHD+ IR+ RGB Camera, and Windows 11 Pro",
-        "asin": "B0DCP8FXQB",
-        "img": "https://m.media-amazon.com/images/I/61GSvJjxBuL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel...",
-        "status": "Available"
-    },
-    {
-        "id": 2048,
         "name": "HP OmniBook X Flip 2-in-1 Copilot+ Laptop, Intel Ultra 7-256V, 16GB LPDDR5x RAM, 1TB PCIe SSD, 14\" 2K(1920x1200) Touchscreen, Intel Arc 140V, Backlit Keyboard, W11Pro, Atmospheric Blue",
         "asin": "B0FDX2MG3C",
         "img": "https://m.media-amazon.com/images/I/71jxvXQVjGL._AC_UY218_.jpg",
@@ -384,7 +376,7 @@
         "status": "Available"
     },
     {
-        "id": 2049,
+        "id": 2048,
         "name": "Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ultra 7-155U, 32 GB LPDDR5x RAM, 2 TB PCIe SSD, 14\" WUXGA (1920x1200) Display, Integrated Graphics, Backlit Keyboard, FP Reader, W11 Pro, Eclipse Black",
         "asin": "B0G2CL7TN5",
         "img": "https://m.media-amazon.com/images/I/71HEN-rzYfL._AC_UY218_.jpg",
@@ -392,15 +384,7 @@
         "status": "Available"
     },
     {
-        "id": 2050,
-        "name": "Lenovo ThinkPad P14s Gen 5 Mobile Workstation Laptop 14\" 2.8K (2880x1800) OLED 120Hz (400nits) AMD 8-core Ryzen 7 PRO 8840HS (>i7-12700H) 64GB RAM 1TB SSD Backlit Fingerprint Win11Pro w/ICP Accessory",
-        "asin": "B0DGP9VQ7B",
-        "img": "https://m.media-amazon.com/images/I/71MMXV-LgQL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Mobile Workstation Lapt...",
-        "status": "Available"
-    },
-    {
-        "id": 2051,
+        "id": 2049,
         "name": "Dell 14 Plus 2-in-1 Laptop, 14\" WUXGA Touchscreen, Intel Ultra 9 288V 8 Cores, Intel Arc Graphics 140V, 32GB LPDDR5+ 1TB SSD, Win11 Pro, HDMI 2.1, Wi-Fi 7, Backlit Keyboard, Fingerprint Reader",
         "asin": "B0FVLWPPJV",
         "img": "https://m.media-amazon.com/images/I/81Fd-FdtnXL._AC_UY218_.jpg",
@@ -408,15 +392,7 @@
         "status": "Available"
     },
     {
-        "id": 2052,
-        "name": "Samsung Laptop,with RECOLX AI Voice Recorder",
-        "asin": "B0FJS2V1CB",
-        "img": "https://m.media-amazon.com/images/I/51mbIJPewSL._AC_UY218_.jpg",
-        "desc": "Description for Samsung Laptop,with RECOLX AI Voice Recorder...",
-        "status": "Available"
-    },
-    {
-        "id": 2053,
+        "id": 2050,
         "name": "Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ultra 7-155U, 32 GB LPDDR5x RAM, 4 TB PCIe SSD, 14\" WUXGA (1920x1200) Display, Integrated Graphics, Backlit Keyboard, FP Reader, W11 Pro, Eclipse Black",
         "asin": "B0G2CJXM3C",
         "img": "https://m.media-amazon.com/images/I/71HEN-rzYfL._AC_UY218_.jpg",
@@ -424,7 +400,7 @@
         "status": "Available"
     },
     {
-        "id": 2054,
+        "id": 2051,
         "name": "Dell Latitude 5450 Laptop 14\" FHD, Intel Core Ultra 7-155U, 16GB RAM, 1TB NVMe SSD, Webcam, Wi-Fi 6E, Bluetooth, Backlit Keyboard,Sim Slot, HDMI, USB C- Display Port, Windows 11 Pro, Notebook, Grey",
         "asin": "B0G455BPRG",
         "img": "https://m.media-amazon.com/images/I/51KzcHsa33L._AC_UY218_.jpg",
@@ -432,7 +408,7 @@
         "status": "Available"
     },
     {
-        "id": 2055,
+        "id": 2052,
         "name": "Lenovo Gen 13 ThinkPad X1 Carbon Aura Edition Laptop with Intel Core Ultra 7 258V Processor, 14\" 2.8K OLED Non-Touch 120Hz Display, Wi-Fi 7, 32GB RAM, 1TB SSD Gen 5, FHD RGB/IR Cam, Win 11 Pro",
         "asin": "B0FP5WXWZJ",
         "img": "https://m.media-amazon.com/images/I/61WHbiPXOsL._AC_UY218_.jpg",
@@ -440,31 +416,7 @@
         "status": "Available"
     },
     {
-        "id": 2056,
-        "name": "Lenovo ThinkPad P14s Gen 5 AMD (14\u2033) AI Ready, Ryzen 7 PRO 8840H, 2.8K (2880 x 1800) OLED, AG/AR/AM 120 Hz, 64GB DDR5, 1 TB SSD, Radeon 780M, WWAN Ready, 4 Cells Battery, Win 11 Pro - Black",
-        "asin": "B0DH2RQM76",
-        "img": "https://m.media-amazon.com/images/I/71fCQuDTV7L._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 AMD (14\u2033) AI Ready, Ryz...",
-        "status": "Available"
-    },
-    {
-        "id": 2057,
-        "name": "Lenovo ThinkPad P14s Gen 5 Intel Core Ultra 7 155H, 16C, 14.5\" 3K (3072 x 1920) Non-Touch,120Hz, 64GB RAM DDR5, 2 TB SSD, NVIDIA RTX 500 Ada Backlit KYB, Fingerprint Reader, Windows 11 Pro",
-        "asin": "B0D8RC497F",
-        "img": "https://m.media-amazon.com/images/I/41DJbRDzpiL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Intel Core Ultra 7 155H...",
-        "status": "Available"
-    },
-    {
-        "id": 2058,
-        "name": "HP 15.6\" FHD Touchscreen Business Laptop, Intel i7-1255U, 32GB RAM, 1TB PCIe SSD, Intel Iris Xe Graphics, Num Pad, Webcam, Windows 11 Pro, Natural Silver, 32GB Hotface USB Card",
-        "asin": "B0CYZLQ5Q3",
-        "img": "https://m.media-amazon.com/images/I/815QX9PuzHL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" FHD Touchscreen Business Laptop, Intel i7...",
-        "status": "Available"
-    },
-    {
-        "id": 2059,
+        "id": 2053,
         "name": "Lenovo Thinkpad X9-14 Gen 1 14\" OLED CoPilot+ PC Notebook Intel Core Ultra 7 258v Processor 32 GB LPDDR5x 1TB SSD Intel Arc Graphics Grey - 14\" WUXGA OLED Display - Core Ultra 7 258V - 32 GB LPDDR5x -",
         "asin": "B0F43HPNRF",
         "img": "https://m.media-amazon.com/images/I/61oSpIM34HL._AC_UY218_.jpg",
@@ -472,23 +424,7 @@
         "status": "Available"
     },
     {
-        "id": 2060,
-        "name": "Lenovo 2025 Laptop | Yoga Slim 7 | 15.3\" 2880x1800 Touch IPS | Intel-8 Core Ultra 7 258V | 32GB LPDDR5 | 2TB SSD | Windows 11 Pro | Wi-Fi 7 - BT 5.4 - Backlit KB - FHD 1080p + IR Camera - Luna Grey",
-        "asin": "B0FRS9XJMJ",
-        "img": "https://m.media-amazon.com/images/I/61B8-lF+VkL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo 2025 Laptop | Yoga Slim 7 | 15.3\" 2880x1800...",
-        "status": "Available"
-    },
-    {
-        "id": 2061,
-        "name": "HP 15.6\" FHD Touchscreen Laptop for College Student & Business, AMD Ryzen 7 7730U 8-Core(Beat i7-1355U), 32 GB RAM, 1 TB SSD, AMD Radeon Graphics, Long Battery Life, WiFi 6, Copilot, Windows 11 Pro",
-        "asin": "B0FL2KP15Y",
-        "img": "https://m.media-amazon.com/images/I/81c-SKMVvxL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" FHD Touchscreen Laptop for College Studen...",
-        "status": "Available"
-    },
-    {
-        "id": 2062,
+        "id": 2054,
         "name": "HP Victus Gaming Laptop 15.6\" FHD IPS 144Hz Intel 8-core i5-13420H (>i7-12650H) 32GB RAM 2TB SSD GeForce RTX 4050 6GB Backlit Type-C B&O Fast Charge Win11Pro ICP Accessory",
         "asin": "B0FPWPZ6CK",
         "img": "https://m.media-amazon.com/images/I/71HLVvkt7-L._AC_UY218_.jpg",
@@ -496,7 +432,7 @@
         "status": "Available"
     },
     {
-        "id": 2063,
+        "id": 2055,
         "name": "Lenovo ThinkPad X1 Carbon Gen 12, Intel Ultra 7 155U || 32GB LPDDR5 RAM || 1TB M.2 2280 SSD || 14\" WUXGA (1920x1200) IPS 400nits Non-Touch Display || Thunderbolt, Win11 Pro - AI PC",
         "asin": "B0D8CRBYT8",
         "img": "https://m.media-amazon.com/images/I/61wI2gVGu-L._AC_UY218_.jpg",
@@ -504,31 +440,7 @@
         "status": "Available"
     },
     {
-        "id": 2064,
-        "name": "Lenovo Yoga Slim 7 15ILL9 Laptop / 15.3\" 2880x1800 Touch 120Hz / 8 Cores Intel Ultra 7 256V Intel Arc Graphics 140V / 16GB LPDDR5 1TB SSD/Backlit KB Thunderbolt 4 / Win11 Pro/Luna Grey / 32GB USB",
-        "asin": "B0F997D3K1",
-        "img": "https://m.media-amazon.com/images/I/61GJ31QN7PL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Yoga Slim 7 15ILL9 Laptop / 15.3\" 2880x1800...",
-        "status": "Available"
-    },
-    {
-        "id": 2065,
-        "name": "Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel Ultra 7 155H Processor, 14\" WUXGA 100% sRGB Touch Display, 32GB DDR5 RAM, 1TB Gen4 Performance SSD, FHD+ IR+ RGB Camera, and Windows 11 Pro",
-        "asin": "B0FFPF4T9X",
-        "img": "https://m.media-amazon.com/images/I/71pVgBKHSJL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel...",
-        "status": "Available"
-    },
-    {
-        "id": 2066,
-        "name": "HP Victus Gaming 15 Laptop / 15.6\" 1920x1080 144Hz / Intel 8-Core i5-13420H / NVIDIA GeForce RTX 3050 6GB GDDR6 / 64GB DDR4 2TB NVMe SSD/Backlit Keyboard/Wi-Fi 6 / Win11 Pro",
-        "asin": "B0FJL2BDSY",
-        "img": "https://m.media-amazon.com/images/I/71piyyXO1pL._AC_UY218_.jpg",
-        "desc": "Description for HP Victus Gaming 15 Laptop / 15.6\" 1920x1080 144Hz...",
-        "status": "Available"
-    },
-    {
-        "id": 2067,
+        "id": 2056,
         "name": "HP EliteBook X G1i 14 inch Notebook Next Gen AI PC - WUXGA Touchscreen - (Intel Core Ultra 7 258V Octa-core (8 Core) 2.2 GHz) - 32 GB Total RAM - 1TB SSD - Windows 11 Pro",
         "asin": "B0FGWN3BJY",
         "img": "https://m.media-amazon.com/images/I/71thojxd0HL._AC_UY218_.jpg",
@@ -536,39 +448,7 @@
         "status": "Available"
     },
     {
-        "id": 2068,
-        "name": "HP 15.6\" FHD Touchscreen Laptop | 13th Gen Intel i7-1355U (10-Core, up to 5GHz) | 32GB RAM | 1TB SSD | Iris Xe Graphics | Win 11 Pro | Long Battery | Wi-Fi 6 | W/Mouse",
-        "asin": "B0FHH5M88Z",
-        "img": "https://m.media-amazon.com/images/I/81fbU9XQJvL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" FHD Touchscreen Laptop | 13th Gen Intel i...",
-        "status": "Available"
-    },
-    {
-        "id": 2069,
-        "name": "SAMSUNG Galaxy Book4 Pro 360 2-in-1 Business Laptop, 16\" 3K AMOLED Touchscreen, Intel 16-Core Ultra 7 155H, Long Battery Life, Thin & Light, 1080P AI Webcam, Windows 11Pro, w/128G PSD",
-        "asin": "B0DYJHS4Q7",
-        "img": "https://m.media-amazon.com/images/I/710nfASk8hL._AC_UY218_.jpg",
-        "desc": "Description for SAMSUNG Galaxy Book4 Pro 360 2-in-1 Business Lapto...",
-        "status": "Available"
-    },
-    {
-        "id": 2070,
-        "name": "Samsung Laptop,with RECOLX AI Voice Recorder",
-        "asin": "B0FJRYPXR8",
-        "img": "https://m.media-amazon.com/images/I/51mbIJPewSL._AC_UY218_.jpg",
-        "desc": "Description for Samsung Laptop,with RECOLX AI Voice Recorder...",
-        "status": "Available"
-    },
-    {
-        "id": 2071,
-        "name": "HP Victus 15.6 Ryzen 5 Premium Gaming Laptop, 15.6\" FHD 144Hz, Ryzen 5 7535HS (Beats i5-13420H), AMD Radeon RX 6550M (Beats GeForce RTX 3050), 16GB RAM, 1TB SSD, W11P, with 512GB External SSD Bundle",
-        "asin": "B0DDTWXZN6",
-        "img": "https://m.media-amazon.com/images/I/711GZ2eshbL._AC_UY218_.jpg",
-        "desc": "Description for HP Victus 15.6 Ryzen 5 Premium Gaming Laptop, 15.6...",
-        "status": "Available"
-    },
-    {
-        "id": 2072,
+        "id": 2057,
         "name": "HP Pavilion 15.6\" FHD Touchscreen Laptop Computer, 10-Core Intel Core i5-1334U, 16GB RAM, 512GB SSD, Webcam, Fast Wi-Fi 6, 11 Hours Long Battery Life, Windows 11 Pro w/AI Copilot (32GB | 1TB SSD)",
         "asin": "B0FCZY6D3S",
         "img": "https://m.media-amazon.com/images/I/51hYuDx-kKL._AC_UY218_.jpg",
@@ -576,7 +456,7 @@
         "status": "Available"
     },
     {
-        "id": 2073,
+        "id": 2058,
         "name": "Lenovo ThinkPad X1 Yoga Gen 10 2-in-1 Intel Ultra 7 255U, 14\" WUXGA (1920x1200) IPS 500nits 60HzTouch Display, 32GB LPDDR5 RAM, 4TB M.2 2280 SSD, Thunderbolt, and Window 11 Pro - AI PC",
         "asin": "B0FR5KV1KS",
         "img": "https://m.media-amazon.com/images/I/61Ax4P9UhgL._AC_UY218_.jpg",
@@ -584,23 +464,7 @@
         "status": "Available"
     },
     {
-        "id": 2074,
-        "name": "Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ultra 7-155U, 32 GB LPDDR5x RAM, 4 TB PCIe SSD, 14\" WUXGA (1920x1200) Display, Integrated Graphics, Backlit Keyboard, FP Reader, W11 Pro, Eclipse Black",
-        "asin": "B0G2CJXM3C",
-        "img": "https://m.media-amazon.com/images/I/71HEN-rzYfL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ult...",
-        "status": "Available"
-    },
-    {
-        "id": 2075,
-        "name": "Lenovo ThinkPad P14s Gen 5 Mobile Workstation, AMD Ryzen 7 PRO 8840HS, 64 GB DDR5 RAM, 1 TB PCIe SSD, 14\u2033 2.8K (2880x1800) Display, AMD Radeon 780M, Backlit Keyboard, W11 Pro, Black",
-        "asin": "B0F4RFKP1C",
-        "img": "https://m.media-amazon.com/images/I/71bKujV1t+L._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Mobile Workstation, AMD...",
-        "status": "Available"
-    },
-    {
-        "id": 2076,
+        "id": 2059,
         "name": "HP Pavilion 15.6\" FHD Business Laptop, Intel i3-N305, 64GB RAM, 2.16TB Storage(2TB SSD+160GB Docking Station Set), Intel UHD Graphics, Numeric Keypad, Fingerprint Reader, Wi-Fi 6, Win 11 Pro, Silver",
         "asin": "B0GQSSXT9W",
         "img": "https://m.media-amazon.com/images/I/81-6utZgLlL._AC_UY218_.jpg",
@@ -608,23 +472,7 @@
         "status": "Available"
     },
     {
-        "id": 2077,
-        "name": "Lenovo ThinkPad P14s Gen 5 Mobile Workstation Laptop 14\" 2.8K (2880x1800) OLED 120Hz (400nits) AMD 8-core Ryzen 7 PRO 8840HS (>i7-12700H) 64GB RAM 4TB SSD Backlit Fingerprint Win11Pro w/ICP Accessory",
-        "asin": "B0DGPVF9C9",
-        "img": "https://m.media-amazon.com/images/I/71HKxO5yDCL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Mobile Workstation Lapt...",
-        "status": "Available"
-    },
-    {
-        "id": 2078,
-        "name": "HP EliteBook 845 G9 Business Laptop,14/ WUXGA Display,AMD Ryzen 7 PRO 6850U Processor,32GB DDR5 RAM,1TB SSD,Wi-Fi 6,Backlit KB,Webcam,FP Reader,HDMI,Windows 11 Pro,Silver HSN-I49C-4_544M*AV",
-        "asin": "B0CDYJXGTD",
-        "img": "https://m.media-amazon.com/images/I/615JzCn4ozL._AC_UY218_.jpg",
-        "desc": "Description for HP EliteBook 845 G9 Business Laptop,14/ WUXGA Disp...",
-        "status": "Available"
-    },
-    {
-        "id": 2079,
+        "id": 2060,
         "name": "Dell 14 Plus 2-in-1 14\u201d WUXGA Touch Laptop 8-Core Intel Core Ultra 9 288V Arc Graphics 32GB LPDDR5 1TB NVMe SSD Thunderbolt 4 WiFi BE BT Webcam HDMI2.1 Backlit KB Fingerprint Windows 11 Pro",
         "asin": "B0FVM268BS",
         "img": "https://m.media-amazon.com/images/I/81Fd-FdtnXL._AC_UY218_.jpg",
@@ -632,23 +480,7 @@
         "status": "Available"
     },
     {
-        "id": 2080,
-        "name": "Dell Latitude 5540 Laptop - 15.6\" FHD AG Touch Display - Intel Core i7-1370P 14-Core (13th Gen) - 512GB SSD - 32GB RAM - with Nvidia GeForce MX550 - Windows 11 pro",
-        "asin": "B0C96LHN89",
-        "img": "https://m.media-amazon.com/images/I/613lJugVN1L._AC_UY218_.jpg",
-        "desc": "Description for Dell Latitude 5540 Laptop - 15.6\" FHD AG Touch Dis...",
-        "status": "Available"
-    },
-    {
-        "id": 2081,
-        "name": "HP Victus 15.6\" 144Hz FHD Gaming Laptop, Intel i5-13420H, 64GB RAM, 5TB Storage(4TB SSD+1TB Docking Station Set), NVIDIA GeForce RTX 3050, Backlit Keyboard, Camera, Wi-Fi 6, Windows 11 Home, Silver",
-        "asin": "B0DPKVX4JG",
-        "img": "https://m.media-amazon.com/images/I/81gQcVGxtvL._AC_UY218_.jpg",
-        "desc": "Description for HP Victus 15.6\" 144Hz FHD Gaming Laptop, Intel i5-...",
-        "status": "Available"
-    },
-    {
-        "id": 2082,
+        "id": 2061,
         "name": "Lenovo ThinkPad X1 Yoga Gen 9 2-in-1 with Intel Ultra 7 165U vPro Processor, 14\" 2.8K (2880 x 1800), OLED, Anti-Reflective, Touch, 64GB 6400MHz RAM, 2TB Gen4 SSD, 2160P RGB IR Camera, Win 11 Pro",
         "asin": "B0DPJL3T23",
         "img": "https://m.media-amazon.com/images/I/51Gbtg0LIQL._AC_UY218_.jpg",
@@ -656,15 +488,7 @@
         "status": "Available"
     },
     {
-        "id": 2083,
-        "name": "HP 15.6\" Touchscreen Laptop | 12th Gen Intel i5-1235U (Beats i7-8700) | 32GB RAM | 2TB SSD | Iris Xe Graphics | Win 11 Pro | Fast Charge | Silver | W/Mouse",
-        "asin": "B0DXKFHXYW",
-        "img": "https://m.media-amazon.com/images/I/91+N0MWZMtL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" Touchscreen Laptop | 12th Gen Intel i5-12...",
-        "status": "Available"
-    },
-    {
-        "id": 2084,
+        "id": 2062,
         "name": "Lenovo ThinkPad X1 Yoga Gen 9 2-in-1 with Intel Ultra 7 165U vPro Processor, 14\" 2.8K (2880 x 1800), OLED, Anti-Reflective, Touch, 64GB 6400MHz RAM, 1TB Gen4 SSD, 2160P RGB IR Camera, Win 11 Pro",
         "asin": "B0DPJLG9S3",
         "img": "https://m.media-amazon.com/images/I/51Gbtg0LIQL._AC_UY218_.jpg",
@@ -672,31 +496,7 @@
         "status": "Available"
     },
     {
-        "id": 2085,
-        "name": "Lenovo ThinkBook Business Laptop, 12 Core Intel Ultra 7 155U Intel Graphics, 64GB DDR5 RAM 2TB SSD, 14\" WUXGA LED-Backlit Touchscreen Display, Wi-Fi 6, Thunderbolt 4, Backlit Keyboard FP, Win11 Pro",
-        "asin": "B0F216S7HL",
-        "img": "https://m.media-amazon.com/images/I/51n5+0sl8+L._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkBook Business Laptop, 12 Core Intel Ul...",
-        "status": "Available"
-    },
-    {
-        "id": 2086,
-        "name": "Dell Inspiron 3530 15.6\u201d FHD Touchscreen Laptop Computer, 13th Gen Intel Core i7-1355U 10-Core, 32GB RAM, 1TB SSD, Numeric Keypad, Wi-Fi 6, Webcam, Windows 11 Pro, Carbon Black",
-        "asin": "B0CRVMQ4GH",
-        "img": "https://m.media-amazon.com/images/I/61jCGOXzuyL._AC_UY218_.jpg",
-        "desc": "Description for Dell Inspiron 3530 15.6\u201d FHD Touchscreen Laptop Co...",
-        "status": "Available"
-    },
-    {
-        "id": 2087,
-        "name": "Lenovo ThinkBook Business Laptop (2025):14\" WUXGA 1920 x 1200 60Hz \u2022 Intel Core 7 240H \u2022 32 GB RAM \u2022 2 TB SSD \u2022 Win11 Pro \u2022 Wi-Fi 6 \u2022 Backlit KB \u2022 1080p FHD Camera \u2022 HD Audio \u2022 Thunderbolt 4",
-        "asin": "B0F7LBZKBT",
-        "img": "https://m.media-amazon.com/images/I/61y1rchZ0vL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkBook Business Laptop (2025):14\" WUXGA ...",
-        "status": "Available"
-    },
-    {
-        "id": 2088,
+        "id": 2063,
         "name": "ASUS TUF 15.6 i7 RTX 4070 Premium Gaming Laptop, 15.6\" FHD 1920 * 1080 144Hz, Intel i7-13620H (Beats Intel i9-12900), NVIDIA GeForce RTX 4070, 64GB DDR5, 2TB SSD, RGB Backlit Keyboard, Windows 11 Pro",
         "asin": "B0D43RBRBT",
         "img": "https://m.media-amazon.com/images/I/71Fp3nnXI2L._AC_UY218_.jpg",
@@ -704,39 +504,7 @@
         "status": "Available"
     },
     {
-        "id": 2089,
-        "name": "Dell inspiron 15 Touchscreen Laptop -Intel Core i5-1334U -15inch FHD Touch -32GB RAM -1TB PCIe SSD -Business Laptop Windows 11 Pro - Office 365 -Computadora Work College Student - 3.6lbs Light",
-        "asin": "B0FMX5P59C",
-        "img": "https://m.media-amazon.com/images/I/71HjvjhFbpL._AC_UY218_.jpg",
-        "desc": "Description for Dell inspiron 15 Touchscreen Laptop -Intel Core i5...",
-        "status": "Available"
-    },
-    {
-        "id": 2090,
-        "name": "Dell inspiron 15 Touchscreen Laptop -Intel Core i7-1355U -15.6\" FHD Touch -32GB RAM -1TB SSD -Business Laptop Windows 11 Pro - Office 365 -Computadora Work College Student - 3.6lbs Light",
-        "asin": "B0FX3JP7CN",
-        "img": "https://m.media-amazon.com/images/I/711HacITE0L._AC_UY218_.jpg",
-        "desc": "Description for Dell inspiron 15 Touchscreen Laptop -Intel Core i7...",
-        "status": "Available"
-    },
-    {
-        "id": 2091,
-        "name": "Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ultra 7-155U, 32 GB LPDDR5x RAM, 2 TB PCIe SSD, 14\" WUXGA (1920x1200) Display, Integrated Graphics, Backlit Keyboard, FP Reader, W11 Pro, Eclipse Black",
-        "asin": "B0G2CL7TN5",
-        "img": "https://m.media-amazon.com/images/I/71HEN-rzYfL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ult...",
-        "status": "Available"
-    },
-    {
-        "id": 2092,
-        "name": "Dell Inspiron 15 Laptop for Students and Business, 15.6 FHD Touchscreen Display, 12th Gen Intel Core i5-1235U, 16GB RAM, 1TB PCIe SSD, Keypad, Webcam, HDMI, SD Card Reader, PDG HDMI Cable, Win 11 Pro",
-        "asin": "B07SGCL1L8",
-        "img": "https://m.media-amazon.com/images/I/610oEl4okHL._AC_UY218_.jpg",
-        "desc": "Description for Dell Inspiron 15 Laptop for Students and Business,...",
-        "status": "Available"
-    },
-    {
-        "id": 2093,
+        "id": 2064,
         "name": "Acer Aspire 14 AI 14\"WUXGA IPS Touchscreen Laptop, Intel Ultra 9 288V, 32GB LPDDR5X, 3TB Storage(2TB SSD+1TB Docking Station Set), Intel Arc 140V, Backlit Keyboard, FHD Webcam, Win 11 Pro, Steel Gray",
         "asin": "B0GJZDZFJ8",
         "img": "https://m.media-amazon.com/images/I/81x+cG59GuL._AC_UY218_.jpg",
@@ -744,175 +512,7 @@
         "status": "Available"
     },
     {
-        "id": 2094,
-        "name": "HP 15.6 Laptop Touchscreen Computer PC, Intel 10-Core i5, Touch Screen Laptop 15 Inch, 16GB RAM 1TB SSD, Windows 11 Pro, 10-Key Number Pad, Wi-Fi 6",
-        "asin": "B0GH7S3CC4",
-        "img": "https://m.media-amazon.com/images/I/71KwTi6f+PL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6 Laptop Touchscreen Computer PC, Intel 10-C...",
-        "status": "Available"
-    },
-    {
-        "id": 2095,
-        "name": "HP ProBook 450 G10 15.6\" IPS FHD Laptop, Intel Core i5-1334U (Beats i7-1255U) Processor, 32GB RAM 1TB SSD, Backlit Keyboard, Wi-Fi 6E, Bluetooth 5.3, Webcam, HDMI, Windows 11 Pro, Silver",
-        "asin": "B0F1FNCQPN",
-        "img": "https://m.media-amazon.com/images/I/71YZX7UBaML._AC_UY218_.jpg",
-        "desc": "Description for HP ProBook 450 G10 15.6\" IPS FHD Laptop, Intel Cor...",
-        "status": "Available"
-    },
-    {
-        "id": 2096,
-        "name": "HP OmniBook X Flip 2-in-1 Copilot+ Laptop, Intel Ultra 7-256V, 16GB LPDDR5x RAM, 1TB PCIe SSD, 14\" 2K(1920x1200) Touchscreen, Intel Arc 140V, Backlit Keyboard, W11Pro, Atmospheric Blue",
-        "asin": "B0FDX2MG3C",
-        "img": "https://m.media-amazon.com/images/I/71jxvXQVjGL._AC_UY218_.jpg",
-        "desc": "Description for HP OmniBook X Flip 2-in-1 Copilot+ Laptop, Intel U...",
-        "status": "Available"
-    },
-    {
-        "id": 2097,
-        "name": "Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel Ultra 7 155U Processor, 14\" WUXGA 100% sRGB Touchscreen, 32GB 6400MHz RAM, 1TB Gen4 Performance SSD, FHD+ IR+ RGB Camera, and Windows 11 Pro",
-        "asin": "B0DCP8FXQB",
-        "img": "https://m.media-amazon.com/images/I/61GSvJjxBuL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel...",
-        "status": "Available"
-    },
-    {
-        "id": 2098,
-        "name": "Lenovo ThinkPad P14s Gen 5 Mobile Workstation Laptop 14\" 2.8K (2880x1800) OLED 120Hz (400nits) AMD 8-core Ryzen 7 PRO 8840HS (>i7-12700H) 64GB RAM 1TB SSD Backlit Fingerprint Win11Pro w/ICP Accessory",
-        "asin": "B0DGP9VQ7B",
-        "img": "https://m.media-amazon.com/images/I/71MMXV-LgQL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Mobile Workstation Lapt...",
-        "status": "Available"
-    },
-    {
-        "id": 2099,
-        "name": "Dell 14 Plus 2-in-1 Laptop, 14\" WUXGA Touchscreen, Intel Ultra 9 288V 8 Cores, Intel Arc Graphics 140V, 32GB LPDDR5+ 1TB SSD, Win11 Pro, HDMI 2.1, Wi-Fi 7, Backlit Keyboard, Fingerprint Reader",
-        "asin": "B0FVLWPPJV",
-        "img": "https://m.media-amazon.com/images/I/81Fd-FdtnXL._AC_UY218_.jpg",
-        "desc": "Description for Dell 14 Plus 2-in-1 Laptop, 14\" WUXGA Touchscreen,...",
-        "status": "Available"
-    },
-    {
-        "id": 2100,
-        "name": "Samsung Laptop,with RECOLX AI Voice Recorder",
-        "asin": "B0FJS2V1CB",
-        "img": "https://m.media-amazon.com/images/I/51mbIJPewSL._AC_UY218_.jpg",
-        "desc": "Description for Samsung Laptop,with RECOLX AI Voice Recorder...",
-        "status": "Available"
-    },
-    {
-        "id": 2101,
-        "name": "Lenovo Gen 13 ThinkPad X1 Carbon Aura Edition Laptop with Intel Core Ultra 7 258V Processor, 14\" 2.8K OLED Non-Touch 120Hz Display, Wi-Fi 7, 32GB RAM, 1TB SSD Gen 5, FHD RGB/IR Cam, Win 11 Pro",
-        "asin": "B0FP5WXWZJ",
-        "img": "https://m.media-amazon.com/images/I/61WHbiPXOsL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Gen 13 ThinkPad X1 Carbon Aura Edition Lapt...",
-        "status": "Available"
-    },
-    {
-        "id": 2102,
-        "name": "Dell Latitude 5450 Laptop 14\" FHD, Intel Core Ultra 7-155U, 16GB RAM, 1TB NVMe SSD, Webcam, Wi-Fi 6E, Bluetooth, Backlit Keyboard,Sim Slot, HDMI, USB C- Display Port, Windows 11 Pro, Notebook, Grey",
-        "asin": "B0G455BPRG",
-        "img": "https://m.media-amazon.com/images/I/51KzcHsa33L._AC_UY218_.jpg",
-        "desc": "Description for Dell Latitude 5450 Laptop 14\" FHD, Intel Core Ultr...",
-        "status": "Available"
-    },
-    {
-        "id": 2103,
-        "name": "Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ultra 7-155U, 32 GB LPDDR5x RAM, 4 TB PCIe SSD, 14\" WUXGA (1920x1200) Display, Integrated Graphics, Backlit Keyboard, FP Reader, W11 Pro, Eclipse Black",
-        "asin": "B0G2CJXM3C",
-        "img": "https://m.media-amazon.com/images/I/71HEN-rzYfL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ult...",
-        "status": "Available"
-    },
-    {
-        "id": 2104,
-        "name": "Lenovo ThinkPad P14s Gen 5 Intel Core Ultra 7 155H, 16C, 14.5\" 3K (3072 x 1920) Non-Touch,120Hz, 64GB RAM DDR5, 2 TB SSD, NVIDIA RTX 500 Ada Backlit KYB, Fingerprint Reader, Windows 11 Pro",
-        "asin": "B0D8RC497F",
-        "img": "https://m.media-amazon.com/images/I/41DJbRDzpiL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Intel Core Ultra 7 155H...",
-        "status": "Available"
-    },
-    {
-        "id": 2105,
-        "name": "Lenovo ThinkPad P14s Gen 5 AMD (14\u2033) AI Ready, Ryzen 7 PRO 8840H, 2.8K (2880 x 1800) OLED, AG/AR/AM 120 Hz, 64GB DDR5, 1 TB SSD, Radeon 780M, WWAN Ready, 4 Cells Battery, Win 11 Pro - Black",
-        "asin": "B0DH2RQM76",
-        "img": "https://m.media-amazon.com/images/I/71fCQuDTV7L._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 AMD (14\u2033) AI Ready, Ryz...",
-        "status": "Available"
-    },
-    {
-        "id": 2106,
-        "name": "HP 15.6\" FHD Touchscreen Business Laptop, Intel i7-1255U, 32GB RAM, 1TB PCIe SSD, Intel Iris Xe Graphics, Num Pad, Webcam, Windows 11 Pro, Natural Silver, 32GB Hotface USB Card",
-        "asin": "B0CYZLQ5Q3",
-        "img": "https://m.media-amazon.com/images/I/815QX9PuzHL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" FHD Touchscreen Business Laptop, Intel i7...",
-        "status": "Available"
-    },
-    {
-        "id": 2107,
-        "name": "Lenovo Thinkpad X9-14 Gen 1 14\" OLED CoPilot+ PC Notebook Intel Core Ultra 7 258v Processor 32 GB LPDDR5x 1TB SSD Intel Arc Graphics Grey - 14\" WUXGA OLED Display - Core Ultra 7 258V - 32 GB LPDDR5x -",
-        "asin": "B0F43HPNRF",
-        "img": "https://m.media-amazon.com/images/I/61oSpIM34HL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Thinkpad X9-14 Gen 1 14\" OLED CoPilot+ PC N...",
-        "status": "Available"
-    },
-    {
-        "id": 2108,
-        "name": "Lenovo 2025 Laptop | Yoga Slim 7 | 15.3\" 2880x1800 Touch IPS | Intel-8 Core Ultra 7 258V | 32GB LPDDR5 | 2TB SSD | Windows 11 Pro | Wi-Fi 7 - BT 5.4 - Backlit KB - FHD 1080p + IR Camera - Luna Grey",
-        "asin": "B0FRS9XJMJ",
-        "img": "https://m.media-amazon.com/images/I/61B8-lF+VkL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo 2025 Laptop | Yoga Slim 7 | 15.3\" 2880x1800...",
-        "status": "Available"
-    },
-    {
-        "id": 2109,
-        "name": "HP Victus Gaming Laptop 15.6\" FHD IPS 144Hz Intel 8-core i5-13420H (>i7-12650H) 32GB RAM 2TB SSD GeForce RTX 4050 6GB Backlit Type-C B&O Fast Charge Win11Pro ICP Accessory",
-        "asin": "B0FPWPZ6CK",
-        "img": "https://m.media-amazon.com/images/I/71HLVvkt7-L._AC_UY218_.jpg",
-        "desc": "Description for HP Victus Gaming Laptop 15.6\" FHD IPS 144Hz Intel ...",
-        "status": "Available"
-    },
-    {
-        "id": 2110,
-        "name": "HP 15.6\" FHD Touchscreen Laptop for College Student & Business, AMD Ryzen 7 7730U 8-Core(Beat i7-1355U), 32 GB RAM, 1 TB SSD, AMD Radeon Graphics, Long Battery Life, WiFi 6, Copilot, Windows 11 Pro",
-        "asin": "B0FL2KP15Y",
-        "img": "https://m.media-amazon.com/images/I/81c-SKMVvxL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" FHD Touchscreen Laptop for College Studen...",
-        "status": "Available"
-    },
-    {
-        "id": 2111,
-        "name": "Lenovo Yoga Slim 7 15ILL9 Laptop / 15.3\" 2880x1800 Touch 120Hz / 8 Cores Intel Ultra 7 256V Intel Arc Graphics 140V / 16GB LPDDR5 1TB SSD/Backlit KB Thunderbolt 4 / Win11 Pro/Luna Grey / 32GB USB",
-        "asin": "B0F997D3K1",
-        "img": "https://m.media-amazon.com/images/I/61GJ31QN7PL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Yoga Slim 7 15ILL9 Laptop / 15.3\" 2880x1800...",
-        "status": "Available"
-    },
-    {
-        "id": 2112,
-        "name": "Lenovo ThinkPad X1 Carbon Gen 12, Intel Ultra 7 155U || 32GB LPDDR5 RAM || 1TB M.2 2280 SSD || 14\" WUXGA (1920x1200) IPS 400nits Non-Touch Display || Thunderbolt, Win11 Pro - AI PC",
-        "asin": "B0D8CRBYT8",
-        "img": "https://m.media-amazon.com/images/I/61wI2gVGu-L._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Carbon Gen 12, Intel Ultra 7 15...",
-        "status": "Available"
-    },
-    {
-        "id": 2113,
-        "name": "Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel Ultra 7 155H Processor, 14\" WUXGA 100% sRGB Touch Display, 32GB DDR5 RAM, 1TB Gen4 Performance SSD, FHD+ IR+ RGB Camera, and Windows 11 Pro",
-        "asin": "B0FFPF4T9X",
-        "img": "https://m.media-amazon.com/images/I/71pVgBKHSJL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel...",
-        "status": "Available"
-    },
-    {
-        "id": 2114,
-        "name": "HP EliteBook X G1i 14 inch Notebook Next Gen AI PC - WUXGA Touchscreen - (Intel Core Ultra 7 258V Octa-core (8 Core) 2.2 GHz) - 32 GB Total RAM - 1TB SSD - Windows 11 Pro",
-        "asin": "B0FGWN3BJY",
-        "img": "https://m.media-amazon.com/images/I/71thojxd0HL._AC_UY218_.jpg",
-        "desc": "Description for HP EliteBook X G1i 14 inch Notebook Next Gen AI PC...",
-        "status": "Available"
-    },
-    {
-        "id": 2115,
+        "id": 2065,
         "name": "Dell Inspiron Touchscreen Laptop, 15\" Business & Student Laptop Computer, Windows 11 Pro 32GB RAM 1TB SSD, Intel Core i5-1334U Processor, FHD IPS LED Display, Microsoft Office Lifetime Suite, Black",
         "asin": "B0FFPBJY8X",
         "img": "https://m.media-amazon.com/images/I/618Vja0cWuL._AC_UY218_.jpg",
@@ -920,71 +520,7 @@
         "status": "Available"
     },
     {
-        "id": 2116,
-        "name": "Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ultra 7-155U, 32 GB LPDDR5x RAM, 4 TB PCIe SSD, 14\" WUXGA (1920x1200) Display, Integrated Graphics, Backlit Keyboard, FP Reader, W11 Pro, Eclipse Black",
-        "asin": "B0G2CJXM3C",
-        "img": "https://m.media-amazon.com/images/I/71HEN-rzYfL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Carbon Gen 12 Laptop, Intel Ult...",
-        "status": "Available"
-    },
-    {
-        "id": 2117,
-        "name": "HP Victus Gaming 15 Laptop / 15.6\" 1920x1080 144Hz / Intel 8-Core i5-13420H / NVIDIA GeForce RTX 3050 6GB GDDR6 / 64GB DDR4 2TB NVMe SSD/Backlit Keyboard/Wi-Fi 6 / Win11 Pro",
-        "asin": "B0FJL2BDSY",
-        "img": "https://m.media-amazon.com/images/I/71piyyXO1pL._AC_UY218_.jpg",
-        "desc": "Description for HP Victus Gaming 15 Laptop / 15.6\" 1920x1080 144Hz...",
-        "status": "Available"
-    },
-    {
-        "id": 2118,
-        "name": "SAMSUNG Galaxy Book4 Pro 360 2-in-1 Business Laptop, 16\" 3K AMOLED Touchscreen, Intel 16-Core Ultra 7 155H, Long Battery Life, Thin & Light, 1080P AI Webcam, Windows 11Pro, w/128G PSD",
-        "asin": "B0DYJHS4Q7",
-        "img": "https://m.media-amazon.com/images/I/710nfASk8hL._AC_UY218_.jpg",
-        "desc": "Description for SAMSUNG Galaxy Book4 Pro 360 2-in-1 Business Lapto...",
-        "status": "Available"
-    },
-    {
-        "id": 2119,
-        "name": "HP Victus 15.6 Ryzen 5 Premium Gaming Laptop, 15.6\" FHD 144Hz, Ryzen 5 7535HS (Beats i5-13420H), AMD Radeon RX 6550M (Beats GeForce RTX 3050), 16GB RAM, 1TB SSD, W11P, with 512GB External SSD Bundle",
-        "asin": "B0DDTWXZN6",
-        "img": "https://m.media-amazon.com/images/I/711GZ2eshbL._AC_UY218_.jpg",
-        "desc": "Description for HP Victus 15.6 Ryzen 5 Premium Gaming Laptop, 15.6...",
-        "status": "Available"
-    },
-    {
-        "id": 2120,
-        "name": "Samsung Laptop,with RECOLX AI Voice Recorder",
-        "asin": "B0FJRYPXR8",
-        "img": "https://m.media-amazon.com/images/I/51mbIJPewSL._AC_UY218_.jpg",
-        "desc": "Description for Samsung Laptop,with RECOLX AI Voice Recorder...",
-        "status": "Available"
-    },
-    {
-        "id": 2121,
-        "name": "HP 15.6\" FHD Touchscreen Laptop | 13th Gen Intel i7-1355U (10-Core, up to 5GHz) | 32GB RAM | 1TB SSD | Iris Xe Graphics | Win 11 Pro | Long Battery | Wi-Fi 6 | W/Mouse",
-        "asin": "B0FHH5M88Z",
-        "img": "https://m.media-amazon.com/images/I/81fbU9XQJvL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" FHD Touchscreen Laptop | 13th Gen Intel i...",
-        "status": "Available"
-    },
-    {
-        "id": 2122,
-        "name": "HP Pavilion 15.6\" FHD Touchscreen Laptop Computer, 10-Core Intel Core i5-1334U, 16GB RAM, 512GB SSD, Webcam, Fast Wi-Fi 6, 11 Hours Long Battery Life, Windows 11 Pro w/AI Copilot (32GB | 1TB SSD)",
-        "asin": "B0FCZY6D3S",
-        "img": "https://m.media-amazon.com/images/I/51hYuDx-kKL._AC_UY218_.jpg",
-        "desc": "Description for HP Pavilion 15.6\" FHD Touchscreen Laptop Computer,...",
-        "status": "Available"
-    },
-    {
-        "id": 2123,
-        "name": "Lenovo ThinkPad X1 Yoga Gen 10 2-in-1 Intel Ultra 7 255U, 14\" WUXGA (1920x1200) IPS 500nits 60HzTouch Display, 32GB LPDDR5 RAM, 4TB M.2 2280 SSD, Thunderbolt, and Window 11 Pro - AI PC",
-        "asin": "B0FR5KV1KS",
-        "img": "https://m.media-amazon.com/images/I/61Ax4P9UhgL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Yoga Gen 10 2-in-1 Intel Ultra ...",
-        "status": "Available"
-    },
-    {
-        "id": 2124,
+        "id": 2066,
         "name": "ASUS Zenbook 14\" OLED Touch Laptop, Intel Core Ultra 9 285H, 32GB RAM, 2TB Storage(1TB SSD+1TB Docking Station Set), Intel Arc Graphics, Wi-Fi 7, Backlit Keyboard, Copilot, Win 11 Pro, Gray",
         "asin": "B0GKD6LX1N",
         "img": "https://m.media-amazon.com/images/I/81GfG9DLOXL._AC_UY218_.jpg",
@@ -992,23 +528,7 @@
         "status": "Available"
     },
     {
-        "id": 2125,
-        "name": "Lenovo ThinkPad P14s Gen 5 Mobile Workstation, AMD Ryzen 7 PRO 8840HS, 64 GB DDR5 RAM, 1 TB PCIe SSD, 14\u2033 2.8K (2880x1800) Display, AMD Radeon 780M, Backlit Keyboard, W11 Pro, Black",
-        "asin": "B0F4RFKP1C",
-        "img": "https://m.media-amazon.com/images/I/71bKujV1t+L._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Mobile Workstation, AMD...",
-        "status": "Available"
-    },
-    {
-        "id": 2126,
-        "name": "HP Pavilion 15.6\" FHD Business Laptop, Intel i3-N305, 64GB RAM, 2.16TB Storage(2TB SSD+160GB Docking Station Set), Intel UHD Graphics, Numeric Keypad, Fingerprint Reader, Wi-Fi 6, Win 11 Pro, Silver",
-        "asin": "B0GQSSXT9W",
-        "img": "https://m.media-amazon.com/images/I/81-6utZgLlL._AC_UY218_.jpg",
-        "desc": "Description for HP Pavilion 15.6\" FHD Business Laptop, Intel i3-N3...",
-        "status": "Available"
-    },
-    {
-        "id": 2127,
+        "id": 2067,
         "name": "ASUS ROG Strix Scar 15 15.6\" 300Hz IPS-Type FHD Gaming Laptop, AMD Ryzen 9 5900HX, 64GB RAM, 4TB SSD, Backlit Keyboard, GeForce RTX 3080, WiFi 6, Win 11 Pro, Gray, 128GB Hotface Extension Set",
         "asin": "B0DHG1C65Q",
         "img": "https://m.media-amazon.com/images/I/81pvkSwQvtL._AC_UY218_.jpg",
@@ -1016,39 +536,7 @@
         "status": "Available"
     },
     {
-        "id": 2128,
-        "name": "Lenovo ThinkPad P14s Gen 5 Mobile Workstation Laptop 14\" 2.8K (2880x1800) OLED 120Hz (400nits) AMD 8-core Ryzen 7 PRO 8840HS (>i7-12700H) 64GB RAM 4TB SSD Backlit Fingerprint Win11Pro w/ICP Accessory",
-        "asin": "B0DGPVF9C9",
-        "img": "https://m.media-amazon.com/images/I/71HKxO5yDCL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad P14s Gen 5 Mobile Workstation Lapt...",
-        "status": "Available"
-    },
-    {
-        "id": 2129,
-        "name": "Dell Latitude 5540 Laptop - 15.6\" FHD AG Touch Display - Intel Core i7-1370P 14-Core (13th Gen) - 512GB SSD - 32GB RAM - with Nvidia GeForce MX550 - Windows 11 pro",
-        "asin": "B0C96LHN89",
-        "img": "https://m.media-amazon.com/images/I/613lJugVN1L._AC_UY218_.jpg",
-        "desc": "Description for Dell Latitude 5540 Laptop - 15.6\" FHD AG Touch Dis...",
-        "status": "Available"
-    },
-    {
-        "id": 2130,
-        "name": "HP EliteBook 845 G9 Business Laptop,14/ WUXGA Display,AMD Ryzen 7 PRO 6850U Processor,32GB DDR5 RAM,1TB SSD,Wi-Fi 6,Backlit KB,Webcam,FP Reader,HDMI,Windows 11 Pro,Silver HSN-I49C-4_544M*AV",
-        "asin": "B0CDYJXGTD",
-        "img": "https://m.media-amazon.com/images/I/615JzCn4ozL._AC_UY218_.jpg",
-        "desc": "Description for HP EliteBook 845 G9 Business Laptop,14/ WUXGA Disp...",
-        "status": "Available"
-    },
-    {
-        "id": 2131,
-        "name": "Lenovo ThinkPad X1 Yoga Gen 9 2-in-1 with Intel Ultra 7 165U vPro Processor, 14\" 2.8K (2880 x 1800), OLED, Anti-Reflective, Touch, 64GB 6400MHz RAM, 2TB Gen4 SSD, 2160P RGB IR Camera, Win 11 Pro",
-        "asin": "B0DPJL3T23",
-        "img": "https://m.media-amazon.com/images/I/51Gbtg0LIQL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Yoga Gen 9 2-in-1 with Intel Ul...",
-        "status": "Available"
-    },
-    {
-        "id": 2132,
+        "id": 2068,
         "name": "acer Swift Go 14 Laptop 2024, 14\" WUXGA IPS Touchscreen, Intel Ultra 7 155H 16-Core, Arc Graphics, 16GB LPDDR5 1TB SSD, Backlit Keyboard, Thunderbolt 4, Fingerprint, Wi-Fi, Win11 Pro, COU 32GB USB",
         "asin": "B0DKPD13T2",
         "img": "https://m.media-amazon.com/images/I/514MXvLSNsL._AC_UY218_.jpg",
@@ -1056,23 +544,7 @@
         "status": "Available"
     },
     {
-        "id": 2133,
-        "name": "Dell 14 Plus 2-in-1 14\u201d WUXGA Touch Laptop 8-Core Intel Core Ultra 9 288V Arc Graphics 32GB LPDDR5 1TB NVMe SSD Thunderbolt 4 WiFi BE BT Webcam HDMI2.1 Backlit KB Fingerprint Windows 11 Pro",
-        "asin": "B0FVM268BS",
-        "img": "https://m.media-amazon.com/images/I/81Fd-FdtnXL._AC_UY218_.jpg",
-        "desc": "Description for Dell 14 Plus 2-in-1 14\u201d WUXGA Touch Laptop 8-Core ...",
-        "status": "Available"
-    },
-    {
-        "id": 2134,
-        "name": "HP Victus 15.6\" 144Hz FHD Gaming Laptop, Intel i5-13420H, 64GB RAM, 5TB Storage(4TB SSD+1TB Docking Station Set), NVIDIA GeForce RTX 3050, Backlit Keyboard, Camera, Wi-Fi 6, Windows 11 Home, Silver",
-        "asin": "B0DPKVX4JG",
-        "img": "https://m.media-amazon.com/images/I/81gQcVGxtvL._AC_UY218_.jpg",
-        "desc": "Description for HP Victus 15.6\" 144Hz FHD Gaming Laptop, Intel i5-...",
-        "status": "Available"
-    },
-    {
-        "id": 2135,
+        "id": 2069,
         "name": "Lenovo ThinkPad P14s Gen 3 Mobile Workstation, 14\" FHD+ Touchscreen, Intel i7-1260P, 16GB RAM, 1TB SSD, IR Camera, HDMI, Backlit Keyboard, Fingerprint Reader, Wi-Fi 6, Winodws 11 Pro",
         "asin": "B0C95F588T",
         "img": "https://m.media-amazon.com/images/I/61deRQgwOzL._AC_UY218_.jpg",
@@ -1080,15 +552,7 @@
         "status": "Available"
     },
     {
-        "id": 2136,
-        "name": "HP 15.6\" Touchscreen Laptop | 12th Gen Intel i5-1235U (Beats i7-8700) | 32GB RAM | 2TB SSD | Iris Xe Graphics | Win 11 Pro | Fast Charge | Silver | W/Mouse",
-        "asin": "B0DXKFHXYW",
-        "img": "https://m.media-amazon.com/images/I/91+N0MWZMtL._AC_UY218_.jpg",
-        "desc": "Description for HP 15.6\" Touchscreen Laptop | 12th Gen Intel i5-12...",
-        "status": "Available"
-    },
-    {
-        "id": 2137,
+        "id": 2070,
         "name": "Lenovo ThinkPad P14s Gen 3 Mobile Workstation, 14\" FHD+ Touchscreen, Intel i7-1260P, 16GB RAM, 2TB SSD, IR Camera, HDMI, Backlit Keyboard, Fingerprint Reader, Wi-Fi 6, Winodws 11 Pro",
         "asin": "B0CKRVD3RX",
         "img": "https://m.media-amazon.com/images/I/61deRQgwOzL._AC_UY218_.jpg",
@@ -1096,43 +560,11 @@
         "status": "Available"
     },
     {
-        "id": 2138,
-        "name": "Lenovo ThinkPad X1 Yoga Gen 9 2-in-1 with Intel Ultra 7 165U vPro Processor, 14\" 2.8K (2880 x 1800), OLED, Anti-Reflective, Touch, 64GB 6400MHz RAM, 1TB Gen4 SSD, 2160P RGB IR Camera, Win 11 Pro",
-        "asin": "B0DPJLG9S3",
-        "img": "https://m.media-amazon.com/images/I/51Gbtg0LIQL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkPad X1 Yoga Gen 9 2-in-1 with Intel Ul...",
-        "status": "Available"
-    },
-    {
-        "id": 2139,
-        "name": "Dell Inspiron 3530 15.6\u201d FHD Touchscreen Laptop Computer, 13th Gen Intel Core i7-1355U 10-Core, 32GB RAM, 1TB SSD, Numeric Keypad, Wi-Fi 6, Webcam, Windows 11 Pro, Carbon Black",
-        "asin": "B0CRVMQ4GH",
-        "img": "https://m.media-amazon.com/images/I/61jCGOXzuyL._AC_UY218_.jpg",
-        "desc": "Description for Dell Inspiron 3530 15.6\u201d FHD Touchscreen Laptop Co...",
-        "status": "Available"
-    },
-    {
-        "id": 2140,
-        "name": "Lenovo ThinkBook Business Laptop, 12 Core Intel Ultra 7 155U Intel Graphics, 64GB DDR5 RAM 2TB SSD, 14\" WUXGA LED-Backlit Touchscreen Display, Wi-Fi 6, Thunderbolt 4, Backlit Keyboard FP, Win11 Pro",
-        "asin": "B0F216S7HL",
-        "img": "https://m.media-amazon.com/images/I/51n5+0sl8+L._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkBook Business Laptop, 12 Core Intel Ul...",
-        "status": "Available"
-    },
-    {
-        "id": 2141,
+        "id": 2071,
         "name": "acer Aspire Laptop 2025, 15.6\" FHD IPS ~ Intel i9-13900H 14-Core ~ Iris Xe Graphics ~ 16GB LPDDR5~1TB SSD ~ Backlit KB ~ Thunderbolt 4 ~ Fingerprint Reader ~ Wi-Fi 6E ~ Win11 Pro WWC 32GB USB",
         "asin": "B0F6Y7L3ZW",
         "img": "https://m.media-amazon.com/images/I/61qldGq1ygL._AC_UY218_.jpg",
         "desc": "Description for acer Aspire Laptop 2025, 15.6\" FHD IPS ~ Intel i9-...",
-        "status": "Available"
-    },
-    {
-        "id": 2142,
-        "name": "Lenovo ThinkBook Business Laptop (2025):14\" WUXGA 1920 x 1200 60Hz \u2022 Intel Core 7 240H \u2022 32 GB RAM \u2022 2 TB SSD \u2022 Win11 Pro \u2022 Wi-Fi 6 \u2022 Backlit KB \u2022 1080p FHD Camera \u2022 HD Audio \u2022 Thunderbolt 4",
-        "asin": "B0F7LBZKBT",
-        "img": "https://m.media-amazon.com/images/I/61y1rchZ0vL._AC_UY218_.jpg",
-        "desc": "Description for Lenovo ThinkBook Business Laptop (2025):14\" WUXGA ...",
         "status": "Available"
     }
 ]
