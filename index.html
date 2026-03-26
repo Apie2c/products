@@ -1104,8 +1104,9 @@
                     <button onclick="closeModal()" class="absolute top-5 left-5 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-brand-primary hover:text-white transition-all shadow-lg"><i class="fas fa-times"></i></button>
                     <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110 blend-img">
                 </div>
-                <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
-                    <!-- Action bar: View Price + WhatsApp + Share — sits above the title -->
+                <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center gap-5">
+
+                    <!-- Action bar: View Price + WhatsApp + Share -->
                     <div class="flex items-center gap-3">
                         <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-3 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View Price</a>
 
@@ -1139,10 +1140,6 @@
                     </div>
 
                     <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
-                    <div id="modal-desc-wrap">
-                        <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
-                        <button id="modal-desc-toggle" onclick="toggleModalDesc()" class="mt-1 text-brand-primary text-xs font-bold hover:underline focus:outline-none hidden"></button>
-                    </div>
                 </div>
             </div>
         </div>
