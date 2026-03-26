@@ -42,6 +42,7 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         
         .active-chip { 
             background-color: #2563EB !important; 
@@ -1104,39 +1105,43 @@
                     <img id="modal-img" src="" class="max-h-64 md:max-h-[400px] object-contain transition-transform duration-700 hover:scale-110 blend-img">
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12 space-y-6 flex flex-col justify-center">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span id="modal-cat" class="text-brand-primary font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
-                            <h2 id="modal-title" class="text-2xl md:text-3xl font-extrabold mt-2 text-slate-900 dark:text-white">Product</h2>
-                        </div>
+                    <!-- Action bar: View Price + WhatsApp + Share — sits above the title -->
+                    <div class="flex items-center gap-3">
+                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-3 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View Price</a>
+
                         <div class="tooltip-container">
-                            <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors focus:outline-none">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                            <span class="tooltip-text" id="modal-tooltip-label">Save Product</span>
-                        </div>
-                    </div>
-                    <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
-                    <div id="modal-desc-wrap">
-                        <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
-                        <button id="modal-desc-toggle" onclick="toggleModalDesc()" class="mt-1 text-brand-primary text-xs font-bold hover:underline focus:outline-none hidden"></button>
-                    </div>
-                    <div class="pt-4 flex items-center gap-3">
-                        <a id="modal-buy-btn" href="#" target="_blank" class="flex-grow flex items-center justify-center bg-brand-primary text-white py-4 rounded-xl font-extrabold shadow-lg hover:bg-blue-700 transition-all uppercase text-[11px] tracking-widest">View Price</a>
-    
-                        <div class="tooltip-container">
-                            <button onclick="shareWhatsApp(event)" class="w-14 h-14 flex items-center justify-center bg-green-500/10 text-green-500 rounded-xl transition-all text-xl hover:bg-green-500 hover:text-white border border-green-500/20">
+                            <button onclick="shareWhatsApp(event)" class="w-12 h-12 flex items-center justify-center bg-green-500/10 text-green-500 rounded-xl transition-all text-lg hover:bg-green-500 hover:text-white border border-green-500/20">
                                 <i class="fab fa-whatsapp"></i>
                             </button>
                             <span class="tooltip-text">WhatsApp</span>
                         </div>
 
                         <div class="tooltip-container">
-                            <button onclick="shareProduct(event)" class="w-14 h-14 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-xl">
+                            <button onclick="shareProduct(event)" class="w-12 h-12 flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 text-gray-500 rounded-xl transition-all text-lg hover:bg-gray-200 dark:hover:bg-gray-700">
                                 <i class="fas fa-share-alt"></i>
                             </button>
                             <span class="tooltip-text">Share Product</span>
                         </div>
+                    </div>
+
+                    <!-- Title row with wishlist -->
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1 min-w-0 pr-3">
+                            <span id="modal-cat" class="text-brand-primary font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
+                            <h2 id="modal-title" class="text-xl md:text-2xl font-extrabold mt-1.5 text-slate-900 dark:text-white leading-snug line-clamp-2 overflow-hidden">Product</h2>
+                        </div>
+                        <div class="tooltip-container flex-shrink-0">
+                            <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors focus:outline-none">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <span class="tooltip-text" id="modal-tooltip-label">Save Product</span>
+                        </div>
+                    </div>
+
+                    <div class="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 px-3 py-1.5 rounded-lg w-fit"><i class="fas fa-chart-line text-xs"></i><span id="modal-price-status" class="text-[10px] font-bold uppercase tracking-wider">Verified Premium</span></div>
+                    <div id="modal-desc-wrap">
+                        <p id="modal-desc" class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed"></p>
+                        <button id="modal-desc-toggle" onclick="toggleModalDesc()" class="mt-1 text-brand-primary text-xs font-bold hover:underline focus:outline-none hidden"></button>
                     </div>
                 </div>
             </div>
@@ -1545,7 +1550,8 @@
         if (!p) return;
         activeProductId = p.id;
         document.getElementById('modal-img').src = p.img;
-        document.getElementById('modal-title').innerText = p.name;
+        const NAME_LIMIT = 40;
+        document.getElementById('modal-title').innerText = p.name.length > NAME_LIMIT ? p.name.slice(0, NAME_LIMIT).trimEnd() + '…' : p.name;
         document.getElementById('modal-cat').innerText = p.cat;
         const CHAR_LIMIT = 120;
         const descEl = document.getElementById('modal-desc');
