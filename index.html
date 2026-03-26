@@ -1349,7 +1349,6 @@
 
         paginationEl.innerHTML = `
             <div class="flex flex-col items-center gap-4 py-8">
-                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Showing ${startItem}–${endItem} of ${totalItems} products</p>
                 <div class="flex items-center gap-2">
                     <button onclick="goToPage(${currentPage - 1})" ${prevDisabled ? 'disabled' : ''} class="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${prevDisabled ? 'opacity-30 cursor-not-allowed bg-gray-100 dark:bg-gray-800 text-gray-400' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-brand-primary hover:text-white'}">
                         <i class="fas fa-chevron-left text-[8px]"></i> Prev
