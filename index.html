@@ -1297,8 +1297,8 @@
 
     function renderProductCard(p, index) {
         const isSaved = wishlist.includes(p.id);
-        const isNew = currentFilter === 'All' && window.categoryLatestIds && window.categoryLatestIds.has(p.id);
-        const newBadge = isNew ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">NEW</span>` : '';
+        const isLatest = index === 0 && currentPage === 1;
+        const newBadge = isLatest ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">LATEST</span>` : '';
         return `        
         <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
             <div class="absolute top-4 right-4 z-[40]">
@@ -1426,6 +1426,14 @@
                 displayItems = window.allViewOrder.filter(p => idSet.has(p.id) && p.name.toLowerCase().includes(searchVal));
             } else {
                 displayItems = window.allViewOrder;
+            }
+        } else if (currentFilter !== 'All' && currentFilter !== 'Saved' && window.categoryViewOrder && window.categoryViewOrder[currentFilter]) {
+            // Category view: use the shuffled order built when the tab was clicked
+            if (searchVal) {
+                const idSet = new Set(displayItems.map(p => p.id));
+                displayItems = window.categoryViewOrder[currentFilter].filter(p => idSet.has(p.id) && p.name.toLowerCase().includes(searchVal));
+            } else {
+                displayItems = window.categoryViewOrder[currentFilter];
             }
         }
 
@@ -1598,8 +1606,15 @@
         currentPage = 1;
         document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active-chip'));
         if (el && el.classList.contains('cat-chip')) el.classList.add('active-chip');
-        // Reshuffle every time "All" is clicked
-        if (cat === 'All') buildAllViewOrder();
+        // Reshuffle every time any category tab is clicked
+        if (cat === 'All') {
+            buildAllViewOrder();
+        } else if (cat !== 'Saved' && LUXE_VAULT[cat]) {
+            const shuffled = [...LUXE_VAULT[cat].map(p => ({ ...p, cat }))];
+            shuffled.sort(() => Math.random() - 0.5);
+            window.categoryViewOrder = window.categoryViewOrder || {};
+            window.categoryViewOrder[cat] = shuffled;
+        }
         renderProducts();
     }
 
