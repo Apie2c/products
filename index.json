@@ -2,7 +2,7 @@
   "categories": [
     { "name": "Laptops",  "file": "laptops.json"  },
     { "name": "Headphones",  "file": "headphones.json"  },
-    { "name": "Smart Home",    "file": "smart_home.json"    },
-    { "name": "Power",    "file": "power.json"    }
+    { "name": "Smart Home",    "file": "smart_home.json"    }
+    
   ]
 }
