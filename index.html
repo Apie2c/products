@@ -1634,6 +1634,16 @@
         document.getElementById('searchInput').value = val;
         document.getElementById('searchInputMobile').value = val;
         currentPage = 1;
+        // Hide hero when there's a search query, restore when cleared
+        const heroDesk = document.querySelector('.hero-desk');
+        const heroMob = document.querySelector('.hero-mob');
+        if (val.trim()) {
+            if (heroDesk) heroDesk.style.display = 'none';
+            if (heroMob) heroMob.style.display = 'none';
+        } else if (currentFilter === 'All') {
+            if (heroDesk) heroDesk.style.display = '';
+            if (heroMob) heroMob.style.display = '';
+        }
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => renderProducts(), 150);
     }
