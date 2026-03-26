@@ -1128,7 +1128,7 @@
                     <div class="flex justify-between items-start">
                         <div class="flex-1 min-w-0 pr-3">
                             <span id="modal-cat" class="text-brand-primary font-bold text-[10px] tracking-[0.2em] uppercase">CATEGORY</span>
-                            <h2 id="modal-title" class="text-xl md:text-2xl font-extrabold mt-1.5 text-slate-900 dark:text-white leading-snug line-clamp-2 overflow-hidden">Product</h2>
+                            <h2 id="modal-title" class="text-xl md:text-2xl font-extrabold mt-1.5 text-slate-900 dark:text-white leading-snug">Product</h2>
                         </div>
                         <div class="tooltip-container flex-shrink-0">
                             <button id="modal-wishlist-btn" onclick="toggleWishlist(activeProductId)" class="text-2xl text-gray-300 transition-colors focus:outline-none">
@@ -1550,22 +1550,16 @@
         if (!p) return;
         activeProductId = p.id;
         document.getElementById('modal-img').src = p.img;
-        const NAME_LIMIT = 40;
-        document.getElementById('modal-title').innerText = p.name.length > NAME_LIMIT ? p.name.slice(0, NAME_LIMIT).trimEnd() + '…' : p.name;
+        document.getElementById('modal-title').innerText = p.name;
         document.getElementById('modal-cat').innerText = p.cat;
-        const CHAR_LIMIT = 120;
         const descEl = document.getElementById('modal-desc');
         const toggleBtn = document.getElementById('modal-desc-toggle');
         descEl.dataset.full = p.desc;
-        if (p.desc.length > CHAR_LIMIT) {
-            descEl.innerText = p.desc.slice(0, CHAR_LIMIT).trimEnd() + '…';
-            toggleBtn.innerText = 'more';
-            toggleBtn.dataset.expanded = 'false';
-            toggleBtn.classList.remove('hidden');
-        } else {
-            descEl.innerText = p.desc;
-            toggleBtn.classList.add('hidden');
-        }
+        descEl.innerText = '';
+        descEl.classList.add('hidden');
+        toggleBtn.innerText = 'more';
+        toggleBtn.dataset.expanded = 'false';
+        toggleBtn.classList.remove('hidden');
         document.getElementById('modal-buy-btn').href = `https://www.amazon.com/dp/${p.asin}?tag=${AFFILIATE_ID}`;
         document.getElementById('modal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
@@ -1580,14 +1574,14 @@
     function toggleModalDesc() {
         const descEl = document.getElementById('modal-desc');
         const toggleBtn = document.getElementById('modal-desc-toggle');
-        const CHAR_LIMIT = 120;
-        const fullText = descEl.dataset.full;
         if (toggleBtn.dataset.expanded === 'false') {
-            descEl.innerText = fullText;
+            descEl.innerText = descEl.dataset.full;
+            descEl.classList.remove('hidden');
             toggleBtn.innerText = 'less';
             toggleBtn.dataset.expanded = 'true';
         } else {
-            descEl.innerText = fullText.slice(0, CHAR_LIMIT).trimEnd() + '…';
+            descEl.innerText = '';
+            descEl.classList.add('hidden');
             toggleBtn.innerText = 'more';
             toggleBtn.dataset.expanded = 'false';
         }
