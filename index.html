@@ -9,7 +9,7 @@
     ════════════════════════════════════════════════════ -->
     <title>Nexora – Smart Home Tech & Gadgets | Modern Living Essentials</title>
     <meta name="description" content="Shop Nexora for the best smart home tech, innovative gadgets, and modern living essentials. Curated products that elevate your everyday life. Free shipping on orders over $50.">
-    <meta name="keywords" content="smart home tech, smart gadgets, modern living, smart home devices, innovative tech products, home automation, lifestyle gadgets, nexora">
+    <meta name="keywords" content="best smart home tech 2026, affordable modern living essentials, smart home gadgets 2026, innovative tech products online, home automation devices, lifestyle gadgets shop, smart home devices for beginners, top rated smart gadgets, nexora smart store, curated tech products">
     <meta name="author" content="Nexora">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="theme-color" content="#2563EB">
@@ -304,6 +304,36 @@
 </head>
 
 <body class="bg-slate-50 dark:bg-brand-dark text-slate-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <!-- ═══════════════════════════════════════════════════
+         NOSCRIPT SEO FALLBACK
+         Visible only to crawlers / users with JS disabled.
+         Ensures Google can index key content & categories
+         without executing JavaScript.
+    ════════════════════════════════════════════════════ -->
+    <noscript>
+        <div style="max-width:900px;margin:40px auto;padding:20px;font-family:sans-serif;color:#111;">
+            <h1 style="font-size:2rem;margin-bottom:.5rem;">Nexora – Smart Home Tech &amp; Gadgets</h1>
+            <p style="font-size:1rem;color:#555;margin-bottom:2rem;">
+                Nexora is your curated destination for the best smart home tech, innovative gadgets, and modern
+                living essentials in 2026. Shop top-rated devices for home automation, productivity, wellness, and
+                everyday style — all hand-picked for quality and value.
+            </p>
+            <h2 style="font-size:1.25rem;margin-bottom:.5rem;">Product Categories</h2>
+            <ul style="line-height:2;color:#2563EB;">
+                <li><strong>Smart Home Devices</strong> – Automate your home with cutting-edge smart plugs, cameras, lights, and hubs.</li>
+                <li><strong>Wearable Tech</strong> – Smartwatches, fitness trackers, and health monitors for modern lifestyles.</li>
+                <li><strong>Audio &amp; Sound</strong> – Premium wireless earbuds, speakers, and noise-cancelling headphones.</li>
+                <li><strong>Productivity Gadgets</strong> – Tools to supercharge your workspace and daily workflow.</li>
+                <li><strong>Lifestyle &amp; Wellness</strong> – Innovative products for better sleep, fitness, and self-care.</li>
+                <li><strong>Kitchen &amp; Home</strong> – Smart appliances and modern living essentials for every room.</li>
+            </ul>
+            <p style="margin-top:2rem;font-size:.9rem;color:#888;">
+                JavaScript is required to browse the full Nexora product catalog. Please enable JavaScript in your
+                browser for the best experience.
+            </p>
+        </div>
+    </noscript>
 
     <nav class="sticky top-0 z-50 bg-white/80 dark:bg-brand-dark/80 backdrop-blur-2xl border-b border-gray-200 dark:border-gray-800 px-4">
         <div class="max-w-7xl mx-auto h-16 lg:h-20 flex items-center justify-between gap-2">
@@ -1393,31 +1423,41 @@
         const isLatest = latestSet && latestSet.has(p.id);
         const newBadge = isLatest ? `<span class="bg-brand-primary animate-pulse-blue text-[7px] text-white px-2 py-0.5 rounded-full mr-2">LATEST</span>` : '';
         return `        
-        <div class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative" style="animation-delay: ${index * 50}ms" onclick="openModal(${p.id})">
+        <article class="product-card fade-in bg-white dark:bg-brand-card rounded-3xl cursor-pointer relative"
+            style="animation-delay: ${index * 50}ms"
+            onclick="openModal(${p.id})"
+            itemscope itemtype="https://schema.org/Product"
+            data-product-id="${p.id}"
+            data-product-name="${p.name}"
+            data-product-category="${p.cat}"
+            aria-label="View ${p.name} – ${p.cat}">
             <div class="absolute top-4 right-4 z-[40]">
                 <div class="tooltip-container">
-                     <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}">
-                        <i class="fas fa-heart text-sm"></i>
+                     <button id="heart-${p.id}" onclick="event.stopPropagation(); toggleWishlist(${p.id})" class="w-8 h-8 flex items-center justify-center transition-colors ${isSaved ? 'text-red-500' : 'text-gray-300'}" aria-label="${isSaved ? 'Remove from favourites' : 'Add to favourites'}">
+                        <i class="fas fa-heart text-sm" aria-hidden="true"></i>
                      </button>
                      <span class="tooltip-text">${isSaved ? 'Remove' : 'Favorite'}</span>
                 </div>
             </div>
             <div class="rounded-3xl overflow-hidden">
                 <div class="img-aspect p-2 flex items-center justify-center">
-                    <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img">
+                    <img src="${p.img}" loading="lazy" class="w-full h-full object-contain blend-img"
+                        alt="${p.name} – ${p.cat} | Nexora Smart Tech"
+                        itemprop="image">
                 </div>
                 <div class="p-5">
                     <div class="flex justify-between items-center mb-1">
                         <div class="flex items-center">
                             ${newBadge}
-                            <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest">${p.cat}</p>
+                            <p class="text-[7px] text-brand-primary font-extrabold uppercase tracking-widest" itemprop="category">${p.cat}</p>
                         </div>
-                        <span class="text-[7px] font-bold text-green-500 uppercase">${p.status}</span>
+                        <span class="text-[7px] font-bold text-green-500 uppercase" itemprop="availability" content="https://schema.org/InStock">${p.status}</span>
                     </div>
-                    <h3 class="text-xs leading-snug dark:text-gray-100 line-clamp-2" style="font-family:'Montserrat',sans-serif;font-weight:700;">${p.name}</h3>
+                    <h3 class="text-xs leading-snug dark:text-gray-100 line-clamp-2" style="font-family:'Montserrat',sans-serif;font-weight:700;" itemprop="name">${p.name}</h3>
+                    ${p.desc ? `<meta itemprop="description" content="${p.desc.replace(/"/g, '&quot;')}">` : ''}
                 </div>
             </div>
-        </div>`;
+        </article>`;
     }
 
     function renderPagination(totalItems) {
@@ -1637,6 +1677,10 @@
         if (tooltip) tooltip.innerText = isSaved ? 'Remove' : 'Save Product';
     }
 
+    // Store base page title/description once so closeModal can restore them
+    const _baseTitle = document.title;
+    const _baseDesc  = document.querySelector('meta[name="description"]')?.content || '';
+
     function openModal(id) {
         const p = productCatalog.find(x => x.id === parseInt(id));
         if (!p) return;
@@ -1658,9 +1702,31 @@
         updateWishlistUI(p.id);
         setBarMoreBtn(true);
 
+        // ── SEO: update <title>, meta description, and OG tags for product deep-links ──
+        const productTitle = `${p.name} – ${p.cat} | Nexora`;
+        const productDesc  = p.desc
+            ? p.desc.slice(0, 155) + (p.desc.length > 155 ? '…' : '')
+            : `Shop ${p.name} in the ${p.cat} collection at Nexora. Smart tech for modern living.`;
+        const productURL   = `${location.origin}${location.pathname}#product-${p.id}`;
+
+        document.title = productTitle;
+        _setMeta('name',     'description',         productDesc);
+        _setMeta('property', 'og:title',            productTitle);
+        _setMeta('property', 'og:description',      productDesc);
+        _setMeta('property', 'og:url',              productURL);
+        _setMeta('property', 'og:image',            p.img || 'https://apie2c.github.io/products/nexora-og.jpg');
+        _setMeta('name',     'twitter:title',       productTitle);
+        _setMeta('name',     'twitter:description', productDesc);
+        _setMeta('name',     'twitter:image',       p.img || 'https://apie2c.github.io/products/nexora-og.jpg');
+
         // Push a history entry so the browser back button can close the modal.
-        // State carries the product id so popstate knows what happened.
-        window.history.pushState({ productId: p.id }, '', `#product-${p.id}`);
+        window.history.pushState({ productId: p.id }, productTitle, `#product-${p.id}`);
+    }
+
+    // Helper: update a meta tag by attribute selector
+    function _setMeta(attr, key, value) {
+        const el = document.querySelector(`meta[${attr}="${key}"]`);
+        if (el) el.setAttribute('content', value);
     }
 
     function toggleModalDesc() {
@@ -1685,10 +1751,19 @@
         activeProductId = null;
         setBarMoreBtn(false);
 
-        // Only manipulate history when NOT called from the popstate handler
-        // (the handler already moved history backward for us).
+        // ── SEO: restore base page title and meta tags ──
+        document.title = _baseTitle;
+        _setMeta('name',     'description',         _baseDesc);
+        _setMeta('property', 'og:title',            _baseTitle);
+        _setMeta('property', 'og:description',      _baseDesc);
+        _setMeta('property', 'og:url',              'https://apie2c.github.io/products/');
+        _setMeta('property', 'og:image',            'https://apie2c.github.io/products/nexora-og.jpg');
+        _setMeta('name',     'twitter:title',       _baseTitle);
+        _setMeta('name',     'twitter:description', _baseDesc);
+        _setMeta('name',     'twitter:image',       'https://apie2c.github.io/products/nexora-og.jpg');
+
         if (!skipHistory && window.location.hash.includes('product-')) {
-        window.history.pushState({ page: 'home' }, '', window.location.pathname);
+            window.history.pushState({ page: 'home' }, _baseTitle, window.location.pathname);
         }
     }
 
