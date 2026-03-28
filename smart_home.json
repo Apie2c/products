@@ -3286,5 +3286,21 @@
         "img": "https://m.media-amazon.com/images/I/81AYdYlJykL._AC_UY218_.jpg",
         "desc": "Description for Carrying Bag for Jackery Portable Power Station Explorer 300...",
         "status": "Available"
+    },
+    {
+        "id": 3412,
+        "name": "Mobile 5G Hotspot and Power Bank, Bundle Includes Lifetime Data (12GB Per Year) and 10GB Global Data, Multi-Carrier",
+        "asin": "B0F518CRGK",
+        "img": "https://m.media-amazon.com/images/I/61GYlSy62uL._AC_SL1200_.jpg",
+        "desc": "2-in-1 Solution: The SIMO Pro features a next gen 5G hotspot device (Wi-Fi 6E) along with a 8000mAH power bank built-in",
+        "status": "Best Seller"
+    },
+    {
+        "id": 3413,
+        "name": "Smart Telescope, Professional Refractor Auto-focus Portable Digital Electronic Telescopes with 4K Astrophotography Camera, Internal And Externat Dual Screens Spotter for Adults and Beginners Astronomy",
+        "asin": "B0FY5X6KZL",
+        "img": "https://m.media-amazon.com/images/I/71uoLpyBEmL._AC_SL1500_.jpg",
+        "desc": "Exceptional Optical Performance：Equipped with a powerful 80mm aperture and 300mm focal length (f/8.89), this telescope for adults delivers crystal-clear, bright views. The starlight-grade sensor supports up to 350X magnification for long-distance viewing and captures stunning 4K high-resolution images. even in low-light or moon-viewing conditions.",
+        "status": "Best Seller"
     }
 ]
